@@ -17,6 +17,7 @@
     --accent-emerald: #10b981;
     --accent-saffron: #f59e0b;
     --accent-sky: #38bdf8;
+    --accent-rose: #f43f5e;
     --accent-whatsapp: #25d366;
 
     --gradient-hero: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
@@ -71,6 +72,54 @@ body {
 .tc-white { flex: 1; background-color: #ffffff; }
 .tc-green { flex: 1; background-color: #138808; }
 
+/* SECURITY & ANTI-FRAUD TRUST BANNER */
+.security-trust-banner {
+    background: #0f172a;
+    color: #e2e8f0;
+    font-size: 11.5px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.trust-banner-container {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.trust-pill {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--accent-emerald);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 11px;
+}
+.trust-text {
+    flex: 1;
+    margin: 0 10px;
+    font-size: 11px;
+    color: #cbd5e1;
+}
+.trust-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.trust-btn:hover {
+    background: var(--primary-indigo);
+    border-color: var(--primary-indigo);
+}
+
 /* GOV TOP UTILITY BAR */
 .gov-top-bar {
     background-color: var(--bg-surface);
@@ -108,6 +157,14 @@ body {
 }
 .pwa-badge {
     background: rgba(16, 185, 129, 0.15);
+    color: var(--accent-emerald);
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+.ssl-badge {
+    background: rgba(16, 185, 129, 0.1);
     color: var(--accent-emerald);
     padding: 2px 8px;
     border-radius: 20px;
@@ -629,6 +686,11 @@ body {
     cursor: pointer;
     box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
     transition: transform 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 .btn-gradient:hover {
     transform: translateY(-2px);
@@ -637,6 +699,16 @@ body {
     opacity: 0.5;
     cursor: not-allowed;
     transform: none;
+}
+.btn-secondary {
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-heading);
+    padding: 12px 20px;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
 }
 .btn-link-map {
     width: 100%;
@@ -1032,6 +1104,7 @@ body {
 }
 .text-emerald { color: var(--accent-emerald); }
 .text-saffron { color: var(--accent-saffron); }
+.text-rose { color: var(--accent-rose); }
 
 .chart-card {
     padding: 20px;
@@ -1232,7 +1305,8 @@ body {
     border-radius: var(--radius-sm);
     font-size: 12px;
     font-weight: 700;
-    text-decoration: none;
+    cursor: pointer;
+    border: none;
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -1376,7 +1450,8 @@ body {
     border-radius: 6px;
     font-size: 11.5px;
     font-weight: 700;
-    text-decoration: none;
+    cursor: pointer;
+    border: none;
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -1388,7 +1463,7 @@ body {
 }
 
 /* ============================================================
-   WHATSAPP & SMS MODAL STYLES
+   SECURITY MODALS & SAFE REDIRECTION STYLES
    ============================================================ */
 .modal-overlay {
     position: fixed;
@@ -1396,8 +1471,8 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1410,7 +1485,7 @@ body {
     border: 1px solid var(--border-color);
     border-radius: var(--radius-xl);
     width: 100%;
-    max-width: 480px;
+    max-width: 500px;
     padding: 24px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
     animation: zoomIn 0.25s ease-out;
@@ -1426,6 +1501,16 @@ body {
     margin-bottom: 16px;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 12px;
+}
+.security-shield-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(16, 185, 129, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
 }
 .wa-icon-circle {
     width: 36px;
@@ -1447,6 +1532,96 @@ body {
     line-height: 1;
 }
 .close-btn:hover { color: var(--text-heading); }
+
+.safe-url-box {
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    margin-bottom: 14px;
+}
+.safe-domain-badge {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--accent-emerald);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.safe-target-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-heading);
+}
+.safe-target-url {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--primary-indigo);
+    margin-top: 4px;
+    word-break: break-all;
+}
+.cyber-warning-card {
+    background: rgba(245, 158, 11, 0.1);
+    border-left: 3px solid var(--accent-saffron);
+    padding: 12px;
+    border-radius: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--text-heading);
+}
+.mirror-section {
+    background: var(--bg-main);
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+}
+.mirror-link-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent-sky);
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+}
+.mirror-link-pill:hover { text-decoration: underline; }
+.modal-actions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 10px;
+}
+
+.privacy-guarantee-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.privacy-item {
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    padding: 14px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 12.5px;
+}
+.privacy-item i {
+    font-size: 20px;
+    margin-top: 2px;
+}
+.privacy-item b {
+    color: var(--text-heading);
+    font-size: 13px;
+    display: block;
+    margin-bottom: 2px;
+}
+.privacy-item p {
+    color: var(--text-body);
+    line-height: 1.5;
+}
 
 .input-with-prefix {
     display: flex;
@@ -1688,4 +1863,5 @@ body {
     .services-cards-grid { grid-template-columns: 1fr; }
     .hero-title { font-size: 28px; }
     .map-graphic-canvas { height: 380px; }
+    .modal-actions-grid { grid-template-columns: 1fr; }
 }
