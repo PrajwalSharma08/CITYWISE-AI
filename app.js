@@ -1,5 +1,5 @@
 // ============================================================
-// CITYWISE AI — Enterprise Clean & Secure Governance Portal Engine
+// CITYWISE AI — Enterprise Multi-Lingual Interactive Voice & Governance Engine
 // ============================================================
 
 // VOICE CONFIGURATION (DEFAULT = ON, WITH MUTE TOGGLE)
@@ -7,8 +7,123 @@ let isVoiceMuted = false;
 let currentVoiceLang = 'hi-IN';
 let currentVoiceLabel = 'हिंदी (Hindi)';
 let currentVoiceGreeting = 'सिटीवाइज़ एआई राष्ट्रीय सुशासन पोर्टल में आपका स्वागत है।';
+let availableVoices = [];
 
-// NATIONAL CITIZEN SERVICES DATABASE (WITH VERIFIED GOVT DOMAINS & BACKUP MIRRORS)
+function loadVoices() {
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+        availableVoices = window.speechSynthesis.getVoices();
+    }
+}
+if (typeof window !== 'undefined' && window.speechSynthesis) {
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+
+// ROBUST MULTI-LINGUAL TTS ENGINE
+window.speakText = function(text, overrideLang) {
+    if (isVoiceMuted || typeof window === 'undefined' || !window.speechSynthesis) return;
+    try {
+        window.speechSynthesis.cancel();
+
+        // 60ms timeout clears browser audio queue reliably on Android Chrome & iOS Safari
+        setTimeout(() => {
+            if (isVoiceMuted) return;
+            const langToUse = overrideLang || currentVoiceLang || 'hi-IN';
+            const utt = new SpeechSynthesisUtterance(text);
+            utt.lang = langToUse;
+            utt.rate = 1.0;
+            utt.pitch = 1.0;
+
+            if (!availableVoices || availableVoices.length === 0) {
+                availableVoices = window.speechSynthesis.getVoices();
+            }
+
+            if (availableVoices && availableVoices.length > 0) {
+                const exactVoice = availableVoices.find(v => v.lang === langToUse);
+                const prefixVoice = availableVoices.find(v => v.lang.startsWith(langToUse.split('-')[0]));
+                const fallbackVoice = availableVoices.find(v => v.lang === 'hi-IN' || v.lang.includes('Hindi') || v.lang === 'en-IN' || v.lang === 'en-US');
+                
+                utt.voice = exactVoice || prefixVoice || fallbackVoice || availableVoices[0];
+            }
+
+            if (window.speechSynthesis.paused) {
+                window.speechSynthesis.resume();
+            }
+            window.speechSynthesis.speak(utt);
+        }, 60);
+    } catch(e) {
+        console.warn("TTS Error:", e);
+    }
+};
+
+window.toggleVoiceMute = function() {
+    isVoiceMuted = !isVoiceMuted;
+
+    const topBtn = document.getElementById('top-voice-toggle-btn');
+    const topIcon = document.getElementById('top-voice-icon');
+    const topText = document.getElementById('top-voice-text');
+
+    const navBtn = document.getElementById('nav-voice-toggle-btn');
+    const navIcon = document.getElementById('nav-voice-icon');
+    const navText = document.getElementById('nav-voice-text');
+
+    const mIcon = document.getElementById('mobile-menu-voice-icon');
+    const mText = document.getElementById('mobile-menu-voice-text');
+
+    if (isVoiceMuted) {
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
+
+        if (topBtn) topBtn.classList.add('muted');
+        if (topIcon) topIcon.className = 'fa-solid fa-volume-xmark';
+        if (topText) topText.textContent = 'आवाज: बंद (MUTE)';
+
+        if (navBtn) navBtn.classList.add('muted');
+        if (navIcon) navIcon.className = 'fa-solid fa-volume-xmark';
+        if (navText) navText.textContent = 'आवाज MUTE';
+
+        if (mIcon) mIcon.className = 'fa-solid fa-volume-xmark';
+        if (mText) mText.textContent = 'आवाज: बंद (MUTE)';
+    } else {
+        if (topBtn) topBtn.classList.remove('muted');
+        if (topIcon) topIcon.className = 'fa-solid fa-volume-high';
+        if (topText) topText.textContent = 'आवाज: चालू (ON)';
+
+        if (navBtn) navBtn.classList.remove('muted');
+        if (navIcon) navIcon.className = 'fa-solid fa-volume-high';
+        if (navText) navText.textContent = 'आवाज ON';
+
+        if (mIcon) mIcon.className = 'fa-solid fa-volume-high';
+        if (mText) mText.textContent = 'आवाज: चालू (ON)';
+
+        window.speakText('आवाज चालू कर दी गई है।');
+    }
+};
+
+window.toggleVoiceLangMenu = function() {
+    const menu = document.getElementById('voice-lang-menu');
+    if (menu) menu.classList.toggle('show');
+};
+
+window.setVoiceLanguage = function(langCode, label, greeting) {
+    currentVoiceLang = langCode;
+    currentVoiceLabel = label;
+    currentVoiceGreeting = greeting;
+
+    const lbl = document.getElementById('current-voice-lbl');
+    if (lbl) lbl.textContent = `भाषा: ${label.split(' ')[0]}`;
+
+    const menu = document.getElementById('voice-lang-menu');
+    if (menu) menu.classList.remove('show');
+
+    // Announce the selected language in its native accent/words
+    window.speakText(greeting, langCode);
+};
+
+window.triggerCurrentVoiceGreeting = function() {
+    window.speakText(currentVoiceGreeting, currentVoiceLang);
+};
+
+// NATIONAL CITIZEN SERVICES DATABASE
 const CITIZEN_SERVICES_DB = [
     {
         id: 'voter-epic',
@@ -22,7 +137,8 @@ const CITIZEN_SERVICES_DB = [
         tags: ['E-EPIC Card', 'नया रजिस्ट्रेशन', 'वोटर लिस्ट', 'फॉर्म 6/8'],
         link: 'https://voters.eci.gov.in',
         mirror: 'https://www.nvsp.in',
-        domain: 'eci.gov.in'
+        domain: 'eci.gov.in',
+        voiceNote: 'भारत निर्वाचन आयोग। नया वोटर आईडी कार्ड और वोटर लिस्ट सेवाएं उपलब्ध हैं।'
     },
     {
         id: 'lic-premium',
@@ -36,7 +152,8 @@ const CITIZEN_SERVICES_DB = [
         tags: ['प्रीमियम भुगतान', 'पॉलिसी स्टेटस', 'बोनस ट्रैकर', 'CLAIM'],
         link: 'https://licindia.in',
         mirror: 'https://customer.licindia.in',
-        domain: 'licindia.in'
+        domain: 'licindia.in',
+        voiceNote: 'भारतीय जीवन बीमा निगम LIC। ऑनलाइन प्रीमियम भुगतान और पॉलिसी स्टेटस जांचें।'
     },
     {
         id: 'pm-jjby',
@@ -50,7 +167,8 @@ const CITIZEN_SERVICES_DB = [
         tags: ['₹2 लाख कवर', '₹436 वार्षिक', 'ऑटो-डेबिट', 'Jan Dhan'],
         link: 'https://www.jansuraksha.gov.in',
         mirror: 'https://financialservices.gov.in',
-        domain: 'jansuraksha.gov.in'
+        domain: 'jansuraksha.gov.in',
+        voiceNote: 'प्रधानमंत्री जीवन ज्योति बीमा योजना। मात्र 436 रुपये में 2 लाख रुपये का जीवन बीमा।'
     },
     {
         id: 'pmjdy-bank',
@@ -64,7 +182,8 @@ const CITIZEN_SERVICES_DB = [
         tags: ['Zero Balance', 'RuPay Card', 'DBT Direct', 'Bank Mitra'],
         link: 'https://pmjdy.gov.in',
         mirror: 'https://www.bankbazaar.com/pmjdy.html',
-        domain: 'pmjdy.gov.in'
+        domain: 'pmjdy.gov.in',
+        voiceNote: 'प्रधानमंत्री जन धन योजना। ज़ीरो बैलेंस सरकारी बैंक खाता एवं रुपे कार्ड प्राप्त करें।'
     },
     {
         id: 'aadhaar-uidai',
@@ -78,7 +197,8 @@ const CITIZEN_SERVICES_DB = [
         tags: ['e-Aadhaar PDF', 'PAN Link Status', 'मोबाइल अपडेट', 'Seva Kendra'],
         link: 'https://myaadhaar.uidai.gov.in',
         mirror: 'https://uidai.gov.in',
-        domain: 'uidai.gov.in'
+        domain: 'uidai.gov.in',
+        voiceNote: 'आधार सेवाएं। ई-आधार डाउनलोड करें और पैन आधार लिंक स्टेटस चेक करें।'
     },
     {
         id: 'epfo-passbook',
@@ -92,7 +212,8 @@ const CITIZEN_SERVICES_DB = [
         tags: ['UAN Passbook', 'PF Balance', 'ऑनलाइन एडवांस', 'Pension Status'],
         link: 'https://www.epfindia.gov.in',
         mirror: 'https://passbook.epfindia.gov.in',
-        domain: 'epfindia.gov.in'
+        domain: 'epfindia.gov.in',
+        voiceNote: 'कर्मचारी भविष्य निधि ईपीएफओ। पीएफ बैलेंस और पेंशन पासबुक ऑनलाइन देखें।'
     },
     {
         id: 'parivahan-dl',
@@ -106,7 +227,8 @@ const CITIZEN_SERVICES_DB = [
         tags: ['DL Renewal', 'RC Verification', 'e-Challan Pay', 'Sarthi'],
         link: 'https://parivahan.gov.in',
         mirror: 'https://sarathi.parivahan.gov.in',
-        domain: 'parivahan.gov.in'
+        domain: 'parivahan.gov.in',
+        voiceNote: 'परिवहन सेवा। ड्राइविंग लाइसेंस और ई-चालान भुगतान पोर्टल।'
     },
     {
         id: 'passport-seva',
@@ -120,7 +242,8 @@ const CITIZEN_SERVICES_DB = [
         tags: ['नया पासपोर्ट', 'तत्काल सेवा', 'स्लॉट बुकिंग', 'Status Track'],
         link: 'https://passportindia.gov.in',
         mirror: 'https://portal2.passportindia.gov.in',
-        domain: 'passportindia.gov.in'
+        domain: 'passportindia.gov.in',
+        voiceNote: 'पासपोर्ट सेवा केंद्र। नए पासपोर्ट और अपॉइंटमेंट स्लॉट बुक करें।'
     },
     {
         id: 'mandi-bhav',
@@ -134,7 +257,8 @@ const CITIZEN_SERVICES_DB = [
         tags: ['दैनिक मंडी भाव', 'e-NAM Trade', 'फसल भाव', 'किसान सेल'],
         link: 'https://www.enam.gov.in',
         mirror: 'https://agmarknet.gov.in',
-        domain: 'enam.gov.in'
+        domain: 'enam.gov.in',
+        voiceNote: 'राष्ट्रीय कृषि बाजार ई-नाम। देश भर की मंडियों के दैनिक लाइव भाव देखें।'
     },
     {
         id: 'electricity-bill',
@@ -148,11 +272,11 @@ const CITIZEN_SERVICES_DB = [
         tags: ['ऑनलाइन बिल पे', 'नया कनेक्शन', 'पावर हेल्प 1912', 'Discoms'],
         link: 'https://powermin.gov.in',
         mirror: 'https://www.bharatbillpay.com',
-        domain: 'powermin.gov.in'
+        domain: 'powermin.gov.in',
+        voiceNote: 'विद्युत वितरण निगम। बिजली बिल देखें और ऑनलाइन भुगतान करें।'
     }
 ];
 
-// REGIONS GROUPING FOR HOME CHIPS
 const REGIONS = {
     'North': { title: '🏔️ उत्तरी राज्य एवं UT (North India)', codes: ['DL', 'UP', 'PB', 'HR', 'HP', 'UK', 'JK', 'LA', 'CH'] },
     'Central': { title: '🌾 मध्य एवं पश्चिमी राज्य (Central & West)', codes: ['MP', 'RJ', 'GJ', 'MH', 'CT', 'GA', 'DD'] },
@@ -182,7 +306,7 @@ function getStandardSchemes(stateName) {
     ];
 }
 
-// FULL DATABASE FOR ALL 36 REGIONS WITH DBT DISBURSEMENT STATS
+// FULL DATABASE FOR ALL 36 REGIONS
 const STATE_DB = {
     UP: {
         name: 'उत्तर प्रदेश / Uttar Pradesh', capital: 'लखनऊ', emoji: '🛕', population: '24.1 Cr', area: '2,40,928 km²', cm: 'योगी आदित्यनाथ',
@@ -256,7 +380,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['आधार कार्ड', 'समग्र ID (Samagra ID)', 'बैंक पासबुक'],
         cat: 'MP राज्य कल्याण / महिला सशक्तिकरण',
         state: 'MP', occ: ['ALL'], gender: ['Female', 'ALL'], minAge: 21, maxAge: 60,
-        link: 'https://cmladlibehna.mp.gov.in', mirror: 'https://mp.gov.in'
+        link: 'https://cmladlibehna.mp.gov.in', mirror: 'https://mp.gov.in',
+        voiceNote: 'मुख्यमंत्री लाड़ली बहना योजना। मध्य प्रदेश की महिलाओं को प्रतिमाह 1,250 रुपये वित्तीय सहायता।'
     },
     {
         name: 'मुख्यमंत्री किसान कल्याण योजना (MP Kisan Kalyan Scheme)',
@@ -265,7 +390,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['खसरा/खतौनी', 'आधार कार्ड', 'बैंक विवरण'],
         cat: 'MP राज्य कल्याण / कृषि विकास',
         state: 'MP', occ: ['Farmer', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 90,
-        link: 'https://saara.mp.gov.in', mirror: 'https://mpkrishi.mp.gov.in'
+        link: 'https://saara.mp.gov.in', mirror: 'https://mpkrishi.mp.gov.in',
+        voiceNote: 'मध्य प्रदेश मुख्यमंत्री किसान कल्याण योजना। किसानों को 4000 रुपये अतिरिक्त वार्षिक सहायता।'
     },
     {
         name: 'मुख्यमंत्री सीखो-कमाओ योजना (MP Sikho Kamao Scheme)',
@@ -274,7 +400,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['12वीं/ITI/स्नातक अंकसूची', 'मूल निवास', 'आधार कार्ड'],
         cat: 'MP राज्य कल्याण / युवा रोजगार',
         state: 'MP', occ: ['Unemployed', 'Student', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 29,
-        link: 'https://mmsky.mp.gov.in', mirror: 'https://ssm.mp.gov.in'
+        link: 'https://mmsky.mp.gov.in', mirror: 'https://ssm.mp.gov.in',
+        voiceNote: 'मुख्यमंत्री सीखो कमाओ योजना। युवाओं को 8 से 10 हजार रुपये प्रतिमाह स्टाइपेंड।'
     },
     {
         name: 'मुख्यमंत्री कन्या सुमंगला योजना (UP Kanya Sumangala)',
@@ -283,7 +410,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['जन्म प्रमाण', 'माता-पिता का आधार', 'आय प्रमाण'],
         cat: 'UP राज्य कल्याण / बालिका शिक्षा',
         state: 'UP', occ: ['ALL', 'Student'], gender: ['Female', 'ALL'], minAge: 0, maxAge: 25,
-        link: 'https://mksy.up.gov.in', mirror: 'https://up.gov.in'
+        link: 'https://mksy.up.gov.in', mirror: 'https://up.gov.in',
+        voiceNote: 'उत्तर प्रदेश मुख्यमंत्री कन्या सुमंगला योजना। बेटियों को 15,000 रुपये तक सहायता।'
     },
     {
         name: 'मुख्यमंत्री युवा उद्यमी विकास अभियान (UP Youth Entrepreneurship)',
@@ -292,7 +420,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['आधार कार्ड', 'शैक्षणिक योग्यता', 'व्यापार परियोजना'],
         cat: 'UP राज्य कल्याण / स्वरोजगार',
         state: 'UP', occ: ['Unemployed', 'Student', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 40,
-        link: 'https://msme.up.gov.in', mirror: 'https://diupmsme.upsdc.gov.in'
+        link: 'https://msme.up.gov.in', mirror: 'https://diupmsme.upsdc.gov.in',
+        voiceNote: 'उत्तर प्रदेश युवा उद्यमी विकास अभियान। 5 लाख रुपये तक का ब्याज मुक्त ऋण।'
     },
     {
         name: 'मुख्यमंत्री कन्या उत्थान योजना (Bihar Kanya Utthan)',
@@ -301,7 +430,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['स्नातक मार्कशीट', 'आधार कार्ड', 'बैंक खाता'],
         cat: 'बिहार राज्य कल्याण / महिला शिक्षा',
         state: 'BR', occ: ['Student', 'ALL'], gender: ['Female', 'ALL'], minAge: 0, maxAge: 28,
-        link: 'https://medhasoft.bih.nic.in', mirror: 'https://bihar.gov.in'
+        link: 'https://medhasoft.bih.nic.in', mirror: 'https://bihar.gov.in',
+        voiceNote: 'बिहार मुख्यमंत्री कन्या उत्थान योजना। स्नातक उत्तीर्ण होने पर 50,000 रुपये प्रोत्साहन राशि।'
     },
     {
         name: 'बिहार स्टूडेंट क्रेडिट कार्ड योजना (Bihar Student Credit Card)',
@@ -310,7 +440,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['12वीं की अंकपत्र', 'कॉलेज दाखिला रसीद', 'आधार'],
         cat: 'बिहार राज्य कल्याण / उच्च शिक्षा',
         state: 'BR', occ: ['Student', 'ALL'], gender: 'ALL', minAge: 17, maxAge: 30,
-        link: 'https://www.7nishchay-yuvaupmission.bihar.gov.in', mirror: 'https://state.bihar.gov.in'
+        link: 'https://www.7nishchay-yuvaupmission.bihar.gov.in', mirror: 'https://state.bihar.gov.in',
+        voiceNote: 'बिहार स्टूडेंट क्रेडिट कार्ड योजना। उच्च शिक्षा हेतु 4 लाख रुपये तक का शिक्षा ऋण।'
     },
     {
         name: 'नमो शेतकरी महासन्मान निधी योजना (MH Namo Shetkari)',
@@ -319,7 +450,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['7/12 उतारा', 'आधार कार्ड', 'बैंक खाता'],
         cat: 'महाराष्ट्र राज्य कल्याण / कृषि विकास',
         state: 'MH', occ: ['Farmer', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 90,
-        link: 'https://nsmn.mahabhumi.gov.in', mirror: 'https://maharashtra.gov.in'
+        link: 'https://nsmn.mahabhumi.gov.in', mirror: 'https://maharashtra.gov.in',
+        voiceNote: 'महाराष्ट्र नमो शेतकरी महासन्मान निधी। किसानों को 6,000 रुपये अतिरिक्त वार्षिक सहायता।'
     },
     {
         name: 'मुख्यमंत्री आयुष्मान आरोग्य योजना (Rajasthan Ayushman Arogya)',
@@ -328,7 +460,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['जन-आधार कार्ड', 'आधार कार्ड'],
         cat: 'राजस्थान राज्य कल्याण / मुफ़्त इलाज',
         state: 'RJ', occ: ['ALL'], gender: 'ALL', minAge: 0, maxAge: 100,
-        link: 'https://health.rajasthan.gov.in', mirror: 'https://rajasthan.gov.in'
+        link: 'https://health.rajasthan.gov.in', mirror: 'https://rajasthan.gov.in',
+        voiceNote: 'राजस्थान आयुष्मान आरोग्य योजना। 25 लाख रुपये तक का मुफ़्त कैशलेस इलाज बीमा।'
     },
     {
         name: '⚡ PM सूर्य घर मुफ़्त बिजली योजना (Rooftop Solar 2025)',
@@ -337,7 +470,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['बिजली बिल', 'छत का स्वामित्व प्रमाण', 'आधार कार्ड'],
         cat: '⚡ आगामी राष्ट्रीय योजना / अक्षय ऊर्जा',
         state: 'ALL', occ: ['ALL'], gender: 'ALL', minAge: 18, maxAge: 90,
-        link: 'https://pmsuryaghar.gov.in', mirror: 'https://mnre.gov.in'
+        link: 'https://pmsuryaghar.gov.in', mirror: 'https://mnre.gov.in',
+        voiceNote: 'प्रधानमंत्री सूर्य घर मुफ़्त बिजली योजना। 300 यूनिट मुफ़्त बिजली एवं 78,000 रुपये सब्सिडी।'
     },
     {
         name: '🚗 UP इलेक्ट्रिक वाहन सब्सिडी नीति (UP EV Subsidy 2025)',
@@ -346,7 +480,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['वाहन पंजीकरण (RC)', 'आधार कार्ड', 'बैंक विवरण'],
         cat: '⚡ आगामी UP राज्य योजना / EV क्रांति',
         state: 'UP', occ: ['ALL'], gender: 'ALL', minAge: 18, maxAge: 75,
-        link: 'https://upevsubsidy.in', mirror: 'https://investup.org.in'
+        link: 'https://upevsubsidy.in', mirror: 'https://investup.org.in',
+        voiceNote: 'उत्तर प्रदेश इलेक्ट्रिक वाहन सब्सिडी नीति। ईवी खरीद पर 50,000 रुपये तक सब्सिडी।'
     },
     {
         name: 'प्रधानमंत्री किसान सम्मान निधि (PM-KISAN)',
@@ -355,7 +490,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['आधार कार्ड', 'भूमि खतौनी/खसरा', 'बैंक पासबुक'],
         cat: 'केंद्रीय योजना / कृषि एवं किसान कल्याण',
         state: 'ALL', occ: ['Farmer', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 100,
-        link: 'https://pmkisan.gov.in', mirror: 'https://agricoop.gov.in'
+        link: 'https://pmkisan.gov.in', mirror: 'https://agricoop.gov.in',
+        voiceNote: 'प्रधानमंत्री किसान सम्मान निधि। किसानों को 6,000 रुपये प्रतिवर्ष प्रत्यक्ष लाभ अंतरण।'
     },
     {
         name: 'प्रधानमंत्री आवास योजना — ग्रामीण एवं शहरी (PM Awas)',
@@ -364,7 +500,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['आय प्रमाण', 'राशन कार्ड', 'आधार कार्ड', 'बैंक खाता'],
         cat: 'केंद्रीय योजना / आवास विकास',
         state: 'ALL', occ: ['Laborer', 'Unemployed', 'Farmer', 'Vendor', 'Artisan', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 85,
-        link: 'https://pmaymis.gov.in', mirror: 'https://pmayg.nic.in'
+        link: 'https://pmaymis.gov.in', mirror: 'https://pmayg.nic.in',
+        voiceNote: 'प्रधानमंत्री आवास योजना। पक्के मकान निर्माण हेतु ढाई लाख रुपये तक वित्तीय सहायता।'
     },
     {
         name: 'आयुष्मान भारत — प्रधानमंत्री जन आरोग्य योजना (PM-JAY)',
@@ -373,7 +510,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['राशन कार्ड', 'आधार कार्ड', 'आयुष्मान कार्ड'],
         cat: 'केंद्रीय योजना / निःशुल्क स्वास्थ्य बीमा',
         state: 'ALL', occ: ['ALL'], gender: 'ALL', minAge: 0, maxAge: 100,
-        link: 'https://pmjay.gov.in', mirror: 'https://nha.gov.in'
+        link: 'https://pmjay.gov.in', mirror: 'https://nha.gov.in',
+        voiceNote: 'आयुष्मान भारत जन आरोग्य योजना। 5 लाख रुपये तक का निःशुल्क अस्पताल इलाज बीमा।'
     },
     {
         name: 'इंद्रा गांधी राष्ट्रीय वृद्धावस्था पेंशन (Indira Gandhi Pension)',
@@ -382,7 +520,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['आयु प्रमाण', 'BPL राशन कार्ड', 'आधार कार्ड'],
         cat: 'केंद्रीय योजना / बुजुर्ग पेंशन',
         state: 'ALL', occ: ['ALL'], gender: 'ALL', minAge: 60, maxAge: 110,
-        link: 'https://nsap.nic.in', mirror: 'https://rural.nic.in'
+        link: 'https://nsap.nic.in', mirror: 'https://rural.nic.in',
+        voiceNote: 'राष्ट्रीय वृद्धावस्था पेंशन योजना। वरिष्ठ नागरिकों को प्रतिमाह नियमित पेंशन सहायता।'
     },
     {
         name: 'प्रधानमंत्री मुद्रा योजना (PM Mudra Loan)',
@@ -391,7 +530,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['प्रोजेक्ट रिपोर्ट', 'आधार कार्ड', 'बैंक विवरण'],
         cat: 'केंद्रीय योजना / व्यापारिक ऋण',
         state: 'ALL', occ: ['Vendor', 'Artisan', 'Unemployed', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 65,
-        link: 'https://www.mudra.org.in', mirror: 'https://www.standupmitra.in'
+        link: 'https://www.mudra.org.in', mirror: 'https://www.standupmitra.in',
+        voiceNote: 'प्रधानमंत्री मुद्रा योजना। व्यवसाय हेतु बिना गारंटी 10 लाख रुपये तक का रियायती ऋण।'
     },
     {
         name: 'प्रधानमंत्री स्वनिधि योजना (PM SVANidhi Loan)',
@@ -400,7 +540,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['वेंडिंग प्रमाणपत्र', 'आधार', 'बैंक खाता'],
         cat: 'केंद्रीय योजना / पटरी विक्रेता कल्याण',
         state: 'ALL', occ: ['Vendor', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 70,
-        link: 'https://pmsvanidhi.mohua.gov.in', mirror: 'https://mohua.gov.in'
+        link: 'https://pmsvanidhi.mohua.gov.in', mirror: 'https://mohua.gov.in',
+        voiceNote: 'प्रधानमंत्री स्वनिधि योजना। रेहड़ी पटरी विक्रेताओं को 50,000 रुपये तक कार्यशील पूंजी ऋण।'
     },
     {
         name: 'प्रधानमंत्री विश्वकर्मा योजना (PM Vishwakarma)',
@@ -409,7 +550,8 @@ const NATIONAL_SCHEMES_DATABASE = [
         docs: ['कारीगर प्रमाण', 'आधार कार्ड', 'बैंक पासबुक'],
         cat: 'केंद्रीय योजना / कारीगर सशक्तिकरण',
         state: 'ALL', occ: ['Artisan', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 70,
-        link: 'https://pmvishwakarma.gov.in', mirror: 'https://msme.gov.in'
+        link: 'https://pmvishwakarma.gov.in', mirror: 'https://msme.gov.in',
+        voiceNote: 'प्रधानमंत्री विश्वकर्मा योजना। कारीगरों को 3 लाख रुपये का रियायती ऋण और 15,000 रुपये टूलकिट।'
     }
 ];
 
@@ -423,95 +565,9 @@ let currentHeatmapMode = 'standard';
 let currentLang = 'HI';
 
 // ============================================================
-// 1. VOICE ON / OFF MUTE ENGINE & TTS CONTROLS
+// 1. SAFE REDIRECTION & CYBER SECURITY VERIFICATION ENGINE
 // ============================================================
-window.toggleVoiceMute = function() {
-    isVoiceMuted = !isVoiceMuted;
-
-    const topBtn = document.getElementById('top-voice-toggle-btn');
-    const topIcon = document.getElementById('top-voice-icon');
-    const topText = document.getElementById('top-voice-text');
-
-    const navBtn = document.getElementById('nav-voice-toggle-btn');
-    const navIcon = document.getElementById('nav-voice-icon');
-    const navText = document.getElementById('nav-voice-text');
-
-    const mIcon = document.getElementById('mobile-menu-voice-icon');
-    const mText = document.getElementById('mobile-menu-voice-text');
-
-    if (isVoiceMuted) {
-        if (window.speechSynthesis) window.speechSynthesis.cancel();
-
-        if (topBtn) topBtn.classList.add('muted');
-        if (topIcon) topIcon.className = 'fa-solid fa-volume-xmark';
-        if (topText) topText.textContent = 'आवाज: बंद (MUTE)';
-
-        if (navBtn) navBtn.classList.add('muted');
-        if (navIcon) navIcon.className = 'fa-solid fa-volume-xmark';
-        if (navText) navText.textContent = 'आवाज MUTE';
-
-        if (mIcon) mIcon.className = 'fa-solid fa-volume-xmark';
-        if (mText) mText.textContent = 'आवाज: बंद (MUTE)';
-    } else {
-        if (topBtn) topBtn.classList.remove('muted');
-        if (topIcon) topIcon.className = 'fa-solid fa-volume-high';
-        if (topText) topText.textContent = 'आवाज: चालू (ON)';
-
-        if (navBtn) navBtn.classList.remove('muted');
-        if (navIcon) navIcon.className = 'fa-solid fa-volume-high';
-        if (navText) navText.textContent = 'आवाज ON';
-
-        if (mIcon) mIcon.className = 'fa-solid fa-volume-high';
-        if (mText) mText.textContent = 'आवाज: चालू (ON)';
-
-        window.speakText('आवाज चालू कर दी गई है।');
-    }
-};
-
-window.speakText = function(text) {
-    if (isVoiceMuted || !window.speechSynthesis) return;
-    try {
-        window.speechSynthesis.cancel();
-        const utt = new SpeechSynthesisUtterance(text);
-        utt.lang = currentVoiceLang;
-        utt.rate = 1.0;
-        window.speechSynthesis.speak(utt);
-    } catch(e) {}
-};
-
-window.toggleVoiceLangMenu = function() {
-    const menu = document.getElementById('voice-lang-menu');
-    if (menu) menu.classList.toggle('show');
-};
-
-window.setVoiceLanguage = function(langCode, label, greeting) {
-    currentVoiceLang = langCode;
-    currentVoiceLabel = label;
-    currentVoiceGreeting = greeting;
-
-    const lbl = document.getElementById('current-voice-lbl');
-    if (lbl) lbl.textContent = `भाषा: ${label.split(' ')[0]}`;
-
-    const menu = document.getElementById('voice-lang-menu');
-    if (menu) menu.classList.remove('show');
-
-    window.speakText(greeting);
-};
-
-window.triggerCurrentVoiceGreeting = function() {
-    window.speakText(currentVoiceGreeting);
-};
-
-window.speakCurrentStateDetails = function() {
-    if (!currentSelectedStateCode) return;
-    const s = STATE_DB[currentSelectedStateCode];
-    window.speakText(`${s.name} का विवरण। राजधानी ${s.capital}। कुल जनसंख्या ${s.population}।`);
-};
-
-// ============================================================
-// 2. SAFE REDIRECTION & CYBER SECURITY VERIFICATION ENGINE
-// ============================================================
-window.triggerSafeRedirect = function(targetUrl, portalName, mirrorUrl = '') {
+window.triggerSafeRedirect = function(targetUrl, portalName, mirrorUrl = '', voiceNote = '') {
     const modal = document.getElementById('safe-redirect-modal');
     if (!modal) {
         window.open(targetUrl, '_blank');
@@ -534,6 +590,12 @@ window.triggerSafeRedirect = function(targetUrl, portalName, mirrorUrl = '') {
     }
 
     modal.classList.remove('hidden');
+
+    if (voiceNote) {
+        window.speakText(voiceNote);
+    } else {
+        window.speakText(`${portalName} का आधिकारिक सरकारी पोर्टल खोला जा रहा है।`);
+    }
 };
 
 window.closeSafeRedirectModal = function() {
@@ -544,6 +606,7 @@ window.closeSafeRedirectModal = function() {
 window.openPrivacySecurityModal = function() {
     const modal = document.getElementById('privacy-security-modal');
     if (modal) modal.classList.remove('hidden');
+    window.speakText("डेटा सुरक्षा नीति। सिटीवाइज़ एआई कोई आधार या बैंक पासवर्ड स्टोर नहीं करता।");
 };
 
 window.closePrivacySecurityModal = function() {
@@ -552,7 +615,7 @@ window.closePrivacySecurityModal = function() {
 };
 
 // ============================================================
-// 3. CLEAN STATE EXPLORER MAP ENGINE
+// 2. CLEAN STATE EXPLORER MAP ENGINE
 // ============================================================
 function initCleanStateMap() {
     renderMapStatesList();
@@ -582,6 +645,10 @@ window.setMapHeatmapMode = function(mode, btnEl) {
 
     renderMapStatesList();
     renderQuickScrollStrip();
+
+    if (mode === 'dbt') window.speakText('डीबीटी फंड रैंकिंग मोड सक्रिय।');
+    else if (mode === 'civic') window.speakText('सुशासन संतुष्टि दर रैंकिंग सक्रिय।');
+    else window.speakText('सभी राज्य एवं केंद्र शासित प्रदेश सक्रिय।');
 };
 
 window.resetMapToAllIndia = function() {
@@ -595,10 +662,11 @@ window.resetMapToAllIndia = function() {
     document.getElementById('bc-district').classList.remove('active');
     document.getElementById('bc-village').classList.remove('active');
     backToStep(1);
+    window.speakText('संपूर्ण भारत नक्शा रीसेट किया गया।');
 };
 
 // ============================================================
-// 4. REALTIME DBT TRACKER & CHART.JS INTEGRATION
+// 3. REALTIME DBT TRACKER & CHART.JS INTEGRATION
 // ============================================================
 let dbtStateChartInstance = null;
 let dbtSectorChartInstance = null;
@@ -701,11 +769,12 @@ function createFeedItemHtml(b) {
 }
 
 // ============================================================
-// 5. SECURED WHATSAPP & SMS SCHEME NOTIFICATION BOT
+// 4. SECURED WHATSAPP & SMS SCHEME NOTIFICATION BOT
 // ============================================================
 window.openWhatsAppModal = function() {
     const modal = document.getElementById('whatsapp-modal');
     if (modal) modal.classList.remove('hidden');
+    window.speakText("व्हाट्सएप योजना अलर्ट्स। अपना नंबर दर्ज करके सरकारी योजना अपडेट्स प्राप्त करें।");
 };
 
 window.closeWhatsAppModal = function() {
@@ -720,6 +789,7 @@ window.submitWhatsAppSubscription = function() {
 
     if (phone.length !== 10) {
         alert("कृपया अपना 10 अंकों का सही मोबाइल नंबर दर्ज करें (e.g. 9876543210)।");
+        window.speakText("कृपया अपना 10 अंकों का सही मोबाइल नंबर दर्ज करें।");
         return;
     }
 
@@ -767,7 +837,7 @@ window.submitWhatsAppSubscription = function() {
 };
 
 // ============================================================
-// 6. NATIONAL CITIZEN SERVICES HUB
+// 5. NATIONAL CITIZEN SERVICES HUB
 // ============================================================
 function renderCitizenServices(category = 'ALL', searchQuery = '') {
     const container = document.getElementById('services-cards-container');
@@ -792,6 +862,7 @@ function renderCitizenServices(category = 'ALL', searchQuery = '') {
         </div>`;
     } else {
         filtered.forEach(s => {
+            const vNote = s.voiceNote ? s.voiceNote.replace(/'/g, "\\'") : '';
             html += `<div class="service-card">
                 <div>
                     <div class="service-card-head">
@@ -810,7 +881,7 @@ function renderCitizenServices(category = 'ALL', searchQuery = '') {
                 </div>
                 <div class="service-card-action">
                     <span class="badge badge-success"><i class="fa-solid fa-shield-check"></i> ${s.domain}</span>
-                    <button class="srv-portal-btn" onclick="triggerSafeRedirect('${s.link}', '${s.name}', '${s.mirror}')">
+                    <button class="srv-portal-btn" onclick="triggerSafeRedirect('${s.link}', '${s.name}', '${s.mirror}', '${vNote}')">
                         <span>सुरक्षित पोर्टल</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
                     </button>
                 </div>
@@ -829,6 +900,12 @@ window.filterServiceCategory = function(cat, btnEl) {
 
     const searchVal = document.getElementById('service-search-input')?.value || '';
     renderCitizenServices(cat, searchVal);
+
+    if (cat === 'VOTER') window.speakText('वोटर आईडी और नागरिक पहचान सेवाएं।');
+    else if (cat === 'LIC') window.speakText('एलआईसी और जीवन बीमा सेवाएं।');
+    else if (cat === 'BANK') window.speakText('सरकारी बैंक खाते और भविष्य निधि सेवाएं।');
+    else if (cat === 'CIVIC') window.speakText('परिवहन और विद्युत बिल सेवाएं।');
+    else window.speakText('सभी नागरिक सेवाएं।');
 };
 
 window.filterCitizenServices = function() {
@@ -837,7 +914,7 @@ window.filterCitizenServices = function() {
 };
 
 // ============================================================
-// 7. WELFARE SCHEMES MATCHING STUDIO
+// 6. WELFARE SCHEMES MATCHING STUDIO
 // ============================================================
 function renderAllSchemes(filters = {}) {
     const listEl = document.getElementById('schemes-list');
@@ -868,6 +945,7 @@ function renderAllSchemes(filters = {}) {
 
     let html = '';
     filtered.forEach(sc => {
+        const vNote = sc.voiceNote ? sc.voiceNote.replace(/'/g, "\\'") : '';
         html += `<div class="scheme-item">
             <div class="scheme-item-head">
                 <div class="scheme-name">${sc.name}</div>
@@ -881,7 +959,7 @@ function renderAllSchemes(filters = {}) {
                 <div class="scheme-docs-wrap">
                     ${sc.docs.map(d => `<span class="scheme-tag">📄 ${d}</span>`).join('')}
                 </div>
-                <button class="apply-link" onclick="triggerSafeRedirect('${sc.link}', '${sc.name}', '${sc.mirror || ''}')">
+                <button class="apply-link" onclick="triggerSafeRedirect('${sc.link}', '${sc.name}', '${sc.mirror || ''}', '${vNote}')">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i> ऑनलाइन आवेदन करें
                 </button>
             </div>
@@ -916,6 +994,10 @@ window.handleSchemeSearch = function(e) {
             btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> <span id="btn-search-txt">योग्य सरकारी योजनाएं खोजें</span>';
             btn.disabled = false;
         }
+
+        const stateCode = document.getElementById('input-state')?.value || 'ALL';
+        const stateName = (stateCode !== 'ALL' && STATE_DB[stateCode]) ? STATE_DB[stateCode].name.split('/')[0] : 'आपकी प्रोफाइल के लिए';
+        window.speakText(`${stateName} के लिए पात्र सरकारी योजनाओं का मिलान पूरा हो गया है।`);
     }, 200);
 };
 
@@ -930,13 +1012,13 @@ window.triggerManualDataSync = function() {
         badge.innerHTML = '<i class="fa-solid fa-sync fa-spin"></i> सिंक जारी...';
         setTimeout(() => {
             badge.innerHTML = '<i class="fa-solid fa-circle-check"></i> data.gov.in सिंक सफल';
-            window.speakText('डेटा डॉट जीओवी डॉट इन से 30+ योजनाएं सिंक हो गईं।');
+            window.speakText('डेटा डॉट जीओवी डॉट इन से 30 से अधिक योजनाएं सिंक हो गईं।');
         }, 800);
     }
 };
 
 // ============================================================
-// 8. PAGE ROUTING & NAVIGATION
+// 7. PAGE ROUTING & NAVIGATION
 // ============================================================
 window.switchPage = function(pageId) {
     try {
@@ -962,11 +1044,26 @@ window.switchPage = function(pageId) {
         const activeMBtn = document.getElementById('m-nav-' + pageId);
         if (activeMBtn) activeMBtn.classList.add('active');
 
-        if (pageId === 'home') initTicker();
-        if (pageId === 'map') initCleanStateMap();
-        if (pageId === 'dbt') initDBTCharts();
-        if (pageId === 'services') renderCitizenServices();
-        if (pageId === 'schemes') liveAutoMatchSchemes();
+        if (pageId === 'home') {
+            initTicker();
+            window.speakText('मुख्य पृष्ठ। 28 राज्य एवं 8 केंद्र शासित प्रदेश सुशासन पोर्टल।');
+        }
+        if (pageId === 'map') {
+            initCleanStateMap();
+            window.speakText('भारत डिजिटल नक्शा Explorer। राज्य और ज़िला सुशासन चुनें।');
+        }
+        if (pageId === 'dbt') {
+            initDBTCharts();
+            window.speakText('प्रत्यक्ष लाभ अंतरण डीबीटी लाइव ट्रैकर। 4 लाख 85 हज़ार करोड़ रुपये अंतरित राशि।');
+        }
+        if (pageId === 'services') {
+            renderCitizenServices();
+            window.speakText('राष्ट्रीय नागरिक सेवाएं। वोटर आईडी, एलआईसी और सरकारी बैंक हब।');
+        }
+        if (pageId === 'schemes') {
+            liveAutoMatchSchemes();
+            window.speakText('सरकारी योजना मैचिंग स्टूडियो। अपनी पात्रता की जांच करें।');
+        }
     } catch(err) {}
 };
 
@@ -976,7 +1073,7 @@ window.toggleMobileMenu = function() {
 };
 
 // ============================================================
-// 9. HOME & DRILL DOWN CONTROLS
+// 8. HOME & DRILL DOWN CONTROLS
 // ============================================================
 function populateHomeControls(regionFilter = 'ALL') {
     const chipContainer = document.getElementById('home-state-chips');
@@ -1016,6 +1113,12 @@ window.filterRegionChips = function(regionKey, btnEl) {
     if (btnEl) btnEl.classList.add('active');
 
     populateHomeControls(regionKey);
+
+    if (regionKey === 'North') window.speakText('उत्तर भारत के राज्य।');
+    else if (regionKey === 'Central') window.speakText('मध्य और पश्चिमी भारत के राज्य।');
+    else if (regionKey === 'East') window.speakText('पूर्वी और पूर्वोत्तर भारत के राज्य।');
+    else if (regionKey === 'South') window.speakText('दक्षिण भारत और द्वीप समूह।');
+    else window.speakText('सभी 36 राज्य और केंद्र शासित प्रदेश।');
 };
 
 window.onHomeStateChipClick = function(code) {
@@ -1051,6 +1154,8 @@ window.onHomeStateChange = function(code) {
     villSelect.disabled = true;
     villSelect.innerHTML = '<option value="">-- पहले ज़िला चुनें / Select District First --</option>';
     launchBtn.disabled = true;
+
+    window.speakText(`${s.name.split('/')[0]} चुना गया। अब ज़िला चुनें।`);
 };
 
 window.onHomeDistrictChange = function(distName) {
@@ -1076,6 +1181,8 @@ window.onHomeDistrictChange = function(distName) {
     villSelect.disabled = false;
     villSelect.innerHTML = html;
     launchBtn.disabled = false;
+
+    window.speakText(`${distName} चुना गया।`);
 };
 
 window.onHomeVillageChange = function(villName) {
@@ -1155,6 +1262,8 @@ window.onMapStateClick = function(code) {
         </div>`;
     }
     citiesGrid.innerHTML = html;
+
+    window.speakText(`${s.name.split('/')[0]}। राजधानी ${s.capital}। डीबीटी फंड ${s.dbtAmount}। कृपया ज़िला चुनें।`);
 };
 
 window.onMapCityClick = function(cityName) {
@@ -1186,6 +1295,8 @@ window.onMapCityClick = function(cityName) {
         html += `<div class="item-card-chip" onclick="onMapVillageClick('ग्राम पंचायत 2')">🌾 ग्राम पंचायत 2</div>`;
     }
     villagesGrid.innerHTML = html;
+
+    window.speakText(`${cityName} ज़िला चुना गया। गाँव या वार्ड चुनें।`);
 };
 
 window.onMapVillageClick = function(villageName) {
@@ -1204,10 +1315,12 @@ window.backToStep = function(stepNum) {
         document.getElementById('drill-step-1').classList.remove('hidden');
         document.getElementById('drill-step-2').classList.add('hidden');
         document.getElementById('drill-step-3').classList.add('hidden');
+        window.speakText('वापस राज्य सूची।');
     } else if (stepNum === 2) {
         document.getElementById('drill-step-1').classList.add('hidden');
         document.getElementById('drill-step-2').classList.remove('hidden');
         document.getElementById('drill-step-3').classList.add('hidden');
+        window.speakText('वापस ज़िला सूची।');
     }
 };
 
@@ -1224,6 +1337,9 @@ window.selectState = function(code) {
 
     document.getElementById('d-body').innerHTML = buildDrawerContent(s);
     drawer.classList.remove('hidden');
+
+    const dist = currentSelectedDistrict || Object.keys(s.districts || {})[0] || s.capital;
+    window.speakText(`${s.name.split('/')[0]} सुशासन पोर्टल खुला। राजधानी ${s.capital}, मुख्यमंत्री ${s.cm}, कुल जनसंख्या ${s.population}।`);
 };
 
 window.closeDrawer = function() {
@@ -1286,7 +1402,7 @@ function buildDrawerContent(s) {
 }
 
 // ============================================================
-// 10. THEME & FONT UTILITIES
+// 9. THEME & FONT UTILITIES
 // ============================================================
 window.toggleTheme = function() {
     const isLightNow = document.body.classList.toggle('light-theme');
@@ -1296,15 +1412,18 @@ window.toggleTheme = function() {
     if (isLightNow) {
         if (txtEl) txtEl.textContent = 'Dark Mode';
         if (btnEl) btnEl.innerHTML = '<i class="fa-solid fa-moon"></i> <span id="theme-btn-text">Dark Mode</span>';
+        window.speakText('लाइट थीम सक्रिय।');
     } else {
         if (txtEl) txtEl.textContent = 'Light Mode';
         if (btnEl) btnEl.innerHTML = '<i class="fa-solid fa-sun" style="color:#f59e0b"></i> <span id="theme-btn-text">Light Mode</span>';
+        window.speakText('डार्क थीम सक्रिय।');
     }
 };
 
 window.adjustFontSize = function(delta) {
     currentFontSizePx = Math.max(13, Math.min(20, currentFontSizePx + delta));
     document.documentElement.style.fontSize = currentFontSizePx + 'px';
+    window.speakText(delta > 0 ? 'फ़ॉन्ट साइज बढ़ाया गया।' : 'फ़ॉन्ट साइज घटाया गया।');
 };
 
 window.toggleLanguage = function() {
