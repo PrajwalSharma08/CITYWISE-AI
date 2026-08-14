@@ -98,9 +98,9 @@
                     <i class="fa-solid fa-house"></i> 
                     <span id="nav-txt-home">मुख्य पृष्ठ <small>Home</small></span>
                 </button>
-                <button class="nav-btn" id="nav-map" onclick="switchPage('map')">
+                <button class="nav-btn" id="nav-map" onclick="switchPage('helplines')">
                     <i class="fa-solid fa-map-location-dot"></i> 
-                    <span id="nav-txt-map">भारत नक्शा Explorer <small>States & Districts</small></span>
+                    <span id="nav-txt-map">📞 विभागीय हेल्पलाइन <small>All Departments 24x7</small></span>
                 </button>
                 <button class="nav-btn" id="nav-dbt" onclick="switchPage('dbt')">
                     <i class="fa-solid fa-chart-line"></i> 
@@ -148,8 +148,8 @@
             <button class="mobile-nav-item active" onclick="switchPage('home'); toggleMobileMenu();">
                 <i class="fa-solid fa-house"></i> मुख्य पृष्ठ (Home Portal)
             </button>
-            <button class="mobile-nav-item" onclick="switchPage('map'); toggleMobileMenu();">
-                <i class="fa-solid fa-map-location-dot"></i> भारत नक्शा Explorer (States & Districts)
+            <button class="mobile-nav-item" onclick="switchPage('helplines'); toggleMobileMenu();">
+                <i class="fa-solid fa-phone-volume"></i> 📞 विभागीय हेल्पलाइन डायरेक्टरी (24x7 All-India)
             </button>
             <button class="mobile-nav-item" onclick="switchPage('dbt'); toggleMobileMenu();">
                 <i class="fa-solid fa-chart-line"></i> 💰 DBT लाइव ट्रैकर (Live Analytics)
@@ -206,7 +206,7 @@
 
                 <!-- QUICK CITIZEN SERVICE SHORTCUTS -->
                 <div class="hero-quick-services">
-                    <button class="quick-service-btn" onclick="switchPage('map')">
+                    <button class="quick-service-btn" onclick="switchPage('helplines')">
                         <i class="fa-solid fa-map-location-dot" style="color:#6366f1"></i>
                         <span>नक्शा Explorer</span>
                     </button>
@@ -300,8 +300,8 @@
                     </div>
 
                     <div class="card-footer-action">
-                        <button class="btn-link-map" onclick="switchPage('map')">
-                            <i class="fa-solid fa-map-location-dot"></i> <span id="btn-map-link-txt">भारत नक्शा Explorer खोलें</span>
+                        <button class="btn-link-map" onclick="switchPage('helplines')">
+                            <i class="fa-solid fa-map-location-dot"></i> <span id="btn-map-link-txt">विभागीय हेल्पलाइन डायरेक्टरी खोलें</span>
                         </button>
                     </div>
                 </div>
@@ -310,159 +310,71 @@
         </section>
     </div>
 
-        <!-- ===== PAGE 2: CLEAN 50-50 SPLIT 2D INDIA MAP & LOCAL GOVERNANCE EXPLORER ===== -->
-    <div id="page-map" class="page-view">
+            <!-- ===== PAGE 2: NATIONAL & STATE DEPARTMENTAL HELPLINE DIRECTORY ===== -->
+    <div id="page-helplines" class="page-view">
         <section class="page-section">
             <div class="section-header">
-                <div class="section-tag"><i class="fa-solid fa-map-location-dot"></i> <span id="map-sec-tag">CITYWISE AI 2D नक्शा Explorer</span> <small>/ 50-50 Split Governance Hub</small></div>
-                <h2 id="map-sec-title">भारत का 2D डिजिटल नक्शा — राज्य, ज़िला एवं गाँव सुशासन</h2>
-                <p id="map-sec-sub">नक्शे पर किसी भी राज्य पर क्लिक करें या दाईं ओर ज़िला व गाँव चुनकर स्थानीय सुशासन पोर्टल तुरंत खोलें।</p>
+                <div class="section-tag"><i class="fa-solid fa-phone-volume"></i> <span id="hl-sec-tag">CITYWISE AI हेल्पलाइन डायरेक्टरी</span> <small>/ 24x7 National & State Emergency Hub</small></div>
+                <h2 id="hl-sec-title">राष्ट्रीय एवं राज्य विभागीय हेल्पलाइन डायरेक्टरी — 24x7 नागरिक सहायता</h2>
+                <p id="hl-sec-sub">भारत के सभी 28 राज्यों, 8 केंद्र शासित प्रदेशों एवं केंद्र सरकार के सभी विभागों के सत्यापित आपातकालीन टोल-फ्री हेल्पलाइन नंबर। 1-क्लिक में सीधा कॉल करें।</p>
             </div>
 
-            <!-- Breadcrumb Navigation Bar -->
-            <div class="breadcrumb-bar" id="map-breadcrumb">
-                <span class="bc-item active" onclick="resetMapToAllIndia()"><i class="fa-solid fa-flag"></i> भारत (India)</span>
-                <span class="bc-sep"><i class="fa-solid fa-chevron-right"></i></span>
-                <span class="bc-item" id="bc-state">राज्य (State)</span>
-                <span class="bc-sep"><i class="fa-solid fa-chevron-right"></i></span>
-                <span class="bc-item" id="bc-district">ज़िला (District)</span>
-                <span class="bc-sep"><i class="fa-solid fa-chevron-right"></i></span>
-                <span class="bc-item" id="bc-village">गाँव (Village)</span>
+            <!-- Top Helpline Search & State Selector Bar -->
+            <div class="helpline-top-bar glass-card mb-16">
+                <div class="helpline-search-row">
+                    <div class="hl-search-input-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="helpline-search-box" placeholder="विभाग, राज्य या नंबर खोजें (e.g. Police, 112, 108, Ambulance, Bijli, UP, Bihar, Kisan...)" oninput="filterDepartmentHelplines()">
+                    </div>
+                    <div class="hl-state-filter-wrapper">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <select id="helpline-state-select" class="form-control" onchange="onHelplineStateSelect(this.value)">
+                            <option value="ALL">🌐 संपूर्ण भारत (All-India National)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Department Category Filter Pills -->
+                <div class="hl-cat-pills-bar mt-12">
+                    <button class="hl-cat-btn active" onclick="filterHelplineCat('ALL', this)"><i class="fa-solid fa-globe"></i> 🌐 सभी विभाग</button>
+                    <button class="hl-cat-btn" onclick="filterHelplineCat('EMERGENCY', this)"><i class="fa-solid fa-truck-medical"></i> 🚨 आपातकाल (112/108)</button>
+                    <button class="hl-cat-btn" onclick="filterHelplineCat('POLICE', this)"><i class="fa-solid fa-shield-halved"></i> 👮 पुलिस (100/112)</button>
+                    <button class="hl-cat-btn" onclick="filterHelplineCat('CYBER', this)"><i class="fa-solid fa-user-secret"></i> 💻 साइबर सुरक्षा (1930)</button>
+                    <button class="hl-cat-btn" onclick="filterHelplineCat('HEALTH', this)"><i class="fa-solid fa-kit-medical"></i> 🏥 स्वास्थ्य व एम्बुलेंस (108/104)</button>
+                    <button class="hl-cat-btn" onclick="filterHelplineCat('WOMEN', this)"><i class="fa-solid fa-person-dress"></i> 👩 महिला सुरक्षा (1090/181)</button>
+                    <button class="hl-cat-btn" onclick="filterHelplineCat('CHILD', this)"><i class="fa-solid fa-child-reaching"></i> 👶 बाल सहायता (1098)</button>
+                    <button class="hl-cat-btn" onclick="filterHelplineCat('KISAN', this)"><i class="fa-solid fa-wheat-awn"></i> 🌾 किसान व कृषि</button>
+                    <button class="hl-cat-btn" onclick="filterHelplineCat('UTILITY', this)"><i class="fa-solid fa-bolt"></i> ⚡ बिजली व पानी (1912)</button>
+                    <button class="hl-cat-btn" onclick="filterHelplineCat('CM', this)"><i class="fa-solid fa-building-columns"></i> 🏛️ CM जनसेवा हेल्पलाइन</button>
+                    <button class="hl-cat-btn" onclick="filterHelplineCat('TRANSPORT', this)"><i class="fa-solid fa-train"></i> 🚆 रेलवे व परिवहन (139/1033)</button>
+                    <button class="hl-cat-btn" onclick="filterHelplineCat('RIGHTS', this)"><i class="fa-solid fa-scale-balanced"></i> ⚖️ उपभोक्ता व अधिकार (1915)</button>
+                </div>
             </div>
 
-            <!-- Map View Switcher & Region Tabs -->
-            <div class="map-controls-toolbar">
-                <div class="map-mode-tabs">
-                    <button class="map-mode-btn active" id="btn-map-mode-poly" onclick="setMapHeatmapMode('standard', this)">
-                        <i class="fa-solid fa-layer-group"></i> <span>सभी 36 राज्य एवं UTs</span>
-                    </button>
-                    <button class="map-mode-btn" id="btn-map-mode-dbt" onclick="setMapHeatmapMode('dbt', this)">
-                        <i class="fa-solid fa-indian-rupee-sign"></i> <span>DBT फंड रैंकिंग</span>
-                    </button>
-                    <button class="map-mode-btn" id="btn-map-mode-civic" onclick="setMapHeatmapMode('civic', this)">
-                        <i class="fa-solid fa-circle-check"></i> <span>सुशासन संतुष्टि दर</span>
-                    </button>
+            <!-- Quick States Filter Strip -->
+            <div class="hl-state-scroll-strip" id="hl-state-chips-strip">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Helplines Live Count & Metrics Bar -->
+            <div class="hl-metrics-strip mt-12 mb-16">
+                <div class="hl-metric-item">
+                    <span class="hl-m-count" id="hl-active-count">45+</span>
+                    <span class="hl-m-label">सत्यापित विभागीय हेल्पलाइन</span>
                 </div>
-                <div class="map-quick-stats">
-                    <span class="map-stat-badge"><i class="fa-solid fa-shield-halved"></i> 100% सत्यापित</span>
-                    <span class="map-stat-badge" id="selected-state-preview-badge">📍 राज्य चुनें</span>
+                <div class="hl-metric-item">
+                    <span class="hl-m-count text-emerald">100% Toll-Free</span>
+                    <span class="hl-m-label">निःशुल्क 24x7 कॉलिंग सेवा</span>
+                </div>
+                <div class="hl-metric-item">
+                    <span class="hl-m-count text-indigo">28 States + 8 UTs</span>
+                    <span class="hl-m-label">अखिल भारतीय कवरेज</span>
                 </div>
             </div>
 
-            <!-- 50% - 50% SPLIT GRID: LEFT 2D INDIA MAP & RIGHT DISTRICT/VILLAGE EXPLORER -->
-            <div class="map-split-50-50">
-                
-                <!-- LEFT 50%: 2D VECTOR INTERACTIVE INDIA MAP -->
-                <div class="glass-card map-visual-card">
-                    <div class="card-header">
-                        <h3><i class="fa-solid fa-map"></i> <span>2D भारत डिजिटल नक्शा</span> <small>/ Interactive 2D Map</small></h3>
-                        <span class="badge badge-success" id="map-hover-info">28 राज्य व 8 UT</span>
-                    </div>
-
-                    <!-- 2D SVG MAP CONTAINER -->
-                    <div class="clean-map-container">
-                        <div class="svg-india-map-wrapper">
-    <svg viewBox="0 0 620 660" class="svg-india-map" id="india-2d-svg-map" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <linearGradient id="stateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="rgba(99, 102, 241, 0.18)" />
-                <stop offset="100%" stop-color="rgba(168, 85, 247, 0.28)" />
-            </linearGradient>
-            <filter id="mapGlow" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(99, 102, 241, 0.3)"/>
-            </filter>
-        </defs>
-        
-        <!-- Background India Shape Silhouette outline -->
-        <path class="india-outline" d="M170,40 L320,40 L350,110 L280,165 L360,200 L580,160 L570,270 L480,265 L430,340 L370,410 L260,640 L180,630 L110,460 L30,310 L90,170 L160,85 Z" />
-
-        <!-- Interactive States & Union Territories -->
-        <path class="svg-state-shape" id="svg-state-JK" d="M170,50 L220,50 L240,95 L200,120 L160,95 Z" data-code="JK" data-name="जम्मू-कश्मीर" onclick="onMapStateClick('JK')" onmouseenter="showMapTooltip(event, 'JK')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="JK" onclick="onMapStateClick('JK')" onmouseenter="showMapTooltip(event, 'JK')" onmouseleave="hideMapTooltip()"><circle cx="190" cy="80" r="12" class="pin-circle"></circle><text x="190" y="83.5" text-anchor="middle" class="pin-text">JK</text></g> <path class="svg-state-shape" id="svg-state-LA" d="M220,40 L310,40 L330,85 L280,105 L230,85 Z" data-code="LA" data-name="लद्दाख" onclick="onMapStateClick('LA')" onmouseenter="showMapTooltip(event, 'LA')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="LA" onclick="onMapStateClick('LA')" onmouseenter="showMapTooltip(event, 'LA')" onmouseleave="hideMapTooltip()"><circle cx="265" cy="65" r="12" class="pin-circle"></circle><text x="265" y="68.5" text-anchor="middle" class="pin-text">LA</text></g> <path class="svg-state-shape" id="svg-state-HP" d="M195,100 L245,100 L250,140 L200,140 Z" data-code="HP" data-name="हिमाचल" onclick="onMapStateClick('HP')" onmouseenter="showMapTooltip(event, 'HP')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="HP" onclick="onMapStateClick('HP')" onmouseenter="showMapTooltip(event, 'HP')" onmouseleave="hideMapTooltip()"><circle cx="220" cy="125" r="12" class="pin-circle"></circle><text x="220" y="128.5" text-anchor="middle" class="pin-text">HP</text></g> <path class="svg-state-shape" id="svg-state-PB" d="M150,120 L195,120 L195,160 L150,160 Z" data-code="PB" data-name="पंजाब" onclick="onMapStateClick('PB')" onmouseenter="showMapTooltip(event, 'PB')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="PB" onclick="onMapStateClick('PB')" onmouseenter="showMapTooltip(event, 'PB')" onmouseleave="hideMapTooltip()"><circle cx="170" cy="140" r="12" class="pin-circle"></circle><text x="170" y="143.5" text-anchor="middle" class="pin-text">PB</text></g> <path class="svg-state-shape" id="svg-state-UK" d="M235,130 L285,130 L275,170 L230,165 Z" data-code="UK" data-name="उत्तराखंड" onclick="onMapStateClick('UK')" onmouseenter="showMapTooltip(event, 'UK')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="UK" onclick="onMapStateClick('UK')" onmouseenter="showMapTooltip(event, 'UK')" onmouseleave="hideMapTooltip()"><circle cx="255" cy="150" r="12" class="pin-circle"></circle><text x="255" y="153.5" text-anchor="middle" class="pin-text">UK</text></g> <path class="svg-state-shape" id="svg-state-HR" d="M175,155 L215,155 L215,195 L175,190 Z" data-code="HR" data-name="हरियाणा" onclick="onMapStateClick('HR')" onmouseenter="showMapTooltip(event, 'HR')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="HR" onclick="onMapStateClick('HR')" onmouseenter="showMapTooltip(event, 'HR')" onmouseleave="hideMapTooltip()"><circle cx="195" cy="175" r="12" class="pin-circle"></circle><text x="195" y="178.5" text-anchor="middle" class="pin-text">HR</text></g> <path class="svg-state-shape" id="svg-state-DL" d="M210,175 L225,175 L225,188 L210,188 Z" data-code="DL" data-name="दिल्ली" onclick="onMapStateClick('DL')" onmouseenter="showMapTooltip(event, 'DL')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="DL" onclick="onMapStateClick('DL')" onmouseenter="showMapTooltip(event, 'DL')" onmouseleave="hideMapTooltip()"><circle cx="215" cy="180" r="12" class="pin-circle"></circle><text x="215" y="183.5" text-anchor="middle" class="pin-text">DL</text></g> <path class="svg-state-shape" id="svg-state-RJ" d="M90,170 L175,170 L200,240 L160,300 L95,250 Z" data-code="RJ" data-name="राजस्थान" onclick="onMapStateClick('RJ')" onmouseenter="showMapTooltip(event, 'RJ')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="RJ" onclick="onMapStateClick('RJ')" onmouseenter="showMapTooltip(event, 'RJ')" onmouseleave="hideMapTooltip()"><circle cx="140" cy="230" r="12" class="pin-circle"></circle><text x="140" y="233.5" text-anchor="middle" class="pin-text">RJ</text></g> <path class="svg-state-shape" id="svg-state-UP" d="M205,175 L320,185 L350,250 L270,265 L210,230 Z" data-code="UP" data-name="उत्तर प्रदेश" onclick="onMapStateClick('UP')" onmouseenter="showMapTooltip(event, 'UP')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="UP" onclick="onMapStateClick('UP')" onmouseenter="showMapTooltip(event, 'UP')" onmouseleave="hideMapTooltip()"><circle cx="270" cy="220" r="12" class="pin-circle"></circle><text x="270" y="223.5" text-anchor="middle" class="pin-text">UP</text></g> <path class="svg-state-shape" id="svg-state-BR" d="M335,215 L415,220 L405,270 L340,265 Z" data-code="BR" data-name="बिहार" onclick="onMapStateClick('BR')" onmouseenter="showMapTooltip(event, 'BR')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="BR" onclick="onMapStateClick('BR')" onmouseenter="showMapTooltip(event, 'BR')" onmouseleave="hideMapTooltip()"><circle cx="370" cy="240" r="12" class="pin-circle"></circle><text x="370" y="243.5" text-anchor="middle" class="pin-text">BR</text></g> <path class="svg-state-shape" id="svg-state-SK" d="M410,180 L430,180 L430,200 L410,200 Z" data-code="SK" data-name="सिक्किम" onclick="onMapStateClick('SK')" onmouseenter="showMapTooltip(event, 'SK')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="SK" onclick="onMapStateClick('SK')" onmouseenter="showMapTooltip(event, 'SK')" onmouseleave="hideMapTooltip()"><circle cx="420" cy="190" r="12" class="pin-circle"></circle><text x="420" y="193.5" text-anchor="middle" class="pin-text">SK</text></g> <path class="svg-state-shape" id="svg-state-AR" d="M480,160 L570,160 L580,200 L510,200 Z" data-code="AR" data-name="अरुणाचल" onclick="onMapStateClick('AR')" onmouseenter="showMapTooltip(event, 'AR')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="AR" onclick="onMapStateClick('AR')" onmouseenter="showMapTooltip(event, 'AR')" onmouseleave="hideMapTooltip()"><circle cx="540" cy="180" r="12" class="pin-circle"></circle><text x="540" y="183.5" text-anchor="middle" class="pin-text">AR</text></g> <path class="svg-state-shape" id="svg-state-AS" d="M440,205 L540,205 L530,245 L450,240 Z" data-code="AS" data-name="असम" onclick="onMapStateClick('AS')" onmouseenter="showMapTooltip(event, 'AS')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="AS" onclick="onMapStateClick('AS')" onmouseenter="showMapTooltip(event, 'AS')" onmouseleave="hideMapTooltip()"><circle cx="490" cy="220" r="12" class="pin-circle"></circle><text x="490" y="223.5" text-anchor="middle" class="pin-text">AS</text></g> <path class="svg-state-shape" id="svg-state-ML" d="M445,238 L495,238 L495,255 L445,255 Z" data-code="ML" data-name="मेघालय" onclick="onMapStateClick('ML')" onmouseenter="showMapTooltip(event, 'ML')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="ML" onclick="onMapStateClick('ML')" onmouseenter="showMapTooltip(event, 'ML')" onmouseleave="hideMapTooltip()"><circle cx="470" cy="245" r="12" class="pin-circle"></circle><text x="470" y="248.5" text-anchor="middle" class="pin-text">ML</text></g> <path class="svg-state-shape" id="svg-state-NL" d="M540,205 L570,205 L565,235 L540,235 Z" data-code="NL" data-name="नागालैंड" onclick="onMapStateClick('NL')" onmouseenter="showMapTooltip(event, 'NL')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="NL" onclick="onMapStateClick('NL')" onmouseenter="showMapTooltip(event, 'NL')" onmouseleave="hideMapTooltip()"><circle cx="555" cy="220" r="12" class="pin-circle"></circle><text x="555" y="223.5" text-anchor="middle" class="pin-text">NL</text></g> <path class="svg-state-shape" id="svg-state-MN" d="M535,238 L565,238 L560,268 L535,268 Z" data-code="MN" data-name="मणिपुर" onclick="onMapStateClick('MN')" onmouseenter="showMapTooltip(event, 'MN')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="MN" onclick="onMapStateClick('MN')" onmouseenter="showMapTooltip(event, 'MN')" onmouseleave="hideMapTooltip()"><circle cx="550" cy="250" r="12" class="pin-circle"></circle><text x="550" y="253.5" text-anchor="middle" class="pin-text">MN</text></g> <path class="svg-state-shape" id="svg-state-MZ" d="M525,270 L548,270 L545,305 L525,305 Z" data-code="MZ" data-name="मिजोरम" onclick="onMapStateClick('MZ')" onmouseenter="showMapTooltip(event, 'MZ')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="MZ" onclick="onMapStateClick('MZ')" onmouseenter="showMapTooltip(event, 'MZ')" onmouseleave="hideMapTooltip()"><circle cx="535" cy="285" r="12" class="pin-circle"></circle><text x="535" y="288.5" text-anchor="middle" class="pin-text">MZ</text></g> <path class="svg-state-shape" id="svg-state-TR" d="M495,262 L518,262 L515,288 L495,288 Z" data-code="TR" data-name="त्रिपुरा" onclick="onMapStateClick('TR')" onmouseenter="showMapTooltip(event, 'TR')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="TR" onclick="onMapStateClick('TR')" onmouseenter="showMapTooltip(event, 'TR')" onmouseleave="hideMapTooltip()"><circle cx="505" cy="275" r="12" class="pin-circle"></circle><text x="505" y="278.5" text-anchor="middle" class="pin-text">TR</text></g> <path class="svg-state-shape" id="svg-state-WB" d="M390,265 L430,250 L440,335 L395,335 Z" data-code="WB" data-name="पश्चिम बंगाल" onclick="onMapStateClick('WB')" onmouseenter="showMapTooltip(event, 'WB')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="WB" onclick="onMapStateClick('WB')" onmouseenter="showMapTooltip(event, 'WB')" onmouseleave="hideMapTooltip()"><circle cx="415" cy="290" r="12" class="pin-circle"></circle><text x="415" y="293.5" text-anchor="middle" class="pin-text">WB</text></g> <path class="svg-state-shape" id="svg-state-JH" d="M335,265 L400,268 L390,320 L330,315 Z" data-code="JH" data-name="झारखंड" onclick="onMapStateClick('JH')" onmouseenter="showMapTooltip(event, 'JH')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="JH" onclick="onMapStateClick('JH')" onmouseenter="showMapTooltip(event, 'JH')" onmouseleave="hideMapTooltip()"><circle cx="365" cy="290" r="12" class="pin-circle"></circle><text x="365" y="293.5" text-anchor="middle" class="pin-text">JH</text></g> <path class="svg-state-shape" id="svg-state-OD" d="M330,320 L410,325 L380,400 L320,380 Z" data-code="OD" data-name="ओडिशा" onclick="onMapStateClick('OD')" onmouseenter="showMapTooltip(event, 'OD')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="OD" onclick="onMapStateClick('OD')" onmouseenter="showMapTooltip(event, 'OD')" onmouseleave="hideMapTooltip()"><circle cx="370" cy="355" r="12" class="pin-circle"></circle><text x="370" y="358.5" text-anchor="middle" class="pin-text">OD</text></g> <path class="svg-state-shape" id="svg-state-CT" d="M280,280 L335,280 L330,390 L280,360 Z" data-code="CT" data-name="छत्तीसगढ़" onclick="onMapStateClick('CT')" onmouseenter="showMapTooltip(event, 'CT')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="CT" onclick="onMapStateClick('CT')" onmouseenter="showMapTooltip(event, 'CT')" onmouseleave="hideMapTooltip()"><circle cx="305" cy="330" r="12" class="pin-circle"></circle><text x="305" y="333.5" text-anchor="middle" class="pin-text">CT</text></g> <path class="svg-state-shape" id="svg-state-MP" d="M175,250 L310,250 L310,325 L200,330 L160,285 Z" data-code="MP" data-name="मध्य प्रदेश" onclick="onMapStateClick('MP')" onmouseenter="showMapTooltip(event, 'MP')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="MP" onclick="onMapStateClick('MP')" onmouseenter="showMapTooltip(event, 'MP')" onmouseleave="hideMapTooltip()"><circle cx="235" cy="285" r="12" class="pin-circle"></circle><text x="235" y="288.5" text-anchor="middle" class="pin-text">MP</text></g> <path class="svg-state-shape" id="svg-state-GJ" d="M40,260 L140,260 L145,350 L75,360 L30,310 Z" data-code="GJ" data-name="गुजरात" onclick="onMapStateClick('GJ')" onmouseenter="showMapTooltip(event, 'GJ')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="GJ" onclick="onMapStateClick('GJ')" onmouseenter="showMapTooltip(event, 'GJ')" onmouseleave="hideMapTooltip()"><circle cx="95" cy="305" r="12" class="pin-circle"></circle><text x="95" y="308.5" text-anchor="middle" class="pin-text">GJ</text></g> <path class="svg-state-shape" id="svg-state-MH" d="M120,345 L280,340 L260,440 L140,435 L115,370 Z" data-code="MH" data-name="महाराष्ट्र" onclick="onMapStateClick('MH')" onmouseenter="showMapTooltip(event, 'MH')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="MH" onclick="onMapStateClick('MH')" onmouseenter="showMapTooltip(event, 'MH')" onmouseleave="hideMapTooltip()"><circle cx="190" cy="385" r="12" class="pin-circle"></circle><text x="190" y="388.5" text-anchor="middle" class="pin-text">MH</text></g> <path class="svg-state-shape" id="svg-state-TS" d="M220,395 L295,395 L285,460 L225,455 Z" data-code="TS" data-name="तेलंगाना" onclick="onMapStateClick('TS')" onmouseenter="showMapTooltip(event, 'TS')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="TS" onclick="onMapStateClick('TS')" onmouseenter="showMapTooltip(event, 'TS')" onmouseleave="hideMapTooltip()"><circle cx="260" cy="420" r="12" class="pin-circle"></circle><text x="260" y="423.5" text-anchor="middle" class="pin-text">TS</text></g> <path class="svg-state-shape" id="svg-state-AP" d="M235,455 L325,410 L280,535 L225,510 Z" data-code="AP" data-name="आंध्र प्रदेश" onclick="onMapStateClick('AP')" onmouseenter="showMapTooltip(event, 'AP')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="AP" onclick="onMapStateClick('AP')" onmouseenter="showMapTooltip(event, 'AP')" onmouseleave="hideMapTooltip()"><circle cx="275" cy="475" r="12" class="pin-circle"></circle><text x="275" y="478.5" text-anchor="middle" class="pin-text">AP</text></g> <path class="svg-state-shape" id="svg-state-KA" d="M145,430 L225,435 L215,540 L160,525 Z" data-code="KA" data-name="कर्नाटक" onclick="onMapStateClick('KA')" onmouseenter="showMapTooltip(event, 'KA')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="KA" onclick="onMapStateClick('KA')" onmouseenter="showMapTooltip(event, 'KA')" onmouseleave="hideMapTooltip()"><circle cx="180" cy="475" r="12" class="pin-circle"></circle><text x="180" y="478.5" text-anchor="middle" class="pin-text">KA</text></g> <path class="svg-state-shape" id="svg-state-GA" d="M135,445 L150,445 L150,460 L135,460 Z" data-code="GA" data-name="गोवा" onclick="onMapStateClick('GA')" onmouseenter="showMapTooltip(event, 'GA')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="GA" onclick="onMapStateClick('GA')" onmouseenter="showMapTooltip(event, 'GA')" onmouseleave="hideMapTooltip()"><circle cx="140" cy="450" r="12" class="pin-circle"></circle><text x="140" y="453.5" text-anchor="middle" class="pin-text">GA</text></g> <path class="svg-state-shape" id="svg-state-KL" d="M175,535 L205,535 L190,620 L165,595 Z" data-code="KL" data-name="केरल" onclick="onMapStateClick('KL')" onmouseenter="showMapTooltip(event, 'KL')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="KL" onclick="onMapStateClick('KL')" onmouseenter="showMapTooltip(event, 'KL')" onmouseleave="hideMapTooltip()"><circle cx="190" cy="575" r="12" class="pin-circle"></circle><text x="190" y="578.5" text-anchor="middle" class="pin-text">KL</text></g> <path class="svg-state-shape" id="svg-state-TN" d="M205,525 L275,520 L245,630 L200,620 Z" data-code="TN" data-name="तमिलनाडु" onclick="onMapStateClick('TN')" onmouseenter="showMapTooltip(event, 'TN')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="TN" onclick="onMapStateClick('TN')" onmouseenter="showMapTooltip(event, 'TN')" onmouseleave="hideMapTooltip()"><circle cx="235" cy="570" r="12" class="pin-circle"></circle><text x="235" y="573.5" text-anchor="middle" class="pin-text">TN</text></g> <path class="svg-state-shape" id="svg-state-PY" d="M265,550 L275,550 L275,560 L265,560 Z" data-code="PY" data-name="पुडुचेरी" onclick="onMapStateClick('PY')" onmouseenter="showMapTooltip(event, 'PY')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="PY" onclick="onMapStateClick('PY')" onmouseenter="showMapTooltip(event, 'PY')" onmouseleave="hideMapTooltip()"><circle cx="270" cy="555" r="12" class="pin-circle"></circle><text x="270" y="558.5" text-anchor="middle" class="pin-text">PY</text></g> <path class="svg-state-shape" id="svg-state-CH" d="M190,130 L200,130 L200,140 L190,140 Z" data-code="CH" data-name="चंडीगढ़" onclick="onMapStateClick('CH')" onmouseenter="showMapTooltip(event, 'CH')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="CH" onclick="onMapStateClick('CH')" onmouseenter="showMapTooltip(event, 'CH')" onmouseleave="hideMapTooltip()"><circle cx="195" cy="135" r="12" class="pin-circle"></circle><text x="195" y="138.5" text-anchor="middle" class="pin-text">CH</text></g> <path class="svg-state-shape" id="svg-state-AN" d="M510,480 L530,480 L530,560 L510,560 Z" data-code="AN" data-name="अंडमान" onclick="onMapStateClick('AN')" onmouseenter="showMapTooltip(event, 'AN')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="AN" onclick="onMapStateClick('AN')" onmouseenter="showMapTooltip(event, 'AN')" onmouseleave="hideMapTooltip()"><circle cx="520" cy="520" r="12" class="pin-circle"></circle><text x="520" y="523.5" text-anchor="middle" class="pin-text">AN</text></g> <path class="svg-state-shape" id="svg-state-LD" d="M100,530 L120,530 L120,590 L100,590 Z" data-code="LD" data-name="लक्षद्वीप" onclick="onMapStateClick('LD')" onmouseenter="showMapTooltip(event, 'LD')" onmouseleave="hideMapTooltip()"></path> <g class="svg-state-pin" data-code="LD" onclick="onMapStateClick('LD')" onmouseenter="showMapTooltip(event, 'LD')" onmouseleave="hideMapTooltip()"><circle cx="110" cy="560" r="12" class="pin-circle"></circle><text x="110" y="563.5" text-anchor="middle" class="pin-text">LD</text></g>
-    </svg>
-    <div id="map-live-tooltip" class="map-tooltip-popup hidden"></div>
-</div>
-
-                        <div class="map-quick-callout">
-                            <i class="fa-solid fa-hand-pointer fa-bounce"></i>
-                            <span>नक्शे में किसी भी राज्य पर क्लिक करें या नीचे दिए गए ज़ोन चुनें</span>
-                        </div>
-                    </div>
-
-                    <!-- Compact Regional Zone Tags Under 2D Map -->
-                    <div class="map-zone-quick-bar">
-                        <button class="zone-quick-btn zone-north-btn" onclick="filterMapByRegion('North')">🏔️ उत्तर भारत</button>
-                        <button class="zone-quick-btn zone-central-btn" onclick="filterMapByRegion('Central')">🌾 मध्य व पश्चिम</button>
-                        <button class="zone-quick-btn zone-east-btn" onclick="filterMapByRegion('East')">🎨 पूर्व व पूर्वोत्तर</button>
-                        <button class="zone-quick-btn zone-south-btn" onclick="filterMapByRegion('South')">🛕 दक्षिण भारत</button>
-                    </div>
-
-                    <!-- Clean State Tags Carousel Below Map -->
-                    <div class="state-quick-scroll-strip" id="map-quick-scroll-strip">
-                        <!-- Populated by app.js -->
-                    </div>
-                </div>
-
-                <!-- RIGHT 50%: DISTRICT & VILLAGE SELECTOR + LIVE DRILLDOWN PANEL -->
-                <div class="glass-card drill-results-card">
-                    <div class="card-header">
-                        <h3 id="drill-header-title"><i class="fa-solid fa-sitemap"></i> <span>स्थान, ज़िला एवं गाँव चयन</span> <small>/ Location Drill-Down</small></h3>
-                        <span class="badge badge-info" id="drill-badge">36 राज्य उपलब्ध</span>
-                    </div>
-
-                    <!-- 1. DIRECT 3-TIER DROPDOWN LOCATION SELECTOR -->
-                    <div class="map-quick-selectors-box">
-                        <div class="step-box mb-8">
-                            <label><span class="step-num">1</span> <span>राज्य / UT चुनें (Select State):</span></label>
-                            <select id="map-select-state" class="form-control" onchange="onMapDropdownStateChange(this.value)">
-                                <option value="">-- राज्य चुनें / Select State --</option>
-                            </select>
-                        </div>
-
-                        <div class="step-box mb-8">
-                            <label><span class="step-num">2</span> <span>ज़िला / शहर चुनें (Select District / City):</span></label>
-                            <select id="map-select-district" class="form-control" disabled onchange="onMapDropdownDistrictChange(this.value)">
-                                <option value="">-- पहले राज्य चुनें / Select State First --</option>
-                            </select>
-                        </div>
-
-                        <div class="step-box mb-8">
-                            <label><span class="step-num">3</span> <span>गाँव / वार्ड चुनें (Select Village / Ward):</span></label>
-                            <select id="map-select-village" class="form-control" disabled onchange="onMapDropdownVillageChange(this.value)">
-                                <option value="">-- पहले ज़िला चुनें / Select District First --</option>
-                            </select>
-                        </div>
-
-                        <button class="btn btn-gradient w-100 btn-md" id="map-btn-launch" onclick="launchMapSelectedPortal()">
-                            <i class="fa-solid fa-arrow-right-to-bracket"></i> <span>स्थानीय सुशासन पोर्टल खोलें</span>
-                        </button>
-                    </div>
-
-                    <!-- 2. INSTANT SEARCH & 3-STEP CARDS DRILLDOWN -->
-                    <div id="drill-panel-body" class="drill-panel-body mt-12">
-                        <!-- Step 1: States Grid -->
-                        <div id="drill-step-1" class="drill-step">
-                            <div class="drill-search-bar">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                                <input type="text" id="state-search-box" placeholder="राज्य, शहर, ज़िला या गाँव का नाम खोजें (e.g. Mumbai, Patna, Indore, Belahi...)" oninput="filterMapStatesList(this.value)">
-                            </div>
-                            <div class="map-states-grid" id="map-states-grid"></div>
-                        </div>
-
-                        <!-- Step 2: Districts Grid -->
-                        <div id="drill-step-2" class="drill-step hidden">
-                            <button class="btn-back-sm" onclick="backToStep(1)"><i class="fa-solid fa-arrow-left"></i> वापस राज्य बदलें</button>
-                            <h4 id="city-step-title"><i class="fa-solid fa-city"></i> शहर या ज़िला चुनें (Select District):</h4>
-                            <div class="cities-grid" id="cities-grid"></div>
-                        </div>
-
-                        <!-- Step 3: Villages Grid -->
-                        <div id="drill-step-3" class="drill-step hidden">
-                            <button class="btn-back-sm" onclick="backToStep(2)"><i class="fa-solid fa-arrow-left"></i> वापस शहर बदलें</button>
-                            <h4 id="village-step-title"><i class="fa-solid fa-wheat-awn"></i> गाँव या वार्ड चुनें (Select Village):</h4>
-                            <div class="villages-grid" id="villages-grid"></div>
-                        </div>
-                    </div>
-                </div>
+            <!-- DEPARTMENT HELPLINES CARDS GRID -->
+            <div class="helplines-cards-grid" id="helplines-cards-container">
+                <!-- Populated by JS -->
             </div>
         </section>
     </div>
@@ -888,9 +800,9 @@
             <i class="fa-solid fa-house"></i>
             <span>होम</span>
         </button>
-        <button class="m-bottom-btn" id="m-nav-map" onclick="switchPage('map')">
+        <button class="m-bottom-btn" id="m-nav-map" onclick="switchPage('helplines')">
             <i class="fa-solid fa-map-location-dot"></i>
-            <span>नक्शा</span>
+            <span>हेल्पलाइन</span>
         </button>
         <button class="m-bottom-btn" id="m-nav-dbt" onclick="switchPage('dbt')">
             <i class="fa-solid fa-chart-line"></i>

@@ -2429,117 +2429,660 @@ window.closePrivacySecurityModal = function() {
 // 2. CLEAN STATE EXPLORER MAP ENGINE
 // ============================================================
 
+
 // ============================================================
-// 2. 2D SVG INDIA MAP & MAP DROPDOWN CONTROLS
+// 2. NATIONAL & STATE DEPARTMENTAL HELPLINES DIRECTORY ENGINE
 // ============================================================
-function initCleanStateMap() {
-    renderMapStatesList();
-    renderQuickScrollStrip();
-    populateMapDropdowns();
-}
-
-function populateMapDropdowns() {
-    const mapStateSelect = document.getElementById('map-select-state');
-    if (!mapStateSelect) return;
-
-    let html = '<option value="">-- राज्य चुनें / Select State --</option>';
-    Object.keys(STATE_DB).forEach(code => {
-        const s = STATE_DB[code];
-        html += `<option value="${code}">${s.emoji} ${s.name}</option>`;
-    });
-    mapStateSelect.innerHTML = html;
-}
-
-window.showMapTooltip = function(e, code) {
-    const s = STATE_DB[code];
-    if (!s) return;
-    const tt = document.getElementById('map-live-tooltip');
-    if (!tt) return;
-    
-    tt.innerHTML = `<b>${s.emoji} ${s.name.split('/')[0]}</b><br><small>📍 राजधानी: ${s.capital}<br>💰 DBT: ${s.dbtAmount}<br>🏛️ संतुष्टि: ${s.dbtRating}</small>`;
-    tt.classList.remove('hidden');
-    
-    const wrapper = document.querySelector('.svg-india-map-wrapper');
-    if (wrapper) {
-        const rect = wrapper.getBoundingClientRect();
-        const x = e.clientX - rect.left + 12;
-        const y = e.clientY - rect.top + 12;
-        tt.style.left = Math.min(x, rect.width - 150) + 'px';
-        tt.style.top = Math.min(y, rect.height - 80) + 'px';
+const DEPARTMENT_HELPLINES_DB = [
+    {
+        "dept": "राष्ट्रीय आपातकालीन एकीकृत सेवा / National Emergency (All-in-One)",
+        "cat": "EMERGENCY",
+        "icon": "<i class=\"fa-solid fa-truck-medical\"></i>",
+        "bg": "rgba(244, 63, 94, 0.12)",
+        "color": "#f43f5e",
+        "num": "112",
+        "tollFree": "112",
+        "state": "ALL",
+        "desc": "पुलिस, एम्बुलेंस, दमकल (Fire) एवं आपातकालीन आपदा सहायता के लिए एकल राष्ट्रीय नंबर। 24x7 निःशुल्क।"
+    },
+    {
+        "dept": "पुलिस नियंत्रण कक्ष / Police Control Room",
+        "cat": "POLICE",
+        "icon": "<i class=\"fa-solid fa-shield-halved\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "100",
+        "tollFree": "100",
+        "state": "ALL",
+        "desc": "कानून व्यवस्था, तत्काल पुलिस सहायता एवं अपराध नियंत्रण केंद्र। 24x7 तत्काल प्रतिक्रिया।"
+    },
+    {
+        "dept": "अग्निशमन सेवा / Fire Emergency Service",
+        "cat": "EMERGENCY",
+        "icon": "<i class=\"fa-solid fa-fire-extinguisher\"></i>",
+        "bg": "rgba(239, 68, 68, 0.12)",
+        "color": "#ef4444",
+        "num": "101",
+        "tollFree": "101",
+        "state": "ALL",
+        "desc": "आग लगने, गैस रिसाव या औद्योगिक दुर्घटना में तत्काल दमकल सहायता हेतु।"
+    },
+    {
+        "dept": "ट्रैफिक पुलिस हेल्पलाइन / Traffic Helpline",
+        "cat": "POLICE",
+        "icon": "<i class=\"fa-solid fa-traffic-light\"></i>",
+        "bg": "rgba(245, 158, 11, 0.12)",
+        "color": "#f59e0b",
+        "num": "1095 / 103",
+        "tollFree": "1095",
+        "state": "ALL",
+        "desc": "सड़क जाम, आपातकालीन रास्ता निकासी एवं ट्रैफिक सहायता।"
+    },
+    {
+        "dept": "राष्ट्रीय साइबर अपराध एवं वित्तीय धोखाधड़ी हेल्पलाइन / Cyber Crime Helpline",
+        "cat": "CYBER",
+        "icon": "<i class=\"fa-solid fa-user-secret\"></i>",
+        "bg": "rgba(16, 185, 129, 0.12)",
+        "color": "#10b981",
+        "num": "1930",
+        "tollFree": "1930",
+        "state": "ALL",
+        "desc": "ऑनलाइन बैंक फ्रॉड, UPI धोखाधड़ी या सोशल मीडिया हैकिंग की तत्काल रिपोर्ट करें और पैसे फ्रीज कराएं।"
+    },
+    {
+        "dept": "राष्ट्रीय एम्बुलेंस सेवा / National Health Ambulance",
+        "cat": "HEALTH",
+        "icon": "<i class=\"fa-solid fa-kit-medical\"></i>",
+        "bg": "rgba(244, 63, 94, 0.12)",
+        "color": "#f43f5e",
+        "num": "108",
+        "tollFree": "108",
+        "state": "ALL",
+        "desc": "गंभीर बीमारी, दुर्घटना, हार्ट अटैक या इमरजेंसी में GPS युक्त एम्बुलेंस 15-20 मिनट में पहुंचेगी।"
+    },
+    {
+        "dept": "मातृ एवं शिशु स्वास्थ्य एम्बुलेंस / Matritva & Child Health (Janani Express)",
+        "cat": "HEALTH",
+        "icon": "<i class=\"fa-solid fa-baby\"></i>",
+        "bg": "rgba(236, 72, 153, 0.12)",
+        "color": "#ec4899",
+        "num": "102",
+        "tollFree": "102",
+        "state": "ALL",
+        "desc": "गर्भवती महिलाओं के प्रसव एवं नवजात शिशुओं के लिए मुफ्त अस्पताल परिवहन सेवा।"
+    },
+    {
+        "dept": "राष्ट्रीय स्वास्थ्य सूचना एवं परामर्श / Health Information Helpline",
+        "cat": "HEALTH",
+        "icon": "<i class=\"fa-solid fa-stethoscope\"></i>",
+        "bg": "rgba(56, 189, 248, 0.12)",
+        "color": "#38bdf8",
+        "num": "104",
+        "tollFree": "104",
+        "state": "ALL",
+        "desc": "मुफ्त डॉक्टर परामर्श, दवाइयों की जानकारी एवं सरकारी अस्पतालों में बेड उपलब्धता।"
+    },
+    {
+        "dept": "राष्ट्रीय मानसिक स्वास्थ्य हेल्पलाइन (Tele-MANAS) / Mental Health Helpline",
+        "cat": "HEALTH",
+        "icon": "<i class=\"fa-solid fa-brain\"></i>",
+        "bg": "rgba(139, 92, 246, 0.12)",
+        "color": "#8b5cf6",
+        "num": "14416 / 1800-891-4416",
+        "tollFree": "14416",
+        "state": "ALL",
+        "desc": "तनाव, डिप्रेशन या मानसिक परेशानी के लिए 24x7 मुफ्त मनोवैज्ञानिक काउंसलिंग (20+ भाषाओं में)।"
+    },
+    {
+        "dept": "महिला हेल्पलाइन एवं सुरक्षा प्रकोष्ठ / Women Helpline (Domestic & Public)",
+        "cat": "WOMEN",
+        "icon": "<i class=\"fa-solid fa-person-dress\"></i>",
+        "bg": "rgba(236, 72, 153, 0.12)",
+        "color": "#ec4899",
+        "num": "1090 / 181",
+        "tollFree": "1090",
+        "state": "ALL",
+        "desc": "घरेलू हिंसा, छेड़छाड़, साइबर उत्पीड़न या असुरक्षा की स्थिति में तत्काल कानूनी व पुलिस सहायता।"
+    },
+    {
+        "dept": "राष्ट्रीय महिला आयोग (NCW) संकट हेल्पलाइन / NCW Helpline",
+        "cat": "WOMEN",
+        "icon": "<i class=\"fa-solid fa-hand-holding-heart\"></i>",
+        "bg": "rgba(244, 63, 94, 0.12)",
+        "color": "#f43f5e",
+        "num": "7827-170-170",
+        "tollFree": "7827170170",
+        "state": "ALL",
+        "desc": "महिलाओं के विरुद्ध अपराधों पर त्वरित राष्ट्रीय संज्ञान एवं कानूनी सहायता।"
+    },
+    {
+        "dept": "राष्ट्रीय बाल सुरक्षा हेल्पलाइन / Childline Helpline",
+        "cat": "CHILD",
+        "icon": "<i class=\"fa-solid fa-child-reaching\"></i>",
+        "bg": "rgba(245, 158, 11, 0.12)",
+        "color": "#f59e0b",
+        "num": "1098",
+        "tollFree": "1098",
+        "state": "ALL",
+        "desc": "लापता बच्चों, बाल श्रम, बाल शोषण या संकटग्रस्त बच्चों के बचाव व पुनर्वास हेतु 24x7 सेवा।"
+    },
+    {
+        "dept": "किसान कॉल सेंटर (कृषि विभाग) / Kisan Call Center",
+        "cat": "KISAN",
+        "icon": "<i class=\"fa-solid fa-wheat-awn\"></i>",
+        "bg": "rgba(16, 185, 129, 0.12)",
+        "color": "#10b981",
+        "num": "1800-180-1551",
+        "tollFree": "18001801551",
+        "state": "ALL",
+        "desc": "फसल रोग, बीज, खाद, PM-किसान सम्मान निधि, मौसम पूर्वानुमान एवं मंडी भाव की विशेषज्ञ सलाह।"
+    },
+    {
+        "dept": "PM फसल बीमा योजना हेल्पलाइन / Crop Insurance Help",
+        "cat": "KISAN",
+        "icon": "<i class=\"fa-solid fa-cloud-sun-rain\"></i>",
+        "bg": "rgba(56, 189, 248, 0.12)",
+        "color": "#38bdf8",
+        "num": "14447",
+        "tollFree": "14447",
+        "state": "ALL",
+        "desc": "सूखा, बाढ़ या बेमौसम बारिश से फसल नुकसान का क्लेम व बीमा स्थिति जांच।"
+    },
+    {
+        "dept": "विद्युत आपूर्ति एवं शिकायत विभाग / Electricity Board Power Helpline",
+        "cat": "UTILITY",
+        "icon": "<i class=\"fa-solid fa-bolt\"></i>",
+        "bg": "rgba(245, 158, 11, 0.12)",
+        "color": "#f59e0b",
+        "num": "1912",
+        "tollFree": "1912",
+        "state": "ALL",
+        "desc": "बिजली कटौती, ट्रांसफार्मर खराबी, मीटर समस्या या नए कनेक्शन हेतु अखिल भारतीय नंबर।"
+    },
+    {
+        "dept": "जल आपूर्ति एवं सीवरेज बोर्ड / Water Supply & Municipal Works",
+        "cat": "UTILITY",
+        "icon": "<i class=\"fa-solid fa-faucet-drip\"></i>",
+        "bg": "rgba(6, 182, 212, 0.12)",
+        "color": "#06b6d4",
+        "num": "1916",
+        "tollFree": "1916",
+        "state": "ALL",
+        "desc": "पेयजल पाइपलाइन रिसाव, गंदा पानी, जल भराव एवं नगर निगम सीवरेज समाधान।"
+    },
+    {
+        "dept": "LPG रसोई गैस आपातकालीन रिसाव / LPG Gas Leak Emergency",
+        "cat": "UTILITY",
+        "icon": "<i class=\"fa-solid fa-gas-pump\"></i>",
+        "bg": "rgba(239, 68, 68, 0.12)",
+        "color": "#ef4444",
+        "num": "1906",
+        "tollFree": "1906",
+        "state": "ALL",
+        "desc": "इंडेन, भारत गैस, एचपी गैस सिलेंडर रिसाव की स्थिति में तत्काल 24x7 रेस्क्यू।"
+    },
+    {
+        "dept": "उत्तर प्रदेश CM हेल्पलाइन (जनसुनवाई) / UP CM Helpline",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "1076",
+        "tollFree": "1076",
+        "state": "UP",
+        "desc": "उत्तर प्रदेश के नागरिकों के लिए सीधे मुख्यमंत्री कार्यालय में शिकायत दर्ज करने की सुविधा।"
+    },
+    {
+        "dept": "मध्य प्रदेश CM हेल्पलाइन (जन कल्याण) / MP CM Helpline",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "181",
+        "tollFree": "181",
+        "state": "MP",
+        "desc": "मध्य प्रदेश शासन की योजनाओं एवं नागरिक शिकायतों का 100% समाधान ट्रैकिंग।"
+    },
+    {
+        "dept": "महाराष्ट्र CM हेल्पलाइन (आपले सरकार) / Maharashtra CM Helpline",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "1800-120-8040",
+        "tollFree": "18001208040",
+        "state": "MH",
+        "desc": "महाराष्ट्र शासन की शासकीय सेवाएं, तक्रार निवारण आणि नागरिक सुविधा पोर्टल।"
+    },
+    {
+        "dept": "बिहार लोक शिकायत निवारण / Bihar Public Grievance Helpline",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "1800-345-6284",
+        "tollFree": "18003456284",
+        "state": "BR",
+        "desc": "बिहार लोक शिकायत निवारण अधिकार अधिनियम (समान अवसर व कानूनी समाधान)।"
+    },
+    {
+        "dept": "राजस्थान संपर्क हेल्पलाइन (CM Helpline) / Rajasthan Sampark",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "181",
+        "tollFree": "181",
+        "state": "RJ",
+        "desc": "राजस्थान सरकार की किसी भी योजना या विभागीय शिकायत का तुरंत निवारण।"
+    },
+    {
+        "dept": "गुजरात CM हेल्पलाइन (SWAGAT) / Gujarat CM Grievance",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "1800-233-5500",
+        "tollFree": "18002335500",
+        "state": "GJ",
+        "desc": "ગુજરાત મુખ્યમંત્રી સ્વાગત ઓનલાઇન ફરિયાદ નિવારણ વ્યવસ્થા."
+    },
+    {
+        "dept": "दिल्ली उपराज्यपाल एवं CM जनसुनवाई / Delhi Public Grievance",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "1031 / 011-23392345",
+        "tollFree": "1031",
+        "state": "DL",
+        "desc": "दिल्ली सरकार भ्रष्टाचार निरोधक एवं जनसेवा डोरस्टेप डिलीवरी हेल्पलाइन।"
+    },
+    {
+        "dept": "कर्नाटक जनस्पंदन हेल्पलाइन / Karnataka Janaspandana",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "1902",
+        "tollFree": "1902",
+        "state": "KA",
+        "desc": "ಕರ್ನಾಟಕ ಸರ್ಕಾರದ ಜನಸ್ಪಂದನ ನಾಗರಿಕ ದೂರು ಪರಿಹಾರ ಕೇಂದ್ರ."
+    },
+    {
+        "dept": "तमिलनाडु CM हेल्पलाइन / Tamil Nadu CM Helpline (Mudhalvarin Mugavari)",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "1100",
+        "tollFree": "1100",
+        "state": "TN",
+        "desc": "தமிழ்நாடு முதலமைச்சரின் உதவி மையம் மற்றும் குறைதீர்ப்பு பிரிவு."
+    },
+    {
+        "dept": "पश्चिम बंगाल 'सीधे मुख्यमंत्री' (Didike Bolo) / WB Grievance",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "91370-91370 / 1800-345-5555",
+        "tollFree": "18003455555",
+        "state": "WB",
+        "desc": "পশ্চিমবঙ্গ সরকারের সরাসরি নাগরিক সংযোগ ও পরিষেবা সহায়তা."
+    },
+    {
+        "dept": "आंध्र प्रदेश Spandana हेल्पलाइन / AP Spandana",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "1902",
+        "tollFree": "1902",
+        "state": "AP",
+        "desc": "ఆంధ్రప్రదేశ్ ప్రభుత్వ స్పందన ప్రజా సమస్యల పరిష్కార వేదిక."
+    },
+    {
+        "dept": "तेलंगाना प्रजावाणी / Telangana Prajavani",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "1800-599-4455",
+        "tollFree": "18005994455",
+        "state": "TS",
+        "desc": "తెలంగాణ ప్రజావాణి ముఖ్యమంత్రి ప్రజా దర్బార్ విభాగం."
+    },
+    {
+        "dept": "पंजाब CM हेल्पलाइन (आप दी सरकार) / Punjab CM Grievance",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "1076 / 1100",
+        "tollFree": "1076",
+        "state": "PB",
+        "desc": "ਪੰਜਾਬ ਸਰਕਾਰ ਲੋਕ ਸ਼ਿਕਾਇਤ ਨਿਵਾਰਣ ਅਤੇ 43+ ਨਾਗਰਿਕ ਸੇਵਾਵਾਂ ਘਰ ਬੈਠੇ."
+    },
+    {
+        "dept": "हरियाणा CM विंडो एवं सरल हेल्पलाइन / Haryana Saral & CM Window",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "1800-180-2084 / 0172-3968400",
+        "tollFree": "18001802084",
+        "state": "HR",
+        "desc": "हरियाणा सरल पोर्टल एवं सीएम विंडो त्वरित शिकायत निवारण।"
+    },
+    {
+        "dept": "ओडिशा 'जनसुनवाई' CM हेल्पलाइन / Odisha Jan Sunani",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "1905",
+        "tollFree": "1905",
+        "state": "OD",
+        "desc": "ଓଡ଼ିଶା ମୁଖ୍ୟମନ୍ତ୍ରୀ ଜନ ଶୁଣାଣି ଓ ଅଭିଯୋଗ ନିବାରଣ ପୋର୍ଟାଲ."
+    },
+    {
+        "dept": "झारखंड जनसंवाद CM हेल्पलाइन / Jharkhand Jan Samvad",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "181",
+        "tollFree": "181",
+        "state": "JH",
+        "desc": "झारखंड राज्य के नागरिकों की समस्याओं का सीधा मुख्यमंत्री कार्यालय द्वारा निवारण।"
+    },
+    {
+        "dept": "केरल CM हेल्पलाइन / Kerala CM Grievance Redressal (CMDRF)",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "1800-425-4933",
+        "tollFree": "18004254933",
+        "state": "KL",
+        "desc": "കേരള മുഖ്യമന്ത്രിയുടെ പബ്ലിക് ഗ്രീവൻസ് റിഡ്രസ്സൽ സെಲ್."
+    },
+    {
+        "dept": "असम मुख्यमंत्री लोकसेवा हेल्पलाइन / Assam CM Helpline",
+        "cat": "CM",
+        "icon": "<i class=\"fa-solid fa-building-columns\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "1800-345-3570",
+        "tollFree": "18003453570",
+        "state": "AS",
+        "desc": "অসম চৰকাৰৰ ৰাজহুৱা ওজৰ-আপত্তি আৰু প্ৰশাসনীয় সাহায্য."
+    },
+    {
+        "dept": "भारतीय रेलवे सुरक्षा एवं यात्री सहायता / RailMadad & RPF",
+        "cat": "TRANSPORT",
+        "icon": "<i class=\"fa-solid fa-train\"></i>",
+        "bg": "rgba(14, 165, 233, 0.12)",
+        "color": "#0ea5e9",
+        "num": "139",
+        "tollFree": "139",
+        "state": "ALL",
+        "desc": "ट्रेन में सुरक्षा, चिकित्सा सहायता, सफाई, खोया सामान एवं टिकट शिकायत (एकल रेलवे नंबर)।"
+    },
+    {
+        "dept": "राष्ट्रीय राजमार्ग आपातकालीन सेवा (NHAI) / National Highway Helpline",
+        "cat": "TRANSPORT",
+        "icon": "<i class=\"fa-solid fa-road\"></i>",
+        "bg": "rgba(245, 158, 11, 0.12)",
+        "color": "#f59e0b",
+        "num": "1033",
+        "tollFree": "1033",
+        "state": "ALL",
+        "desc": "हाइवे पर एक्सीडेंट, गाड़ी ब्रेकडाउन, क्रेन एवं तत्काल एम्बुलेंस सहायता।"
+    },
+    {
+        "dept": "सड़क परिवहन एवं आरटीओ हेल्पलाइन / Parivahan & Driving License Help",
+        "cat": "TRANSPORT",
+        "icon": "<i class=\"fa-solid fa-id-card\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "0120-2459169",
+        "tollFree": "01202459169",
+        "state": "ALL",
+        "desc": "ड्राइविंग लाइसेंस (DL), RC ट्रांसफर, हाई सिक्योरिटी नंबर प्लेट (HSRP) व चालान।"
+    },
+    {
+        "dept": "राष्ट्रीय आपदा प्रबंधन प्राधिकरण (NDRF/NDMA) / Disaster Management",
+        "cat": "DISASTER",
+        "icon": "<i class=\"fa-solid fa-triangle-exclamation\"></i>",
+        "bg": "rgba(239, 68, 68, 0.12)",
+        "color": "#ef4444",
+        "num": "1070 / 1077",
+        "tollFree": "1070",
+        "state": "ALL",
+        "desc": "बाढ़, भूकंप, चक्रवात एवं प्राकृतिक आपदा में तत्काल रेस्क्यू और राहत शिविर सहायता।"
+    },
+    {
+        "dept": "राष्ट्रीय उपभोक्ता हेल्पलाइन (उपभोक्ता मामले) / National Consumer Helpline",
+        "cat": "RIGHTS",
+        "icon": "<i class=\"fa-solid fa-scale-balanced\"></i>",
+        "bg": "rgba(16, 185, 129, 0.12)",
+        "color": "#10b981",
+        "num": "1915 / 1800-11-4000",
+        "tollFree": "1915",
+        "state": "ALL",
+        "desc": "ऑनलाइन शॉपिंग फ्रॉड, खराब सामान, गारंटी रिफंड एवं अनुचित व्यापार की कानूनी शिकायत।"
+    },
+    {
+        "dept": "वरिष्ठ नागरिक राष्ट्रीय हेल्पलाइन (Elder Line) / Senior Citizens",
+        "cat": "RIGHTS",
+        "icon": "<i class=\"fa-solid fa-person-cane\"></i>",
+        "bg": "rgba(139, 92, 246, 0.12)",
+        "color": "#8b5cf6",
+        "num": "14567",
+        "tollFree": "14567",
+        "state": "ALL",
+        "desc": "बुजुर्गों के लिए कानूनी सहायता, पेंशन विवाद, भावनात्मक सहयोग एवं देखभाल।"
+    },
+    {
+        "dept": "केंद्रीय सतर्कता एवं भ्रष्टाचार निरोधक / Anti-Corruption Vigilance",
+        "cat": "RIGHTS",
+        "icon": "<i class=\"fa-solid fa-handcuffs\"></i>",
+        "bg": "rgba(244, 63, 94, 0.12)",
+        "color": "#f43f5e",
+        "num": "1064 / 1800-11-0180",
+        "tollFree": "1064",
+        "state": "ALL",
+        "desc": "सरकारी कार्यालयों में रिश्वतखोरी, भ्रष्टाचार या अवैध मांग की गुप्त शिकायत दर्ज करें।"
+    },
+    {
+        "dept": "श्रम एवं रोजगार मंत्रालय (श्रमिक सुविधा) / Labour & Shram Suvidha",
+        "cat": "RIGHTS",
+        "icon": "<i class=\"fa-solid fa-person-digging\"></i>",
+        "bg": "rgba(245, 158, 11, 0.12)",
+        "color": "#f59e0b",
+        "num": "14434 / 1800-180-1440",
+        "tollFree": "14434",
+        "state": "ALL",
+        "desc": "ई-श्रम कार्ड, न्यूनतम मजदूरी, प्रवासी श्रमिक कल्याण एवं पीएफ/ग्रेच्युटी सहायता।"
+    },
+    {
+        "dept": "खाद्य सुरक्षा एवं राशन कार्ड आपूर्ति / Food Safety & PDS Ration",
+        "cat": "RIGHTS",
+        "icon": "<i class=\"fa-solid fa-bowl-rice\"></i>",
+        "bg": "rgba(16, 185, 129, 0.12)",
+        "color": "#10b981",
+        "num": "1967 / 1800-180-0150",
+        "tollFree": "1967",
+        "state": "ALL",
+        "desc": "वन नेशन वन राशन कार्ड, मुफ्त अनाज वितरण, कोटेदार शिकायत एवं नया राशन कार्ड।"
+    },
+    {
+        "dept": "शिक्षा एवं परीक्षा तनाव परामर्श / National Education & Scholar Help",
+        "cat": "EDUCATION",
+        "icon": "<i class=\"fa-solid fa-graduation-cap\"></i>",
+        "bg": "rgba(99, 102, 241, 0.12)",
+        "color": "#6366f1",
+        "num": "1800-11-8002 / 14417",
+        "tollFree": "1800118002",
+        "state": "ALL",
+        "desc": "छात्रवृत्ति (NSP), परीक्षा तनाव काउंसलिंग, सीबीएसई एवं यूजीसी छात्र सहायता।"
     }
-};
+];
 
-window.hideMapTooltip = function() {
-    const tt = document.getElementById('map-live-tooltip');
-    if (tt) tt.classList.add('hidden');
-};
+let currentHelplineCategory = 'ALL';
+let currentHelplineState = 'ALL';
 
-window.onMapDropdownStateChange = function(stateCode) {
-    if (!stateCode || !STATE_DB[stateCode]) return;
-    window.onMapStateClick(stateCode);
-};
-
-window.onMapDropdownDistrictChange = function(distName) {
-    if (!distName || !currentSelectedStateCode) return;
-    window.onMapCityClick(distName);
-};
-
-window.onMapDropdownVillageChange = function(villName) {
-    if (!villName) return;
-    window.onMapVillageClick(villName);
-};
-
-window.launchMapSelectedPortal = function() {
-    const stateCode = currentSelectedStateCode || document.getElementById('map-select-state')?.value || 'UP';
-    const dist = currentSelectedDistrict || document.getElementById('map-select-district')?.value || '';
-    const vill = currentSelectedVillage || document.getElementById('map-select-village')?.value || '';
-
-    window.selectState(stateCode, dist, vill);
-};
-
-
-function renderQuickScrollStrip() {
-    const container = document.getElementById('map-quick-scroll-strip');
-    if (!container) return;
-
-    let html = '';
-    Object.keys(STATE_DB).forEach(code => {
-        const s = STATE_DB[code];
-        let subText = currentHeatmapMode === 'dbt' ? s.dbtAmount : (currentHeatmapMode === 'civic' ? s.dbtRating : s.capital);
-        html += `<button class="quick-state-pill" onclick="onMapStateClick('${code}')">
-            ${s.emoji} ${s.name.split('/')[0]} <span style="opacity:0.75;font-weight:400;">(${subText})</span>
-        </button>`;
-    });
-    container.innerHTML = html;
+function initHelplinesPage() {
+    populateHelplineStateControls();
+    renderDepartmentHelplines();
 }
 
-window.setMapHeatmapMode = function(mode, btnEl) {
-    currentHeatmapMode = mode;
-    const btns = document.querySelectorAll('.map-mode-btn');
+function populateHelplineStateControls() {
+    const selectEl = document.getElementById('helpline-state-select');
+    const stripEl = document.getElementById('hl-state-chips-strip');
+
+    if (selectEl) {
+        let optHtml = '<option value="ALL">🌐 संपूर्ण भारत (All-India National)</option>';
+        Object.keys(STATE_DB).forEach(code => {
+            const s = STATE_DB[code];
+            optHtml += `<option value="${code}">${s.emoji} ${s.name}</option>`;
+        });
+        selectEl.innerHTML = optHtml;
+    }
+
+    if (stripEl) {
+        let stripHtml = '<button class="hl-state-chip active" onclick="onHelplineStateSelect(\'ALL\', this)">🌐 All-India</button>';
+        Object.keys(STATE_DB).forEach(code => {
+            const s = STATE_DB[code];
+            stripHtml += `<button class="hl-state-chip" onclick="onHelplineStateSelect('${code}', this)">
+                ${s.emoji} ${s.name.split('/')[0]}
+            </button>`;
+        });
+        stripEl.innerHTML = stripHtml;
+    }
+}
+
+window.onHelplineStateSelect = function(stateCode, btnEl) {
+    currentHelplineState = stateCode;
+    const selectEl = document.getElementById('helpline-state-select');
+    if (selectEl) selectEl.value = stateCode;
+
+    const btns = document.querySelectorAll('.hl-state-chip');
     btns.forEach(b => b.classList.remove('active'));
     if (btnEl) btnEl.classList.add('active');
 
-    renderMapStatesList();
-    renderQuickScrollStrip();
+    renderDepartmentHelplines();
 
-    if (mode === 'dbt') window.speakText(currentLang === 'EN' ? 'DBT funding rank mode active.' : 'डीबीटी फंड रैंकिंग मोड सक्रिय।');
-    else if (mode === 'civic') window.speakText(currentLang === 'EN' ? 'Civic satisfaction rate ranking active.' : 'सुशासन संतुष्टि दर रैंकिंग सक्रिय।');
-    else window.speakText(currentLang === 'EN' ? 'All 36 States and UTs active.' : 'सभी राज्य एवं केंद्र शासित प्रदेश सक्रिय।');
+    const stateName = stateCode === 'ALL' ? 'All-India National' : (STATE_DB[stateCode]?.name.split('/')[0] || stateCode);
+    window.speakText(currentLang === 'EN' ? `${stateName} department helplines filtered.` : `${stateName} विभागीय हेल्पलाइन सूची लोड हुई।`);
 };
 
-window.resetMapToAllIndia = function() {
-    currentSelectedStateCode = null;
-    currentSelectedDistrict = null;
-    currentSelectedVillage = null;
-    document.getElementById('bc-state').textContent = 'राज्य (State)';
-    document.getElementById('bc-district').textContent = 'ज़िला (District)';
-    document.getElementById('bc-village').textContent = 'गाँव (Village)';
-    document.getElementById('bc-state').classList.remove('active');
-    document.getElementById('bc-district').classList.remove('active');
-    document.getElementById('bc-village').classList.remove('active');
-    backToStep(1);
-    window.speakText(currentLang === 'EN' ? 'All India map reset.' : 'संपूर्ण भारत नक्शा रीसेट किया गया।');
+window.filterHelplineCat = function(category, btnEl) {
+    currentHelplineCategory = category;
+    const btns = document.querySelectorAll('.hl-cat-btn');
+    btns.forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+
+    renderDepartmentHelplines();
+
+    if (category === 'EMERGENCY') window.speakText(currentLang === 'EN' ? 'National Emergency and Ambulance 112, 108.' : 'राष्ट्रीय आपातकालीन व एम्बुलेंस 112, 108।');
+    else if (category === 'POLICE') window.speakText(currentLang === 'EN' ? 'Police Control Room 100, 112.' : 'पुलिस सहायता नियंत्रण कक्ष 100, 112।');
+    else if (category === 'CYBER') window.speakText(currentLang === 'EN' ? 'National Cyber Crime 1930.' : 'राष्ट्रीय साइबर अपराध हेल्पलाइन 1930।');
+    else if (category === 'HEALTH') window.speakText(currentLang === 'EN' ? 'Health & Medical Consultation 108, 104, Tele-MANAS.' : 'स्वास्थ्य व टेली-मानस हेल्पलाइन।');
+    else if (category === 'WOMEN') window.speakText(currentLang === 'EN' ? 'Women Safety Helpline 1090, 181.' : 'महिला सुरक्षा हेल्पलाइन 1090, 181।');
+    else if (category === 'KISAN') window.speakText(currentLang === 'EN' ? 'Kisan Call Center 1800-180-1551.' : 'किसान कॉल सेंटर 1800-180-1551।');
+    else if (category === 'UTILITY') window.speakText(currentLang === 'EN' ? 'Electricity 1912 and Water Supply 1916.' : 'विद्युत 1912 एवं जल आपूर्ति 1916।');
+    else if (category === 'CM') window.speakText(currentLang === 'EN' ? 'Chief Minister Public Grievance Helpline.' : 'मुख्यमंत्री जनसेवा हेल्पलाइन।');
+    else window.speakText(currentLang === 'EN' ? 'All departmental helplines.' : 'सभी विभागीय हेल्पलाइन।');
 };
+
+window.filterDepartmentHelplines = function() {
+    renderDepartmentHelplines();
+};
+
+function renderDepartmentHelplines() {
+    const container = document.getElementById('helplines-cards-container');
+    const countBadge = document.getElementById('hl-active-count');
+    const query = (document.getElementById('helpline-search-box')?.value || '').trim().toLowerCase();
+
+    if (!container) return;
+
+    let filtered = DEPARTMENT_HELPLINES_DB.filter(h => {
+        let catMatch = currentHelplineCategory === 'ALL' || h.cat === currentHelplineCategory;
+        let stateMatch = currentHelplineState === 'ALL' || h.state === 'ALL' || h.state === currentHelplineState;
+        
+        let queryMatch = !query || 
+            h.dept.toLowerCase().includes(query) || 
+            h.num.toLowerCase().includes(query) || 
+            h.desc.toLowerCase().includes(query) || 
+            h.cat.toLowerCase().includes(query) ||
+            (h.state !== 'ALL' && STATE_DB[h.state] && STATE_DB[h.state].name.toLowerCase().includes(query));
+
+        return catMatch && stateMatch && queryMatch;
+    });
+
+    if (countBadge) countBadge.textContent = `${filtered.length} सक्रिय`;
+
+    if (filtered.length === 0) {
+        container.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--text-muted);">
+            <i class="fa-solid fa-phone-slash fa-3x" style="color:var(--accent-saffron);opacity:0.8;margin-bottom:12px;"></i>
+            <h3 style="font-size:16px;color:var(--text-heading);margin-bottom:6px;">कोई विभागीय हेल्पलाइन नहीं मिली</h3>
+            <p style="font-size:12.5px;">कृपया अपनी खोज बदलें या 'सभी विभाग' पर क्लिक करें।</p>
+        </div>`;
+        return;
+    }
+
+    let html = '';
+    filtered.forEach(h => {
+        const stateTag = h.state === 'ALL' 
+            ? '<span class="badge badge-info" style="font-size:10px;">🌐 संपूर्ण भारत (National)</span>'
+            : `<span class="badge badge-success" style="font-size:10px;">📍 ${STATE_DB[h.state]?.name.split('/')[0] || h.state}</span>`;
+
+        const cleanCallNum = h.tollFree ? h.tollFree.replace(/[^0-9]/g, '') : h.num.replace(/[^0-9]/g, '');
+
+        html += `<div class="helpline-card-entry">
+            <div class="hl-card-top">
+                <div class="hl-card-icon" style="background:${h.bg};color:${h.color};">
+                    ${h.icon}
+                </div>
+                <div class="hl-card-titles">
+                    <h4>${h.dept}</h4>
+                    <div class="hl-state-tag-row">${stateTag} <span class="badge badge-warning" style="font-size:9.5px;">24x7 निःशुल्क</span></div>
+                </div>
+            </div>
+
+            <p class="hl-card-desc">${h.desc}</p>
+
+            <div class="hl-card-bottom">
+                <div class="hl-card-number-box">
+                    <span class="hl-card-num-lbl">हेल्पलाइन नंबर:</span>
+                    <span class="hl-card-num-val">📞 ${h.num}</span>
+                </div>
+                <div class="hl-card-actions">
+                    <button class="btn-copy-sm" onclick="copyHelplineNumber('${h.num}', this)" title="नंबर कॉपी करें">
+                        <i class="fa-solid fa-copy"></i>
+                    </button>
+                    <a href="tel:${cleanCallNum}" class="btn-call-now" onclick="window.speakText('Calling ${h.num}');">
+                        <i class="fa-solid fa-phone-volume"></i> <span>कॉल करें</span>
+                    </a>
+                </div>
+            </div>
+        </div>`;
+    });
+
+    container.innerHTML = html;
+}
+
+window.copyHelplineNumber = function(num, btnEl) {
+    navigator.clipboard.writeText(num.replace(/[^0-9\-\/]/g, '').trim());
+    const origHtml = btnEl.innerHTML;
+    btnEl.innerHTML = '<i class="fa-solid fa-check" style="color:var(--accent-emerald);"></i>';
+    setTimeout(() => btnEl.innerHTML = origHtml, 1500);
+    window.speakText(currentLang === 'EN' ? `Number ${num} copied.` : `नंबर ${num} कॉपी हुआ।`);
+};
+
 
 // ============================================================
 // 3. REALTIME DBT TRACKER & CHART.JS INTEGRATION
@@ -2924,8 +3467,13 @@ window.switchPage = function(pageId) {
             initTicker();
             window.speakText(currentLang === 'EN' ? 'Home page. 28 States and 8 Union Territories governance portal.' : 'मुख्य पृष्ठ। 28 राज्य एवं 8 केंद्र शासित प्रदेश सुशासन पोर्टल।');
         }
-        if (pageId === 'map') {
-            initCleanStateMap();
+        if (pageId === 'helplines' || pageId === 'map') {
+            initHelplinesPage();
+            window.speakText(currentLang === 'EN' ? 'National and State Departmental Helplines Directory.' : 'राष्ट्रीय एवं राज्य विभागीय हेल्पलाइन डायरेक्टरी। 24x7 नागरिक सहायता।');
+            return;
+        }
+        if (pageId === 'map_unused') {
+            initHelplinesPage();
             window.speakText(currentLang === 'EN' ? 'India Digital Map Explorer. Select State and District governance.' : 'भारत डिजिटल नक्शा Explorer। राज्य और ज़िला सुशासन चुनें।');
         }
         if (pageId === 'dbt') {
@@ -3633,7 +4181,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initTicker();
     populateHomeControls();
     updateIncomeLabel(250000);
-    initCleanStateMap();
+    initHelplinesPage();
 });
 
 document.addEventListener('click', e => {
