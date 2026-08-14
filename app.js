@@ -332,7 +332,8 @@ const STATE_DB = {
                 "मोहनलालगंज (Mohanlalganj)",
                 "काकोरी (Kakori)",
                 "चिनहट (Chinhat)",
-                "गोमती नगर (Gomti Nagar)"
+                "गोमती नगर (Gomti Nagar)",
+                "आलमबाग (Alambagh)"
             ],
             "कानपुर (Kanpur)": [
                 "कल्याणपुर (Kalyanpur)",
@@ -340,7 +341,8 @@ const STATE_DB = {
                 "घाटमपुर (Ghatampur)",
                 "कालियानपुर (Kalianpur)",
                 "पनकी (Panki)",
-                "जाजमऊ (Jajmau)"
+                "जाजमऊ (Jajmau)",
+                "नवाबगंज (Nawabganj)"
             ],
             "प्रयागराज (Prayagraj)": [
                 "सिविल लाइंस (Civil Lines)",
@@ -348,7 +350,8 @@ const STATE_DB = {
                 "सोरांव (Soraon)",
                 "मेजा (Meja)",
                 "करछना (Karchhana)",
-                "झूंसी (Jhunsi)"
+                "झूंसी (Jhunsi)",
+                "कोरांव (Koraon)"
             ],
             "वाराणसी (Varanasi)": [
                 "दशाश्वमेध (Dashashwamedh)",
@@ -356,26 +359,58 @@ const STATE_DB = {
                 "शिवपुर (Shivpur)",
                 "रोहनिया (Rohaniya)",
                 "सेवापुरी (Sewapuri)",
-                "रामनगर (Ramnagar)"
+                "रामनगर (Ramnagar)",
+                "कैंट (Cantt)"
             ],
             "आगरा (Agra)": [
                 "अकोला (Akola)",
                 "फतेहाबाद (Fatehabad)",
                 "एत्मादपुर (Etmadpur)",
                 "बाह (Bah)",
-                "किरावली (Kirawali)"
+                "किरावली (Kirawali)",
+                "ताजगंज (Tajganj)"
             ],
-            "मेरठ (Meerut)": [
-                "सरधना (Sardhana)",
-                "मवाना (Mawana)",
-                "हस्तिनापुर (Hastinapur)",
-                "दौराला (Daurala)"
+            "नोएडा / गौतम बुद्ध नगर (Noida)": [
+                "सेक्टर 62 (Sector 62)",
+                "ग्रेटर नोएडा (Greater Noida)",
+                "दादरी (Dadri)",
+                "जेवर (Jewar)",
+                "दनकौर (Dankaur)"
             ],
             "गाजियाबाद (Ghaziabad)": [
                 "लोनी (Loni)",
                 "मुर्तजाबाद (Murtazabad)",
                 "मुरादनगर (Muradnagar)",
-                "मोदीनगर (Modinagar)"
+                "मोदीनगर (Modinagar)",
+                "वसुंधरा (Vasundhara)",
+                "इंदिरापुरम (Indirapuram)"
+            ],
+            "मेरठ (Meerut)": [
+                "सरधना (Sardhana)",
+                "मवाना (Mawana)",
+                "हस्तिनापुर (Hastinapur)",
+                "दौराला (Daurala)",
+                "रोहटा (Rohta)"
+            ],
+            "बरेली (Bareilly)": [
+                "नवाबगंज (Nawabganj)",
+                "फरीदपुर (Faridpur)",
+                "आंवला (Aonla)",
+                "मीरगंज (Mirganj)",
+                "बहेड़ी (Baheri)"
+            ],
+            "अलीगढ़ (Aligarh)": [
+                "खैर (Khair)",
+                "अतरौली (Atrauli)",
+                "इगलास (Iglas)",
+                "गभाना (Gabhana)",
+                "कोल (Koil)"
+            ],
+            "मुरादाबाद (Moradabad)": [
+                "कांठ (Kanth)",
+                "ठाकुरद्वारा (Thakurdwara)",
+                "बिलारी (Bilari)",
+                "कुंदरकी (Kundarki)"
             ],
             "सहारनपुर (Saharanpur)": [
                 "देवबंद (Deoband)",
@@ -387,7 +422,8 @@ const STATE_DB = {
                 "सहजनवां (Sahjanwa)",
                 "चौरीचौरा (Chauri Chaura)",
                 "बांसगांव (Bansgaon)",
-                "कैम्पियरगंज (Campierganj)"
+                "कैम्पियरगंज (Campierganj)",
+                "खजनी (Khajni)"
             ],
             "अयोध्या (Ayodhya)": [
                 "सदर (Sadar)",
@@ -395,6 +431,31 @@ const STATE_DB = {
                 "मिल्कीपुर (Milkipur)",
                 "सोहावल (Sohawal)",
                 "बीकापुर (Bikapur)"
+            ],
+            "झांसी (Jhansi)": [
+                "मऊरानीपुर (Mauranipur)",
+                "गरौठा (Garautha)",
+                "मोंठ (Moth)",
+                "बबीना (Babina)"
+            ],
+            "मथुरा (Mathura)": [
+                "वृंदावन (Vrindavan)",
+                "गोवर्धन (Goverdhan)",
+                "छाता (Chhata)",
+                "मांट (Mant)",
+                "महावन (Mahavan)"
+            ],
+            "फिरोजाबाद (Firozabad)": [
+                "शिकोहाबाद (Shikohabad)",
+                "टूंडला (Tundla)",
+                "जसराना (Jasrana)",
+                "सिरसागंज (Sirsaganj)"
+            ],
+            "मुजफ्फरनगर (Muzaffarnagar)": [
+                "बुढ़ाना (Budhana)",
+                "खतौली (Khatauli)",
+                "जानसठ (Jansath)",
+                "शामली (Shamli)"
             ]
         }
     },
@@ -414,7 +475,9 @@ const STATE_DB = {
                 "बोरीवली (Borivali)",
                 "दादर (Dadar)",
                 "कुर्ला (Kurla)",
-                "कोलाबा (Colaba)"
+                "कोलाबा (Colaba)",
+                "घाटकोपर (Ghatkopar)",
+                "मुलुंड (Mulund)"
             ],
             "पुणे (Pune)": [
                 "हवेली (Haveli)",
@@ -422,21 +485,25 @@ const STATE_DB = {
                 "कोथरुड (Kothrud)",
                 "हिंजेवाड़ी (Hinjawadi)",
                 "हड़पसर (Hadapsar)",
-                "बारामती (Baramati)"
+                "बारामती (Baramati)",
+                "शिरूर (Shirur)",
+                "जुन्नर (Junnar)"
             ],
             "पिंपरी-चिंचवड़ (Pimpri-Chinchwad)": [
                 "पिंपरी (Pimpri)",
                 "चिंचवड़ (Chinchwad)",
                 "भोसरी (Bhosari)",
                 "निगडी (Nigdi)",
-                "रावेत (Ravet)"
+                "रावेत (Ravet)",
+                "आकुर्डी (Akurdi)"
             ],
             "नागपुर (Nagpur)": [
                 "रामटेक (Ramtek)",
                 "कामठी (Kamthi)",
                 "उमरेड (Umred)",
                 "काटोल (Katol)",
-                "सावनेर (Savner)"
+                "सावनेर (Savner)",
+                "हिंगणा (Hingna)"
             ],
             "ठाणे (Thane)": [
                 "कल्याण (Kalyan)",
@@ -444,26 +511,95 @@ const STATE_DB = {
                 "भिवंडी (Bhiwandi)",
                 "अंबरनाथ (Ambernath)",
                 "मामणोली (Mamnoli)",
-                "भाईंदर (Bhayandar)"
+                "भाईंदर (Bhayandar)",
+                "बदलापुर (Badlapur)",
+                "मीरा रोड (Mira Road)"
             ],
             "वसई-विरार (Vasai-Virar)": [
                 "वसई (Vasai)",
                 "विरार (Virar)",
                 "नालासोपारा (Nallasopara)",
-                "नवघर (Navghar)"
+                "नवघर (Navghar)",
+                "पालघर (Palghar)"
             ],
             "नासिक (Nashik)": [
                 "इगतपुरी (Igatpuri)",
                 "डिंडोरी (Dindori)",
                 "निफाड़ (Niphad)",
                 "मालेगांव (Malegaon)",
-                "त्र्यंबकेश्वर (Trimbak)"
+                "त्र्यंबकेश्वर (Trimbak)",
+                "सिन्नर (Sinnar)",
+                "येवला (Yeola)"
             ],
-            "औरंगाबाद / छत्रपति संभाजीनगर": [
+            "छत्रपति संभाजीनगर / औरंगाबाद": [
                 "पैठण (Paithan)",
                 "गंगापुर (Gangapur)",
                 "वैजापुर (Vaijapur)",
-                "खुलदाबाद (Khuldabad)"
+                "खुलदाबाद (Khuldabad)",
+                "सिल्लोड (Sillod)"
+            ],
+            "सोलापुर (Solapur)": [
+                "पंढरपुर (Pandharpur)",
+                "बार्शी (Barshi)",
+                "अक्कलकोट (Akkalkot)",
+                "करमाला (Karmala)",
+                "सांगोला (Sangola)"
+            ],
+            "कोल्हापुर (Kolhapur)": [
+                "करवीर (Karveer)",
+                "इचलकरंजी (Ichalkaranji)",
+                "हातकणंगले (Hatkanangle)",
+                "शिरोळ (Shirol)",
+                "कागल (Kagal)"
+            ],
+            "अमरावती (Amravati)": [
+                "अचलपुर (Achalpur)",
+                "चांदूर (Chandur)",
+                "मोर्शी (Morshi)",
+                "दर्यापुर (Daryapur)"
+            ],
+            "नांदेड़ (Nanded)": [
+                "लोहा (Loha)",
+                "मुखेड़ (Mukhed)",
+                "कंधार (Kandhar)",
+                "भोकर (Bhokar)",
+                "बिलोली (Biloli)"
+            ],
+            "सांगली (Sangli)": [
+                "मिरज (Miraj)",
+                "इस्लामपुर (Islampur)",
+                "तासगांव (Tasgaon)",
+                "विटा (Vita)"
+            ],
+            "जलगांव (Jalgaon)": [
+                "भुसावल (Bhusawal)",
+                "चालीसगांव (Chalisgaon)",
+                "जामनेर (Jamner)",
+                "अमळनेर (Amalner)"
+            ],
+            "अकोला (Akola)": [
+                "अकोट (Akot)",
+                "बालापुर (Balapur)",
+                "मुर्तिजापुर (Murtizapur)",
+                "तेल्हारा (Telhara)"
+            ],
+            "लातूर (Latur)": [
+                "उदगीर (Udgir)",
+                "अहमदपुर (Ahmedpur)",
+                "औसा (Ausa)",
+                "निलंगा (Nilanga)"
+            ],
+            "धुले (Dhule)": [
+                "शिरपुर (Shirpur)",
+                "साक्री (Sakri)",
+                "सिंदखेड़ा (Sindkheda)"
+            ],
+            "अहमदनगर / अहिल्यानगर": [
+                "राहाता (Rahata/Shirdi)",
+                "संगमनेर (Sangamner)",
+                "कोपरगांव (Kopargaon)",
+                "श्रीरामपुर (Shrirampur)",
+                "नेवासा (Nevasa)"
             ]
         }
     },
@@ -484,28 +620,35 @@ const STATE_DB = {
                 "फुलवारी शरीफ (Phulwari)",
                 "खुसरूपुर (Khusropur)",
                 "बाढ़ (Barh)",
-                "फतुहा (Fatuha)"
+                "फतुहा (Fatuha)",
+                "बख्तियारपुर (Bakhtiarpur)",
+                "मोकामा (Mokama)"
             ],
             "गया (Gaya)": [
                 "बोधगया (Bodh Gaya)",
                 "शेरघाटी (Sherghati)",
                 "टिकारी (Tikari)",
                 "इमामगंज (Imamganj)",
-                "वजीरगंज (Wazirganj)"
+                "वजीरगंज (Wazirganj)",
+                "बेलागंज (Belaganj)",
+                "अतरी (Atri)"
             ],
             "मुजफ्फरपुर (Muzaffarpur)": [
                 "कांठी (Kanti)",
                 "सकरा (Sakra)",
                 "मरवन (Marwan)",
                 "सरैया (Saraiya)",
-                "साहेबगंज (Sahebganj)"
+                "साहेबगंज (Sahebganj)",
+                "मोतीपुर (Motipur)",
+                "कुढ़नी (Kurhani)"
             ],
             "भागलपुर (Bhagalpur)": [
                 "कहलगांव (Kahalgaon)",
                 "सुल्तानगंज (Sultanganj)",
                 "नवगछिया (Naugachhia)",
                 "पीरपैंती (Pirpainti)",
-                "बबुरा (Babura)"
+                "बबुरा (Babura)",
+                "बिहपुर (Bihpur)"
             ],
             "दरभंगा (Darbhanga)": [
                 "लहेरियासराय (Laheriasarai)",
@@ -513,7 +656,9 @@ const STATE_DB = {
                 "बहेड़ी (Baheri)",
                 "मुड़िया (Muria)",
                 "नरपतनगर (Narpatnagar)",
-                "लखनौर (Lakhnaur)"
+                "लखनौर (Lakhnaur)",
+                "हायाघाट (Hayaghat)",
+                "जाले (Jale)"
             ],
             "बेगूसराय (Begusarai)": [
                 "बरौनी (Barauni)",
@@ -521,13 +666,17 @@ const STATE_DB = {
                 "गढ़पुरा (Garhpura)",
                 "नावकोठी (Nao Kothi)",
                 "उलाओ (Ulao)",
-                "सिंघौल (Singhaul)"
+                "सिंघौल (Singhaul)",
+                "बखरी (Bakhri)",
+                "तेघड़ा (Teghra)"
             ],
             "कटिहार (Katihar)": [
-                "मनिहारी (Maniihari)",
+                "मनिहारी (Manihari)",
                 "बारसोई (Barsoi)",
                 "कोढ़ा (Kodha)",
-                "कदवा (Kadwa)"
+                "कदवा (Kadwa)",
+                "बलरामपुर (Balrampur)",
+                "अमदाबाद (Amdabad)"
             ],
             "आरा / भोजपुर (Arrah)": [
                 "कोइलवर (Koelwar)",
@@ -536,14 +685,17 @@ const STATE_DB = {
                 "पीरो (Piro)",
                 "मसार (Masar)",
                 "जमीरा (Jamira)",
-                "गिद्धा (Giddha)"
+                "गिद्धा (Giddha)",
+                "सहार (Sahar)"
             ],
             "छपरा / सारण (Chapra)": [
                 "सोनपुर (Sonepur)",
                 "मढ़ौरा (Marhaura)",
                 "रिविलगंज (Revelganj)",
                 "मांझी (Manjhi)",
-                "परसा (Parsa)"
+                "परसा (Parsa)",
+                "गड़खा (Garkha)",
+                "एकमा (Ekma)"
             ],
             "रोहतास / डेहरी (Dehri)": [
                 "डेहरी आन सोन (Dehri)",
@@ -551,7 +703,8 @@ const STATE_DB = {
                 "नोखा (Nokha)",
                 "नासरीगंज (Nasriganj)",
                 "पहलेंजा (Pahleza)",
-                "सखरा (Sakhara)"
+                "सखरा (Sakhara)",
+                "बिक्रमगंज (Bikramganj)"
             ],
             "वैशाली / हाजीपुर (Hajipur)": [
                 "हाजीपुर (Hajipur)",
@@ -559,25 +712,81 @@ const STATE_DB = {
                 "लालंगज (Lalganj)",
                 "राजापाकर (Raja Pakar)",
                 "देसरी (Desri)",
-                "सहदेई बुजुर्ग (Sahdai Buzurg)"
+                "सहदेई बुजुर्ग (Sahdai Buzurg)",
+                "पातेपुर (Patepur)",
+                "बिदुपुर (Bidupur)"
             ],
             "सीतामढ़ी (Sitamarhi)": [
                 "डुमरा (Dumra)",
                 "बैरगनिया (Bairgania)",
                 "सुरसंड (Sursand)",
-                "पुपरी (Pupri)"
+                "पुपरी (Pupri)",
+                "रून्नीसैदपुर (Runnisaidpur)",
+                "बाजपट्टी (Bajpatti)"
             ],
             "समस्तीपुर (Samastipur)": [
                 "दलसिंहसराय (Dalsingh Sarai)",
                 "रोसड़ा (Rosera)",
                 "हसनपुर (Hasanpur)",
-                "खानपुर (Khanpur)"
+                "खानपुर (Khanpur)",
+                "कल्याणपुर (Kalyanpur)",
+                "उजियारपुर (Ujiarpur)",
+                "वारिसनगर (Warisnagar)"
             ],
             "सहरसा / बेलाही (Belahi)": [
                 "बेलाही (Belahi)",
                 "सिमरी बख्तियारपुर (Bakhtiarpur)",
                 "सोनवर्षा (Sonbarsa)",
-                "सौर बाजार (Saur Bazar)"
+                "सौर बाजार (Saur Bazar)",
+                "महिषी (Mahishi)",
+                "कहरा (Kahara)"
+            ],
+            "पूर्णिया (Purnia)": [
+                "बनमनखी (Banmankhi)",
+                "कसबा (Kasba)",
+                "धमदाहा (Dhamdaha)",
+                "बैसी (Baisi)",
+                "अमौर (Amour)"
+            ],
+            "मुंगेर (Munger)": [
+                "जमालपुर (Jamalpur)",
+                "खड़कपुर (Kharagpur)",
+                "तारापुर (Tarapur)",
+                "बरियारपुर (Bariarpur)"
+            ],
+            "नालंदा / बिहार शरीफ (Bihar Sharif)": [
+                "राजगीर (Rajgir)",
+                "हिलसा (Hilsa)",
+                "इस्लामपुर (Islampur)",
+                "हरनौत (Harnaut)",
+                "सिलाव (Silao)"
+            ],
+            "सीवान (Siwan)": [
+                "महाराजगंज (Maharajganj)",
+                "मैरवा (Mairwa)",
+                "दरौली (Darauli)",
+                "पचरुखी (Pachrukhi)",
+                "रघुनाथपुर (Raghunathpur)"
+            ],
+            "मोतिहारी / पूर्वी चंपारण (Motihari)": [
+                "रक्सौल (Raxaul)",
+                "चकिया (Chakia)",
+                "ढाका (Dhaka)",
+                "अरेराज (Areraj)",
+                "मेहसी (Mehsi)"
+            ],
+            "बेतिया / पश्चिमी चंपारण (Bettiah)": [
+                "बगहा (Bagaha)",
+                "नरकटियागंज (Narkatiaganj)",
+                "रामनगर (Ramnagar)",
+                "लौरिया (Lauriya)",
+                "चनपटिया (Chanpatia)"
+            ],
+            "बक्सर (Buxar)": [
+                "डुमरांव (Dumraon)",
+                "ब्रह्मपुर (Brahampur)",
+                "सिमरी (Simri)",
+                "इटारही (Itarhi)"
             ]
         }
     },
@@ -591,14 +800,6 @@ const STATE_DB = {
         "dbtAmount": "₹38,400 Cr",
         "dbtRating": "93%",
         "districts": {
-            "भोपाल (Bhopal)": [
-                "बैरसिया (Bairasia)",
-                "हुजूर (Huzur)",
-                "फंदा (Phanda)",
-                "कोलार (Kolar)",
-                "अरेरा (Arera)",
-                "एमपी नगर (MP Nagar)"
-            ],
             "इंदौर (Indore)": [
                 "सावेर (Sanwer)",
                 "देपालपुर (Depalpur)",
@@ -606,14 +807,17 @@ const STATE_DB = {
                 "कम्पेल (Kampel)",
                 "तिल्लोर खुर्द (Tillor Khurd)",
                 "राऊ (Rau)",
-                "हातोद (Hatod)"
+                "हातोद (Hatod)",
+                "पीथमपुर (Pithampur)"
             ],
-            "ग्वालियर (Gwalior)": [
-                "डबरा (Dabra)",
-                "भितरवार (Bhitarwar)",
-                "मुरार (Morar)",
-                "लश्कर (Lashkar)",
-                "घाटीगांव (Ghatigaon)"
+            "भोपाल (Bhopal)": [
+                "बैरसिया (Bairasia)",
+                "हुजूर (Huzur)",
+                "फंदा (Phanda)",
+                "कोलार (Kolar)",
+                "अरेरा (Arera)",
+                "एमपी नगर (MP Nagar)",
+                "गोविंदपुरा (Govindpura)"
             ],
             "जबलपुर (Jabalpur)": [
                 "पाटन (Patan)",
@@ -621,14 +825,53 @@ const STATE_DB = {
                 "कुंडम (Kundam)",
                 "पनागर (Panagar)",
                 "मझौली (Majholi)",
-                "शाहपुरा (Shahpura)"
+                "शाहपुरा (Shahpura)",
+                "बरगी (Bargi)"
+            ],
+            "ग्वालियर (Gwalior)": [
+                "डबरा (Dabra)",
+                "भितरवार (Bhitarwar)",
+                "मुरार (Morar)",
+                "लश्कर (Lashkar)",
+                "घाटीगांव (Ghatigaon)",
+                "हजीरा (Hazira)"
             ],
             "उज्जैन (Ujjain)": [
                 "महिदपुर (Mahidpur)",
                 "तराना (Tarana)",
                 "नागदा (Nagda)",
                 "बड़नगर (Barnagar)",
-                "खाचरोद (Khachrod)"
+                "खाचरोद (Khachrod)",
+                "घट्टिया (Ghattia)"
+            ],
+            "सागर (Sagar)": [
+                "बीना (Bina)",
+                "खुरई (Khurai)",
+                "रहली (Rehli)",
+                "गढ़ाकोटा (Gadhakota)",
+                "देवरी (Deori)",
+                "बंडा (Banda)"
+            ],
+            "सतना (Satna)": [
+                "मैहर (Maihar)",
+                "नागोद (Nagod)",
+                "अमरपाटन (Amarpatan)",
+                "उचेहरा (Uchehara)",
+                "चित्रकूट (Chitrakoot)"
+            ],
+            "रीवा (Rewa)": [
+                "मऊगंज (Mauganj)",
+                "हुजूर (Huzur)",
+                "सिरमौर (Sirmaur)",
+                "त्यौंथर (Teonthar)",
+                "हनुमना (Hanumana)"
+            ],
+            "रतलाम (Ratlam)": [
+                "जावरा (Jaora)",
+                "आलोट (Alot)",
+                "सैलाना (Sailana)",
+                "पिपलोदा (Piploda)",
+                "बाजना (Bajna)"
             ],
             "नरसिंहपुर / बरमान (Barmhan Kalan)": [
                 "बरमान कलां (Barmhan Kalan)",
@@ -642,7 +885,35 @@ const STATE_DB = {
                 "पीपलदा (Pipalda)",
                 "परमी (Permi)",
                 "सोनकच्छ (Sonkatch)",
-                "बागली (Bagli)"
+                "बागली (Bagli)",
+                "कन्नौद (Kannod)",
+                "खातेगांव (Khategaon)"
+            ],
+            "कटनी / मुरवारा (Katni)": [
+                "मुरवारा (Murwara)",
+                "बहोरीबंद (Bahoriband)",
+                "विजयराघवगढ़ (Vijayraghavgarh)",
+                "बड़वारा (Badwara)",
+                "रीठी (Rithi)"
+            ],
+            "सिंगरौली (Singrauli)": [
+                "बैढ़न (Waidhan)",
+                "चितरंगी (Chitrangi)",
+                "देवसर (Deosar)",
+                "माड़ा (Mada)"
+            ],
+            "खंडवा (Khandwa)": [
+                "ओंकारेश्वर (Omkareshwar)",
+                "पंधाना (Pandhana)",
+                "पुनासा (Punasa)",
+                "हरसूद (Harsud)"
+            ],
+            "छिंदवाड़ा (Chhindwara)": [
+                "सौंसर (Sausar)",
+                "परासिया (Parasia)",
+                "जुन्नारदेव (Junnardeo)",
+                "अमरवाड़ा (Amarwara)",
+                "पांढुर्णा (Pandhurna)"
             ]
         }
     },
@@ -662,7 +933,9 @@ const STATE_DB = {
                 "धोलका (Dholka)",
                 "धंधुका (Dhandhuka)",
                 "बावला (Bavla)",
-                "विरमगाम (Viramgam)"
+                "विरमगाम (Viramgam)",
+                "मणिनगर (Maninagar)",
+                "बोपल (Bopal)"
             ],
             "सूरत (Surat)": [
                 "ओलपाड (Olpad)",
@@ -670,7 +943,9 @@ const STATE_DB = {
                 "बारडोली (Bardoli)",
                 "मांडवी (Mandvi)",
                 "महुवा (Mahuva)",
-                "चोरयासी (Choryasi)"
+                "चोरयासी (Choryasi)",
+                "कतारगाम (Katargam)",
+                "अडाजण (Adajan)"
             ],
             "वडोदरा (Vadodara)": [
                 "पादरा (Padra)",
@@ -679,69 +954,126 @@ const STATE_DB = {
                 "अंगढ़ (Anghad)",
                 "सुरसी (Sursi)",
                 "गोरवा (Gorwa)",
-                "सावली (Savli)"
+                "सावली (Savli)",
+                "वाघोडिया (Vaghodia)"
             ],
             "राजकोट (Rajkot)": [
                 "गोंडल (Gondal)",
                 "जेतपुर (Jetpur)",
                 "धोराजी (Dhoraji)",
                 "जसदण (Jasdan)",
-                "उपलेटा (Upleta)"
+                "उपलेटा (Upleta)",
+                "कोटका सांगाणी (Kotda Sangani)"
+            ],
+            "भावनगर (Bhavnagar)": [
+                "महुआ (Mahuva)",
+                "पालीताना (Palitana)",
+                "तलाजा (Talaja)",
+                "सिहोर (Sihor)",
+                "गारियाधार (Gariadhar)"
+            ],
+            "जामनगर (Jamnagar)": [
+                "ध्रोल (Dhrol)",
+                "जोड़िया (Jodiya)",
+                "कालावड (Kalavad)",
+                "लालपुर (Lalpur)",
+                "जामजोधपुर (Jamjodhpur)"
+            ],
+            "गांधीनगर (Gandhinagar)": [
+                "कलोल (Kalol)",
+                "दहेगाम (Dahegam)",
+                "माणसा (Mansa)",
+                "पेथापुर (Pethapur)"
             ],
             "वापी / वलसाड (Vapi)": [
                 "वापी (Vapi)",
                 "पारडी (Pardi)",
                 "उमरगाम (Umbergaon)",
-                "धरमपुर (Dharampur)"
+                "धरमपुर (Dharampur)",
+                "कपराड़ा (Kaprada)"
             ],
-            "गांधीनगर (Gandhinagar)": [
-                "कलोल (Kalol)",
-                "दहेगाम (Dahegam)",
-                "माणसा (Mansa)"
+            "कच्छ / भुज (Bhuj)": [
+                "गांधीधाम (Gandhidham)",
+                "मांडवी (Mandvi)",
+                "अंजार (Anjar)",
+                "मुंद्रा (Mundra)",
+                "रापर (Rapar)"
             ]
         }
     },
-    "DL": {
-        "name": "दिल्ली एनसीआर / Delhi NCR",
-        "capital": "नई दिल्ली",
-        "emoji": "🏛️",
-        "population": "3.3 Cr",
-        "area": "1,484 km²",
-        "cm": "रेखा गुप्ता",
-        "dbtAmount": "₹14,200 Cr",
-        "dbtRating": "96%",
+    "RJ": {
+        "name": "राजस्थान / Rajasthan",
+        "capital": "जयपुर",
+        "emoji": "🏰",
+        "population": "8.1 Cr",
+        "area": "3,42,239 km²",
+        "cm": "भजन लाल शर्मा",
+        "dbtAmount": "₹29,800 Cr",
+        "dbtRating": "91%",
         "districts": {
-            "नई दिल्ली (New Delhi)": [
-                "कनॉट प्लेस (Connaught Place)",
-                "चाणक्यपुरी (Chanakyapuri)",
-                "दिल्ली कैंट (Delhi Cantt)",
-                "वसंत विहार (Vasant Vihar)"
+            "जयपुर (Jaipur)": [
+                "आमेर (Amer)",
+                "सांगानेर (Sanganer)",
+                "चाकसू (Chaksu)",
+                "बस्सी (Bassi)",
+                "कोटपूतली (Kotputli)",
+                "फुलेरा (Phulera)",
+                "जमवारामगढ़ (Jamwa Ramgarh)",
+                "विराटनगर (Viratnagar)"
             ],
-            "दक्षिण दिल्ली (South Delhi)": [
-                "हौज खास (Hauz Khas)",
-                "साकेत (Saket)",
-                "महरौली (Mehrauli)",
-                "मदनगीर (Madangir)",
-                "ग्रेटर कैलाश (GK)"
+            "जोधपुर (Jodhpur)": [
+                "लूणी (Luni)",
+                "ओसियां (Osian)",
+                "फलोदी (Phalodi)",
+                "शेरगढ़ (Shergarh)",
+                "भोपालगढ़ (Bhopalgarh)",
+                "बिलाड़ा (Bilara)"
             ],
-            "पश्चिम दिल्ली (West Delhi)": [
-                "नजफगढ़ (Najafgarh)",
-                "नांगलोई जाट (Nangloi Jat)",
-                "सुल्तानपुर माजरा (Sultanpur)",
-                "खैर (Kair)",
-                "जनकपुरी (Janakpuri)"
+            "कोटा (Kota)": [
+                "लाडपुरा (Ladpura)",
+                "सांगोद (Sangod)",
+                "रामगंजमंडी (Ramganj Mandi)",
+                "दीगोद (Digod)",
+                "इटावा (Itawa)",
+                "कनवास (Kanwas)"
             ],
-            "उत्तर दिल्ली (North Delhi)": [
-                "नरेला (Narela)",
-                "भलस्वा जहाँगीरपुर (Bhalswa)",
-                "बख्तावरपुर (Bakhtawarpur)",
-                "दरियापुर कलां (Daryapur Kalan)"
+            "बीकानेर (Bikaner)": [
+                "नोखा (Nokha)",
+                "लूणकरणसर (Lunkaransar)",
+                "डूंगरगढ़ (Dungargarh)",
+                "कोलायत (Kolayat)",
+                "खाजूवाला (Khajuwala)"
             ],
-            "पूर्वी दिल्ली (East Delhi)": [
-                "दल्लूपुरा (Dalupura)",
-                "मंडोली (Mandoli)",
-                "मयूर विहार (Mayur Vihar)",
-                "लक्ष्मी नगर (Laxmi Nagar)"
+            "अजमेर (Ajmer)": [
+                "ब्यावर (Beawar)",
+                "किशनगढ़ (Kishangarh)",
+                "नसीराबाद (Nasirabad)",
+                "पुष्कर (Pushkar)",
+                "केकड़ी (Kekri)",
+                "मसूदा (Masuda)"
+            ],
+            "उदयपुर (Udaipur)": [
+                "गिर्वा (Girwa)",
+                "मावली (Mavli)",
+                "वल्लभनगर (Vallabhnagar)",
+                "सलूम्बर (Salumbar)",
+                "झाड़ोल (Jhadol)",
+                "खेरवाड़ा (Kherwara)"
+            ],
+            "भीलवाड़ा (Bhilwara)": [
+                "मांडलगढ़ (Mandalgarh)",
+                "शाहपुरा (Shahpura)",
+                "आसींद (Asind)",
+                "जहाजपुर (Jahazpur)",
+                "गुलाबपुरा (Gulabpura)"
+            ],
+            "अलवर (Alwar)": [
+                "तिजारा (Tijara)",
+                "किशनगढ़ बास (Kishangarh Bas)",
+                "बहरोड़ (Behror)",
+                "थानागाजी (Thanagazi)",
+                "राजगढ़ (Rajgarh)",
+                "नीमराणा (Neemrana)"
             ]
         }
     },
@@ -763,25 +1095,44 @@ const STATE_DB = {
                 "सोनडेकोप्पा (Sondekoppa)",
                 "मादनायकानहल्ली (Madnayakanhalli)",
                 "काडीगानहल्ली (Kadiganahalli)",
-                "बयनडहल्ली (Bayandhalli)"
+                "बयनडहल्ली (Bayandhalli)",
+                "कोरमंगला (Koramangala)",
+                "इलेक्ट्रॉनिक सिटी (Electronic City)"
             ],
             "मैसूर (Mysuru)": [
                 "नंजनगुड़ (Nanjangud)",
                 "हुनसूर (Hunsur)",
                 "के.आर. नगर (KR Nagar)",
                 "टी. नरसीपुर (T Narasipura)",
-                "बेंद्रवाड़ी (Bendravadi)"
+                "बेंद्रवाड़ी (Bendravadi)",
+                "पिरीयापटना (Piriyapatna)"
+            ],
+            "हुबली-धारवाड़ (Hubballi-Dharwad)": [
+                "कुंदगोल (Kundgol)",
+                "नवलगुंड (Navalgund)",
+                "कलघटगी (Kalghatgi)",
+                "अल्नावर (Alnavar)"
             ],
             "मंगलोर / दक्षिण कन्नड़ (Mangaluru)": [
                 "बंतवाल (Bantwal)",
                 "पुत्तूर (Puttur)",
                 "बेलथंगड़ी (Belthangady)",
-                "सुलिया (Sullia)"
+                "सुलिया (Sullia)",
+                "मूडबिद्री (Moodabidri)"
             ],
-            "हुबली-धारवाड़ (Hubli-Dharwad)": [
-                "कुंदगोल (Kundgol)",
-                "नवलगुंड (Navalgund)",
-                "कलघटगी (Kalghatgi)"
+            "बेलगावी / बेलगाम (Belagavi)": [
+                "गोकक (Gokak)",
+                "चिक्कोडी (Chikkodi)",
+                "अथणी (Athani)",
+                "हुक्केरी (Hukkeri)",
+                "बैलहोंगल (Bailhongal)",
+                "सौंदत्ती (Saundatti)"
+            ],
+            "दावणगेरे (Davanagere)": [
+                "हरिहर (Harihar)",
+                "चन्नागिरी (Channagiri)",
+                "होन्नाली (Honnali)",
+                "जगलूर (Jagalur)"
             ]
         }
     },
@@ -805,14 +1156,16 @@ const STATE_DB = {
                 "तिरुवोट्टियूर (Tiruvottiyur)",
                 "वंडालूर (Vandalur)",
                 "पोरूर (Porur)",
-                "मुगलिवाक्कम (Mugalivakkam)"
+                "मुगलिवाक्कम (Mugalivakkam)",
+                "टी. नगर (T Nagar)"
             ],
             "कोयंबटूर (Coimbatore)": [
                 "पोल्लाची (Pollachi)",
                 "मेट्टुपालयम (Mettupalayam)",
                 "सुलूर (Sulur)",
                 "अन्नाूर (Annur)",
-                "नादम्पालयम (Nadampalayam)"
+                "नादम्पालयम (Nadampalayam)",
+                "वालपराई (Valparai)"
             ],
             "मदुरै (Madurai)": [
                 "तिरुप्परंगुंद्रम (Tirupparangunram)",
@@ -820,7 +1173,16 @@ const STATE_DB = {
                 "उसीलाम्पत्ती (Usilampatti)",
                 "सोलन कुरुणी (Solankuruni)",
                 "नेडुमदुरै (Nedumadurai)",
-                "वलैयनकुलम (Valaiyankulam)"
+                "वलैयनकुलम (Valaiyankulam)",
+                "वाडिप्पट्टी (Vadipatti)"
+            ],
+            "तिरुचिरापल्ली (Trichy)": [
+                "श्रीरंगम (Srirangam)",
+                "लालगुडी (Lalgudi)",
+                "मणप्पारई (Manapparai)",
+                "गुंडूर (Gundur)",
+                "कंबरसम्पेत्तई (Kambarasampettai)",
+                "थुरैयूर (Thuraiyur)"
             ],
             "सलेम (Salem)": [
                 "अयोध्यापट्टनम (Ayodhyapattanam)",
@@ -828,19 +1190,28 @@ const STATE_DB = {
                 "पनामरत्तुपट्टी (Panamarattuppatti)",
                 "वीरपांडी (Virapandi)",
                 "वलसय्यूर (Valasaiyur)",
-                "चिन्नानूर (Chinnanur)"
+                "चिन्नानूर (Chinnanur)",
+                "मेट्टूर (Mettur)",
+                "ओमालूर (Omalur)"
             ],
-            "तिरुचिरापल्ली (Trichy)": [
-                "श्रीरंगम (Srirangam)",
-                "लालगुडी (Lalgudi)",
-                "मणप्पारई (Manapparai)",
-                "गुंडूर (Gundur)",
-                "कंबरसम्पेत्तई (Kambarasampettai)"
+            "तिरुप्पुर (Tiruppur)": [
+                "अविनाशी (Avinashi)",
+                "पल्लादम (Palladam)",
+                "धारापुरम (Dharapuram)",
+                "उदुमलपेट (Udumalaipettai)",
+                "कांगेयम (Kangeyam)"
+            ],
+            "इरोड (Erode)": [
+                "भवानी (Bhavani)",
+                "गोबिचेट्टीपलायम (Gobichettipalayam)",
+                "पेरुंदुरई (Perundurai)",
+                "सत्यमंगलम (Sathyamangalam)"
             ],
             "तूतीकोरिन (Thoothukudi)": [
                 "पेयनविलाई (Peyanvilai)",
                 "तिरुचेंदूर (Tiruchendur)",
-                "कोविलपट्टी (Kovilpatti)"
+                "कोविलपट्टी (Kovilpatti)",
+                "ओट्टापिदारम (Ottapidaram)"
             ]
         }
     },
@@ -859,14 +1230,18 @@ const STATE_DB = {
                 "सिकंदराबाद (Secunderabad)",
                 "गच्चीबाउली (Gachibowli)",
                 "मलकपेट (Malakpet)",
-                "जुबली हिल्स (Jubilee Hills)"
+                "जुबली हिल्स (Jubilee Hills)",
+                "हाईटेक सिटी (HITEC City)",
+                "बंजारा हिल्स (Banjara Hills)"
             ],
             "मेडचल-मलकाजगिरि (Malkajgiri)": [
                 "मलकाजगिरि (Malkajgiri)",
                 "अल्वाल (Alwal)",
                 "दुंडीगल (Dundigal)",
                 "गागिलापुर (Gagilapur)",
-                "कुतबुल्लापुर (Quthbullapur)"
+                "कुतबुल्लापुर (Quthbullapur)",
+                "मेडक (Medchal)",
+                "उप्पल (Uppal)"
             ],
             "रंगारेड्डी (Ranga Reddy)": [
                 "बंदलागुड़ा (Bandlaguda)",
@@ -874,13 +1249,29 @@ const STATE_DB = {
                 "ममीदीपल्ली (Mamidipalli)",
                 "वत्तिनागुलापल्ली (Wattinagulapalli)",
                 "हिमायतसागर (Himayatsagar)",
-                "मंचिरेवुला (Manchirevula)"
+                "मंचिरेवुला (Manchirevula)",
+                "शमशाबाद (Shamshabad)",
+                "इब्राहिमपटनम (Ibrahimpatnam)"
             ],
             "वारंगल (Warangal)": [
                 "कोंडापर्ती (Kondaparti)",
                 "मोगलचर्ला (Mogalcherla)",
                 "हसनपर्ती (Hasanparthy)",
-                "काजीपेट (Kazipet)"
+                "काजीपेट (Kazipet)",
+                "नरसमपेट (Narsampet)",
+                "वर्धन्नापेट (Wardhannapet)"
+            ],
+            "निजामाबाद (Nizamabad)": [
+                "आर्मूर (Armoor)",
+                "बोधन (Bodhan)",
+                "भीमगल (Bheemgal)",
+                "वरंगल (Varni)"
+            ],
+            "करीमनगर (Karimnagar)": [
+                "हुजुराबाद (Huzurabad)",
+                "मानकोंडूर (Manakondur)",
+                "चोपडांडी (Choppadandi)",
+                "जम्मीकुंटा (Jammikunta)"
             ]
         }
     },
@@ -899,7 +1290,9 @@ const STATE_DB = {
                 "अलीपुर (Alipore)",
                 "भवानीपुर (Bhawanipur)",
                 "दमदम (Dum Dum)",
-                "टॉलीगंज (Tollygunge)"
+                "टॉलीगंज (Tollygunge)",
+                "श्यामबाजार (Shyambazar)",
+                "न्यू टाउन (New Town)"
             ],
             "हावड़ा (Howrah)": [
                 "बाली (Bally)",
@@ -907,7 +1300,8 @@ const STATE_DB = {
                 "सांकराइल (Sankrail)",
                 "पांचला (Panchla)",
                 "बगनान (Bagnan)",
-                "डुमजोर (Dumjor)"
+                "डुमजोर (Dumjor)",
+                "शिबपुर (Shibpur)"
             ],
             "उत्तर 24 परगना (North 24 Parganas)": [
                 "बैरकपुर (Barakpur)",
@@ -915,7 +1309,9 @@ const STATE_DB = {
                 "पानीहाटी (Panihati)",
                 "कमरहटी (Kamarhati)",
                 "टीटागढ़ (Titagarh)",
-                "खरदह (Khardah)"
+                "खरदह (Khardah)",
+                "बारासात (Barasat)",
+                "बशीरहाट (Basirhat)"
             ],
             "हुगली (Hooghly)": [
                 "चुंचुड़ा (Chunchura)",
@@ -923,13 +1319,16 @@ const STATE_DB = {
                 "चंदननगर (Chandannagar)",
                 "बांसबेरिया (Bansbaria)",
                 "बेगमपुर (Begampur)",
-                "चांदीतला (Chanditala)"
+                "चांदीतला (Chanditala)",
+                "आरामबाग (Arambagh)",
+                "उत्तरपारा (Uttarpara)"
             ],
             "पश्चिम बर्धमान / आसनसोल (Asansol)": [
                 "आसनसोल (Asansol)",
                 "कुल्टी (Kulti)",
                 "रानीगंज (Raniganj)",
-                "दुर्गापुर (Durgapur)"
+                "दुर्गापुर (Durgapur)",
+                "जामुरिया (Jamuria)"
             ],
             "मुर्शिदाबाद (Murshidabad)": [
                 "बहरामपुर (Baharampur)",
@@ -937,67 +1336,25 @@ const STATE_DB = {
                 "जालदीपुर (Jaladipur)",
                 "जाजीग्राम (Jajigram)",
                 "इमामनगर (Imamnagar)",
-                "बललालपुर (Ballalpur)"
+                "बललालपुर (Ballalpur)",
+                "लालगोला (Lalgola)",
+                "जंगीपुर (Jangipur)"
             ],
             "नदिया / कृष्णानगर (Krishnanagar)": [
                 "कृष्णानगर (Krishnanagar)",
                 "कल्याणी (Kalyani)",
                 "शांतिपुर (Santipur)",
                 "रानाघाट (Ranaghat)",
-                "दीगनगर (Dignagar)"
+                "दीगनगर (Dignagar)",
+                "नवद्वीप (Nabadwip)"
             ],
             "मेदिनीपुर / खड़गपुर (Kharagpur)": [
                 "खड़गपुर (Kharagpur)",
                 "मेदिनीपुर (Midnapore)",
                 "तमलुक (Tamluk)",
-                "कोला (Kola)"
-            ]
-        }
-    },
-    "RJ": {
-        "name": "राजस्थान / Rajasthan",
-        "capital": "जयपुर",
-        "emoji": "🏰",
-        "population": "8.1 Cr",
-        "area": "3,42,239 km²",
-        "cm": "भजन लाल शर्मा",
-        "dbtAmount": "₹29,800 Cr",
-        "dbtRating": "91%",
-        "districts": {
-            "जयपुर (Jaipur)": [
-                "आमेर (Amer)",
-                "सांगानेर (Sanganer)",
-                "चाकसू (Chaksu)",
-                "बस्सी (Bassi)",
-                "कोटपूतली (Kotputli)",
-                "फुलेरा (Phulera)"
-            ],
-            "जोधपुर (Jodhpur)": [
-                "लूणी (Luni)",
-                "ओसियां (Osian)",
-                "फलोदी (Phalodi)",
-                "शेरगढ़ (Shergarh)",
-                "भोपालगढ़ (Bhopalgarh)"
-            ],
-            "कोटा (Kota)": [
-                "लाडपुरा (Ladpura)",
-                "सांगोद (Sangod)",
-                "रामगंजमंडी (Ramganj Mandi)",
-                "दीगोद (Digod)",
-                "इटावा (Itawa)"
-            ],
-            "उदयपुर (Udaipur)": [
-                "गिर्वा (Girwa)",
-                "मावली (Mavli)",
-                "वल्लभनगर (Vallabhnagar)",
-                "सलूम्बर (Salumbar)",
-                "झाड़ोल (Jhadol)"
-            ],
-            "अजमेर (Ajmer)": [
-                "ब्यावर (Beawar)",
-                "किशनगढ़ (Kishangarh)",
-                "नसीराबाद (Nasirabad)",
-                "पुष्कर (Pushkar)"
+                "कोला (Kola)",
+                "घाटल (Ghatal)",
+                "हल्दिया (Haldia)"
             ]
         }
     },
@@ -1016,13 +1373,15 @@ const STATE_DB = {
                 "खन्ना (Khanna)",
                 "समराला (Samrala)",
                 "पायल (Payal)",
-                "रायकोट (Raikot)"
+                "रायकोट (Raikot)",
+                "साहनेवाल (Sahnewal)"
             ],
             "अमृतसर (Amritsar)": [
                 "अजनाला (Ajnala)",
                 "बाबा बकाला (Baba Bakala)",
                 "मजीठा (Majitha)",
-                "अटारी (Attari)"
+                "अटारी (Attari)",
+                "छेहरटा (Chheharta)"
             ],
             "मोहाली / एसएएस नगर (Mohali)": [
                 "खरड़ (Kharar)",
@@ -1032,20 +1391,29 @@ const STATE_DB = {
                 "भाबत (Bhabat)",
                 "मनौली (Manauli)",
                 "धुराली (Dhurali)",
-                "मोटा माजरा (Mota Mazra)"
+                "मोटा माजरा (Mota Mazra)",
+                "जीरकपुर (Zirakpur)"
             ],
             "जालंधर (Jalandhar)": [
                 "नकोदर (Nakodar)",
                 "फिल्लौर (Phillaur)",
                 "शाहकोट (Shahkot)",
-                "आदमपुर (Adampur)"
+                "आदमपुर (Adampur)",
+                "करतारपुर (Kartarpur)"
             ],
             "पटियाला (Patiala)": [
                 "नाभा (Nabha)",
                 "राजपुरा (Rajpura)",
                 "समाना (Samana)",
                 "पातड़ां (Patran)",
-                "अभयपुर (Abhepur)"
+                "अभयपुर (Abhepur)",
+                "सनौर (Sanaur)"
+            ],
+            "बठिंडा (Bathinda)": [
+                "तलवंडी साबो (Talwandi Sabo)",
+                "रामपुरा फूल (Rampura Phul)",
+                "मौड़ (Maur)",
+                "गोनियाना (Goniana)"
             ]
         }
     },
@@ -1064,31 +1432,42 @@ const STATE_DB = {
                 "सोहना (Sohna)",
                 "पटौदी (Pataudi)",
                 "बादशाहपुर (Badshahpur)",
-                "फरुखनगर (Farrukhnagar)"
+                "फरुखनगर (Farrukhnagar)",
+                "डीएलएफ साइबरसिटी (DLF)"
             ],
             "फरीदाबाद (Faridabad)": [
                 "बल्लभगढ़ (Ballabgarh)",
                 "बड़खल (Badkhal)",
                 "धौज (Dhauj)",
                 "तिगांव (Tigaon)",
-                "धरमपुर (Dharampur)"
+                "धरमपुर (Dharampur)",
+                "एनआईटी (NIT)"
+            ],
+            "पानीपत (Panipat)": [
+                "समालखा (Samalkha)",
+                "इसराना (Israna)",
+                "बापोली (Bapoli)",
+                "मतलौडा (Madlauda)"
+            ],
+            "अंबाला (Ambala)": [
+                "बराड़ा (Barara)",
+                "नारायणगढ़ (Naraingarh)",
+                "शहजादपुर (Shahzadpur)",
+                "साहा (Saha)"
             ],
             "करनाल (Karnal)": [
                 "घरौंडा (Gharaunda)",
                 "असंध (Assandh)",
                 "इन्द्री (Indri)",
-                "नीलोखेड़ी (Nilokheri)"
+                "नीलोखेड़ी (Nilokheri)",
+                "तरावड़ी (Taraori)"
             ],
             "हिसार (Hisar)": [
                 "हांसी (Hansi)",
                 "बरवाला (Barwala)",
                 "नारनौंद (Narnaund)",
-                "आदमपुर (Adampur)"
-            ],
-            "अंबाला (Ambala)": [
-                "बराड़ा (Barara)",
-                "नारायणगढ़ (Naraingarh)",
-                "शहजादपुर (Shahzadpur)"
+                "आदमपुर (Adampur)",
+                "उकलाना (Uklana)"
             ]
         }
     },
@@ -1108,7 +1487,9 @@ const STATE_DB = {
                 "कझाकुट्टम (Kazhakkoottam)",
                 "आयिरुरपारा (Ayirurpara)",
                 "तोनाक्कल (Tonakkal)",
-                "मनारा (Mannara)"
+                "मनारा (Mannara)",
+                "वर्कला (Varkala)",
+                "कोवलम (Kovalam)"
             ],
             "कोच्चि / एर्नाकुलम (Kochi)": [
                 "अलुवा (Aluva)",
@@ -1118,7 +1499,8 @@ const STATE_DB = {
                 "एडप्पल्ली (Edappalli)",
                 "एलांकुन्नपुझा (Elangunnapuzha)",
                 "मुलम्पिल्ली (Mulampilli)",
-                "वैपीन (Vypin)"
+                "वैपीन (Vypin)",
+                "फोर्ट कोच्चि (Fort Kochi)"
             ],
             "कोल्लम / क्विलोन (Quilon)": [
                 "पुनलूर (Punalur)",
@@ -1126,20 +1508,29 @@ const STATE_DB = {
                 "करुनागपल्ली (Karunagappally)",
                 "मय्यनाड (Mayyanad)",
                 "मुनरो तुरुत्तु (Munro Turuttu)",
-                "पल्लीमन (Palliman)"
+                "पल्लीमन (Palliman)",
+                "परवूर (Paravur)"
             ],
             "अलप्पुझा / एलेप्पी (Alleppey)": [
                 "चेरथला (Cherthala)",
                 "मावेलिक्कारा (Mavelikkara)",
                 "अम्बलप्पुझा (Ambalappuzha)",
                 "मन्नानचेरी (Mannanchori)",
-                "पेरुम्बलम (Perumbalam)"
+                "पेरुम्बलम (Perumbalam)",
+                "कुट्टनाड (Kuttanad)"
+            ],
+            "कोझिकोड / कालीकट (Kozhikode)": [
+                "वटकरा (Vatakara)",
+                "कोयिलांडी (Koyilandy)",
+                "तामरस्सेरी (Thamarassery)",
+                "बेपोर (Beypore)"
             ],
             "त्रिशूर (Thrissur)": [
                 "कन्ननकुलम (Kannankulam)",
                 "चवक्कड़ (Chavakkad)",
                 "मुकुंदपुरम (Mukundapuram)",
-                "कोडुंगल्लूर (Kodungallur)"
+                "कोडुंगल्लूर (Kodungallur)",
+                "गुरुवायूर (Guruvayur)"
             ]
         }
     },
@@ -1157,20 +1548,29 @@ const STATE_DB = {
                 "अनकापल्ले (Anakapalle)",
                 "भीमुनिपटनम (Bheemunipatnam)",
                 "गाजुवाका (Gajuwaka)",
-                "पेंदुर्ति (Pendurthi)"
+                "पेंदुर्ति (Pendurthi)",
+                "अराकू घाटी (Araku)"
             ],
             "विजयवाड़ा / एनटीआर (Vijayawada)": [
                 "मंगलागिरि (Mangalagiri)",
                 "गुड़ीवाड़ा (Gudivada)",
                 "नुज्विद (Nuzvid)",
                 "अंबापुरम (Ambapuram)",
-                "पातापाडु (Patapadu)"
+                "पातापाडु (Patapadu)",
+                "इब्राहिमपटनम (Ibrahimpatnam)"
             ],
             "गुंटूर (Guntur)": [
                 "तेनाली (Tenali)",
                 "सत्तेनापल्ली (Sattenapalle)",
                 "नरसरावपेट (Narasaraopet)",
-                "सीतानगरम (Sitanagaram)"
+                "सीतानगरम (Sitanagaram)",
+                "बापटला (Bapatla)"
+            ],
+            "तिरुपति (Tirupati)": [
+                "श्रीकालहस्ती (Srikalahasti)",
+                "चंद्रगिरि (Chandragiri)",
+                "नागरी (Nagari)",
+                "पुत्तूर (Puttur)"
             ],
             "काकीनाडा (Kakinada)": [
                 "पिथापुरम (Pithapuram)",
@@ -1181,13 +1581,15 @@ const STATE_DB = {
             "राजमुंदरी (Rajahmundry)": [
                 "कोव्वूर (Kovvur)",
                 "अनपर्ती (Anaparthy)",
-                "निदादावोलु (Nidadavole)"
+                "निदादावोलु (Nidadavole)",
+                "रामचंद्रपुरम (Ramachandrapuram)"
             ],
             "कडपा (Kadapa)": [
                 "पाताकुडपा (Patacudapah)",
                 "पुतलमपल्ले (Putlampalle)",
                 "तक्कोलु (Takkolu)",
-                "राजमपेट (Rajampet)"
+                "राजमपेट (Rajampet)",
+                "प्रद्दातूर (Proddatur)"
             ]
         }
     },
@@ -1205,42 +1607,49 @@ const STATE_DB = {
                 "जटनी (Jatni)",
                 "बालीपटना (Balipatna)",
                 "बेगुनिया (Begunia)",
-                "बाणपुर (Banapur)"
+                "बाणपुर (Banapur)",
+                "खंडगिरि (Khandagiri)"
             ],
             "कटक (Cuttack)": [
                 "अठगढ़ (Athagarh)",
                 "बांकी (Banki)",
                 "चौद्वार (Choudwar)",
-                "सालेपुर (Salepur)"
+                "सालेपुर (Salepur)",
+                "तिगड़िया (Tigiria)"
             ],
             "राउरकेला / सुंदरगढ़ (Rourkela)": [
                 "बड़गांव (Bargaon)",
                 "बोनई (Bonai)",
                 "राजगांगपुर (Rajgangpur)",
-                "बृजराजनगर (Brajarajnagar)"
+                "बृजराजनगर (Brajarajnagar)",
+                "पानपोष (Panposh)"
             ],
             "ब्रह्मपुर / गंजम (Brahmapur)": [
                 "छत्रपुर (Chhatrapur)",
                 "भंजनगर (Bhanjanagar)",
                 "हिंजिलिकट (Hinjilicut)",
-                "अस्का (Aska)"
+                "अस्का (Aska)",
+                "गोपालपुर (Gopalpur)"
             ],
             "पुरी (Puri)": [
                 "कोणार्क (Konark)",
                 "पिपिली (Pipili)",
                 "सत्यवादी (Satyabadi)",
-                "ब्रह्मगिरि (Brahmagiri)"
+                "ब्रह्मगिरि (Brahmagiri)",
+                "काकटपुर (Kakatpur)"
             ],
             "बालेश्वर (Balasore)": [
                 "जलेश्वर (Jaleswar)",
                 "सोरो (Soro)",
                 "बस्ता (Basta)",
-                "निलगिरि (Nilagiri)"
+                "निलगिरि (Nilagiri)",
+                "चांदीपुर (Chandipur)"
             ],
-            "मयूरभंज / बारीपदा (Baripada)": [
-                "रायरंगपुर (Rairangpur)",
-                "करंजिया (Karanjia)",
-                "उदला (Udala)"
+            "संबलपुर (Sambalpur)": [
+                "बुर्ला (Burla)",
+                "हीराकुड (Hirakud)",
+                "कुचिंडा (Kuchinda)",
+                "रेढ़ाखोल (Rairakhol)"
             ]
         }
     },
@@ -1260,31 +1669,46 @@ const STATE_DB = {
                 "पिथौरिया (Pithauria)",
                 "रातू (Ratu)",
                 "बुढ़मू (Burmu)",
-                "सिल्ली (Silli)"
+                "सिल्ली (Silli)",
+                "डोरंडा (Doranda)",
+                "हटिया (Hatia)"
+            ],
+            "जमशेदपुर / पूर्वी सिंहभूम (Jamshedpur)": [
+                "साकची (Sakchi)",
+                "बिष्टुपुर (Bishtupur)",
+                "घाटशिला (Ghatshila)",
+                "पोटका (Potka)",
+                "पटमदा (Patamda)",
+                "मुसाबनी (Musabani)",
+                "मानगो (Mango)"
             ],
             "धनबाद (Dhanbad)": [
                 "झरिया (Jharia)",
                 "बाघमारा (Baghmara)",
                 "निरसा (Nirsa)",
                 "टुंडी (Tundi)",
-                "हरिलाडीह (Hariladih)"
+                "हरिलाडीह (Hariladih)",
+                "चिरकुंडा (Chirkunda)",
+                "गोविंदपुर (Govindpur)"
             ],
-            "जमशेदपुर / पूर्वी सिंहभूम (Jamshedpur)": [
-                "घाटशिला (Ghatshila)",
-                "पोटका (Potka)",
-                "पटमदा (Patamda)",
-                "मुसाबनी (Musabani)"
-            ],
-            "बोकारो (Bokaro)": [
+            "बोकारो स्टील सिटी (Bokaro)": [
                 "चास (Chas)",
                 "बेरमो (Bermo)",
                 "गोमिया (Gomia)",
-                "चंदनकियारी (Chandankiyari)"
+                "चंदनकियारी (Chandankiyari)",
+                "फुसरो (Phusro)"
             ],
-            "साहिबगंज / उस्मानपुर (Usmanpur)": [
-                "उस्मानपुर (Usmanpur)",
-                "राजमहल (Rajmahal)",
-                "बरहरवा (Barharwa)"
+            "देवघर (Deoghar)": [
+                "मधुपुर (Madhupur)",
+                "सारठ (Sarath)",
+                "देवीपुर (Devipur)",
+                "मोहनपुर (Mohanpur)"
+            ],
+            "हजारीबाग (Hazaribagh)": [
+                "बरही (Barhi)",
+                "बड़कागांव (Barkagaon)",
+                "चौपारण (Chauparan)",
+                "इचाक (Ichak)"
             ]
         }
     },
@@ -1303,25 +1727,200 @@ const STATE_DB = {
                 "जलुकबारी (Jalukbari)",
                 "सोनापुर (Sonapur)",
                 "पल्टन बाजार (Paltan Bazar)",
-                "नारंगी (Narengi)"
+                "नारंगी (Narengi)",
+                "खानापारा (Khanapara)"
             ],
             "डिब्रूगढ़ (Dibrugarh)": [
                 "नाहरकटिया (Naharkatia)",
                 "चाबुआ (Chabua)",
                 "मोरन (Moran)",
-                "टिंगखोंग (Tingkhong)"
+                "टिंगखोंग (Tingkhong)",
+                "दुलियाजान (Duliajan)"
             ],
             "सिलचर / कछार (Silchar)": [
                 "सोनई (Sonai)",
                 "धोलाई (Dholai)",
                 "उधारबोंड (Udharbond)",
-                "काटीगोरा (Katigorah)"
+                "काटीगोरा (Katigorah)",
+                "लखीपुर (Lakhipur)"
             ],
             "जोरहाट (Jorhat)": [
                 "टीटाबार (Titabar)",
                 "माजुली (Majuli)",
                 "मरियनी (Mariani)",
                 "तेओक (Teok)"
+            ],
+            "तेजपुर / शोणितपुर (Tezpur)": [
+                "ढेकिआजुली (Dhekiajuli)",
+                "रंगपारा (Rangapara)",
+                "जामुगुरीहाट (Jamugurihat)"
+            ]
+        }
+    },
+    "UK": {
+        "name": "उत्तराखंड / Uttarakhand",
+        "capital": "देहरादून",
+        "emoji": "🏔️",
+        "population": "1.1 Cr",
+        "area": "53,483 km²",
+        "cm": "पुष्कर सिंह धामी",
+        "dbtAmount": "₹8,400 Cr",
+        "dbtRating": "92%",
+        "districts": {
+            "देहरादून (Dehradun)": [
+                "ऋषिकेश (Rishikesh)",
+                "विकासनगर (Vikasnagar)",
+                "डोईवाला (Doiwala)",
+                "हरबटपुर (Harbatpur)",
+                "सौंधोंवाली (Saundhonwali)",
+                "मसूरी (Mussoorie)",
+                "चकराता (Chakrata)"
+            ],
+            "हरिद्वार (Haridwar)": [
+                "रुड़की (Roorkee)",
+                "लक्सर (Laksar)",
+                "भगवानपुर (Bhagwanpur)",
+                "गुमानवाला (Gumanwala)",
+                "ज्वालापुर (Jwalapur)",
+                "मंगलौर (Manglaur)"
+            ],
+            "उधम सिंह नगर (US Nagar)": [
+                "काशीपुर (Kashipur)",
+                "रुद्रपुर (Rudrapur)",
+                "किच्छा (Kichha)",
+                "महुआखेड़ागंज (Mahuakheraganj)",
+                "नगला (Nagla)",
+                "जसपुर (Jaspur)",
+                "बाजपुर (Bazpur)",
+                "खटीमा (Khatima)"
+            ],
+            "नैनीताल (Nainital)": [
+                "हल्द्वानी (Haldwani)",
+                "रामनगर (Ramnagar)",
+                "कमलवागांजा (Kamalwaganja)",
+                "मदनपुर (Madanpur)",
+                "भीमताल (Bhimtal)",
+                "लालकुआं (Lalkuan)"
+            ],
+            "अल्मोड़ा (Almora)": [
+                "रानीखेत (Ranikhet)",
+                "द्वाराहाट (Dwarahat)",
+                "सोमेश्वर (Someshwar)",
+                "भिकियासैंण (Bhikiyasain)"
+            ]
+        }
+    },
+    "HP": {
+        "name": "हिमाचल प्रदेश / Himachal",
+        "capital": "शिमला",
+        "emoji": "🏔️",
+        "population": "75 Lakh",
+        "area": "55,673 km²",
+        "cm": "सुखविंदर सिंह सुक्खू",
+        "dbtAmount": "₹6,400 Cr",
+        "dbtRating": "92%",
+        "districts": {
+            "शिमला (Shimla)": [
+                "कुफरी (Kufri)",
+                "रोहड़ू (Rohru)",
+                "रामपुर (Rampur)",
+                "चौपाल (Chopal)",
+                "ठियोग (Theog)",
+                "संजौली (Sanjauli)"
+            ],
+            "कांगड़ा / धर्मशाला (Dharamshala)": [
+                "पालमपुर (Palampur)",
+                "नूरपुर (Nurpur)",
+                "ज्वालामुखी (Jwalamukhi)",
+                "देहरा (Dehra)",
+                "बैजनाथ (Baijnath)"
+            ],
+            "मंडी (Mandi)": [
+                "सुंदरनगर (Sundernagar)",
+                "सरकाघाट (Sarkaghat)",
+                "जोगिंदरनगर (Jogindernagar)",
+                "करसोग (Karsog)"
+            ],
+            "कुल्लू (Kullu)": [
+                "मनाली (Manali)",
+                "बंजार (Banjar)",
+                "आनी (Anni)",
+                "भुंतर (Bhuntar)"
+            ],
+            "सोलन (Solan)": [
+                "कसौली (Kasauli)",
+                "नालागढ़ (Nalagarh)",
+                "बद्दी (Baddi)",
+                "कंडाघाट (Kandaghat)"
+            ]
+        }
+    },
+    "CT": {
+        "name": "छत्तीसगढ़ / Chhattisgarh",
+        "capital": "रायपुर",
+        "emoji": "🌾",
+        "population": "3.0 Cr",
+        "area": "1,35,192 km²",
+        "cm": "विष्णु देव साय",
+        "dbtAmount": "₹14,900 Cr",
+        "dbtRating": "91%",
+        "districts": {
+            "रायपुर (Raipur)": [
+                "अभनपुर (Abhanpur)",
+                "आरंग (Arang)",
+                "धरसींवा (Dharsiwa)",
+                "तिल्दा (Tilda)",
+                "नवा रायपुर (Nava Raipur)"
+            ],
+            "बिलासपुर (Bilaspur)": [
+                "कोटा (Kota)",
+                "तखतपुर (Takhatpur)",
+                "मस्तुरी (Masturi)",
+                "बिल्हा (Bilha)",
+                "रतनपुर (Ratanpur)"
+            ],
+            "दुर्ग / भिलाई (Durg-Bhilai)": [
+                "पाटन (Patan)",
+                "धमधा (Dhamdha)",
+                "भिलाई नगर (Bhilai)",
+                "कुम्हारी (Kumhari)"
+            ],
+            "कोरबा (Korba)": [
+                "कटघोरा (Katghora)",
+                "पाली (Pali)",
+                "पोड़ी उपरोड़ा (Podi)",
+                "दीपका (Deepka)"
+            ],
+            "गोरखपुर / कबीरधाम (Gorakhpur)": [
+                "कवर्धा (Kawardha)",
+                "पंडरिया (Pandariya)",
+                "सहसपुर लोहारा (Sohara)"
+            ]
+        }
+    },
+    "GA": {
+        "name": "गोवा / Goa",
+        "capital": "पणजी",
+        "emoji": "🏖️",
+        "population": "15 Lakh",
+        "area": "3,702 km²",
+        "cm": "प्रमोद सावंत",
+        "dbtAmount": "₹2,800 Cr",
+        "dbtRating": "95%",
+        "districts": {
+            "उत्तर गोवा / पणजी (Panaji)": [
+                "मापुसा (Mapusa)",
+                "कैलांगूट (Calangute)",
+                "बिचोलिम (Bicholim)",
+                "पोंडा (Ponda)",
+                "पेरनेम (Pernem)"
+            ],
+            "दक्षिण गोवा / मडगांव (Margao)": [
+                "वास्को द गामा (Vasco)",
+                "मुरगांव (Mormugao)",
+                "क्यूपेम (Quepem)",
+                "कैनकोना (Canacona)",
+                "सांगुएम (Sanguem)"
             ]
         }
     },
@@ -1341,13 +1940,15 @@ const STATE_DB = {
                 "बटमालू (Batmaloo)",
                 "पंपोर (Pampur)",
                 "सोटुर (Sotur)",
-                "लाल चौक (Lal Chowk)"
+                "लाल चौक (Lal Chowk)",
+                "डालगेट (Dalgate)"
             ],
             "जम्मू (Jammu)": [
                 "अखनूर (Akhnoor)",
                 "आर.एस. पुरा (RS Pura)",
                 "बिश्नाह (Bishnah)",
-                "बाहु (Bahu)"
+                "बाहु (Bahu)",
+                "गांधी नगर (Gandhi Nagar)"
             ],
             "अनंतनाग (Anantnag)": [
                 "पहलगाम (Pahalgam)",
@@ -1363,75 +1964,53 @@ const STATE_DB = {
             ]
         }
     },
-    "UK": {
-        "name": "उत्तराखंड / Uttarakhand",
-        "capital": "देहरादून",
-        "emoji": "🏔️",
-        "population": "1.1 Cr",
-        "area": "53,483 km²",
-        "cm": "पुष्कर सिंह धामी",
-        "dbtAmount": "₹8,400 Cr",
-        "dbtRating": "92%",
+    "DL": {
+        "name": "दिल्ली एनसीआर / Delhi NCR",
+        "capital": "नई दिल्ली",
+        "emoji": "🏛️",
+        "population": "3.3 Cr",
+        "area": "1,484 km²",
+        "cm": "रेखा गुप्ता",
+        "dbtAmount": "₹14,200 Cr",
+        "dbtRating": "96%",
         "districts": {
-            "देहरादून (Dehradun)": [
-                "ऋषिकेश (Rishikesh)",
-                "विकासनगर (Vikasnagar)",
-                "डोईवाला (Doiwala)",
-                "हरबटपुर (Harbatpur)",
-                "सौंधोंवाली (Saundhonwali)"
+            "नई दिल्ली (New Delhi)": [
+                "कनॉट प्लेस (Connaught Place)",
+                "चाणक्यपुरी (Chanakyapuri)",
+                "दिल्ली कैंट (Delhi Cantt)",
+                "वसंत विहार (Vasant Vihar)",
+                "इंडिया गेट (India Gate)"
             ],
-            "हरिद्वार (Haridwar)": [
-                "रुड़की (Roorkee)",
-                "लक्सर (Laksar)",
-                "भगवानपुर (Bhagwanpur)",
-                "गुमानवाला (Gumanwala)"
+            "दक्षिण दिल्ली (South Delhi)": [
+                "हौज खास (Hauz Khas)",
+                "साकेत (Saket)",
+                "महरौली (Mehrauli)",
+                "मदनगीर (Madangir)",
+                "ग्रेटर कैलाश (GK)",
+                "लाजपत नगर (Lajpat Nagar)"
             ],
-            "उधम सिंह नगर (US Nagar)": [
-                "काशीपुर (Kashipur)",
-                "रुद्रपुर (Rudrapur)",
-                "किच्छा (Kichha)",
-                "महुआखेड़ागंज (Mahuakheraganj)",
-                "नगला (Nagla)"
+            "पश्चिम दिल्ली (West Delhi)": [
+                "नजफगढ़ (Najafgarh)",
+                "नांगलोई जाट (Nangloi Jat)",
+                "सुल्तानपुर माजरा (Sultanpur)",
+                "खैर (Kair)",
+                "जनकपुरी (Janakpuri)",
+                "राजौरी गार्डन (Rajouri Garden)"
             ],
-            "नैनीताल (Nainital)": [
-                "हल्द्वानी (Haldwani)",
-                "रामनगर (Ramnagar)",
-                "कमलवागांजा (Kamalwaganja)",
-                "मदनपुर (Madanpur)"
-            ]
-        }
-    },
-    "CT": {
-        "name": "छत्तीसगढ़ / Chhattisgarh",
-        "capital": "रायपुर",
-        "emoji": "🌾",
-        "population": "3.0 Cr",
-        "area": "1,35,192 km²",
-        "cm": "विष्णु देव साय",
-        "dbtAmount": "₹14,900 Cr",
-        "dbtRating": "91%",
-        "districts": {
-            "रायपुर (Raipur)": [
-                "अभनपुर (Abhanpur)",
-                "आरंग (Arang)",
-                "धरसींवा (Dharsiwa)",
-                "तिल्दा (Tilda)"
+            "उत्तर दिल्ली (North Delhi)": [
+                "नरेला (Narela)",
+                "भलस्वा जहाँगीरपुर (Bhalswa)",
+                "बख्तावरपुर (Bakhtawarpur)",
+                "दरियापुर कलां (Daryapur Kalan)",
+                "मॉडल टाउन (Model Town)",
+                "सिविल लाइंस (Civil Lines)"
             ],
-            "बिलासपुर (Bilaspur)": [
-                "कोटा (Kota)",
-                "तखतपुर (Takhatpur)",
-                "मस्तुरी (Masturi)",
-                "बिल्हा (Bilha)"
-            ],
-            "दुर्ग / भिलाई (Durg-Bhilai)": [
-                "पाटन (Patan)",
-                "धमधा (Dhamdha)",
-                "भिलाई नगर (Bhilai)"
-            ],
-            "गोरखपुर / कबीरधाम (Gorakhpur)": [
-                "कवर्धा (Kawardha)",
-                "पंडरिया (Pandariya)",
-                "सहसपुर लोहारा (Sohara)"
+            "पूर्वी दिल्ली (East Delhi)": [
+                "दल्लूपुरा (Dalupura)",
+                "मंडोली (Mandoli)",
+                "मयूर विहार (Mayur Vihar)",
+                "लक्ष्मी नगर (Laxmi Nagar)",
+                "प्रीत विहार (Preet Vihar)"
             ]
         }
     },
@@ -1450,7 +2029,8 @@ const STATE_DB = {
                 "मनीमाजरा (Manimajra)",
                 "धनास (Dhanas)",
                 "बहलोलपुर (Bahlolpur)",
-                "तोगन (Togan)"
+                "तोगन (Togan)",
+                "सेक्टर 35 (Sector 35)"
             ]
         }
     },
@@ -1468,65 +2048,13 @@ const STATE_DB = {
                 "उलघारेट (Oulgaret)",
                 "ओझुकरै (Ozhukarai)",
                 "विलियानूर (Villianur)",
-                "बाउर (Bahour)"
+                "बाउर (Bahour)",
+                "व्हाइट टाउन (White Town)"
             ],
             "कराईकल (Karaikal)": [
                 "कोट्टुचेरी (Kottucherry)",
-                "नेडुंगाडु (Nedungadu)"
-            ]
-        }
-    },
-    "HP": {
-        "name": "हिमाचल प्रदेश / Himachal",
-        "capital": "शिमला",
-        "emoji": "🏔️",
-        "population": "75 Lakh",
-        "area": "55,673 km²",
-        "cm": "सुखविंदर सिंह सुक्खू",
-        "dbtAmount": "₹6,400 Cr",
-        "dbtRating": "92%",
-        "districts": {
-            "शिमला (Shimla)": [
-                "कुफरी (Kufri)",
-                "रोहड़ू (Rohru)",
-                "रामपुर (Rampur)",
-                "चौपाल (Chopal)",
-                "ठियोग (Theog)"
-            ],
-            "कांगड़ा / धर्मशाला (Dharamshala)": [
-                "पालमपुर (Palampur)",
-                "नूरपुर (Nurpur)",
-                "ज्वालामुखी (Jwalamukhi)",
-                "देहरा (Dehra)"
-            ],
-            "मंडी (Mandi)": [
-                "सुंदरनगर (Sundernagar)",
-                "सरकाघाट (Sarkaghat)",
-                "जोगिंदरनगर (Jogindernagar)"
-            ]
-        }
-    },
-    "GA": {
-        "name": "गोवा / Goa",
-        "capital": "पणजी",
-        "emoji": "🏖️",
-        "population": "15 Lakh",
-        "area": "3,702 km²",
-        "cm": "प्रमोद सावंत",
-        "dbtAmount": "₹2,800 Cr",
-        "dbtRating": "95%",
-        "districts": {
-            "उत्तर गोवा (North Goa)": [
-                "पणजी (Panaji)",
-                "मापुसा (Mapusa)",
-                "कैलांगूट (Calangute)",
-                "बिचोलिम (Bicholim)"
-            ],
-            "दक्षिण गोवा (South Goa)": [
-                "मडगांव (Margao)",
-                "वास्को द गामा (Vasco)",
-                "पोंडा (Ponda)",
-                "क्यूपेम (Quepem)"
+                "नेडुंगाडु (Nedungadu)",
+                "तिरुमलरयनपट्टिनम (TR Pattinam)"
             ]
         }
     },
@@ -1547,7 +2075,17 @@ const STATE_DB = {
             ],
             "इम्फाल पूर्व (Imphal East)": [
                 "पोरोमपत (Porompat)",
-                "सवामबुंग (Sawombung)"
+                "सवामबुंग (Sawombung)",
+                "अंद्रो (Andro)"
+            ],
+            "थौबल (Thoubal)": [
+                "ककचिंग (Kakching)",
+                "लिलोंग (Lilong)",
+                "याइरिपोक (Yairipok)"
+            ],
+            "चुराचांदपुर (Churachandpur)": [
+                "तुईबोंग (Tuibong)",
+                "सिंगहाट (Singngat)"
             ]
         }
     },
@@ -1564,12 +2102,19 @@ const STATE_DB = {
             "पूर्वी खासी हिल्स / शिलांग (Shillong)": [
                 "सोहरा (Sohra/Cherrapunji)",
                 "मावफ्लांग (Mawphlang)",
-                "पाइनुरस्ला (Pynursla)"
+                "पाइनुरस्ला (Pynursla)",
+                "मावकिरवाट (Mawkyrwat)"
             ],
             "पश्चिम गारो हिल्स / तुरा (Tura)": [
                 "तुरा (Tura)",
                 "डालू (Dalu)",
-                "रोंगराम (Rongram)"
+                "रोंगराम (Rongram)",
+                "फुलबारी (Phulbari)"
+            ],
+            "जयंतिया हिल्स / जोवाई (Jowai)": [
+                "जोवाई (Jowai)",
+                "अमलेरेम (Amlarem)",
+                "खलीहरियात (Khliehriat)"
             ]
         }
     },
@@ -1586,11 +2131,18 @@ const STATE_DB = {
             "कोहिमा (Kohima)": [
                 "जोतसेमा (Jotsema)",
                 "चेचामे (Chechame)",
-                "त्सेमिन्यु (Tseminyu)"
+                "त्सेमिन्यु (Tseminyu)",
+                "जखमा (Jakhama)"
             ],
             "दीमापुर (Dimapur)": [
                 "चुमुकेदिमा (Chumukedima)",
-                "मेदजिफेमा (Medziphema)"
+                "मेदजिफेमा (Medziphema)",
+                "निहुतो (Nihuto)"
+            ],
+            "मोकोकचुंग (Mokokchung)": [
+                "तुली (Tuli)",
+                "चांगतोंग्या (Changtongya)",
+                "मांगकोलेम्बा (Mangkolemba)"
             ]
         }
     },
@@ -1607,11 +2159,18 @@ const STATE_DB = {
             "पश्चिम त्रिपुरा / अगरतला (Agartala)": [
                 "रानिरबाजार (Ranirbazar)",
                 "मोहनपुर (Mohanpur)",
-                "जिरानिया (Jirania)"
+                "जिरानिया (Jirania)",
+                "सदर (Sadar)"
             ],
             "गोमती / उदयपुर (Udaipur)": [
                 "उदयपुर (Udaipur)",
-                "अमरपुर (Amarpur)"
+                "अमरपुर (Amarpur)",
+                "काकड़ाबन (Kakraban)"
+            ],
+            "उत्तर त्रिपुरा / धर्मनगर (Dharmanagar)": [
+                "धर्मनगर (Dharmanagar)",
+                "पानीसागर (Panisagar)",
+                "कंचनपुर (Kanchanpur)"
             ]
         }
     },
@@ -1628,11 +2187,18 @@ const STATE_DB = {
             "पूर्वी सिक्किम / गंगटोक (Gangtok)": [
                 "तादोंग (Tadong)",
                 "रानिपूल (Ranipool)",
-                "पाकयोंग (Pakyong)"
+                "पाकयोंग (Pakyong)",
+                "सिंगतम (Singtam)"
             ],
             "पश्चिम सिक्किम / ग्यालशिंग (Gyalshing)": [
                 "पेल्लिंग (Pelling)",
-                "युक्सोम (Yuksom)"
+                "युक्सोम (Yuksom)",
+                "डेंटम (Dentan)"
+            ],
+            "दक्षिण सिक्किम / नामची (Namchi)": [
+                "नामची (Namchi)",
+                "जोरथांग (Jorethang)",
+                "रावंगला (Ravangla)"
             ]
         }
     },
@@ -1649,11 +2215,17 @@ const STATE_DB = {
             "आइजोल (Aizawl)": [
                 "दर्लावन (Darlawn)",
                 "सैरांग (Sairang)",
-                "त्लुंगवेल (Tlungvel)"
+                "त्लुंगवेल (Tlungvel)",
+                "दौपुई (Dawrpui)"
             ],
             "लुंगलेई (Lunglei)": [
                 "हनाहथियाल (Hnahthial)",
-                "तुईपांग (Tuipang)"
+                "तुईपांग (Tuipang)",
+                "तलाबुंग (Tlabung)"
+            ],
+            "चम्फाई (Champhai)": [
+                "खॉजावल (Khawzawl)",
+                "नगोपा (Ngopa)"
             ]
         }
     },
@@ -1670,11 +2242,23 @@ const STATE_DB = {
             "ईटानगर राजधानी परिसर (Itanagar)": [
                 "नाहरलगुन (Naharlagun)",
                 "बंदरदेवा (Banderdewa)",
-                "दोइमुख (Doimukh)"
+                "दोइमुख (Doimukh)",
+                "गंगा (Ganga)"
             ],
             "तवांग (Tawang)": [
                 "जंग (Jang)",
-                "लुमला (Lumla)"
+                "लुमला (Lumla)",
+                "मुक्तो (Mukto)"
+            ],
+            "पासीघाट / पूर्वी सियांग (Pasighat)": [
+                "पासीघाट (Pasighat)",
+                "रुक्सिन (Ruksin)",
+                "मेबो (Mebo)"
+            ],
+            "लोअर सुबनसिरी / जीरो (Ziro)": [
+                "जीरो (Ziro)",
+                "याचूली (Yachuli)",
+                "रागा (Raga)"
             ]
         }
     },
@@ -1689,14 +2273,17 @@ const STATE_DB = {
         "dbtRating": "94%",
         "districts": {
             "लेह (Leh)": [
-                "नुब्रा (Nubra)",
+                "नुब्रा घाटी (Nubra)",
                 "खालत्से (Khaltsi)",
-                "चांगथांग (Changthang)"
+                "चांगथांग (Changthang)",
+                "डिस्कित (Diskit)",
+                "चोगलमसर (Choglamsar)"
             ],
             "कारगिल (Kargil)": [
                 "द्रास (Dras)",
                 "जांस्कर (Zanskar)",
-                "संखू (Sankoo)"
+                "संखू (Sankoo)",
+                "शिकार (Shakar)"
             ]
         }
     },
@@ -1712,16 +2299,20 @@ const STATE_DB = {
         "districts": {
             "दमन (Daman)": [
                 "नानी दमन (Nani Daman)",
-                "मोती दमन (Moti Daman)"
+                "मोती दमन (Moti Daman)",
+                "कडिया (Kadaiya)",
+                "दाभेल (Dabhel)"
             ],
             "दीव (Diu)": [
                 "घोघला (Ghoghla)",
-                "बुचरवाड़ा (Bucherwada)"
+                "बुचरवाड़ा (Bucherwada)",
+                "वानकबारा (Vanakbara)"
             ],
-            "दादरा एवं नगर हवेली (Silvassa)": [
+            "सिलवासा / दादरा नगर हवेली (Silvassa)": [
                 "सिलवासा (Silvassa)",
                 "नरोली (Naroli)",
-                "राखोली (Rakholi)"
+                "राखोली (Rakholi)",
+                "खानवेल (Khanvel)"
             ]
         }
     },
@@ -1738,12 +2329,18 @@ const STATE_DB = {
             "दक्षिण अंडमान / पोर्ट ब्लेयर (Port Blair)": [
                 "गराचरमा (Garacharma)",
                 "फेरागुंज (Ferrargunj)",
-                "हैवलॉक / स्वराज द्वीप (Havelock)"
+                "हैवलॉक / स्वराज द्वीप (Havelock)",
+                "नील द्वीप (Neil Island)"
             ],
             "उत्तर एवं मध्य अंडमान (Mayabunder)": [
                 "मायाबंदर (Mayabunder)",
                 "डिगलीपुर (Diglipur)",
                 "रंगत (Rangat)"
+            ],
+            "निकोबार (Nicobar)": [
+                "कार निकोबार (Car Nicobar)",
+                "ग्रेट निकोबार (Great Nicobar)",
+                "कमोर्टा (Kamorta)"
             ]
         }
     },
@@ -1762,7 +2359,9 @@ const STATE_DB = {
                 "अमीनी (Amini)",
                 "एंड्रोट (Andrott)",
                 "मिनिकॉय (Minicoy)",
-                "कदमत (Kadmat)"
+                "कदमत (Kadmat)",
+                "कल्पेनी (Kalpeni)",
+                "चेतलात (Chetlat)"
             ]
         }
     }
