@@ -315,252 +315,1458 @@ function getStandardSchemes(stateName) {
 
 // FULL DATABASE FOR ALL 36 REGIONS
 const STATE_DB = {
-    UP: {
-        name: 'उत्तर प्रदेश / Uttar Pradesh', capital: 'लखनऊ', emoji: '🛕', population: '24.1 Cr', area: '2,40,928 km²', cm: 'योगी आदित्यनाथ',
-        dbtAmount: '₹54,200 Cr', dbtRating: '94%',
-        districts: {
-            'लखनऊ (Lucknow)': ['मलिहाबाद (Malihabad)', 'बक्शी का तालाब (BKT)', 'मोहनलालगंज (Mohanlalganj)', 'काकोरी (Kakori)', 'चिनहट (Chinhat)'],
-            'वाराणसी (Varanasi)': ['पिंडरा (Pindra)', 'शिवपुर (Shivpur)', 'रोहनिया (Rohaniya)', 'सेवापुरी (Sewapuri)'],
-            'कानपुर (Kanpur)': ['बिल्हौर (Bilhaur)', 'घाटमपुर (Ghatampur)', 'कल्याणपुर (Kalyanpur)'],
-            'प्रयागराज (Prayagraj)': ['फूलपुर (Phulpur)', 'सोरांव (Soraon)', 'मेजा (Meja)', 'करछना (Karchhana)'],
-            'गोरखपुर (Gorakhpur)': ['सहजनवां (Sahjanwa)', 'चौरीचौरा (Chauri Chaura)', 'बांसगांव (Bansgaon)'],
-        },
-        helplines: getStandardHelplines('उत्तर प्रदेश', 'लखनऊ'),
-        schemes: getStandardSchemes('उत्तर प्रदेश'),
-        civic: { total: 45820, resolved: 41230, pending: 3100, assigned: 1490, rate: 90 }
+    "UP": {
+        "name": "उत्तर प्रदेश / Uttar Pradesh",
+        "capital": "लखनऊ",
+        "emoji": "🛕",
+        "population": "24.1 Cr",
+        "area": "2,40,928 km²",
+        "cm": "योगी आदित्यनाथ",
+        "dbtAmount": "₹54,200 Cr",
+        "dbtRating": "94%",
+        "districts": {
+            "लखनऊ (Lucknow)": [
+                "हजरतगंज (Hazratganj)",
+                "मलिहाबाद (Malihabad)",
+                "बक्शी का तालाब (BKT)",
+                "मोहनलालगंज (Mohanlalganj)",
+                "काकोरी (Kakori)",
+                "चिनहट (Chinhat)",
+                "गोमती नगर (Gomti Nagar)"
+            ],
+            "कानपुर (Kanpur)": [
+                "कल्याणपुर (Kalyanpur)",
+                "बिल्हौर (Bilhaur)",
+                "घाटमपुर (Ghatampur)",
+                "कालियानपुर (Kalianpur)",
+                "पनकी (Panki)",
+                "जाजमऊ (Jajmau)"
+            ],
+            "प्रयागराज (Prayagraj)": [
+                "सिविल लाइंस (Civil Lines)",
+                "फूलपुर (Phulpur)",
+                "सोरांव (Soraon)",
+                "मेजा (Meja)",
+                "करछना (Karchhana)",
+                "झूंसी (Jhunsi)"
+            ],
+            "वाराणसी (Varanasi)": [
+                "दशाश्वमेध (Dashashwamedh)",
+                "पिंडरा (Pindra)",
+                "शिवपुर (Shivpur)",
+                "रोहनिया (Rohaniya)",
+                "सेवापुरी (Sewapuri)",
+                "रामनगर (Ramnagar)"
+            ],
+            "आगरा (Agra)": [
+                "अकोला (Akola)",
+                "फतेहाबाद (Fatehabad)",
+                "एत्मादपुर (Etmadpur)",
+                "बाह (Bah)",
+                "किरावली (Kirawali)"
+            ],
+            "मेरठ (Meerut)": [
+                "सरधना (Sardhana)",
+                "मवाना (Mawana)",
+                "हस्तिनापुर (Hastinapur)",
+                "दौराला (Daurala)"
+            ],
+            "गाजियाबाद (Ghaziabad)": [
+                "लोनी (Loni)",
+                "मुर्तजाबाद (Murtazabad)",
+                "मुरादनगर (Muradnagar)",
+                "मोदीनगर (Modinagar)"
+            ],
+            "सहारनपुर (Saharanpur)": [
+                "देवबंद (Deoband)",
+                "नकुड़ (Nakur)",
+                "बेहट (Behat)",
+                "रामपुर मनिहारान (Rampur Maniharan)"
+            ],
+            "गोरखपुर (Gorakhpur)": [
+                "सहजनवां (Sahjanwa)",
+                "चौरीचौरा (Chauri Chaura)",
+                "बांसगांव (Bansgaon)",
+                "कैम्पियरगंज (Campierganj)"
+            ],
+            "अयोध्या (Ayodhya)": [
+                "सदर (Sadar)",
+                "रुदौली (Rudauli)",
+                "मिल्कीपुर (Milkipur)",
+                "सोहावल (Sohawal)",
+                "बीकापुर (Bikapur)"
+            ]
+        }
     },
-    MP: {
-        name: 'मध्य प्रदेश / Madhya Pradesh', capital: 'भोपाल', emoji: '🌾', population: '8.5 Cr', area: '3,08,252 km²', cm: 'मोहन यादव',
-        dbtAmount: '₹38,400 Cr', dbtRating: '93%',
-        districts: {
-            'भोपाल (Bhopal)': ['बैरसिया (Bairasia)', 'हुजूर (Huzur)', 'फंदा (Phanda)'],
-            'इंदौर (Indore)': ['सावेर (Sanwer)', 'देपालपुर (Depalpur)', 'महू (Mhow)'],
-            'ग्वालियर (Gwalior)': ['डबरा (Dabra)', 'भितरवार (Bhitarwar)'],
-            'जबलपुर (Jabalpur)': ['पाटन (Patan)', 'सिहोरा (Sihora)', 'कुंडम (Kundam)'],
-        },
-        helplines: getStandardHelplines('मध्य प्रदेश', 'भोपाल'),
-        schemes: getStandardSchemes('मध्य प्रदेश'),
-        civic: { total: 28540, resolved: 25100, pending: 2400, assigned: 1040, rate: 88 }
+    "MH": {
+        "name": "महाराष्ट्र / Maharashtra",
+        "capital": "मुंबई",
+        "emoji": "🏙️",
+        "population": "12.3 Cr",
+        "area": "3,07,713 km²",
+        "cm": "देवेंद्र फडणवीस",
+        "dbtAmount": "₹48,900 Cr",
+        "dbtRating": "95%",
+        "districts": {
+            "मुंबई (Mumbai)": [
+                "अंधेरी (Andheri)",
+                "बांद्रा (Bandra)",
+                "बोरीवली (Borivali)",
+                "दादर (Dadar)",
+                "कुर्ला (Kurla)",
+                "कोलाबा (Colaba)"
+            ],
+            "पुणे (Pune)": [
+                "हवेली (Haveli)",
+                "शिवाजीनगर (Shivajinagar)",
+                "कोथरुड (Kothrud)",
+                "हिंजेवाड़ी (Hinjawadi)",
+                "हड़पसर (Hadapsar)",
+                "बारामती (Baramati)"
+            ],
+            "पिंपरी-चिंचवड़ (Pimpri-Chinchwad)": [
+                "पिंपरी (Pimpri)",
+                "चिंचवड़ (Chinchwad)",
+                "भोसरी (Bhosari)",
+                "निगडी (Nigdi)",
+                "रावेत (Ravet)"
+            ],
+            "नागपुर (Nagpur)": [
+                "रामटेक (Ramtek)",
+                "कामठी (Kamthi)",
+                "उमरेड (Umred)",
+                "काटोल (Katol)",
+                "सावनेर (Savner)"
+            ],
+            "ठाणे (Thane)": [
+                "कल्याण (Kalyan)",
+                "उल्हासनगर (Ulhasnagar)",
+                "भिवंडी (Bhiwandi)",
+                "अंबरनाथ (Ambernath)",
+                "मामणोली (Mamnoli)",
+                "भाईंदर (Bhayandar)"
+            ],
+            "वसई-विरार (Vasai-Virar)": [
+                "वसई (Vasai)",
+                "विरार (Virar)",
+                "नालासोपारा (Nallasopara)",
+                "नवघर (Navghar)"
+            ],
+            "नासिक (Nashik)": [
+                "इगतपुरी (Igatpuri)",
+                "डिंडोरी (Dindori)",
+                "निफाड़ (Niphad)",
+                "मालेगांव (Malegaon)",
+                "त्र्यंबकेश्वर (Trimbak)"
+            ],
+            "औरंगाबाद / छत्रपति संभाजीनगर": [
+                "पैठण (Paithan)",
+                "गंगापुर (Gangapur)",
+                "वैजापुर (Vaijapur)",
+                "खुलदाबाद (Khuldabad)"
+            ]
+        }
     },
-    BR: { name: 'बिहार / Bihar', capital: 'पटना', emoji: '🚜', population: '12.4 Cr', area: '94,163 km²', cm: 'नीतीश कुमार', dbtAmount: '₹32,600 Cr', dbtRating: '89%', districts: { 'पटना (Patna)': ['दानापुर (Danapur)', 'मसौढ़ी (Masaurhi)'] }, helplines: getStandardHelplines('बिहार', 'पटना'), schemes: getStandardSchemes('बिहार'), civic: { total: 19800, resolved: 17200, pending: 1900, assigned: 700, rate: 87 } },
-    MH: { name: 'महाराष्ट्र / Maharashtra', capital: 'मुंबई', emoji: '🏙️', population: '12.3 Cr', area: '3,07,713 km²', cm: 'देवेंद्र फडणवीस', dbtAmount: '₹48,900 Cr', dbtRating: '95%', districts: { 'मुंबई (Mumbai)': ['अंधेरी (Andheri)', 'बांद्रा (Bandra)'] }, helplines: getStandardHelplines('महाराष्ट्र', 'मुंबई'), schemes: getStandardSchemes('महाराष्ट्र'), civic: { total: 62400, resolved: 57800, pending: 3100, assigned: 1500, rate: 93 } },
-    DL: { name: 'दिल्ली एनसीआर / Delhi NCR', capital: 'नई दिल्ली', emoji: '🏛️', population: '3.3 Cr', area: '1,484 km²', cm: 'रेखा गुप्ता', dbtAmount: '₹14,200 Cr', dbtRating: '96%', districts: { 'दक्षिण दिल्ली (South Delhi)': ['हौज खास (Hauz Khas)', 'साकेत (Saket)'] }, helplines: getStandardHelplines('दिल्ली', 'नई दिल्ली'), schemes: getStandardSchemes('दिल्ली'), civic: { total: 38900, resolved: 36200, pending: 1800, assigned: 900, rate: 93 } },
-    RJ: { name: 'राजस्थान / Rajasthan', capital: 'जयपुर', emoji: '🏰', population: '8.1 Cr', area: '3,42,239 km²', cm: 'भजन लाल शर्मा', dbtAmount: '₹29,800 Cr', dbtRating: '91%', districts: { 'जयपुर (Jaipur)': ['आमेर (Amer)'] }, helplines: getStandardHelplines('राजस्थान', 'जयपुर'), schemes: getStandardSchemes('राजस्थान'), civic: { total: 22100, resolved: 19400, pending: 1900, assigned: 800, rate: 88 } },
-    WB: { name: 'पश्चिम बंगाल / West Bengal', capital: 'कोलकाता', emoji: '🎨', population: '9.7 Cr', area: '88,752 km²', cm: 'ममता बनर्जी', dbtAmount: '₹27,500 Cr', dbtRating: '90%', districts: { 'कोलकाता (Kolkata)': ['साल्ट लेक (Salt Lake)'] }, helplines: getStandardHelplines('पश्चिम बंगाल', 'कोलकाता'), schemes: getStandardSchemes('पश्चिम बंगाल'), civic: { total: 31200, resolved: 27800, pending: 2500, assigned: 900, rate: 89 } },
-    GJ: { name: 'गुजरात / Gujarat', capital: 'गांधीनगर', emoji: '🌊', population: '7.0 Cr', area: '1,96,024 km²', cm: 'भूपेंद्र पटेल', dbtAmount: '₹34,100 Cr', dbtRating: '96%', districts: { 'अहमदाबाद (Ahmedabad)': ['साणंद (Sanand)'] }, helplines: getStandardHelplines('गुजरात', 'गांधीनगर'), schemes: getStandardSchemes('गुजरात'), civic: { total: 24600, resolved: 22900, pending: 1200, assigned: 500, rate: 93 } },
-    TN: { name: 'तमिलनाडु / Tamil Nadu', capital: 'चेन्नई', emoji: '🛕', population: '7.8 Cr', area: '1,30,058 km²', cm: 'एम.के. स्टालिन', dbtAmount: '₹36,700 Cr', dbtRating: '94%', districts: { 'चेन्नई (Chennai)': ['अड्यार (Adyar)'] }, helplines: getStandardHelplines('तमिलनाडु', 'चेन्नई'), schemes: getStandardSchemes('तमिलनाडु'), civic: { total: 29300, resolved: 27100, pending: 1600, assigned: 600, rate: 92 } },
-    KA: { name: 'कर्नाटक / Karnataka', capital: 'बेंगलुरु', emoji: '💻', population: '6.8 Cr', area: '1,91,791 km²', cm: 'सिद्धारमैया', dbtAmount: '₹33,900 Cr', dbtRating: '94%', districts: { 'बेंगलुरु (Bengaluru)': ['व्हाइटफील्ड (Whitefield)'] }, helplines: getStandardHelplines('कर्नाटक', 'बेंगलुरु'), schemes: getStandardSchemes('कर्नाटक'), civic: { total: 35700, resolved: 33200, pending: 1800, assigned: 700, rate: 93 } },
-    TS: { name: 'तेलंगाना / Telangana', capital: 'हैदराबाद', emoji: '🏛️', population: '3.8 Cr', area: '1,12,077 km²', cm: 'रेवंत रेड्डी', dbtAmount: '₹22,400 Cr', dbtRating: '93%', districts: { 'हैदराबाद (Hyderabad)': ['गच्चीबाउली (Gachibowli)'] }, helplines: getStandardHelplines('तेलंगाना', 'हैदराबाद'), schemes: getStandardSchemes('तेलंगाना'), civic: { total: 18900, resolved: 17500, pending: 900, assigned: 500, rate: 93 } },
-    PB: { name: 'पंजाब / Punjab', capital: 'चंडीगढ़', emoji: '🌾', population: '3.0 Cr', area: '50,362 km²', cm: 'भगवंत मान', dbtAmount: '₹19,200 Cr', dbtRating: '92%', districts: { 'लुधियाना (Ludhiana)': ['जग्रांव (Jagraon)'] }, helplines: getStandardHelplines('पंजाब', 'चंडीगढ़'), schemes: getStandardSchemes('पंजाब'), civic: { total: 14200, resolved: 13100, pending: 700, assigned: 400, rate: 92 } },
-    HR: { name: 'हरियाणा / Haryana', capital: 'चंडीगढ़', emoji: '🚜', population: '2.8 Cr', area: '44,212 km²', cm: 'नायब सिंह सैनी', dbtAmount: '₹18,500 Cr', dbtRating: '94%', districts: { 'गुरुग्राम (Gurugram)': ['मानसर (Manesar)'] }, helplines: getStandardHelplines('हरियाणा', 'चंडीगढ़'), schemes: getStandardSchemes('हरियाणा'), civic: { total: 16800, resolved: 15600, pending: 800, assigned: 400, rate: 93 } },
-    KL: { name: 'केरल / Kerala', capital: 'तिरुवनंतपुरम', emoji: '🌴', population: '3.5 Cr', area: '38,852 km²', cm: 'पिनाराई विजयन', dbtAmount: '₹16,400 Cr', dbtRating: '96%', districts: { 'तिरुवनंतपुरम (Trivandrum)': ['कझाकुट्टम (Kazhakkoottam)'] }, helplines: getStandardHelplines('केरल', 'तिरुवनंतपुरम'), schemes: getStandardSchemes('केरल'), civic: { total: 12600, resolved: 11900, pending: 500, assigned: 200, rate: 94 } },
-    OD: { name: 'ओडिशा / Odisha', capital: 'भुवनेश्वर', emoji: '🏖️', population: '4.6 Cr', area: '1,55,707 km²', cm: 'मोहन माझी', dbtAmount: '₹17,800 Cr', dbtRating: '92%', districts: { 'भुवनेश्वर (Bhubaneswar)': ['जटनी (Jatni)'] }, helplines: getStandardHelplines('ओडिशा', 'भुवनेश्वर'), schemes: getStandardSchemes('ओडिशा'), civic: { total: 15300, resolved: 14000, pending: 900, assigned: 400, rate: 91 } },
-    AS: { name: 'असम / Assam', capital: 'दिसपुर', emoji: '☕', population: '3.5 Cr', area: '78,438 km²', cm: 'हिमंत विश्व शर्मा', dbtAmount: '₹13,200 Cr', dbtRating: '91%', districts: { 'गुवाहाटी (Guwahati)': ['दिसपुर (Dispur)'] }, helplines: getStandardHelplines('असम', 'दिसपुर'), schemes: getStandardSchemes('असम'), civic: { total: 10400, resolved: 9500, pending: 600, assigned: 300, rate: 91 } },
-    JK: { name: 'जम्मू-कश्मीर / J&K (UT)', capital: 'श्रीनगर', emoji: '🏔️', population: '1.4 Cr', area: '42,241 km²', cm: 'मनोज सिन्हा (LG)', dbtAmount: '₹8,900 Cr', dbtRating: '93%', districts: { 'श्रीनगर (Srinagar)': ['गुलमर्ग (Gulmarg)'] }, helplines: getStandardHelplines('जम्मू-कश्मीर', 'श्रीनगर'), schemes: getStandardSchemes('जम्मू-कश्मीर'), civic: { total: 8200, resolved: 7600, pending: 400, assigned: 200, rate: 93 } },
-    AP: { name: 'आंध्र प्रदेश / AP', capital: 'अमरावती', emoji: '🏛️', population: '5.3 Cr', area: '1,62,975 km²', cm: 'चंद्रबाबू नायडू', dbtAmount: '₹26,100 Cr', dbtRating: '94%', districts: { 'विशाखापत्तनम (Vizag)': ['अनाकापल्ले (Anakapalle)'] }, helplines: getStandardHelplines('आंध्र प्रदेश', 'अमरावती'), schemes: getStandardSchemes('आंध्र प्रदेश'), civic: { total: 15000, resolved: 14000, pending: 700, assigned: 300, rate: 93 } },
-    AR: { name: 'अरुणाचल प्रदेश / Arunachal', capital: 'ईटानगर', emoji: '🏔️', population: '15 Lakh', area: '83,743 km²', cm: 'पेमा खांडू', dbtAmount: '₹2,400 Cr', dbtRating: '91%', districts: { 'ईटानगर (Itanagar)': ['नाहरलगुन (Naharlagun)'] }, helplines: getStandardHelplines('अरुणाचल प्रदेश', 'ईटानगर'), schemes: getStandardSchemes('अरुणाचल प्रदेश'), civic: { total: 2400, resolved: 2200, pending: 150, assigned: 50, rate: 91 } },
-    CT: { name: 'छत्तीसगढ़ / Chhattisgarh', capital: 'रायपुर', emoji: '🌾', population: '3.0 Cr', area: '1,35,192 km²', cm: 'विष्णु देव साय', dbtAmount: '₹14,900 Cr', dbtRating: '91%', districts: { 'रायपुर (Raipur)': ['अभनपुर (Abhanpur)'] }, helplines: getStandardHelplines('छत्तीसगढ़', 'रायपुर'), schemes: getStandardSchemes('छत्तीसगढ़'), civic: { total: 11000, resolved: 10000, pending: 700, assigned: 300, rate: 90 } },
-    GA: { name: 'गोवा / Goa', capital: 'पणजी', emoji: '🏖️', population: '15 Lakh', area: '3,702 km²', cm: 'प्रमोद सावंत', dbtAmount: '₹2,800 Cr', dbtRating: '95%', districts: { 'उत्तर गोवा (North Goa)': ['मापुसा (Mapusa)'] }, helplines: getStandardHelplines('गोवा', 'पणजी'), schemes: getStandardSchemes('गोवा'), civic: { total: 3200, resolved: 3000, pending: 150, assigned: 50, rate: 94 } },
-    HP: { name: 'हिमाचल प्रदेश / Himachal', capital: 'शिमला', emoji: '🏔️', population: '75 Lakh', area: '55,673 km²', cm: 'सुखविंदर सिंह सुक्खू', dbtAmount: '₹6,400 Cr', dbtRating: '92%', districts: { 'शिमला (Shimla)': ['कुफरी (Kufri)'] }, helplines: getStandardHelplines('हिमाचल प्रदेश', 'शिमला'), schemes: getStandardSchemes('हिमाचल प्रदेश'), civic: { total: 6500, resolved: 6000, pending: 350, assigned: 150, rate: 92 } },
-    JH: { name: 'झारखंड / Jharkhand', capital: 'रांची', emoji: '⛏️', population: '3.9 Cr', area: '79,716 km²', cm: 'हेमंत सोरेन', dbtAmount: '₹15,400 Cr', dbtRating: '89%', districts: { 'रांची (Ranchi)': ['कांके (Kanke)'] }, helplines: getStandardHelplines('झारखंड', 'रांची'), schemes: getStandardSchemes('झारखंड'), civic: { total: 13500, resolved: 12000, pending: 1000, assigned: 500, rate: 89 } },
-    MN: { name: 'मणिपुर / Manipur', capital: 'इम्फाल', emoji: '⛰️', population: '32 Lakh', area: '22,327 km²', cm: 'एन. बीरेन सिंह', dbtAmount: '₹2,100 Cr', dbtRating: '90%', districts: { 'इम्फाल (Imphal)': ['लम्फेलपत (Lamphelpat)'] }, helplines: getStandardHelplines('मणिपुर', 'इम्फाल'), schemes: getStandardSchemes('मणिपुर'), civic: { total: 2900, resolved: 2600, pending: 200, assigned: 100, rate: 90 } },
-    ML: { name: 'मेघालय / Meghalaya', capital: 'शिलांग', emoji: '🌧️', population: '33 Lakh', area: '22,429 km²', cm: 'कॉनराड संगमा', dbtAmount: '₹2,300 Cr', dbtRating: '91%', districts: { 'शिलांग (Shillong)': ['सोहरा (Sohra)'] }, helplines: getStandardHelplines('मेघालय', 'शिलांग'), schemes: getStandardSchemes('मेघालय'), civic: { total: 3100, resolved: 2850, pending: 180, assigned: 70, rate: 91 } },
-    MZ: { name: 'मिजोरम / Mizoram', capital: 'आइजोल', emoji: '⛰️', population: '12 Lakh', area: '21,081 km²', cm: 'लालदुहोमा', dbtAmount: '₹1,500 Cr', dbtRating: '93%', districts: { 'आइजोल (Aizawl)': ['दर्लावन (Darlawn)'] }, helplines: getStandardHelplines('मिजोरम', 'आइजोल'), schemes: getStandardSchemes('मिजोरम'), civic: { total: 1800, resolved: 1680, pending: 80, assigned: 40, rate: 93 } },
-    NL: { name: 'नागालैंड / Nagaland', capital: 'कोहिमा', emoji: '⛰️', population: '22 Lakh', area: '16,579 km²', cm: 'नेफ्यू रियू', dbtAmount: '₹1,800 Cr', dbtRating: '90%', districts: { 'कोहिमा (Kohima)': ['दीमापुर (Dimapur)'] }, helplines: getStandardHelplines('नागालैंड', 'कोहिमा'), schemes: getStandardSchemes('नागालैंड'), civic: { total: 2100, resolved: 1900, pending: 130, assigned: 70, rate: 90 } },
-    SK: { name: 'सिक्किम / Sikkim', capital: 'गंगटोक', emoji: '🏔️', population: '7 Lakh', area: '7,096 km²', cm: 'प्रेम सिंह तामांग', dbtAmount: '₹950 Cr', dbtRating: '95%', districts: { 'गंगटोक (Gangtok)': ['पेल्लिंग (Pelling)'] }, helplines: getStandardHelplines('सिक्किम', 'गंगटोक'), schemes: getStandardSchemes('सिक्किम'), civic: { total: 1200, resolved: 1140, pending: 40, assigned: 20, rate: 95 } },
-    TR: { name: 'त्रिपुरा / Tripura', capital: 'अगरतला', emoji: '🏛️', population: '40 Lakh', area: '10,491 km²', cm: 'माणिक साहा', dbtAmount: '₹3,100 Cr', dbtRating: '92%', districts: { 'अगरतला (Agartala)': ['रानिरबाजार (Ranirbazar)'] }, helplines: getStandardHelplines('त्रिपुरा', 'अगरतला'), schemes: getStandardSchemes('त्रिपुरा'), civic: { total: 3400, resolved: 3100, pending: 200, assigned: 100, rate: 91 } },
-    UK: { name: 'उत्तराखंड / Uttarakhand', capital: 'देहरादून', emoji: '🏔️', population: '1.1 Cr', area: '53,483 km²', cm: 'पुष्कर सिंह धामी', dbtAmount: '₹8,400 Cr', dbtRating: '92%', districts: { 'देहरादून (Deहरादून)': ['ऋषिकेश (Rishikesh)'] }, helplines: getStandardHelplines('उत्तराखंड', 'देहरादून'), schemes: getStandardSchemes('उत्तराखंड'), civic: { total: 9800, resolved: 9000, pending: 550, assigned: 250, rate: 91 } },
-    LA: { name: 'लद्दाख / Ladakh (UT)', capital: 'लेह', emoji: '🏔️', population: '3 Lakh', area: '59,146 km²', cm: 'उपराज्यपाल (UT)', dbtAmount: '₹680 Cr', dbtRating: '94%', districts: { 'लेह (Leh)': ['नुब्रा (Nubra)'] }, helplines: getStandardHelplines('लद्दाख', 'लेह'), schemes: getStandardSchemes('लद्दाख'), civic: { total: 900, resolved: 850, pending: 35, assigned: 15, rate: 94 } },
-    CH: { name: 'चंडीगढ़ / Chandigarh (UT)', capital: 'चंडीगढ़', emoji: '🏛️', population: '11 Lakh', area: '114 km²', cm: 'प्रशासक (UT)', dbtAmount: '₹1,200 Cr', dbtRating: '96%', districts: { 'चंडीगढ़ नगर (Chandigarh)': ['मनीमाजरा (Manimajra)'] }, helplines: getStandardHelplines('चंडीगढ़', 'चंडीगढ़'), schemes: getStandardSchemes('चंडीगढ़'), civic: { total: 4200, resolved: 4000, pending: 150, assigned: 50, rate: 95 } },
-    PY: { name: 'पुडुचेरी / Puducherry (UT)', capital: 'पुडुचेरी', emoji: '🏖️', population: '13 Lakh', area: '479 km²', cm: 'एन. रंगासामी', dbtAmount: '₹1,400 Cr', dbtRating: '94%', districts: { 'पुडुचेरी (Pondicherry)': ['ओझुकरै (Ozhukarai)'] }, helplines: getStandardHelplines('पुडुचेरी', 'पुडुचेरी'), schemes: getStandardSchemes('पुडुचेरी'), civic: { total: 3100, resolved: 2900, pending: 130, assigned: 70, rate: 93 } },
-    AN: { name: 'अंडमान निकोबार / A&N (UT)', capital: 'पोर्ट ब्लेयर', emoji: '🏝️', population: '4 Lakh', area: '8,249 km²', cm: 'उपराज्यपाल (UT)', dbtAmount: '₹490 Cr', dbtRating: '93%', districts: { 'पोर्ट ब्लेयर (Port Blair)': ['गराचरमा (Garacharma)'] }, helplines: getStandardHelplines('अंडमान निकोबार', 'पोर्ट ब्लेयर'), schemes: getStandardSchemes('अंडमान निकोबार'), civic: { total: 1100, resolved: 1020, pending: 50, assigned: 30, rate: 92 } },
-    LD: { name: 'लक्षद्वीप / Lakshadweep (UT)', capital: 'कवारत्ती', emoji: '🏝️', population: '70,000', area: '32 km²', cm: 'प्रशासक (UT)', dbtAmount: '₹120 Cr', dbtRating: '95%', districts: { 'कवारत्ती (Kavaratti)': ['अगाती (Agatti)'] }, helplines: getStandardHelplines('लक्षद्वीप', 'कवारत्ती'), schemes: getStandardSchemes('लक्षद्वीप'), civic: { total: 450, resolved: 430, pending: 12, assigned: 8, rate: 95 } },
-    DD: { name: 'दादरा एवं नगर हवेली और दमन-दीव (UT)', capital: 'दमन', emoji: '🏖️', population: '6 Lakh', area: '603 km²', cm: 'प्रशासक (UT)', dbtAmount: '₹750 Cr', dbtRating: '94%', districts: { 'दमन (Daman)': ['सिलवासा (Silvassa)'] }, helplines: getStandardHelplines('दमन-दीव', 'दमन'), schemes: getStandardSchemes('दमन-दीव'), civic: { total: 1500, resolved: 1400, pending: 70, assigned: 30, rate: 93 } },
-};
-
-// WELFARE SCHEMES DATABASE
-const NATIONAL_SCHEMES_DATABASE = [
-    {
-        name: 'मुख्यमंत्री लाड़ली बहना योजना (MP Ladli Behna Scheme)',
-        desc: 'मध्य प्रदेश की 21 से 60 वर्ष की महिलाओं को ₹1,250 प्रति माह वित्तीय सहायता सीधे बैंक खाते में (DBT) दी जाती है।',
-        targetGroup: 'मध्य प्रदेश की समस्त विवाहित/विधवा महिलाएं (आयु: 21-60 वर्ष)',
-        docs: ['आधार कार्ड', 'समग्र ID (Samagra ID)', 'बैंक पासबुक'],
-        cat: 'MP राज्य कल्याण / महिला सशक्तिकरण',
-        state: 'MP', occ: ['ALL'], gender: ['Female', 'ALL'], minAge: 21, maxAge: 60,
-        link: 'https://cmladlibehna.mp.gov.in', mirror: 'https://mp.gov.in',
-        voiceNote: 'मुख्यमंत्री लाड़ली बहना योजना। मध्य प्रदेश की महिलाओं को प्रतिमाह 1,250 रुपये वित्तीय सहायता।'
+    "BR": {
+        "name": "बिहार / Bihar",
+        "capital": "पटना",
+        "emoji": "🚜",
+        "population": "12.4 Cr",
+        "area": "94,163 km²",
+        "cm": "नीतीश कुमार",
+        "dbtAmount": "₹32,600 Cr",
+        "dbtRating": "89%",
+        "districts": {
+            "पटना (Patna)": [
+                "दानापुर (Dinapore)",
+                "खगौल (Khagaul)",
+                "मसौढ़ी (Masaurhi)",
+                "फुलवारी शरीफ (Phulwari)",
+                "खुसरूपुर (Khusropur)",
+                "बाढ़ (Barh)",
+                "फतुहा (Fatuha)"
+            ],
+            "गया (Gaya)": [
+                "बोधगया (Bodh Gaya)",
+                "शेरघाटी (Sherghati)",
+                "टिकारी (Tikari)",
+                "इमामगंज (Imamganj)",
+                "वजीरगंज (Wazirganj)"
+            ],
+            "मुजफ्फरपुर (Muzaffarpur)": [
+                "कांठी (Kanti)",
+                "सकरा (Sakra)",
+                "मरवन (Marwan)",
+                "सरैया (Saraiya)",
+                "साहेबगंज (Sahebganj)"
+            ],
+            "भागलपुर (Bhagalpur)": [
+                "कहलगांव (Kahalgaon)",
+                "सुल्तानगंज (Sultanganj)",
+                "नवगछिया (Naugachhia)",
+                "पीरपैंती (Pirpainti)",
+                "बबुरा (Babura)"
+            ],
+            "दरभंगा (Darbhanga)": [
+                "लहेरियासराय (Laheriasarai)",
+                "बेनीपुर (Benipur)",
+                "बहेड़ी (Baheri)",
+                "मुड़िया (Muria)",
+                "नरपतनगर (Narpatnagar)",
+                "लखनौर (Lakhnaur)"
+            ],
+            "बेगूसराय (Begusarai)": [
+                "बरौनी (Barauni)",
+                "मटिहानी (Matihani)",
+                "गढ़पुरा (Garhpura)",
+                "नावकोठी (Nao Kothi)",
+                "उलाओ (Ulao)",
+                "सिंघौल (Singhaul)"
+            ],
+            "कटिहार (Katihar)": [
+                "मनिहारी (Maniihari)",
+                "बारसोई (Barsoi)",
+                "कोढ़ा (Kodha)",
+                "कदवा (Kadwa)"
+            ],
+            "आरा / भोजपुर (Arrah)": [
+                "कोइलवर (Koelwar)",
+                "बड़हरा (Barhara)",
+                "जगदीशपुर (Jagdishpur)",
+                "पीरो (Piro)",
+                "मसार (Masar)",
+                "जमीरा (Jamira)",
+                "गिद्धा (Giddha)"
+            ],
+            "छपरा / सारण (Chapra)": [
+                "सोनपुर (Sonepur)",
+                "मढ़ौरा (Marhaura)",
+                "रिविलगंज (Revelganj)",
+                "मांझी (Manjhi)",
+                "परसा (Parsa)"
+            ],
+            "रोहतास / डेहरी (Dehri)": [
+                "डेहरी आन सोन (Dehri)",
+                "सासाराम (Sasaram)",
+                "नोखा (Nokha)",
+                "नासरीगंज (Nasriganj)",
+                "पहलेंजा (Pahleza)",
+                "सखरा (Sakhara)"
+            ],
+            "वैशाली / हाजीपुर (Hajipur)": [
+                "हाजीपुर (Hajipur)",
+                "महुआ (Mahua)",
+                "लालंगज (Lalganj)",
+                "राजापाकर (Raja Pakar)",
+                "देसरी (Desri)",
+                "सहदेई बुजुर्ग (Sahdai Buzurg)"
+            ],
+            "सीतामढ़ी (Sitamarhi)": [
+                "डुमरा (Dumra)",
+                "बैरगनिया (Bairgania)",
+                "सुरसंड (Sursand)",
+                "पुपरी (Pupri)"
+            ],
+            "समस्तीपुर (Samastipur)": [
+                "दलसिंहसराय (Dalsingh Sarai)",
+                "रोसड़ा (Rosera)",
+                "हसनपुर (Hasanpur)",
+                "खानपुर (Khanpur)"
+            ],
+            "सहरसा / बेलाही (Belahi)": [
+                "बेलाही (Belahi)",
+                "सिमरी बख्तियारपुर (Bakhtiarpur)",
+                "सोनवर्षा (Sonbarsa)",
+                "सौर बाजार (Saur Bazar)"
+            ]
+        }
     },
-    {
-        name: 'मुख्यमंत्री किसान कल्याण योजना (MP Kisan Kalyan Scheme)',
-        desc: 'मध्य प्रदेश के पीएम-किसान लाभार्थी किसानों को राज्य सरकार द्वारा ₹4,000 अतिरिक्त वार्षिक वित्तीय सहायता दी जाती है।',
-        targetGroup: 'मध्य प्रदेश के सभी भू-धारक PM-KISAN लाभार्थी किसान',
-        docs: ['खसरा/खतौनी', 'आधार कार्ड', 'बैंक विवरण'],
-        cat: 'MP राज्य कल्याण / कृषि विकास',
-        state: 'MP', occ: ['Farmer', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 90,
-        link: 'https://saara.mp.gov.in', mirror: 'https://mpkrishi.mp.gov.in',
-        voiceNote: 'मध्य प्रदेश मुख्यमंत्री किसान कल्याण योजना। किसानों को 4000 रुपये अतिरिक्त वार्षिक सहायता।'
+    "MP": {
+        "name": "मध्य प्रदेश / Madhya Pradesh",
+        "capital": "भोपाल",
+        "emoji": "🌾",
+        "population": "8.5 Cr",
+        "area": "3,08,252 km²",
+        "cm": "मोहन यादव",
+        "dbtAmount": "₹38,400 Cr",
+        "dbtRating": "93%",
+        "districts": {
+            "भोपाल (Bhopal)": [
+                "बैरसिया (Bairasia)",
+                "हुजूर (Huzur)",
+                "फंदा (Phanda)",
+                "कोलार (Kolar)",
+                "अरेरा (Arera)",
+                "एमपी नगर (MP Nagar)"
+            ],
+            "इंदौर (Indore)": [
+                "सावेर (Sanwer)",
+                "देपालपुर (Depalpur)",
+                "महू (Mhow)",
+                "कम्पेल (Kampel)",
+                "तिल्लोर खुर्द (Tillor Khurd)",
+                "राऊ (Rau)",
+                "हातोद (Hatod)"
+            ],
+            "ग्वालियर (Gwalior)": [
+                "डबरा (Dabra)",
+                "भितरवार (Bhitarwar)",
+                "मुरार (Morar)",
+                "लश्कर (Lashkar)",
+                "घाटीगांव (Ghatigaon)"
+            ],
+            "जबलपुर (Jabalpur)": [
+                "पाटन (Patan)",
+                "सिहोरा (Sihora)",
+                "कुंडम (Kundam)",
+                "पनागर (Panagar)",
+                "मझौली (Majholi)",
+                "शाहपुरा (Shahpura)"
+            ],
+            "उज्जैन (Ujjain)": [
+                "महिदपुर (Mahidpur)",
+                "तराना (Tarana)",
+                "नागदा (Nagda)",
+                "बड़नगर (Barnagar)",
+                "खाचरोद (Khachrod)"
+            ],
+            "नरसिंहपुर / बरमान (Barmhan Kalan)": [
+                "बरमान कलां (Barmhan Kalan)",
+                "गाडरवारा (Gadarwara)",
+                "करेली (Kareli)",
+                "गोटेगांव (Gotegaon)",
+                "तेंदूखेड़ा (Tendukheda)"
+            ],
+            "देवास / शिवनी (Shivni)": [
+                "शिवनी (Shivni)",
+                "पीपलदा (Pipalda)",
+                "परमी (Permi)",
+                "सोनकच्छ (Sonkatch)",
+                "बागली (Bagli)"
+            ]
+        }
     },
-    {
-        name: 'मुख्यमंत्री सीखो-कमाओ योजना (MP Sikho Kamao Scheme)',
-        desc: 'मध्य प्रदेश के 18 से 29 वर्ष के युवाओं को उद्योग उन्मुख प्रशिक्षण के साथ ₹8,000 से ₹10,000 प्रति माह स्टाइपेंड।',
-        targetGroup: 'मध्य प्रदेश के 12वीं/ITI/स्नातक उत्तीर्ण युवा',
-        docs: ['12वीं/ITI/स्नातक अंकसूची', 'मूल निवास', 'आधार कार्ड'],
-        cat: 'MP राज्य कल्याण / युवा रोजगार',
-        state: 'MP', occ: ['Unemployed', 'Student', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 29,
-        link: 'https://mmsky.mp.gov.in', mirror: 'https://ssm.mp.gov.in',
-        voiceNote: 'मुख्यमंत्री सीखो कमाओ योजना। युवाओं को 8 से 10 हजार रुपये प्रतिमाह स्टाइपेंड।'
+    "GJ": {
+        "name": "गुजरात / Gujarat",
+        "capital": "गांधीनगर",
+        "emoji": "🌊",
+        "population": "7.0 Cr",
+        "area": "1,96,024 km²",
+        "cm": "भूपेंद्र पटेल",
+        "dbtAmount": "₹34,100 Cr",
+        "dbtRating": "96%",
+        "districts": {
+            "अहमदाबाद (Ahmedabad)": [
+                "साणंद (Sanand)",
+                "दस्करोई (Daskroi)",
+                "धोलका (Dholka)",
+                "धंधुका (Dhandhuka)",
+                "बावला (Bavla)",
+                "विरमगाम (Viramgam)"
+            ],
+            "सूरत (Surat)": [
+                "ओलपाड (Olpad)",
+                "कामरेज (Kamrej)",
+                "बारडोली (Bardoli)",
+                "मांडवी (Mandvi)",
+                "महुवा (Mahuva)",
+                "चोरयासी (Choryasi)"
+            ],
+            "वडोदरा (Vadodara)": [
+                "पादरा (Padra)",
+                "करजण (Karjan)",
+                "डभोई (Dabhoi)",
+                "अंगढ़ (Anghad)",
+                "सुरसी (Sursi)",
+                "गोरवा (Gorwa)",
+                "सावली (Savli)"
+            ],
+            "राजकोट (Rajkot)": [
+                "गोंडल (Gondal)",
+                "जेतपुर (Jetpur)",
+                "धोराजी (Dhoraji)",
+                "जसदण (Jasdan)",
+                "उपलेटा (Upleta)"
+            ],
+            "वापी / वलसाड (Vapi)": [
+                "वापी (Vapi)",
+                "पारडी (Pardi)",
+                "उमरगाम (Umbergaon)",
+                "धरमपुर (Dharampur)"
+            ],
+            "गांधीनगर (Gandhinagar)": [
+                "कलोल (Kalol)",
+                "दहेगाम (Dahegam)",
+                "माणसा (Mansa)"
+            ]
+        }
     },
-    {
-        name: 'मुख्यमंत्री कन्या सुमंगला योजना (UP Kanya Sumangala)',
-        desc: 'उत्तर प्रदेश में बेटियों के जन्म से लेकर स्नातक में प्रवेश तक 6 चरणों में कुल ₹15,000 की वित्तीय सहायता।',
-        targetGroup: 'उत्तर प्रदेश की बालिकाएं (पारिवारिक आय < ₹3 लाख)',
-        docs: ['जन्म प्रमाण', 'माता-पिता का आधार', 'आय प्रमाण'],
-        cat: 'UP राज्य कल्याण / बालिका शिक्षा',
-        state: 'UP', occ: ['ALL', 'Student'], gender: ['Female', 'ALL'], minAge: 0, maxAge: 25,
-        link: 'https://mksy.up.gov.in', mirror: 'https://up.gov.in',
-        voiceNote: 'उत्तर प्रदेश मुख्यमंत्री कन्या सुमंगला योजना। बेटियों को 15,000 रुपये तक सहायता।'
+    "DL": {
+        "name": "दिल्ली एनसीआर / Delhi NCR",
+        "capital": "नई दिल्ली",
+        "emoji": "🏛️",
+        "population": "3.3 Cr",
+        "area": "1,484 km²",
+        "cm": "रेखा गुप्ता",
+        "dbtAmount": "₹14,200 Cr",
+        "dbtRating": "96%",
+        "districts": {
+            "नई दिल्ली (New Delhi)": [
+                "कनॉट प्लेस (Connaught Place)",
+                "चाणक्यपुरी (Chanakyapuri)",
+                "दिल्ली कैंट (Delhi Cantt)",
+                "वसंत विहार (Vasant Vihar)"
+            ],
+            "दक्षिण दिल्ली (South Delhi)": [
+                "हौज खास (Hauz Khas)",
+                "साकेत (Saket)",
+                "महरौली (Mehrauli)",
+                "मदनगीर (Madangir)",
+                "ग्रेटर कैलाश (GK)"
+            ],
+            "पश्चिम दिल्ली (West Delhi)": [
+                "नजफगढ़ (Najafgarh)",
+                "नांगलोई जाट (Nangloi Jat)",
+                "सुल्तानपुर माजरा (Sultanpur)",
+                "खैर (Kair)",
+                "जनकपुरी (Janakpuri)"
+            ],
+            "उत्तर दिल्ली (North Delhi)": [
+                "नरेला (Narela)",
+                "भलस्वा जहाँगीरपुर (Bhalswa)",
+                "बख्तावरपुर (Bakhtawarpur)",
+                "दरियापुर कलां (Daryapur Kalan)"
+            ],
+            "पूर्वी दिल्ली (East Delhi)": [
+                "दल्लूपुरा (Dalupura)",
+                "मंडोली (Mandoli)",
+                "मयूर विहार (Mayur Vihar)",
+                "लक्ष्मी नगर (Laxmi Nagar)"
+            ]
+        }
     },
-    {
-        name: 'मुख्यमंत्री युवा उद्यमी विकास अभियान (UP Youth Entrepreneurship)',
-        desc: 'उत्तर प्रदेश के बेरोजगार युवाओं को नया उद्योग स्थापित करने हेतु ₹5 लाख तक का 100% ब्याज-मुक्त ऋण एवं सब्सिडी।',
-        targetGroup: 'उत्तर प्रदेश के बेरोजगार युवा (18-40 वर्ष)',
-        docs: ['आधार कार्ड', 'शैक्षणिक योग्यता', 'व्यापार परियोजना'],
-        cat: 'UP राज्य कल्याण / स्वरोजगार',
-        state: 'UP', occ: ['Unemployed', 'Student', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 40,
-        link: 'https://msme.up.gov.in', mirror: 'https://diupmsme.upsdc.gov.in',
-        voiceNote: 'उत्तर प्रदेश युवा उद्यमी विकास अभियान। 5 लाख रुपये तक का ब्याज मुक्त ऋण।'
+    "KA": {
+        "name": "कर्नाटक / Karnataka",
+        "capital": "बेंगलुरु",
+        "emoji": "💻",
+        "population": "6.8 Cr",
+        "area": "1,91,791 km²",
+        "cm": "सिद्धारमैया",
+        "dbtAmount": "₹33,900 Cr",
+        "dbtRating": "94%",
+        "districts": {
+            "बेंगलुरु शहरी (Bengaluru Urban)": [
+                "येलहंका (Yelahanka)",
+                "व्हाइटफील्ड (Whitefield)",
+                "हेसरघट्टा (Hesarghatta)",
+                "बागलूर (Bagalur)",
+                "सोनडेकोप्पा (Sondekoppa)",
+                "मादनायकानहल्ली (Madnayakanhalli)",
+                "काडीगानहल्ली (Kadiganahalli)",
+                "बयनडहल्ली (Bayandhalli)"
+            ],
+            "मैसूर (Mysuru)": [
+                "नंजनगुड़ (Nanjangud)",
+                "हुनसूर (Hunsur)",
+                "के.आर. नगर (KR Nagar)",
+                "टी. नरसीपुर (T Narasipura)",
+                "बेंद्रवाड़ी (Bendravadi)"
+            ],
+            "मंगलोर / दक्षिण कन्नड़ (Mangaluru)": [
+                "बंतवाल (Bantwal)",
+                "पुत्तूर (Puttur)",
+                "बेलथंगड़ी (Belthangady)",
+                "सुलिया (Sullia)"
+            ],
+            "हुबली-धारवाड़ (Hubli-Dharwad)": [
+                "कुंदगोल (Kundgol)",
+                "नवलगुंड (Navalgund)",
+                "कलघटगी (Kalghatgi)"
+            ]
+        }
     },
-    {
-        name: 'मुख्यमंत्री कन्या उत्थान योजना (Bihar Kanya Utthan)',
-        desc: 'बिहार की कन्याओं को जन्म से लेकर स्नातक उत्तीर्ण होने तक स्वास्थ्य एवं उच्च शिक्षा हेतु ₹50,000 तक की प्रोत्साहन राशि।',
-        targetGroup: 'बिहार की सभी छात्राएं एवं अविवाहित युवतियां',
-        docs: ['स्नातक मार्कशीट', 'आधार कार्ड', 'बैंक खाता'],
-        cat: 'बिहार राज्य कल्याण / महिला शिक्षा',
-        state: 'BR', occ: ['Student', 'ALL'], gender: ['Female', 'ALL'], minAge: 0, maxAge: 28,
-        link: 'https://medhasoft.bih.nic.in', mirror: 'https://bihar.gov.in',
-        voiceNote: 'बिहार मुख्यमंत्री कन्या उत्थान योजना। स्नातक उत्तीर्ण होने पर 50,000 रुपये प्रोत्साहन राशि।'
+    "TN": {
+        "name": "तमिलनाडु / Tamil Nadu",
+        "capital": "चेन्नई",
+        "emoji": "🛕",
+        "population": "7.8 Cr",
+        "area": "1,30,058 km²",
+        "cm": "एम.के. स्टालिन",
+        "dbtAmount": "₹36,700 Cr",
+        "dbtRating": "94%",
+        "districts": {
+            "चेन्नई (Chennai)": [
+                "अड्यार (Adyar)",
+                "अण्णा नगर (Anna Nagar)",
+                "तांबरम (Tambaram)",
+                "पल्लवरम (Pallavaram)",
+                "अंबत्तूर (Ambattur)",
+                "आवादी (Avadi)",
+                "तिरुवोट्टियूर (Tiruvottiyur)",
+                "वंडालूर (Vandalur)",
+                "पोरूर (Porur)",
+                "मुगलिवाक्कम (Mugalivakkam)"
+            ],
+            "कोयंबटूर (Coimbatore)": [
+                "पोल्लाची (Pollachi)",
+                "मेट्टुपालयम (Mettupalayam)",
+                "सुलूर (Sulur)",
+                "अन्नाूर (Annur)",
+                "नादम्पालयम (Nadampalayam)"
+            ],
+            "मदुरै (Madurai)": [
+                "तिरुप्परंगुंद्रम (Tirupparangunram)",
+                "मेलूर (Melur)",
+                "उसीलाम्पत्ती (Usilampatti)",
+                "सोलन कुरुणी (Solankuruni)",
+                "नेडुमदुरै (Nedumadurai)",
+                "वलैयनकुलम (Valaiyankulam)"
+            ],
+            "सलेम (Salem)": [
+                "अयोध्यापट्टनम (Ayodhyapattanam)",
+                "नेयक्कारापट्टी (Neykkarappatti)",
+                "पनामरत्तुपट्टी (Panamarattuppatti)",
+                "वीरपांडी (Virapandi)",
+                "वलसय्यूर (Valasaiyur)",
+                "चिन्नानूर (Chinnanur)"
+            ],
+            "तिरुचिरापल्ली (Trichy)": [
+                "श्रीरंगम (Srirangam)",
+                "लालगुडी (Lalgudi)",
+                "मणप्पारई (Manapparai)",
+                "गुंडूर (Gundur)",
+                "कंबरसम्पेत्तई (Kambarasampettai)"
+            ],
+            "तूतीकोरिन (Thoothukudi)": [
+                "पेयनविलाई (Peyanvilai)",
+                "तिरुचेंदूर (Tiruchendur)",
+                "कोविलपट्टी (Kovilpatti)"
+            ]
+        }
     },
-    {
-        name: 'बिहार स्टूडेंट क्रेडिट कार्ड योजना (Bihar Student Credit Card)',
-        desc: 'बिहार के 12वीं उत्तीर्ण विद्यार्थियों को उच्च शिक्षा हेतु मात्र 4% ब्याज पर ₹4 लाख तक का शिक्षा ऋण।',
-        targetGroup: 'बिहार के उच्च शिक्षा (BTech/MBBS/BSc) के छात्र',
-        docs: ['12वीं की अंकपत्र', 'कॉलेज दाखिला रसीद', 'आधार'],
-        cat: 'बिहार राज्य कल्याण / उच्च शिक्षा',
-        state: 'BR', occ: ['Student', 'ALL'], gender: 'ALL', minAge: 17, maxAge: 30,
-        link: 'https://www.7nishchay-yuvaupmission.bihar.gov.in', mirror: 'https://state.bihar.gov.in',
-        voiceNote: 'बिहार स्टूडेंट क्रेडिट कार्ड योजना। उच्च शिक्षा हेतु 4 लाख रुपये तक का शिक्षा ऋण।'
+    "TS": {
+        "name": "तेलंगाना / Telangana",
+        "capital": "हैदराबाद",
+        "emoji": "🏛️",
+        "population": "3.8 Cr",
+        "area": "1,12,077 km²",
+        "cm": "रेवंत रेड्डी",
+        "dbtAmount": "₹22,400 Cr",
+        "dbtRating": "93%",
+        "districts": {
+            "हैदराबाद (Hyderabad)": [
+                "चारमीनार (Charminar)",
+                "सिकंदराबाद (Secunderabad)",
+                "गच्चीबाउली (Gachibowli)",
+                "मलकपेट (Malakpet)",
+                "जुबली हिल्स (Jubilee Hills)"
+            ],
+            "मेडचल-मलकाजगिरि (Malkajgiri)": [
+                "मलकाजगिरि (Malkajgiri)",
+                "अल्वाल (Alwal)",
+                "दुंडीगल (Dundigal)",
+                "गागिलापुर (Gagilapur)",
+                "कुतबुल्लापुर (Quthbullapur)"
+            ],
+            "रंगारेड्डी (Ranga Reddy)": [
+                "बंदलागुड़ा (Bandlaguda)",
+                "किस्मतपुर (Kismatpur)",
+                "ममीदीपल्ली (Mamidipalli)",
+                "वत्तिनागुलापल्ली (Wattinagulapalli)",
+                "हिमायतसागर (Himayatsagar)",
+                "मंचिरेवुला (Manchirevula)"
+            ],
+            "वारंगल (Warangal)": [
+                "कोंडापर्ती (Kondaparti)",
+                "मोगलचर्ला (Mogalcherla)",
+                "हसनपर्ती (Hasanparthy)",
+                "काजीपेट (Kazipet)"
+            ]
+        }
     },
-    {
-        name: 'नमो शेतकरी महासन्मान निधी योजना (MH Namo Shetkari)',
-        desc: 'महाराष्ट्र के किसानों को राज्य सरकार द्वारा ₹6,000 प्रति वर्ष अतिरिक्त सहायता राशि ₹2,000 की तीन किश्तों में दी जाती है।',
-        targetGroup: 'महाराष्ट्र के सभी पंजीकृत कृषक परिवार',
-        docs: ['7/12 उतारा', 'आधार कार्ड', 'बैंक खाता'],
-        cat: 'महाराष्ट्र राज्य कल्याण / कृषि विकास',
-        state: 'MH', occ: ['Farmer', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 90,
-        link: 'https://nsmn.mahabhumi.gov.in', mirror: 'https://maharashtra.gov.in',
-        voiceNote: 'महाराष्ट्र नमो शेतकरी महासन्मान निधी। किसानों को 6,000 रुपये अतिरिक्त वार्षिक सहायता।'
+    "WB": {
+        "name": "पश्चिम बंगाल / West Bengal",
+        "capital": "कोलकाता",
+        "emoji": "🎨",
+        "population": "9.7 Cr",
+        "area": "88,752 km²",
+        "cm": "ममता बनर्जी",
+        "dbtAmount": "₹27,500 Cr",
+        "dbtRating": "90%",
+        "districts": {
+            "कोलकाता (Kolkata)": [
+                "साल्ट लेक सिटी (Salt Lake)",
+                "अलीपुर (Alipore)",
+                "भवानीपुर (Bhawanipur)",
+                "दमदम (Dum Dum)",
+                "टॉलीगंज (Tollygunge)"
+            ],
+            "हावड़ा (Howrah)": [
+                "बाली (Bally)",
+                "उलुबेरिया (Uluberia)",
+                "सांकराइल (Sankrail)",
+                "पांचला (Panchla)",
+                "बगनान (Bagnan)",
+                "डुमजोर (Dumjor)"
+            ],
+            "उत्तर 24 परगना (North 24 Parganas)": [
+                "बैरकपुर (Barakpur)",
+                "भाटपाड़ा (Bhatpara)",
+                "पानीहाटी (Panihati)",
+                "कमरहटी (Kamarhati)",
+                "टीटागढ़ (Titagarh)",
+                "खरदह (Khardah)"
+            ],
+            "हुगली (Hooghly)": [
+                "चुंचुड़ा (Chunchura)",
+                "श्रीरामपुर (Shrirampur)",
+                "चंदननगर (Chandannagar)",
+                "बांसबेरिया (Bansbaria)",
+                "बेगमपुर (Begampur)",
+                "चांदीतला (Chanditala)"
+            ],
+            "पश्चिम बर्धमान / आसनसोल (Asansol)": [
+                "आसनसोल (Asansol)",
+                "कुल्टी (Kulti)",
+                "रानीगंज (Raniganj)",
+                "दुर्गापुर (Durgapur)"
+            ],
+            "मुर्शिदाबाद (Murshidabad)": [
+                "बहरामपुर (Baharampur)",
+                "धुलियान (Dhulian)",
+                "जालदीपुर (Jaladipur)",
+                "जाजीग्राम (Jajigram)",
+                "इमामनगर (Imamnagar)",
+                "बललालपुर (Ballalpur)"
+            ],
+            "नदिया / कृष्णानगर (Krishnanagar)": [
+                "कृष्णानगर (Krishnanagar)",
+                "कल्याणी (Kalyani)",
+                "शांतिपुर (Santipur)",
+                "रानाघाट (Ranaghat)",
+                "दीगनगर (Dignagar)"
+            ],
+            "मेदिनीपुर / खड़गपुर (Kharagpur)": [
+                "खड़गपुर (Kharagpur)",
+                "मेदिनीपुर (Midnapore)",
+                "तमलुक (Tamluk)",
+                "कोला (Kola)"
+            ]
+        }
     },
-    {
-        name: 'मुख्यमंत्री आयुष्मान आरोग्य योजना (Rajasthan Ayushman Arogya)',
-        desc: 'राजस्थान के सभी परिवारों को पंजीकृत अस्पतालों में प्रतिवर्ष ₹25 लाख तक का निःशुल्क कैशलेस इलाज बीमा।',
-        targetGroup: 'राजस्थान के सभी मूल निवासी परिवार',
-        docs: ['जन-आधार कार्ड', 'आधार कार्ड'],
-        cat: 'राजस्थान राज्य कल्याण / मुफ़्त इलाज',
-        state: 'RJ', occ: ['ALL'], gender: 'ALL', minAge: 0, maxAge: 100,
-        link: 'https://health.rajasthan.gov.in', mirror: 'https://rajasthan.gov.in',
-        voiceNote: 'राजस्थान आयुष्मान आरोग्य योजना। 25 लाख रुपये तक का मुफ़्त कैशलेस इलाज बीमा।'
+    "RJ": {
+        "name": "राजस्थान / Rajasthan",
+        "capital": "जयपुर",
+        "emoji": "🏰",
+        "population": "8.1 Cr",
+        "area": "3,42,239 km²",
+        "cm": "भजन लाल शर्मा",
+        "dbtAmount": "₹29,800 Cr",
+        "dbtRating": "91%",
+        "districts": {
+            "जयपुर (Jaipur)": [
+                "आमेर (Amer)",
+                "सांगानेर (Sanganer)",
+                "चाकसू (Chaksu)",
+                "बस्सी (Bassi)",
+                "कोटपूतली (Kotputli)",
+                "फुलेरा (Phulera)"
+            ],
+            "जोधपुर (Jodhpur)": [
+                "लूणी (Luni)",
+                "ओसियां (Osian)",
+                "फलोदी (Phalodi)",
+                "शेरगढ़ (Shergarh)",
+                "भोपालगढ़ (Bhopalgarh)"
+            ],
+            "कोटा (Kota)": [
+                "लाडपुरा (Ladpura)",
+                "सांगोद (Sangod)",
+                "रामगंजमंडी (Ramganj Mandi)",
+                "दीगोद (Digod)",
+                "इटावा (Itawa)"
+            ],
+            "उदयपुर (Udaipur)": [
+                "गिर्वा (Girwa)",
+                "मावली (Mavli)",
+                "वल्लभनगर (Vallabhnagar)",
+                "सलूम्बर (Salumbar)",
+                "झाड़ोल (Jhadol)"
+            ],
+            "अजमेर (Ajmer)": [
+                "ब्यावर (Beawar)",
+                "किशनगढ़ (Kishangarh)",
+                "नसीराबाद (Nasirabad)",
+                "पुष्कर (Pushkar)"
+            ]
+        }
     },
-    {
-        name: '⚡ PM सूर्य घर मुफ़्त बिजली योजना (Rooftop Solar 2025)',
-        desc: '💡 आगामी योजना: 300 यूनिट मुफ़्त बिजली हेतु घरों की छत पर सोलर पैनल लगाने के लिए ₹78,000 तक की सरकारी सब्सिडी।',
-        targetGroup: 'समस्त आवासीय बिजली उपभोक्ता एवं मध्यमवर्गीय परिवार',
-        docs: ['बिजली बिल', 'छत का स्वामित्व प्रमाण', 'आधार कार्ड'],
-        cat: '⚡ आगामी राष्ट्रीय योजना / अक्षय ऊर्जा',
-        state: 'ALL', occ: ['ALL'], gender: 'ALL', minAge: 18, maxAge: 90,
-        link: 'https://pmsuryaghar.gov.in', mirror: 'https://mnre.gov.in',
-        voiceNote: 'प्रधानमंत्री सूर्य घर मुफ़्त बिजली योजना। 300 यूनिट मुफ़्त बिजली एवं 78,000 रुपये सब्सिडी।'
+    "PB": {
+        "name": "पंजाब / Punjab",
+        "capital": "चंडीगढ़",
+        "emoji": "🌾",
+        "population": "3.0 Cr",
+        "area": "50,362 km²",
+        "cm": "भगवंत मान",
+        "dbtAmount": "₹19,200 Cr",
+        "dbtRating": "92%",
+        "districts": {
+            "लुधियाना (Ludhiana)": [
+                "जग्रांव (Jagraon)",
+                "खन्ना (Khanna)",
+                "समराला (Samrala)",
+                "पायल (Payal)",
+                "रायकोट (Raikot)"
+            ],
+            "अमृतसर (Amritsar)": [
+                "अजनाला (Ajnala)",
+                "बाबा बकाला (Baba Bakala)",
+                "मजीठा (Majitha)",
+                "अटारी (Attari)"
+            ],
+            "मोहाली / एसएएस नगर (Mohali)": [
+                "खरड़ (Kharar)",
+                "डेराबस्सी (Dera Bassi)",
+                "सोहाना (Sohana)",
+                "मौली (Mauli)",
+                "भाबत (Bhabat)",
+                "मनौली (Manauli)",
+                "धुराली (Dhurali)",
+                "मोटा माजरा (Mota Mazra)"
+            ],
+            "जालंधर (Jalandhar)": [
+                "नकोदर (Nakodar)",
+                "फिल्लौर (Phillaur)",
+                "शाहकोट (Shahkot)",
+                "आदमपुर (Adampur)"
+            ],
+            "पटियाला (Patiala)": [
+                "नाभा (Nabha)",
+                "राजपुरा (Rajpura)",
+                "समाना (Samana)",
+                "पातड़ां (Patran)",
+                "अभयपुर (Abhepur)"
+            ]
+        }
     },
-    {
-        name: '🚗 UP इलेक्ट्रिक वाहन सब्सिडी नीति (UP EV Subsidy 2025)',
-        desc: '💡 आगामी योजना: उत्तर प्रदेश में 2-व्हीलर, 4-व्हीलर एवं EV बस खरीद पर ₹5,000 से ₹50,000 तक की सीधी DBT सब्सिडी।',
-        targetGroup: 'उत्तर प्रदेश के नए EV वाहन खरीदार',
-        docs: ['वाहन पंजीकरण (RC)', 'आधार कार्ड', 'बैंक विवरण'],
-        cat: '⚡ आगामी UP राज्य योजना / EV क्रांति',
-        state: 'UP', occ: ['ALL'], gender: 'ALL', minAge: 18, maxAge: 75,
-        link: 'https://upevsubsidy.in', mirror: 'https://investup.org.in',
-        voiceNote: 'उत्तर प्रदेश इलेक्ट्रिक वाहन सब्सिडी नीति। ईवी खरीद पर 50,000 रुपये तक सब्सिडी।'
+    "HR": {
+        "name": "हरियाणा / Haryana",
+        "capital": "चंडीगढ़",
+        "emoji": "🚜",
+        "population": "2.8 Cr",
+        "area": "44,212 km²",
+        "cm": "नायब सिंह सैनी",
+        "dbtAmount": "₹18,500 Cr",
+        "dbtRating": "94%",
+        "districts": {
+            "गुरुग्राम (Gurugram)": [
+                "मानेसर (Manesar)",
+                "सोहना (Sohna)",
+                "पटौदी (Pataudi)",
+                "बादशाहपुर (Badshahpur)",
+                "फरुखनगर (Farrukhnagar)"
+            ],
+            "फरीदाबाद (Faridabad)": [
+                "बल्लभगढ़ (Ballabgarh)",
+                "बड़खल (Badkhal)",
+                "धौज (Dhauj)",
+                "तिगांव (Tigaon)",
+                "धरमपुर (Dharampur)"
+            ],
+            "करनाल (Karnal)": [
+                "घरौंडा (Gharaunda)",
+                "असंध (Assandh)",
+                "इन्द्री (Indri)",
+                "नीलोखेड़ी (Nilokheri)"
+            ],
+            "हिसार (Hisar)": [
+                "हांसी (Hansi)",
+                "बरवाला (Barwala)",
+                "नारनौंद (Narnaund)",
+                "आदमपुर (Adampur)"
+            ],
+            "अंबाला (Ambala)": [
+                "बराड़ा (Barara)",
+                "नारायणगढ़ (Naraingarh)",
+                "शहजादपुर (Shahzadpur)"
+            ]
+        }
     },
-    {
-        name: 'प्रधानमंत्री किसान सम्मान निधि (PM-KISAN)',
-        desc: 'देश के समस्त कृषक परिवारों को प्रतिवर्ष ₹6,000 की नकद सहायता DBT के माध्यम से ₹2,000 की तीन किश्तों में दी जाती है।',
-        targetGroup: 'भारत के सभी छोटी व बड़ी जोत वाले कृषक परिवार',
-        docs: ['आधार कार्ड', 'भूमि खतौनी/खसरा', 'बैंक पासबुक'],
-        cat: 'केंद्रीय योजना / कृषि एवं किसान कल्याण',
-        state: 'ALL', occ: ['Farmer', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 100,
-        link: 'https://pmkisan.gov.in', mirror: 'https://agricoop.gov.in',
-        voiceNote: 'प्रधानमंत्री किसान सम्मान निधि। किसानों को 6,000 रुपये प्रतिवर्ष प्रत्यक्ष लाभ अंतरण।'
+    "KL": {
+        "name": "केरल / Kerala",
+        "capital": "तिरुवनंतपुरम",
+        "emoji": "🌴",
+        "population": "3.5 Cr",
+        "area": "38,852 km²",
+        "cm": "पिनाराई विजयन",
+        "dbtAmount": "₹16,400 Cr",
+        "dbtRating": "96%",
+        "districts": {
+            "तिरुवनंतपुरम (Trivandrum)": [
+                "नेय्याट्टिनकरा (Neyyattinkara)",
+                "नेदुमंगड़ (Nedumangad)",
+                "कझाकुट्टम (Kazhakkoottam)",
+                "आयिरुरपारा (Ayirurpara)",
+                "तोनाक्कल (Tonakkal)",
+                "मनारा (Mannara)"
+            ],
+            "कोच्चि / एर्नाकुलम (Kochi)": [
+                "अलुवा (Aluva)",
+                "कणयनूर (Kanayannur)",
+                "त्रिपुनिथुरा (Tripunittura)",
+                "कलमस्सेरी (Kalamasseri)",
+                "एडप्पल्ली (Edappalli)",
+                "एलांकुन्नपुझा (Elangunnapuzha)",
+                "मुलम्पिल्ली (Mulampilli)",
+                "वैपीन (Vypin)"
+            ],
+            "कोल्लम / क्विलोन (Quilon)": [
+                "पुनलूर (Punalur)",
+                "कोट्टारक्करा (Kottarakkara)",
+                "करुनागपल्ली (Karunagappally)",
+                "मय्यनाड (Mayyanad)",
+                "मुनरो तुरुत्तु (Munro Turuttu)",
+                "पल्लीमन (Palliman)"
+            ],
+            "अलप्पुझा / एलेप्पी (Alleppey)": [
+                "चेरथला (Cherthala)",
+                "मावेलिक्कारा (Mavelikkara)",
+                "अम्बलप्पुझा (Ambalappuzha)",
+                "मन्नानचेरी (Mannanchori)",
+                "पेरुम्बलम (Perumbalam)"
+            ],
+            "त्रिशूर (Thrissur)": [
+                "कन्ननकुलम (Kannankulam)",
+                "चवक्कड़ (Chavakkad)",
+                "मुकुंदपुरम (Mukundapuram)",
+                "कोडुंगल्लूर (Kodungallur)"
+            ]
+        }
     },
-    {
-        name: 'प्रधानमंत्री आवास योजना — ग्रामीण एवं शहरी (PM Awas)',
-        desc: 'बेघर एवं कच्चे मकानों में रहने वाले गरीब परिवारों को पक्का मकान निर्माण हेतु ₹1.20 लाख से ₹2.50 लाख तक की वित्तीय मदद।',
-        targetGroup: 'बीपीएल, ईडब्ल्यूएस एवं कच्चे मकानों में रहने वाले परिवार',
-        docs: ['आय प्रमाण', 'राशन कार्ड', 'आधार कार्ड', 'बैंक खाता'],
-        cat: 'केंद्रीय योजना / आवास विकास',
-        state: 'ALL', occ: ['Laborer', 'Unemployed', 'Farmer', 'Vendor', 'Artisan', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 85,
-        link: 'https://pmaymis.gov.in', mirror: 'https://pmayg.nic.in',
-        voiceNote: 'प्रधानमंत्री आवास योजना। पक्के मकान निर्माण हेतु ढाई लाख रुपये तक वित्तीय सहायता।'
+    "AP": {
+        "name": "आंध्र प्रदेश / AP",
+        "capital": "अमरावती",
+        "emoji": "🏛️",
+        "population": "5.3 Cr",
+        "area": "1,62,975 km²",
+        "cm": "चंद्रबाबू नायडू",
+        "dbtAmount": "₹26,100 Cr",
+        "dbtRating": "94%",
+        "districts": {
+            "विशाखापत्तनम (Vizag)": [
+                "अनकापल्ले (Anakapalle)",
+                "भीमुनिपटनम (Bheemunipatnam)",
+                "गाजुवाका (Gajuwaka)",
+                "पेंदुर्ति (Pendurthi)"
+            ],
+            "विजयवाड़ा / एनटीआर (Vijayawada)": [
+                "मंगलागिरि (Mangalagiri)",
+                "गुड़ीवाड़ा (Gudivada)",
+                "नुज्विद (Nuzvid)",
+                "अंबापुरम (Ambapuram)",
+                "पातापाडु (Patapadu)"
+            ],
+            "गुंटूर (Guntur)": [
+                "तेनाली (Tenali)",
+                "सत्तेनापल्ली (Sattenapalle)",
+                "नरसरावपेट (Narasaraopet)",
+                "सीतानगरम (Sitanagaram)"
+            ],
+            "काकीनाडा (Kakinada)": [
+                "पिथापुरम (Pithapuram)",
+                "पेद्दापुरम (Peddapuram)",
+                "तुनी (Tuni)",
+                "समलकोट (Samalkot)"
+            ],
+            "राजमुंदरी (Rajahmundry)": [
+                "कोव्वूर (Kovvur)",
+                "अनपर्ती (Anaparthy)",
+                "निदादावोलु (Nidadavole)"
+            ],
+            "कडपा (Kadapa)": [
+                "पाताकुडपा (Patacudapah)",
+                "पुतलमपल्ले (Putlampalle)",
+                "तक्कोलु (Takkolu)",
+                "राजमपेट (Rajampet)"
+            ]
+        }
     },
-    {
-        name: 'आयुष्मान भारत — प्रधानमंत्री जन आरोग्य योजना (PM-JAY)',
-        desc: 'देश के 12 करोड़ गरीब परिवारों को अस्पतालों में प्रतिवर्ष ₹5,00,000 का निःशुल्क मुफ़्त इलाज बीमा कवर।',
-        targetGroup: 'गरीब एवं वंचित परिवार (SECC Data)',
-        docs: ['राशन कार्ड', 'आधार कार्ड', 'आयुष्मान कार्ड'],
-        cat: 'केंद्रीय योजना / निःशुल्क स्वास्थ्य बीमा',
-        state: 'ALL', occ: ['ALL'], gender: 'ALL', minAge: 0, maxAge: 100,
-        link: 'https://pmjay.gov.in', mirror: 'https://nha.gov.in',
-        voiceNote: 'आयुष्मान भारत जन आरोग्य योजना। 5 लाख रुपये तक का निःशुल्क अस्पताल इलाज बीमा।'
+    "OD": {
+        "name": "ओडिशा / Odisha",
+        "capital": "भुवनेश्वर",
+        "emoji": "🏖️",
+        "population": "4.6 Cr",
+        "area": "1,55,707 km²",
+        "cm": "मोहन माझी",
+        "dbtAmount": "₹17,800 Cr",
+        "dbtRating": "92%",
+        "districts": {
+            "भुवनेश्वर / खोरधा (Bhubaneswar)": [
+                "जटनी (Jatni)",
+                "बालीपटना (Balipatna)",
+                "बेगुनिया (Begunia)",
+                "बाणपुर (Banapur)"
+            ],
+            "कटक (Cuttack)": [
+                "अठगढ़ (Athagarh)",
+                "बांकी (Banki)",
+                "चौद्वार (Choudwar)",
+                "सालेपुर (Salepur)"
+            ],
+            "राउरकेला / सुंदरगढ़ (Rourkela)": [
+                "बड़गांव (Bargaon)",
+                "बोनई (Bonai)",
+                "राजगांगपुर (Rajgangpur)",
+                "बृजराजनगर (Brajarajnagar)"
+            ],
+            "ब्रह्मपुर / गंजम (Brahmapur)": [
+                "छत्रपुर (Chhatrapur)",
+                "भंजनगर (Bhanjanagar)",
+                "हिंजिलिकट (Hinjilicut)",
+                "अस्का (Aska)"
+            ],
+            "पुरी (Puri)": [
+                "कोणार्क (Konark)",
+                "पिपिली (Pipili)",
+                "सत्यवादी (Satyabadi)",
+                "ब्रह्मगिरि (Brahmagiri)"
+            ],
+            "बालेश्वर (Balasore)": [
+                "जलेश्वर (Jaleswar)",
+                "सोरो (Soro)",
+                "बस्ता (Basta)",
+                "निलगिरि (Nilagiri)"
+            ],
+            "मयूरभंज / बारीपदा (Baripada)": [
+                "रायरंगपुर (Rairangpur)",
+                "करंजिया (Karanjia)",
+                "उदला (Udala)"
+            ]
+        }
     },
-    {
-        name: 'इंद्रा गांधी राष्ट्रीय वृद्धावस्था पेंशन (Indira Gandhi Pension)',
-        desc: '60 वर्ष व उससे अधिक आयु के बीपीएल बुजुर्गों को जीवन यापन हेतु प्रतिमाह नियमित वृद्धावस्था पेंशन।',
-        targetGroup: '60 वर्ष या उससे अधिक आयु के BPL बुजुर्ग नागरिक',
-        docs: ['आयु प्रमाण', 'BPL राशन कार्ड', 'आधार कार्ड'],
-        cat: 'केंद्रीय योजना / बुजुर्ग पेंशन',
-        state: 'ALL', occ: ['ALL'], gender: 'ALL', minAge: 60, maxAge: 110,
-        link: 'https://nsap.nic.in', mirror: 'https://rural.nic.in',
-        voiceNote: 'राष्ट्रीय वृद्धावस्था पेंशन योजना। वरिष्ठ नागरिकों को प्रतिमाह नियमित पेंशन सहायता।'
+    "JH": {
+        "name": "झारखंड / Jharkhand",
+        "capital": "रांची",
+        "emoji": "⛏️",
+        "population": "3.9 Cr",
+        "area": "79,716 km²",
+        "cm": "हेमंत सोरेन",
+        "dbtAmount": "₹15,400 Cr",
+        "dbtRating": "89%",
+        "districts": {
+            "रांची (Ranchi)": [
+                "कांके (Kanke)",
+                "ओरमांझी (Ormanjhi)",
+                "पिथौरिया (Pithauria)",
+                "रातू (Ratu)",
+                "बुढ़मू (Burmu)",
+                "सिल्ली (Silli)"
+            ],
+            "धनबाद (Dhanbad)": [
+                "झरिया (Jharia)",
+                "बाघमारा (Baghmara)",
+                "निरसा (Nirsa)",
+                "टुंडी (Tundi)",
+                "हरिलाडीह (Hariladih)"
+            ],
+            "जमशेदपुर / पूर्वी सिंहभूम (Jamshedpur)": [
+                "घाटशिला (Ghatshila)",
+                "पोटका (Potka)",
+                "पटमदा (Patamda)",
+                "मुसाबनी (Musabani)"
+            ],
+            "बोकारो (Bokaro)": [
+                "चास (Chas)",
+                "बेरमो (Bermo)",
+                "गोमिया (Gomia)",
+                "चंदनकियारी (Chandankiyari)"
+            ],
+            "साहिबगंज / उस्मानपुर (Usmanpur)": [
+                "उस्मानपुर (Usmanpur)",
+                "राजमहल (Rajmahal)",
+                "बरहरवा (Barharwa)"
+            ]
+        }
     },
-    {
-        name: 'प्रधानमंत्री मुद्रा योजना (PM Mudra Loan)',
-        desc: 'व्यवसाय शुरू करने या बढ़ाने हेतु बिना किसी बैंक गारंटी के ₹50,000 से ₹10 लाख तक का रियायती व्यावसायिक ऋण।',
-        targetGroup: 'लघु व्यापारी, दुकानदार, पटरी विक्रेता एवं बेरोजगार युवा',
-        docs: ['प्रोजेक्ट रिपोर्ट', 'आधार कार्ड', 'बैंक विवरण'],
-        cat: 'केंद्रीय योजना / व्यापारिक ऋण',
-        state: 'ALL', occ: ['Vendor', 'Artisan', 'Unemployed', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 65,
-        link: 'https://www.mudra.org.in', mirror: 'https://www.standupmitra.in',
-        voiceNote: 'प्रधानमंत्री मुद्रा योजना। व्यवसाय हेतु बिना गारंटी 10 लाख रुपये तक का रियायती ऋण।'
+    "AS": {
+        "name": "असम / Assam",
+        "capital": "दिसपुर",
+        "emoji": "☕",
+        "population": "3.5 Cr",
+        "area": "78,438 km²",
+        "cm": "हिमंत विश्व शर्मा",
+        "dbtAmount": "₹13,200 Cr",
+        "dbtRating": "91%",
+        "districts": {
+            "गुवाहाटी / कामरूप मेट्रो (Guwahati)": [
+                "दिसपुर (Dispur)",
+                "जलुकबारी (Jalukbari)",
+                "सोनापुर (Sonapur)",
+                "पल्टन बाजार (Paltan Bazar)",
+                "नारंगी (Narengi)"
+            ],
+            "डिब्रूगढ़ (Dibrugarh)": [
+                "नाहरकटिया (Naharkatia)",
+                "चाबुआ (Chabua)",
+                "मोरन (Moran)",
+                "टिंगखोंग (Tingkhong)"
+            ],
+            "सिलचर / कछार (Silchar)": [
+                "सोनई (Sonai)",
+                "धोलाई (Dholai)",
+                "उधारबोंड (Udharbond)",
+                "काटीगोरा (Katigorah)"
+            ],
+            "जोरहाट (Jorhat)": [
+                "टीटाबार (Titabar)",
+                "माजुली (Majuli)",
+                "मरियनी (Mariani)",
+                "तेओक (Teok)"
+            ]
+        }
     },
-    {
-        name: 'प्रधानमंत्री स्वनिधि योजना (PM SVANidhi Loan)',
-        desc: 'पटरी विक्रेताओं एवं रेहड़ी वालों को अपना काम चलाने हेतु बिना गारंटी ₹10,000 से ₹50,000 तक का कार्यशील पूंजी ऋण।',
-        targetGroup: 'शहरी व ग्रामीण पटरी विक्रेता एवं रेहड़ी वाले',
-        docs: ['वेंडिंग प्रमाणपत्र', 'आधार', 'बैंक खाता'],
-        cat: 'केंद्रीय योजना / पटरी विक्रेता कल्याण',
-        state: 'ALL', occ: ['Vendor', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 70,
-        link: 'https://pmsvanidhi.mohua.gov.in', mirror: 'https://mohua.gov.in',
-        voiceNote: 'प्रधानमंत्री स्वनिधि योजना। रेहड़ी पटरी विक्रेताओं को 50,000 रुपये तक कार्यशील पूंजी ऋण।'
+    "JK": {
+        "name": "जम्मू-कश्मीर / J&K (UT)",
+        "capital": "श्रीनगर",
+        "emoji": "🏔️",
+        "population": "1.4 Cr",
+        "area": "42,241 km²",
+        "cm": "मनोज सिन्हा (LG)",
+        "dbtAmount": "₹8,900 Cr",
+        "dbtRating": "93%",
+        "districts": {
+            "श्रीनगर (Srinagar)": [
+                "गुलमर्ग (Gulmarg)",
+                "हजरतबल (Hazratbal)",
+                "बटमालू (Batmaloo)",
+                "पंपोर (Pampur)",
+                "सोटुर (Sotur)",
+                "लाल चौक (Lal Chowk)"
+            ],
+            "जम्मू (Jammu)": [
+                "अखनूर (Akhnoor)",
+                "आर.एस. पुरा (RS Pura)",
+                "बिश्नाह (Bishnah)",
+                "बाहु (Bahu)"
+            ],
+            "अनंतनाग (Anantnag)": [
+                "पहलगाम (Pahalgam)",
+                "कोकरनाग (Kokernag)",
+                "डोरू (Dooru)",
+                "बिजबिहाड़ा (Bijbehara)"
+            ],
+            "बारामूला (Baramulla)": [
+                "सोपोर (Sopore)",
+                "पट्टन (Pattan)",
+                "उरी (Uri)",
+                "तंगमर्ग (Tangmarg)"
+            ]
+        }
     },
-    {
-        name: 'प्रधानमंत्री विश्वकर्मा योजना (PM Vishwakarma)',
-        desc: '18 पारंपरिक कारीगरों एवं शिल्पकारों को ₹3 लाख का रियायती ऋण, ₹15,000 की टूलकिट एवं ₹500/दिन प्रशिक्षण स्टाइपेंड।',
-        targetGroup: 'बढ़ई, लोहार, सुनार, कुम्हार, दर्जी, मोची आदि कारीगर',
-        docs: ['कारीगर प्रमाण', 'आधार कार्ड', 'बैंक पासबुक'],
-        cat: 'केंद्रीय योजना / कारीगर सशक्तिकरण',
-        state: 'ALL', occ: ['Artisan', 'ALL'], gender: 'ALL', minAge: 18, maxAge: 70,
-        link: 'https://pmvishwakarma.gov.in', mirror: 'https://msme.gov.in',
-        voiceNote: 'प्रधानमंत्री विश्वकर्मा योजना। कारीगरों को 3 लाख रुपये का रियायती ऋण और 15,000 रुपये टूलकिट।'
+    "UK": {
+        "name": "उत्तराखंड / Uttarakhand",
+        "capital": "देहरादून",
+        "emoji": "🏔️",
+        "population": "1.1 Cr",
+        "area": "53,483 km²",
+        "cm": "पुष्कर सिंह धामी",
+        "dbtAmount": "₹8,400 Cr",
+        "dbtRating": "92%",
+        "districts": {
+            "देहरादून (Dehradun)": [
+                "ऋषिकेश (Rishikesh)",
+                "विकासनगर (Vikasnagar)",
+                "डोईवाला (Doiwala)",
+                "हरबटपुर (Harbatpur)",
+                "सौंधोंवाली (Saundhonwali)"
+            ],
+            "हरिद्वार (Haridwar)": [
+                "रुड़की (Roorkee)",
+                "लक्सर (Laksar)",
+                "भगवानपुर (Bhagwanpur)",
+                "गुमानवाला (Gumanwala)"
+            ],
+            "उधम सिंह नगर (US Nagar)": [
+                "काशीपुर (Kashipur)",
+                "रुद्रपुर (Rudrapur)",
+                "किच्छा (Kichha)",
+                "महुआखेड़ागंज (Mahuakheraganj)",
+                "नगला (Nagla)"
+            ],
+            "नैनीताल (Nainital)": [
+                "हल्द्वानी (Haldwani)",
+                "रामनगर (Ramnagar)",
+                "कमलवागांजा (Kamalwaganja)",
+                "मदनपुर (Madanpur)"
+            ]
+        }
+    },
+    "CT": {
+        "name": "छत्तीसगढ़ / Chhattisgarh",
+        "capital": "रायपुर",
+        "emoji": "🌾",
+        "population": "3.0 Cr",
+        "area": "1,35,192 km²",
+        "cm": "विष्णु देव साय",
+        "dbtAmount": "₹14,900 Cr",
+        "dbtRating": "91%",
+        "districts": {
+            "रायपुर (Raipur)": [
+                "अभनपुर (Abhanpur)",
+                "आरंग (Arang)",
+                "धरसींवा (Dharsiwa)",
+                "तिल्दा (Tilda)"
+            ],
+            "बिलासपुर (Bilaspur)": [
+                "कोटा (Kota)",
+                "तखतपुर (Takhatpur)",
+                "मस्तुरी (Masturi)",
+                "बिल्हा (Bilha)"
+            ],
+            "दुर्ग / भिलाई (Durg-Bhilai)": [
+                "पाटन (Patan)",
+                "धमधा (Dhamdha)",
+                "भिलाई नगर (Bhilai)"
+            ],
+            "गोरखपुर / कबीरधाम (Gorakhpur)": [
+                "कवर्धा (Kawardha)",
+                "पंडरिया (Pandariya)",
+                "सहसपुर लोहारा (Sohara)"
+            ]
+        }
+    },
+    "CH": {
+        "name": "चंडीगढ़ / Chandigarh (UT)",
+        "capital": "चंडीगढ़",
+        "emoji": "🏛️",
+        "population": "11 Lakh",
+        "area": "114 km²",
+        "cm": "प्रशासक (UT)",
+        "dbtAmount": "₹1,200 Cr",
+        "dbtRating": "96%",
+        "districts": {
+            "चंडीगढ़ नगर (Chandigarh)": [
+                "सेक्टर 17 (Sector 17)",
+                "मनीमाजरा (Manimajra)",
+                "धनास (Dhanas)",
+                "बहलोलपुर (Bahlolpur)",
+                "तोगन (Togan)"
+            ]
+        }
+    },
+    "PY": {
+        "name": "पुडुचेरी / Puducherry (UT)",
+        "capital": "पुडुचेरी",
+        "emoji": "🏖️",
+        "population": "13 Lakh",
+        "area": "479 km²",
+        "cm": "एन. रंगासामी",
+        "dbtAmount": "₹1,400 Cr",
+        "dbtRating": "94%",
+        "districts": {
+            "पुडुचेरी (Pondicherry)": [
+                "उलघारेट (Oulgaret)",
+                "ओझुकरै (Ozhukarai)",
+                "विलियानूर (Villianur)",
+                "बाउर (Bahour)"
+            ],
+            "कराईकल (Karaikal)": [
+                "कोट्टुचेरी (Kottucherry)",
+                "नेडुंगाडु (Nedungadu)"
+            ]
+        }
+    },
+    "HP": {
+        "name": "हिमाचल प्रदेश / Himachal",
+        "capital": "शिमला",
+        "emoji": "🏔️",
+        "population": "75 Lakh",
+        "area": "55,673 km²",
+        "cm": "सुखविंदर सिंह सुक्खू",
+        "dbtAmount": "₹6,400 Cr",
+        "dbtRating": "92%",
+        "districts": {
+            "शिमला (Shimla)": [
+                "कुफरी (Kufri)",
+                "रोहड़ू (Rohru)",
+                "रामपुर (Rampur)",
+                "चौपाल (Chopal)",
+                "ठियोग (Theog)"
+            ],
+            "कांगड़ा / धर्मशाला (Dharamshala)": [
+                "पालमपुर (Palampur)",
+                "नूरपुर (Nurpur)",
+                "ज्वालामुखी (Jwalamukhi)",
+                "देहरा (Dehra)"
+            ],
+            "मंडी (Mandi)": [
+                "सुंदरनगर (Sundernagar)",
+                "सरकाघाट (Sarkaghat)",
+                "जोगिंदरनगर (Jogindernagar)"
+            ]
+        }
+    },
+    "GA": {
+        "name": "गोवा / Goa",
+        "capital": "पणजी",
+        "emoji": "🏖️",
+        "population": "15 Lakh",
+        "area": "3,702 km²",
+        "cm": "प्रमोद सावंत",
+        "dbtAmount": "₹2,800 Cr",
+        "dbtRating": "95%",
+        "districts": {
+            "उत्तर गोवा (North Goa)": [
+                "पणजी (Panaji)",
+                "मापुसा (Mapusa)",
+                "कैलांगूट (Calangute)",
+                "बिचोलिम (Bicholim)"
+            ],
+            "दक्षिण गोवा (South Goa)": [
+                "मडगांव (Margao)",
+                "वास्को द गामा (Vasco)",
+                "पोंडा (Ponda)",
+                "क्यूपेम (Quepem)"
+            ]
+        }
+    },
+    "MN": {
+        "name": "मणिपुर / Manipur",
+        "capital": "इम्फाल",
+        "emoji": "⛰️",
+        "population": "32 Lakh",
+        "area": "22,327 km²",
+        "cm": "एन. बीरेन सिंह",
+        "dbtAmount": "₹2,100 Cr",
+        "dbtRating": "90%",
+        "districts": {
+            "इम्फाल पश्चिम (Imphal West)": [
+                "लम्फेलपत (Lamphelpat)",
+                "पटसोई (Patsoi)",
+                "वांगोई (Wangoi)"
+            ],
+            "इम्फाल पूर्व (Imphal East)": [
+                "पोरोमपत (Porompat)",
+                "सवामबुंग (Sawombung)"
+            ]
+        }
+    },
+    "ML": {
+        "name": "मेघालय / Meghalaya",
+        "capital": "शिलांग",
+        "emoji": "🌧️",
+        "population": "33 Lakh",
+        "area": "22,429 km²",
+        "cm": "कॉनराड संगमा",
+        "dbtAmount": "₹2,300 Cr",
+        "dbtRating": "91%",
+        "districts": {
+            "पूर्वी खासी हिल्स / शिलांग (Shillong)": [
+                "सोहरा (Sohra/Cherrapunji)",
+                "मावफ्लांग (Mawphlang)",
+                "पाइनुरस्ला (Pynursla)"
+            ],
+            "पश्चिम गारो हिल्स / तुरा (Tura)": [
+                "तुरा (Tura)",
+                "डालू (Dalu)",
+                "रोंगराम (Rongram)"
+            ]
+        }
+    },
+    "NL": {
+        "name": "नागालैंड / Nagaland",
+        "capital": "कोहिमा",
+        "emoji": "⛰️",
+        "population": "22 Lakh",
+        "area": "16,579 km²",
+        "cm": "नेफ्यू रियू",
+        "dbtAmount": "₹1,800 Cr",
+        "dbtRating": "90%",
+        "districts": {
+            "कोहिमा (Kohima)": [
+                "जोतसेमा (Jotsema)",
+                "चेचामे (Chechame)",
+                "त्सेमिन्यु (Tseminyu)"
+            ],
+            "दीमापुर (Dimapur)": [
+                "चुमुकेदिमा (Chumukedima)",
+                "मेदजिफेमा (Medziphema)"
+            ]
+        }
+    },
+    "TR": {
+        "name": "त्रिपुरा / Tripura",
+        "capital": "अगरतला",
+        "emoji": "🏛️",
+        "population": "40 Lakh",
+        "area": "10,491 km²",
+        "cm": "माणिक साहा",
+        "dbtAmount": "₹3,100 Cr",
+        "dbtRating": "92%",
+        "districts": {
+            "पश्चिम त्रिपुरा / अगरतला (Agartala)": [
+                "रानिरबाजार (Ranirbazar)",
+                "मोहनपुर (Mohanpur)",
+                "जिरानिया (Jirania)"
+            ],
+            "गोमती / उदयपुर (Udaipur)": [
+                "उदयपुर (Udaipur)",
+                "अमरपुर (Amarpur)"
+            ]
+        }
+    },
+    "SK": {
+        "name": "सिक्किम / Sikkim",
+        "capital": "गंगटोक",
+        "emoji": "🏔️",
+        "population": "7 Lakh",
+        "area": "7,096 km²",
+        "cm": "प्रेम सिंह तामांग",
+        "dbtAmount": "₹950 Cr",
+        "dbtRating": "95%",
+        "districts": {
+            "पूर्वी सिक्किम / गंगटोक (Gangtok)": [
+                "तादोंग (Tadong)",
+                "रानिपूल (Ranipool)",
+                "पाकयोंग (Pakyong)"
+            ],
+            "पश्चिम सिक्किम / ग्यालशिंग (Gyalshing)": [
+                "पेल्लिंग (Pelling)",
+                "युक्सोम (Yuksom)"
+            ]
+        }
+    },
+    "MZ": {
+        "name": "मिजोरम / Mizoram",
+        "capital": "आइजोल",
+        "emoji": "⛰️",
+        "population": "12 Lakh",
+        "area": "21,081 km²",
+        "cm": "लालदुहोमा",
+        "dbtAmount": "₹1,500 Cr",
+        "dbtRating": "93%",
+        "districts": {
+            "आइजोल (Aizawl)": [
+                "दर्लावन (Darlawn)",
+                "सैरांग (Sairang)",
+                "त्लुंगवेल (Tlungvel)"
+            ],
+            "लुंगलेई (Lunglei)": [
+                "हनाहथियाल (Hnahthial)",
+                "तुईपांग (Tuipang)"
+            ]
+        }
+    },
+    "AR": {
+        "name": "अरुणाचल प्रदेश / Arunachal",
+        "capital": "ईटानगर",
+        "emoji": "🏔️",
+        "population": "15 Lakh",
+        "area": "83,743 km²",
+        "cm": "पेमा खांडू",
+        "dbtAmount": "₹2,400 Cr",
+        "dbtRating": "91%",
+        "districts": {
+            "ईटानगर राजधानी परिसर (Itanagar)": [
+                "नाहरलगुन (Naharlagun)",
+                "बंदरदेवा (Banderdewa)",
+                "दोइमुख (Doimukh)"
+            ],
+            "तवांग (Tawang)": [
+                "जंग (Jang)",
+                "लुमला (Lumla)"
+            ]
+        }
+    },
+    "LA": {
+        "name": "लद्दाख / Ladakh (UT)",
+        "capital": "लेह",
+        "emoji": "🏔️",
+        "population": "3 Lakh",
+        "area": "59,146 km²",
+        "cm": "उपराज्यपाल (UT)",
+        "dbtAmount": "₹680 Cr",
+        "dbtRating": "94%",
+        "districts": {
+            "लेह (Leh)": [
+                "नुब्रा (Nubra)",
+                "खालत्से (Khaltsi)",
+                "चांगथांग (Changthang)"
+            ],
+            "कारगिल (Kargil)": [
+                "द्रास (Dras)",
+                "जांस्कर (Zanskar)",
+                "संखू (Sankoo)"
+            ]
+        }
+    },
+    "DD": {
+        "name": "दादरा एवं नगर हवेली और दमन-दीव (UT)",
+        "capital": "दमन",
+        "emoji": "🏖️",
+        "population": "6 Lakh",
+        "area": "603 km²",
+        "cm": "प्रशासक (UT)",
+        "dbtAmount": "₹750 Cr",
+        "dbtRating": "94%",
+        "districts": {
+            "दमन (Daman)": [
+                "नानी दमन (Nani Daman)",
+                "मोती दमन (Moti Daman)"
+            ],
+            "दीव (Diu)": [
+                "घोघला (Ghoghla)",
+                "बुचरवाड़ा (Bucherwada)"
+            ],
+            "दादरा एवं नगर हवेली (Silvassa)": [
+                "सिलवासा (Silvassa)",
+                "नरोली (Naroli)",
+                "राखोली (Rakholi)"
+            ]
+        }
+    },
+    "AN": {
+        "name": "अंडमान निकोबार / A&N (UT)",
+        "capital": "पोर्ट ब्लेयर",
+        "emoji": "🏝️",
+        "population": "4 Lakh",
+        "area": "8,249 km²",
+        "cm": "उपराज्यपाल (UT)",
+        "dbtAmount": "₹490 Cr",
+        "dbtRating": "93%",
+        "districts": {
+            "दक्षिण अंडमान / पोर्ट ब्लेयर (Port Blair)": [
+                "गराचरमा (Garacharma)",
+                "फेरागुंज (Ferrargunj)",
+                "हैवलॉक / स्वराज द्वीप (Havelock)"
+            ],
+            "उत्तर एवं मध्य अंडमान (Mayabunder)": [
+                "मायाबंदर (Mayabunder)",
+                "डिगलीपुर (Diglipur)",
+                "रंगत (Rangat)"
+            ]
+        }
+    },
+    "LD": {
+        "name": "लक्षद्वीप / Lakshadweep (UT)",
+        "capital": "कवारत्ती",
+        "emoji": "🏝️",
+        "population": "70,000",
+        "area": "32 km²",
+        "cm": "प्रशासक (UT)",
+        "dbtAmount": "₹120 Cr",
+        "dbtRating": "95%",
+        "districts": {
+            "कवारत्ती (Kavaratti)": [
+                "अगाती (Agatti)",
+                "अमीनी (Amini)",
+                "एंड्रोट (Andrott)",
+                "मिनिकॉय (Minicoy)",
+                "कदमत (Kadmat)"
+            ]
+        }
     }
-];
+};
 
 let currentSelectedStateCode = null;
 let currentSelectedDistrict = null;
@@ -1205,25 +2411,84 @@ window.launchSelectedLocationPortal = function() {
     }
 };
 
-// STEP DRILL DOWN IN MAP VIEW
+// STEP DRILL DOWN IN MAP VIEW WITH REAL CITY & VILLAGE SEARCH
 function renderMapStatesList(filterQuery = '') {
     const grid = document.getElementById('map-states-grid');
     if (!grid) return;
 
     let html = '';
-    Object.keys(STATE_DB).forEach(code => {
-        const s = STATE_DB[code];
-        if (filterQuery && !s.name.toLowerCase().includes(filterQuery.toLowerCase()) && !code.toLowerCase().includes(filterQuery.toLowerCase())) {
-            return;
+    const q = (filterQuery || '').trim().toLowerCase();
+
+    if (!q) {
+        Object.keys(STATE_DB).forEach(code => {
+            const s = STATE_DB[code];
+            const distCount = s.districts ? Object.keys(s.districts).length : 1;
+            let metricTag = currentHeatmapMode === 'dbt' ? `💰 DBT: ${s.dbtAmount}` : (currentHeatmapMode === 'civic' ? `🏛️ संतुष्टि: ${s.dbtRating}` : `📍 ${distCount} शहर/ज़िले | ${s.capital}`);
+
+            html += `<div class="item-card-chip" onclick="onMapStateClick('${code}')">
+                ${s.emoji} ${s.name.split('/')[0]}
+                <small>${metricTag}</small>
+            </div>`;
+        });
+    } else {
+        let matchedCount = 0;
+
+        // 1. Direct State Matches
+        Object.keys(STATE_DB).forEach(code => {
+            const s = STATE_DB[code];
+            if (s.name.toLowerCase().includes(q) || code.toLowerCase().includes(q) || (s.capital && s.capital.toLowerCase().includes(q))) {
+                matchedCount++;
+                html += `<div class="item-card-chip" onclick="onMapStateClick('${code}')">
+                    ${s.emoji} ${s.name.split('/')[0]} <span class="badge badge-success" style="font-size:9px;">राज्य</span>
+                    <small>📍 राजधानी: ${s.capital} | DBT: ${s.dbtAmount}</small>
+                </div>`;
+            }
+        });
+
+        // 2. Direct City/District Matches
+        Object.keys(STATE_DB).forEach(code => {
+            const s = STATE_DB[code];
+            if (s.districts) {
+                Object.keys(s.districts).forEach(d => {
+                    if (d.toLowerCase().includes(q)) {
+                        matchedCount++;
+                        const vCount = s.districts[d].length;
+                        html += `<div class="item-card-chip" onclick="currentSelectedStateCode='${code}'; onMapCityClick('${d}')" style="border-left:3px solid var(--accent-emerald);">
+                            🏙️ ${d} <span class="badge badge-info" style="font-size:9px;">शहर / ज़िला</span>
+                            <small>📍 ${s.name.split('/')[0]} | ${vCount} गाँव व वार्ड</small>
+                        </div>`;
+                    }
+                });
+            }
+        });
+
+        // 3. Direct Village / Ward Matches
+        Object.keys(STATE_DB).forEach(code => {
+            const s = STATE_DB[code];
+            if (s.districts) {
+                Object.keys(s.districts).forEach(d => {
+                    s.districts[d].forEach(v => {
+                        if (v.toLowerCase().includes(q)) {
+                            matchedCount++;
+                            html += `<div class="item-card-chip" onclick="currentSelectedStateCode='${code}'; currentSelectedDistrict='${d}'; onMapVillageClick('${v}')" style="border-left:3px solid var(--accent-saffron);">
+                                🌾 ${v} <span class="badge badge-warning" style="font-size:9px;">गाँव / वार्ड</span>
+                                <small>📍 ${d}, ${s.name.split('/')[0]}</small>
+                            </div>`;
+                        }
+                    });
+                });
+            }
+        });
+
+        if (matchedCount === 0) {
+            html = `<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--text-muted);">
+                <i class="fa-solid fa-location-crosshairs fa-2x" style="color:var(--accent-saffron);opacity:0.8;"></i>
+                <div style="margin-top:6px;font-size:13px;font-weight:700;color:var(--text-heading);">${filterQuery} से संबंधित कोई राज्य, शहर या गाँव नहीं मिला</div>
+                <small>कृपया सही नाम (e.g. Mumbai, Patna, Indore, Belahi, Lucknow) खोजें।</small>
+            </div>`;
         }
+    }
 
-        let metricTag = currentHeatmapMode === 'dbt' ? `💰 DBT: ${s.dbtAmount}` : (currentHeatmapMode === 'civic' ? `🏛️ संतुष्टि: ${s.dbtRating}` : `📍 राजधानी: ${s.capital}`);
-
-        html += `<div class="item-card-chip" onclick="onMapStateClick('${code}')">
-            ${s.emoji} ${s.name.split('/')[0]}
-            <small>${metricTag}</small>
-        </div>`;
-    });
     grid.innerHTML = html;
 }
 
@@ -1299,6 +2564,14 @@ window.onMapStateClick = function(code) {
 
 window.onMapCityClick = function(cityName) {
     currentSelectedDistrict = cityName;
+    const s = STATE_DB[currentSelectedStateCode];
+
+    const bcState = document.getElementById('bc-state');
+    if (bcState && s) {
+        bcState.textContent = s.name.split('/')[0];
+        bcState.classList.add('active');
+    }
+
     const bcDist = document.getElementById('bc-district');
     if (bcDist) {
         bcDist.textContent = cityName;
@@ -1311,14 +2584,13 @@ window.onMapCityClick = function(cityName) {
 
     document.getElementById('village-step-title').textContent = `${cityName} — ${currentLang === 'EN' ? 'Select Village / Ward:' : 'गाँव/वार्ड चुनें:'}`;
 
-    const s = STATE_DB[currentSelectedStateCode];
     const villagesGrid = document.getElementById('villages-grid');
     let html = '';
-    if (s.districts && s.districts[cityName]) {
+    if (s && s.districts && s.districts[cityName]) {
         s.districts[cityName].forEach(v => {
             html += `<div class="item-card-chip" onclick="onMapVillageClick('${v}')">
                 🌾 ${v}
-                <small>सुशासन केंद्र</small>
+                <small>सुशासन केंद्र / वार्ड</small>
             </div>`;
         });
     } else {
@@ -1327,7 +2599,7 @@ window.onMapCityClick = function(cityName) {
     }
     villagesGrid.innerHTML = html;
 
-    window.speakText(currentLang === 'EN' ? `${cityName} district selected. Please select a village or ward.` : `${cityName} ज़िला चुना गया। गाँव या वार्ड चुनें।`);
+    window.speakText(currentLang === 'EN' ? `${cityName} selected. Please select a village or ward.` : `${cityName} ज़िला चुना गया। गाँव या वार्ड चुनें।`);
 };
 
 window.onMapVillageClick = function(villageName) {
