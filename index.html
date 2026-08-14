@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CITYWISE AI — All-India Digital Governance & Welfare Portal</title>
-    <meta name="description" content="CITYWISE AI — Official All-India Digital Governance & Welfare Schemes Portal — State, District & Village Explorer, Verified Schemes Engine, and Emergency Helplines.">
+    <title>CITYWISE AI — All-India Digital Governance & Citizen Services Portal</title>
+    <meta name="description" content="CITYWISE AI — Official All-India Digital Governance & Unified Citizen Services Portal — LIC Policies, Voter ID, Public Banking, Welfare Schemes, State & District Explorer.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +29,7 @@
             <div class="gov-emblem-text">
                 <span class="emblem-symbol">🏛️</span>
                 <span>भारत सरकार | Government of India</span>
-                <span class="digital-india-badge"><i class="fa-solid fa-bolt"></i> Digital India</span>
+                <span class="digital-india-badge"><i class="fa-solid fa-bolt"></i> Digital India Hub</span>
             </div>
             <div class="gov-top-tools">
                 <button class="top-tool-btn" id="btn-theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i> <span id="theme-btn-text">Dark Mode</span></button>
@@ -59,6 +59,10 @@
                     <i class="fa-solid fa-house"></i> 
                     <span id="nav-txt-home">मुख्य पृष्ठ <small>Home</small></span>
                 </button>
+                <button class="nav-btn" id="nav-services" onclick="switchPage('services')">
+                    <i class="fa-solid fa-id-card"></i> 
+                    <span id="nav-txt-services">नागरिक सेवाएं <small>LIC, Voter ID & Bank</small></span>
+                </button>
                 <button class="nav-btn" id="nav-map" onclick="switchPage('map')">
                     <i class="fa-solid fa-map-location-dot"></i> 
                     <span id="nav-txt-map">भारत का नक्शा <small>Official Map</small></span>
@@ -84,6 +88,9 @@
         <div class="mobile-dropdown-menu" id="mobile-dropdown">
             <button class="mobile-nav-item active" onclick="switchPage('home'); toggleMobileMenu();">
                 <i class="fa-solid fa-house"></i> मुख्य पृष्ठ (Home Portal)
+            </button>
+            <button class="mobile-nav-item" onclick="switchPage('services'); toggleMobileMenu();">
+                <i class="fa-solid fa-id-card"></i> नागरिक सेवाएं (LIC, Voter ID, Banking)
             </button>
             <button class="mobile-nav-item" onclick="switchPage('map'); toggleMobileMenu();">
                 <i class="fa-solid fa-map-location-dot"></i> भारत का नक्शा (Official Map)
@@ -121,13 +128,33 @@
 
                 <h1 class="hero-title" id="hero-title-txt">
                     CITYWISE AI <br>
-                    <span class="text-gradient">राष्ट्रीय सुशासन पोर्टल</span>
-                    <span class="title-sub">All-India Official Governance & Welfare Scheme Platform</span>
+                    <span class="text-gradient">राष्ट्रीय सुशासन एवं नागरिक सेवा पोर्टल</span>
+                    <span class="title-sub">All-India Official Governance, Citizen Services & Welfare Platform</span>
                 </h1>
 
                 <p class="hero-sub" id="hero-sub-txt">
-                    भारत के किसी भी राज्य पर क्लिक करें — फिर अपना ज़िला/शहर एवं गाँव चुनें। स्थानीय विभागीय हेल्पलाइन नंबर, राज्य की विशिष्ट कल्याणकारी योजनाएं एवं नीतियां देखें।
+                    भारत के किसी भी राज्य पर क्लिक करें — फिर अपना ज़िला/शहर एवं गाँव चुनें। LIC पॉलिसियां, Voter ID, सरकारी बैंकिंग, विभागीय हेल्पलाइन नंबर एवं राज्य की योजनाएं देखें।
                 </p>
+
+                <!-- QUICK CITIZEN SERVICE SHORTCUTS -->
+                <div class="hero-quick-services">
+                    <button class="quick-service-btn" onclick="switchPage('services')">
+                        <i class="fa-solid fa-check-to-slot" style="color:#6366f1"></i>
+                        <span>Voter ID सेवा</span>
+                    </button>
+                    <button class="quick-service-btn" onclick="switchPage('services')">
+                        <i class="fa-solid fa-shield-heart" style="color:#10b981"></i>
+                        <span>LIC प्रीमियम & बीमा</span>
+                    </button>
+                    <button class="quick-service-btn" onclick="switchPage('services')">
+                        <i class="fa-solid fa-building-columns" style="color:#f59e0b"></i>
+                        <span>सरकारी बैंक & Jan Dhan</span>
+                    </button>
+                    <button class="quick-service-btn" onclick="switchPage('services')">
+                        <i class="fa-solid fa-id-card" style="color:#ec4899"></i>
+                        <span>Aadhaar & PAN Link</span>
+                    </button>
+                </div>
 
                 <!-- Categorized All 36 States & UTs -->
                 <div class="state-quick-bar">
@@ -157,8 +184,8 @@
                         <span class="stat-l">100% भारत कवरेज</span>
                     </div>
                     <div class="stat-pill">
-                        <span class="stat-n">30+ Verified</span>
-                        <span class="stat-l">सक्रिय एवं आगामी योजनाएं</span>
+                        <span class="stat-n">50+ Verified</span>
+                        <span class="stat-l">नागरिक सेवाएं एवं योजनाएं</span>
                     </div>
                     <div class="stat-pill">
                         <span class="stat-n">data.gov.in</span>
@@ -215,7 +242,39 @@
         </section>
     </div>
 
-    <!-- ===== PAGE 2: OFFICIAL INDIA MAP EXPLORER ===== -->
+    <!-- ===== PAGE 2: NATIONAL CITIZEN SERVICES HUB (LIC, VOTER ID, BANKING) ===== -->
+    <div id="page-services" class="page-view">
+        <section class="page-section">
+            <div class="section-header">
+                <div class="section-tag"><i class="fa-solid fa-id-card"></i> <span id="srv-sec-tag">CITYWISE AI राष्ट्रीय नागरिक सेवाएं</span> <small>/ Unified Citizen Hub</small></div>
+                <h2 id="srv-sec-title">Voter ID, LIC, सरकारी बैंक, Aadhaar एवं जन सेवाएं</h2>
+                <p id="srv-sec-sub">भारत सरकार एवं राज्य सरकारों की सभी आधिकारिक नागरिक सेवाओं के लिए एकल खिड़की। बिना किसी बिचौलिए के सीधे आधिकारिक पोर्टल से जुड़ें।</p>
+            </div>
+
+            <!-- SEARCH & FILTER BAR FOR CITIZEN SERVICES -->
+            <div class="services-filter-bar">
+                <div class="search-box-wrap">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="service-search-input" class="search-input" placeholder="सेवा खोजें (जैसे LIC, Voter ID, Aadhaar, Bank, Passport, Bijli Bill...)" oninput="filterCitizenServices()">
+                </div>
+
+                <div class="service-category-tabs">
+                    <button class="srv-cat-btn active" onclick="filterServiceCategory('ALL', this)">🌐 सभी सेवाएं (All)</button>
+                    <button class="srv-cat-btn" onclick="filterServiceCategory('VOTER', this)">🗳️ Voter ID & Identity</button>
+                    <button class="srv-cat-btn" onclick="filterServiceCategory('LIC', this)">🛡️ LIC & बीमा</button>
+                    <button class="srv-cat-btn" onclick="filterServiceCategory('BANK', this)">🏦 सरकारी बैंक & Pension</button>
+                    <button class="srv-cat-btn" onclick="filterServiceCategory('CIVIC', this)">🚗 परिवहन & बिल भुगतान</button>
+                </div>
+            </div>
+
+            <!-- SERVICES GRID CONTAINER -->
+            <div class="services-cards-grid" id="services-cards-container">
+                <!-- Dynamically populated by app.js -->
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== PAGE 3: OFFICIAL INDIA MAP EXPLORER ===== -->
     <div id="page-map" class="page-view">
         <section class="page-section">
             <div class="section-header">
@@ -316,7 +375,7 @@
         </section>
     </div>
 
-    <!-- ===== PAGE 3: GOV SCHEMES ===== -->
+    <!-- ===== PAGE 4: GOV SCHEMES ===== -->
     <div id="page-schemes" class="page-view">
         <section class="page-section">
             <div class="section-header">
@@ -463,6 +522,10 @@
         <button class="m-bottom-btn active" id="m-nav-home" onclick="switchPage('home')">
             <i class="fa-solid fa-house"></i>
             <span>होम</span>
+        </button>
+        <button class="m-bottom-btn" id="m-nav-services" onclick="switchPage('services')">
+            <i class="fa-solid fa-id-card"></i>
+            <span>सेवाएं</span>
         </button>
         <button class="m-bottom-btn" id="m-nav-map" onclick="switchPage('map')">
             <i class="fa-solid fa-map-location-dot"></i>

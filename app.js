@@ -1,6 +1,130 @@
 // ============================================================
-// CITYWISE AI — Full Stack Application Logic (Official Map & Live Schemes Search Engine)
+// CITYWISE AI — Full Stack Application Logic (Official Map, Live Schemes & National Citizen Services Hub)
 // ============================================================
+
+// NATIONAL CITIZEN SERVICES DATABASE (LIC, VOTER ID, BANKING, EPFO, PARIVAHAN, AADHAAR)
+const CITIZEN_SERVICES_DB = [
+    {
+        id: 'voter-epic',
+        name: 'Voter ID E-EPIC & NVSP Portal',
+        dept: 'भारत निर्वाचन आयोग (Election Commission of India)',
+        cat: 'VOTER',
+        icon: '🗳️',
+        bg: 'rgba(99, 102, 241, 0.15)',
+        color: '#6366f1',
+        desc: 'नया वोटर ID कार्ड बनवाएं, डिजिटल e-EPIC डाउनलोड करें, पता/नाम सुधारें एवं वोटर लिस्ट में नाम खोजें।',
+        tags: ['E-EPIC Card', 'नया रजिस्ट्रेशन', 'वोटर लिस्ट', 'फॉर्म 6/8'],
+        link: 'https://voters.eci.gov.in'
+    },
+    {
+        id: 'lic-premium',
+        name: 'LIC पॉलिसी प्रीमियम एवं स्टेटस पोर्टल',
+        dept: 'भारतीय जीवन बीमा निगम (Life Insurance Corporation of India)',
+        cat: 'LIC',
+        icon: '🛡️',
+        bg: 'rgba(16, 185, 129, 0.15)',
+        color: '#10b981',
+        desc: 'ऑनलाइन LIC पॉलिसी प्रीमियम जमा करें, पॉलिसी मैच्योरिटी एवं बोनस स्टेटस जांचें, क्लेम गाइड डाउनलोड करें।',
+        tags: ['प्रीमियम भुगतान', 'पॉलिसी स्टेटस', 'बोनस ट्रैकर', 'CLAIM'],
+        link: 'https://licindia.in'
+    },
+    {
+        id: 'pm-jjby',
+        name: 'PM जीवन ज्योति बीमा योजना (PMJJBY & PMSBY)',
+        dept: 'वित्तीय सेवाएं विभाग / LIC & Banks',
+        cat: 'LIC',
+        icon: '🏥',
+        bg: 'rgba(245, 158, 11, 0.15)',
+        color: '#f59e0b',
+        desc: 'मात्र ₹436/वर्ष में ₹2 लाख का जीवन बीमा एवं ₹20/वर्ष में दुर्घटना बीमा। सभी बैंक खातों पर उपलब्ध।',
+        tags: ['₹2 लाख कवर', '₹436 वार्षिक', 'ऑटो-डेबिट', 'Jan Dhan'],
+        link: 'https://www.jansuraksha.gov.in'
+    },
+    {
+        id: 'pmjdy-bank',
+        name: 'PM जन धन योजना & सरकारी बैंक खाता (Zero Balance)',
+        dept: 'वित्तीय समावेशन प्रभाग / Public Sector Banks (SBI, PNB, BOB)',
+        cat: 'BANK',
+        icon: '🏦',
+        bg: 'rgba(56, 189, 248, 0.15)',
+        color: '#38bdf8',
+        desc: 'बिना किसी न्यूनतम राशि के ज़ीरो बैलेंस सरकारी बैंक खाता खोलें, ₹10,000 ओवरड्राफ्ट सुविधा एवं रुपे कार्ड प्राप्त करें।',
+        tags: ['Zero Balance', 'RuPay Card', 'DBT Direct', 'Bank Mitra'],
+        link: 'https://pmjdy.gov.in'
+    },
+    {
+        id: 'aadhaar-uidai',
+        name: 'Aadhaar Services & Mobile/PAN Link',
+        dept: 'भारतीय विशिष्ट पहचान प्राधिकरण (UIDAI)',
+        cat: 'VOTER',
+        icon: '🆔',
+        bg: 'rgba(236, 72, 153, 0.15)',
+        color: '#ec4899',
+        desc: 'e-Aadhaar कार्ड डाउनलोड करें, PAN-Aadhaar लिंक स्टेटस जांचें, मोबाइल नंबर अपडेट एवं निकटतम आधार केंद्र ढूंढें।',
+        tags: ['e-Aadhaar PDF', 'PAN Link Status', 'मोबाइल अपडेट', 'Seva Kendra'],
+        link: 'https://myaadhaar.uidai.gov.in'
+    },
+    {
+        id: 'epfo-passbook',
+        name: 'EPFO UAN मेंबर पासबुक & PF क्लेम',
+        dept: 'कर्मचारी भविष्य निधि संगठन (Employees Provident Fund Organisation)',
+        cat: 'BANK',
+        icon: '💼',
+        bg: 'rgba(139, 92, 246, 0.15)',
+        color: '#8b5cf6',
+        desc: 'अपना UAN नंबर एक्टिवेट करें, ऑनलाइन PF पासबुक देखें, एडवांस क्लेम ट्रान्सफर एवं पेंशन स्टेटस चेक करें।',
+        tags: ['UAN Passbook', 'PF Balance', 'ऑनलाइन एडवांस', 'Pension Status'],
+        link: 'https://www.epfindia.gov.in'
+    },
+    {
+        id: 'parivahan-dl',
+        name: 'ड्राइविंग लाइसेंस, RC & e-Challan (Parivahan)',
+        dept: 'सड़क परिवहन एवं राजमार्ग मंत्रालय (MoRTH)',
+        cat: 'CIVIC',
+        icon: '🚗',
+        bg: 'rgba(14, 165, 233, 0.15)',
+        color: '#0ea5e9',
+        desc: 'ड्राइविंग लाइसेंस का ऑनलाइन नवीनीकरण (Renewal), RC वाहन विवरण, फैंसी नंबर स्लॉट एवं e-Challan भुगतान।',
+        tags: ['DL Renewal', 'RC Verification', 'e-Challan Pay', 'Sarthi'],
+        link: 'https://parivahan.gov.in'
+    },
+    {
+        id: 'passport-seva',
+        name: 'पासपोर्ट सेवा केंद्र (Passport Seva Kendra)',
+        dept: 'विदेश मंत्रालय (Ministry of External Affairs)',
+        cat: 'CIVIC',
+        icon: '✈️',
+        bg: 'rgba(99, 102, 241, 0.15)',
+        color: '#6366f1',
+        desc: 'नए पासपोर्ट एवं तत्काल पासपोर्ट के लिए आवेदन करें, अपॉइंटमेंट स्लॉट बुक करें एवं स्टेटस ट्रैक करें।',
+        tags: ['नया पासपोर्ट', 'तत्काल सेवा', 'स्लॉट बुकिंग', 'Status Track'],
+        link: 'https://passportindia.gov.in'
+    },
+    {
+        id: 'mandi-bhav',
+        name: 'राष्ट्रीय कृषि बाजार e-NAM (लाइव मंडी भाव)',
+        dept: 'कृषि एवं किसान कल्याण मंत्रालय (Ministry of Agriculture)',
+        cat: 'CIVIC',
+        icon: '🌾',
+        bg: 'rgba(34, 197, 94, 0.15)',
+        color: '#22c55e',
+        desc: 'देश भर की 1,000+ मंडियों के गेहूं, चना, सोयाबीन, धान एवं सब्जियों के दैनिक लाइव भाव देखें एवं व्यापार करें।',
+        tags: ['दैनिक मंडी भाव', 'e-NAM Trade', 'फसल भाव', 'किसान सेल'],
+        link: 'https://www.enam.gov.in'
+    },
+    {
+        id: 'electricity-bill',
+        name: 'विद्युत वितरण बिल भुगतान (State Power Discoms)',
+        dept: 'केंद्रीय विद्युत प्राधिकरण एवं राज्य पावर कॉर्पोरेशन',
+        cat: 'CIVIC',
+        icon: '⚡',
+        bg: 'rgba(234, 179, 8, 0.15)',
+        color: '#eab308',
+        desc: 'सभी 28 राज्यों एवं 8 UTs के बिजली बिल देखें, ऑनलाइन भुगतान करें एवं नया कनेक्शन स्लॉट बुक करें।',
+        tags: ['ऑनलाइन बिल पे', 'नया कनेक्शन', 'पावर हेल्प 1912', 'Discoms'],
+        link: 'https://powermin.gov.in'
+    }
+];
 
 // REGIONS GROUPING FOR HOME CHIPS
 const REGIONS = {
@@ -266,7 +390,76 @@ let currentSelectedDistrict = null;
 let currentSelectedVillage = null;
 let currentFontSizePx = 16;
 let currentRegionFilter = 'ALL';
+let currentServiceCategory = 'ALL';
 let currentLang = 'HI';
+
+// RENDER NATIONAL CITIZEN SERVICES HUB CARDS
+function renderCitizenServices(category = 'ALL', searchQuery = '') {
+    const container = document.getElementById('services-cards-container');
+    if (!container) return;
+
+    let filtered = CITIZEN_SERVICES_DB.filter(s => {
+        let catMatch = category === 'ALL' || s.cat === category;
+        let queryMatch = !searchQuery || 
+            s.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+            s.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            s.dept.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            s.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+        return catMatch && queryMatch;
+    });
+
+    let html = '';
+    if (filtered.length === 0) {
+        html = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted)">
+            <i class="fa-solid fa-folder-open fa-3x" style="color:var(--accent-saffron);opacity:0.8;"></i>
+            <h3 style="margin-top:12px;font-size:16px;color:var(--text-heading)">कोई नागरिक सेवा नहीं मिली</h3>
+            <p style="font-size:13px;">कृपया अपनी खोज बदलें या 'सभी सेवाएं' पर क्लिक करें।</p>
+        </div>`;
+    } else {
+        filtered.forEach(s => {
+            html += `<div class="service-card">
+                <div>
+                    <div class="service-card-head">
+                        <div class="service-card-icon" style="background:${s.bg};color:${s.color}">
+                            ${s.icon}
+                        </div>
+                        <div class="service-card-info">
+                            <h4>${s.name}</h4>
+                            <div class="service-card-dept">${s.dept}</div>
+                        </div>
+                    </div>
+                    <div class="service-card-desc">${s.desc}</div>
+                    <div class="service-card-tags">
+                        ${s.tags.map(t => `<span class="srv-tag">⚡ ${t}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="service-card-action">
+                    <span class="badge badge-success"><i class="fa-solid fa-circle-check"></i> Official Portal</span>
+                    <a href="${s.link}" target="_blank" class="srv-portal-btn">
+                        <span>पोर्टल खोलें</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>`;
+        });
+    }
+
+    container.innerHTML = html;
+}
+
+window.filterServiceCategory = function(cat, btnEl) {
+    currentServiceCategory = cat;
+    const btns = document.querySelectorAll('.srv-cat-btn');
+    btns.forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+
+    const searchVal = document.getElementById('service-search-input')?.value || '';
+    renderCitizenServices(cat, searchVal);
+};
+
+window.filterCitizenServices = function() {
+    const searchVal = document.getElementById('service-search-input')?.value || '';
+    renderCitizenServices(currentServiceCategory, searchVal);
+};
 
 // TOP TOOL 1: DARK / LIGHT THEME TOGGLE (STARTS WITH LIGHT THEME DEFAULT)
 window.toggleTheme = function() {
@@ -310,18 +503,21 @@ window.toggleLanguage = function() {
 function applyLanguageStrings(lang) {
     if (lang === 'EN') {
         setElemTxt('nav-txt-home', 'Home Portal');
+        setElemTxt('nav-txt-services', 'Citizen Services');
         setElemTxt('nav-txt-map', 'Official India Map');
         setElemTxt('nav-txt-schemes', 'Welfare Schemes');
         setElemTxt('btn-voice-txt', 'Voice Assist');
         setElemTxt('ticker-header-lbl', 'CITYWISE AI Governance Updates:');
         setElemTxt('hero-badge-txt', 'CITYWISE AI — 28 States & 8 UTs Portal');
-        setElemTxt('hero-sub-txt', 'Click on any State, select your District/City and Village. View local department helplines, state-specific welfare schemes, and policies.');
+        setElemTxt('hero-sub-txt', 'Click on any State, select your District/City and Village. View LIC policies, Voter ID, Public Banking, local department helplines, and state-specific welfare schemes.');
         setElemTxt('quick-finder-title', 'CITYWISE AI Quick Finder');
         setElemTxt('lbl-step-1', 'State / Union Territory (State/UT)');
         setElemTxt('lbl-step-2', 'District / City');
         setElemTxt('lbl-step-3', 'Village / Tehsil / Ward');
         setElemTxt('btn-launch-txt', 'Open Local Governance Portal');
         setElemTxt('btn-map-link-txt', 'Open Official Map of India');
+        setElemTxt('srv-sec-tag', 'CITYWISE AI National Citizen Services');
+        setElemTxt('srv-sec-title', 'Voter ID, LIC, Public Banks, Aadhaar & Civil Services');
         setElemTxt('map-sec-tag', 'CITYWISE AI Map Explorer');
         setElemTxt('map-sec-title', 'Official Map of India — Select State, City & Village');
         setElemTxt('map-card-title', 'Map of India');
@@ -330,27 +526,23 @@ function applyLanguageStrings(lang) {
         setElemTxt('sch-profile-title', 'Select Your Profile');
         setElemTxt('btn-search-txt', 'Search Eligible Schemes');
         setElemTxt('sch-res-title', 'Matching Schemes');
-        setElemTxt('lbl-age', 'Age (Years)');
-        setElemTxt('lbl-gender', 'Gender');
-        setElemTxt('lbl-income', 'Annual Income');
-        setElemTxt('lbl-state', 'Select State');
-        setElemTxt('lbl-caste', 'Category');
-        setElemTxt('lbl-occ', 'Occupation');
-        setElemTxt('lbl-pwd', 'Differently Abled (PwD)');
     } else {
         setElemTxt('nav-txt-home', 'मुख्य पृष्ठ Home');
+        setElemTxt('nav-txt-services', 'नागरिक सेवाएं LIC & Voter ID');
         setElemTxt('nav-txt-map', 'भारत का नक्शा Official Map');
         setElemTxt('nav-txt-schemes', 'सरकारी योजनाएं Welfare Engine');
         setElemTxt('btn-voice-txt', 'आवाज सुनें Voice Assist');
         setElemTxt('ticker-header-lbl', 'CITYWISE AI सुशासन अपडेट्स:');
         setElemTxt('hero-badge-txt', 'CITYWISE AI — 28 राज्य एवं 8 UT सुशासन पोर्टल');
-        setElemTxt('hero-sub-txt', 'भारत के किसी भी राज्य पर क्लिक करें — फिर अपना ज़िला/शहर एवं गाँव चुनें। स्थानीय विभागीय हेल्पलाइन नंबर, राज्य की विशिष्ट कल्याणकारी योजनाएं एवं नीतियां देखें।');
+        setElemTxt('hero-sub-txt', 'भारत के किसी भी राज्य पर क्लिक करें — फिर अपना ज़िला/शहर एवं गाँव चुनें। LIC पॉलिसियां, Voter ID, सरकारी बैंकिंग, विभागीय हेल्पलाइन नंबर एवं राज्य की योजनाएं देखें।');
         setElemTxt('quick-finder-title', 'CITYWISE AI त्वरित खोजक');
         setElemTxt('lbl-step-1', 'राज्य / केंद्र शासित प्रदेश (State / UT)');
         setElemTxt('lbl-step-2', 'ज़िला / शहर (District / City)');
         setElemTxt('lbl-step-3', 'गाँव / तहसील / वार्ड (Village / Tehsil / Ward)');
         setElemTxt('btn-launch-txt', 'स्थानीय सुशासन पोर्टल खोलें');
         setElemTxt('btn-map-link-txt', 'भारत का नक्शा खोलें (Official Map)');
+        setElemTxt('srv-sec-tag', 'CITYWISE AI राष्ट्रीय नागरिक सेवाएं');
+        setElemTxt('srv-sec-title', 'Voter ID, LIC, सरकारी बैंक, Aadhaar एवं जन सेवाएं');
         setElemTxt('map-sec-tag', 'CITYWISE AI नक्शा Explorer');
         setElemTxt('map-sec-title', 'भारत का आधिकारिक नक्शा — राज्य, शहर एवं गाँव चुनें');
         setElemTxt('map-card-title', 'भारत का नक्शा');
@@ -359,13 +551,6 @@ function applyLanguageStrings(lang) {
         setElemTxt('sch-profile-title', 'आपकी जानकारी चुनें');
         setElemTxt('btn-search-txt', 'योग्य योजनाएं खोजें');
         setElemTxt('sch-res-title', 'खोज परिणाम');
-        setElemTxt('lbl-age', 'उम्र');
-        setElemTxt('lbl-gender', 'लिंग');
-        setElemTxt('lbl-income', 'सालाना आय');
-        setElemTxt('lbl-state', 'राज्य चुनें');
-        setElemTxt('lbl-caste', 'वर्ग');
-        setElemTxt('lbl-occ', 'व्यवसाय चुनें');
-        setElemTxt('lbl-pwd', 'दिव्यांगजन');
     }
 }
 
@@ -400,6 +585,7 @@ window.switchPage = function(pageId) {
         if (activeMBtn) activeMBtn.classList.add('active');
 
         if (pageId === 'home') initTicker();
+        if (pageId === 'services') renderCitizenServices();
         if (pageId === 'map') renderMapStep1();
     } catch(err) { console.error("switchPage error:", err); }
 };
@@ -801,10 +987,10 @@ window.speakCurrentStateDetails = function() {
 };
 
 const TICKER_ITEMS = [
-    '🔴 [CITYWISE AI] — मध्य प्रदेश लाड़ली बहना योजना 15वीं किश्त जारी — ₹1250 खाते में अंतरित',
-    '🟡 [CITYWISE AI] — उत्तर प्रदेश मुख्यमंत्री युवा उद्यमी योजना में ₹5 लाख तक ब्याज-मुक्त ऋण चालू',
-    '🟢 [CITYWISE AI] — बिहार मुख्यमंत्री कन्या उत्थान योजना ₹50,000 प्रोत्साहन फॉर्म लाइव',
-    '🔵 [CITYWISE AI] — महाराष्ट्र नमो शेतकरी महासन्मान निधी ₹6,000/वर्ष किश्त स्वीकृत',
+    '🔴 [CITYWISE AI] — Voter ID E-EPIC डाउनलोड एवं नया रजिस्ट्रेशन लाइव',
+    '🟡 [CITYWISE AI] — LIC पॉलिसी प्रीमियम ऑनलाइन भुगतान एवं मैच्योरिटी स्टेटस चालू',
+    '🟢 [CITYWISE AI] — PM Jan Dhan zero balance bank account registration active',
+    '🔵 [CITYWISE AI] — मध्य प्रदेश लाड़ली बहना योजना एवं UP युवा उद्यमी लोन पोर्टल लाइव',
 ];
 let tickerIdx = 0;
 function initTicker() {
@@ -823,13 +1009,14 @@ function initTicker() {
 document.addEventListener('DOMContentLoaded', () => {
     initTicker();
     populateHomeControls();
+    renderCitizenServices();
     updateIncomeLabel(250000);
 });
 
 document.addEventListener('click', e => {
     const drawer = document.getElementById('state-drawer');
     if (drawer && !drawer.classList.contains('hidden')) {
-        if (!drawer.contains(e.target) && !e.target.closest('.state-chip, .nav-btn, .item-card-chip, .map-pin-btn, #home-btn-launch')) {
+        if (!drawer.contains(e.target) && !e.target.closest('.state-chip, .nav-btn, .item-card-chip, .map-pin-btn, #home-btn-launch, .quick-service-btn')) {
             window.closeDrawer();
         }
     }
