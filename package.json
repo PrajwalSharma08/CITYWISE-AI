@@ -1,0 +1,9 @@
+{
+  "name": "citywise-ai-portal-v2",
+  "version": "1.0.0",
+  "description": "CITYWISE AI — Official National Governance & Welfare Portal",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8080"
+  }
+}

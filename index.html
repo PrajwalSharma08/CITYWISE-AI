@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CITYWISE AI — All-India Digital Governance & Welfare Portal</title>
+    <meta name="description" content="CITYWISE AI — Official All-India Digital Governance & Welfare Schemes Portal — State, District & Village Explorer, Verified Schemes Engine, and Emergency Helplines.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="light-theme">
+
+    <!-- TOP TRICOLOR RIBBON -->
+    <div class="tricolor-strip">
+        <div class="tc-saffron"></div>
+        <div class="tc-white"></div>
+        <div class="tc-green"></div>
+    </div>
+
+    <!-- GOV UTILITY TOP BAR -->
+    <div class="gov-top-bar">
+        <div class="gov-top-container">
+            <div class="gov-emblem-text">
+                <span class="emblem-symbol">🏛️</span>
+                <span>भारत सरकार | Government of India</span>
+                <span class="digital-india-badge"><i class="fa-solid fa-bolt"></i> Digital India</span>
+            </div>
+            <div class="gov-top-tools">
+                <button class="top-tool-btn" id="btn-theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i> <span id="theme-btn-text">Dark Mode</span></button>
+                <button class="top-tool-btn" onclick="adjustFontSize(1)" title="Increase Font Size"><i class="fa-solid fa-font"></i> A+</button>
+                <button class="top-tool-btn" onclick="adjustFontSize(-1)" title="Decrease Font Size"><i class="fa-solid fa-font"></i> A-</button>
+                <button class="top-tool-btn lang-pill" id="btn-lang-toggle" onclick="toggleLanguage()"><i class="fa-solid fa-language"></i> <span id="lang-btn-text">English में बदलें</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="switchPage('home')">
+                <div class="logo-emblem">
+                    <i class="fa-solid fa-flag"></i>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-title">CITYWISE <span class="logo-ai">AI</span></div>
+                    <div class="logo-sub" id="nav-logo-sub">CITYWISE AI — NATIONAL GOVERNANCE PORTAL (28 STATES & 8 UTs)</div>
+                </div>
+            </div>
+
+            <!-- DESKTOP NAV LINKS -->
+            <nav class="nav-links desktop-nav">
+                <button class="nav-btn active" id="nav-home" onclick="switchPage('home')">
+                    <i class="fa-solid fa-house"></i> 
+                    <span id="nav-txt-home">मुख्य पृष्ठ <small>Home</small></span>
+                </button>
+                <button class="nav-btn" id="nav-map" onclick="switchPage('map')">
+                    <i class="fa-solid fa-map-location-dot"></i> 
+                    <span id="nav-txt-map">भारत का नक्शा <small>Official Map</small></span>
+                </button>
+                <button class="nav-btn" id="nav-schemes" onclick="switchPage('schemes')">
+                    <i class="fa-solid fa-hand-holding-heart"></i> 
+                    <span id="nav-txt-schemes">सरकारी योजनाएं <small>Welfare Engine</small></span>
+                </button>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="voice-assist-btn" onclick="speakText('सिटीवाइज़ एआई राष्ट्रीय सुशासन पोर्टल में आपका स्वागत है।')">
+                    <i class="fa-solid fa-volume-high"></i> 
+                    <span class="voice-txt" id="btn-voice-txt">आवाज सुनें <small>Voice Assist</small></span>
+                </button>
+                <button class="mobile-menu-toggle" id="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- MOBILE DROPDOWN MENU -->
+        <div class="mobile-dropdown-menu" id="mobile-dropdown">
+            <button class="mobile-nav-item active" onclick="switchPage('home'); toggleMobileMenu();">
+                <i class="fa-solid fa-house"></i> मुख्य पृष्ठ (Home Portal)
+            </button>
+            <button class="mobile-nav-item" onclick="switchPage('map'); toggleMobileMenu();">
+                <i class="fa-solid fa-map-location-dot"></i> भारत का नक्शा (Official Map)
+            </button>
+            <button class="mobile-nav-item" onclick="switchPage('schemes'); toggleMobileMenu();">
+                <i class="fa-solid fa-hand-holding-heart"></i> सरकारी योजनाएं (Welfare Engine)
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== PAGE 1: HOME ===== -->
+    <div id="page-home" class="page-view active">
+
+        <!-- LIVE TICKER -->
+        <div class="ticker-bar">
+            <div class="ticker-label">
+                <i class="fa-solid fa-satellite-dish"></i> 
+                <span id="ticker-header-lbl">CITYWISE AI सुशासन अपडेट्स:</span>
+            </div>
+            <div class="ticker-track">
+                <span id="ticker-text">डेटा लोड हो रहा है... / Loading Live Governance Feeds...</span>
+            </div>
+        </div>
+
+        <!-- HERO SECTION -->
+        <section class="hero-split">
+
+            <!-- LEFT: TEXT + REGIONAL FILTER TABS & ALL STATES SPACIOUS GRID -->
+            <div class="hero-left">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    <i class="fa-solid fa-building-flag"></i>
+                    <span id="hero-badge-txt">CITYWISE AI — 28 राज्य एवं 8 UT सुशासन पोर्टल</span>
+                </div>
+
+                <h1 class="hero-title" id="hero-title-txt">
+                    CITYWISE AI <br>
+                    <span class="text-gradient">राष्ट्रीय सुशासन पोर्टल</span>
+                    <span class="title-sub">All-India Official Governance & Welfare Scheme Platform</span>
+                </h1>
+
+                <p class="hero-sub" id="hero-sub-txt">
+                    भारत के किसी भी राज्य पर क्लिक करें — फिर अपना ज़िला/शहर एवं गाँव चुनें। स्थानीय विभागीय हेल्पलाइन नंबर, राज्य की विशिष्ट कल्याणकारी योजनाएं एवं नीतियां देखें।
+                </p>
+
+                <!-- Categorized All 36 States & UTs -->
+                <div class="state-quick-bar">
+                    <div class="state-bar-label" id="state-bar-lbl">
+                        <i class="fa-solid fa-location-dot"></i> 
+                        क्षेत्रानुसार राज्य एवं UT चुनें <small>/ Select State by Region</small>:
+                    </div>
+
+                    <!-- Region Filter Tabs -->
+                    <div class="region-tabs-bar">
+                        <button class="region-tab-btn active" onclick="filterRegionChips('ALL', this)">🌐 सभी राज्य (All 36)</button>
+                        <button class="region-tab-btn" onclick="filterRegionChips('North', this)">🏔️ उत्तर भारत</button>
+                        <button class="region-tab-btn" onclick="filterRegionChips('Central', this)">🌾 मध्य व पश्चिम</button>
+                        <button class="region-tab-btn" onclick="filterRegionChips('East', this)">🎨 पूर्व व पूर्वोत्तर</button>
+                        <button class="region-tab-btn" onclick="filterRegionChips('South', this)">🛕 दक्षिण भारत</button>
+                    </div>
+
+                    <div class="regional-chips-container" id="home-state-chips">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- National Stats -->
+                <div class="stats-strip">
+                    <div class="stat-pill">
+                        <span class="stat-n">28 States + 8 UTs</span>
+                        <span class="stat-l">100% भारत कवरेज</span>
+                    </div>
+                    <div class="stat-pill">
+                        <span class="stat-n">30+ Verified</span>
+                        <span class="stat-l">सक्रिय एवं आगामी योजनाएं</span>
+                    </div>
+                    <div class="stat-pill">
+                        <span class="stat-n">data.gov.in</span>
+                        <span class="stat-l">लाइव ऑटो-सिंक एक्टिव</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: DRILL DOWN CARD -->
+            <div class="hero-right">
+                <div class="glass-card drilldown-card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-sitemap"></i> <span id="quick-finder-title">CITYWISE AI त्वरित खोजक</span> <small>/ Location Drill-Down</small></h3>
+                        <span class="badge badge-success"><i class="fa-solid fa-circle-check"></i> Live Portal</span>
+                    </div>
+                    <div class="drilldown-body">
+                        <!-- Step 1 -->
+                        <div class="step-box">
+                            <label><span class="step-num">1</span> <span id="lbl-step-1">राज्य / केंद्र शासित प्रदेश (State / UT)</span></label>
+                            <select id="home-select-state" class="form-control" onchange="onHomeStateChange(this.value)">
+                                <option value="">-- राज्य चुनें / Select State --</option>
+                            </select>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="step-box">
+                            <label><span class="step-num">2</span> <span id="lbl-step-2">ज़िला / शहर (District / City)</span></label>
+                            <select id="home-select-district" class="form-control" disabled onchange="onHomeDistrictChange(this.value)">
+                                <option value="">-- पहले राज्य चुनें / Select State First --</option>
+                            </select>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="step-box">
+                            <label><span class="step-num">3</span> <span id="lbl-step-3">गाँव / तहसील / वार्ड (Village / Tehsil / Ward)</span></label>
+                            <select id="home-select-village" class="form-control" disabled onchange="onHomeVillageChange(this.value)">
+                                <option value="">-- पहले ज़िला चुनें / Select District First --</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-gradient w-100 btn-lg mt-10" id="home-btn-launch" onclick="launchSelectedLocationPortal()">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i> <span id="btn-launch-txt">स्थानीय सुशासन पोर्टल खोलें</span>
+                        </button>
+                    </div>
+
+                    <div class="card-footer-action">
+                        <button class="btn-link-map" onclick="switchPage('map')">
+                            <i class="fa-solid fa-map"></i> <span id="btn-map-link-txt">भारत का नक्शा खोलें (Official Map)</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    <!-- ===== PAGE 2: OFFICIAL INDIA MAP EXPLORER ===== -->
+    <div id="page-map" class="page-view">
+        <section class="page-section">
+            <div class="section-header">
+                <div class="section-tag"><i class="fa-solid fa-map-location-dot"></i> <span id="map-sec-tag">CITYWISE AI नक्शा Explorer</span> <small>/ Official Map</small></div>
+                <h2 id="map-sec-title">भारत का आधिकारिक नक्शा — राज्य, शहर एवं गाँव चुनें</h2>
+                <p id="map-sec-sub">Official Political Map of India. Click on any State hotspot pin or select from the list below to explore District & Village governance.</p>
+            </div>
+
+            <!-- Breadcrumb Bar -->
+            <div class="breadcrumb-bar" id="map-breadcrumb">
+                <span class="bc-item active"><i class="fa-solid fa-flag"></i> भारत (India)</span>
+                <span class="bc-sep"><i class="fa-solid fa-chevron-right"></i></span>
+                <span class="bc-item" id="bc-state">राज्य (State)</span>
+                <span class="bc-sep"><i class="fa-solid fa-chevron-right"></i></span>
+                <span class="bc-item" id="bc-district">ज़िला (District)</span>
+                <span class="bc-sep"><i class="fa-solid fa-chevron-right"></i></span>
+                <span class="bc-item" id="bc-village">गाँव (Village)</span>
+            </div>
+
+            <div class="two-col-grid map-grid">
+                <!-- MAP IMAGE WITH HOTSPOTS OVERLAY -->
+                <div class="glass-card map-card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-earth-asia"></i> <span id="map-card-title">भारत का नक्शा</span> <small>/ Political Map</small></h3>
+                        <span class="badge badge-warning" id="map-hover-info">राज्य पर क्लिक करें / Select State</span>
+                    </div>
+                    <div class="official-map-wrapper">
+                        <img src="india-map.jpg" alt="Official Map of India" class="official-india-map-img" id="official-india-map-img">
+
+                        <div class="map-hotspots-overlay">
+                            <button class="map-pin-btn" style="top:12%; left:42%;" onclick="onMapStateClick('LA')" title="लद्दाख">🏔️ LA</button>
+                            <button class="map-pin-btn" style="top:17%; left:34%;" onclick="onMapStateClick('JK')" title="जम्मू-कश्मीर">🏔️ JK</button>
+                            <button class="map-pin-btn" style="top:22%; left:42%;" onclick="onMapStateClick('HP')" title="हिमाचल प्रदेश">🏔️ HP</button>
+                            <button class="map-pin-btn" style="top:26%; left:34%;" onclick="onMapStateClick('PB')" title="पंजाब">🌾 PB</button>
+                            <button class="map-pin-btn" style="top:29%; left:38%;" onclick="onMapStateClick('HR')" title="हरियाणा">🚜 HR</button>
+                            <button class="map-pin-btn pin-ut" style="top:32%; left:41%;" onclick="onMapStateClick('DL')" title="दिल्ली NCR">🏛️ DL</button>
+                            <button class="map-pin-btn" style="top:27%; left:46%;" onclick="onMapStateClick('UK')" title="उत्तराखंड">🏔️ UK</button>
+                            <button class="map-pin-btn" style="top:38%; left:28%;" onclick="onMapStateClick('RJ')" title="राजस्थान">🏰 RJ</button>
+                            <button class="map-pin-btn" style="top:36%; left:50%;" onclick="onMapStateClick('UP')" title="उत्तर प्रदेश">🛕 UP</button>
+                            <button class="map-pin-btn" style="top:47%; left:22%;" onclick="onMapStateClick('GJ')" title="गुजरात">🌊 GJ</button>
+                            <button class="map-pin-btn" style="top:48%; left:40%;" onclick="onMapStateClick('MP')" title="मध्य प्रदेश">🌾 MP</button>
+                            <button class="map-pin-btn" style="top:41%; left:62%;" onclick="onMapStateClick('BR')" title="बिहार">🚜 BR</button>
+                            <button class="map-pin-btn" style="top:48%; left:62%;" onclick="onMapStateClick('JH')" title="झारखंड">⛏️ JH</button>
+                            <button class="map-pin-btn" style="top:50%; left:68%;" onclick="onMapStateClick('WB')" title="पश्चिम बंगाल">🎨 WB</button>
+                            <button class="map-pin-btn" style="top:55%; left:55%;" onclick="onMapStateClick('CT')" title="छत्तीसगढ़">🌾 CT</button>
+                            <button class="map-pin-btn" style="top:57%; left:62%;" onclick="onMapStateClick('OD')" title="ओडिशा">🏖️ OD</button>
+                            <button class="map-pin-btn" style="top:59%; left:32%;" onclick="onMapStateClick('MH')" title="महाराष्ट्र">🏙️ MH</button>
+                            <button class="map-pin-btn pin-ut" style="top:67%; left:28%;" onclick="onMapStateClick('GA')" title="गोवा">🏖️ GA</button>
+                            <button class="map-pin-btn" style="top:64%; left:46%;" onclick="onMapStateClick('TS')" title="तेलंगाना">🏛️ TS</button>
+                            <button class="map-pin-btn" style="top:73%; left:47%;" onclick="onMapStateClick('AP')" title="आंध्र प्रदेश">🏛️ AP</button>
+                            <button class="map-pin-btn" style="top:74%; left:36%;" onclick="onMapStateClick('KA')" title="कर्नाटक">💻 KA</button>
+                            <button class="map-pin-btn" style="top:85%; left:34%;" onclick="onMapStateClick('KL')" title="केरल">🌴 KL</button>
+                            <button class="map-pin-btn" style="top:84%; left:42%;" onclick="onMapStateClick('TN')" title="तमिलनाडु">🛕 TN</button>
+                            <button class="map-pin-btn" style="top:36%; left:70%;" onclick="onMapStateClick('SK')" title="सिक्किम">🏔️ SK</button>
+                            <button class="map-pin-btn" style="top:34%; left:84%;" onclick="onMapStateClick('AR')" title="अरुणाचल">🏔️ AR</button>
+                            <button class="map-pin-btn" style="top:38%; left:76%;" onclick="onMapStateClick('AS')" title="असम">☕ AS</button>
+                            <button class="map-pin-btn" style="top:41%; left:72%;" onclick="onMapStateClick('ML')" title="मेघालय">🌧️ ML</button>
+                            <button class="map-pin-btn" style="top:39%; left:85%;" onclick="onMapStateClick('NL')" title="नागालैंड">⛰️ NL</button>
+                            <button class="map-pin-btn" style="top:44%; left:84%;" onclick="onMapStateClick('MN')" title="मणिपुर">⛰️ MN</button>
+                            <button class="map-pin-btn" style="top:49%; left:82%;" onclick="onMapStateClick('MZ')" title="मिजोरम">⛰️ MZ</button>
+                            <button class="map-pin-btn" style="top:47%; left:76%;" onclick="onMapStateClick('TR')" title="त्रिपुरा">🏛️ TR</button>
+                            <button class="map-pin-btn pin-ut" style="top:84%; left:80%;" onclick="onMapStateClick('AN')" title="अंडमान">🏝️ A&N</button>
+                            <button class="map-pin-btn pin-ut" style="top:84%; left:20%;" onclick="onMapStateClick('LD')" title="लक्षद्वीप">🏝️ LD</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Drill Down Column -->
+                <div class="glass-card drill-results-card">
+                    <div class="card-header">
+                        <h3 id="drill-header-title"><i class="fa-solid fa-building-user"></i> CITYWISE AI सुशासन चयन <small>/ State & District List</small></h3>
+                        <span class="badge badge-info" id="drill-badge">राज्य चुनें / Select State</span>
+                    </div>
+
+                    <div id="drill-panel-body" class="drill-panel-body">
+                        <!-- Step 1 -->
+                        <div id="drill-step-1" class="drill-step">
+                            <h4><i class="fa-solid fa-list"></i> राज्य या UT चुनें (Select State or UT):</h4>
+                            <div class="map-states-grid" id="map-states-grid"></div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div id="drill-step-2" class="drill-step hidden">
+                            <button class="btn-back-sm" onclick="backToStep(1)"><i class="fa-solid fa-arrow-left"></i> वापस राज्य बदलें</button>
+                            <h4 id="city-step-title"><i class="fa-solid fa-city"></i> शहर या ज़िला चुनें (Select District):</h4>
+                            <div class="cities-grid" id="cities-grid"></div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div id="drill-step-3" class="drill-step hidden">
+                            <button class="btn-back-sm" onclick="backToStep(2)"><i class="fa-solid fa-arrow-left"></i> वापस शहर बदलें</button>
+                            <h4 id="village-step-title"><i class="fa-solid fa-wheat-awn"></i> गाँव या वार्ड चुनें (Select Village):</h4>
+                            <div class="villages-grid" id="villages-grid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== PAGE 3: GOV SCHEMES ===== -->
+    <div id="page-schemes" class="page-view">
+        <section class="page-section">
+            <div class="section-header">
+                <div class="section-tag"><i class="fa-solid fa-hand-holding-heart"></i> <span id="sch-sec-tag">CITYWISE AI योजना खोजक</span> <small>/ Live Welfare Engine</small></div>
+                <h2 id="sch-sec-title">राज्य एवं केंद्र सरकार की योजनाएं खोजें</h2>
+                <p id="sch-sec-sub">अपनी जानकारी चुनें और <b>'योग्य योजनाएं खोजें'</b> बटन दबाएं। पोर्टल myScheme.gov.in एवं data.gov.in से लाइव व आगामी योजनाएं प्रस्तुत करता है।</p>
+            </div>
+
+            <div class="two-col-grid">
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-sliders"></i> <span id="sch-profile-title">आपकी जानकारी चुनें</span> <small>/ Search Profile</small></h3>
+                        <div style="display:flex;align-items:center;gap:6px;">
+                            <span class="badge badge-success" id="sync-status-badge"><i class="fa-solid fa-arrows-rotate fa-spin"></i> Live Sync Active</span>
+                        </div>
+                    </div>
+                    <form id="scheme-form" onsubmit="handleSchemeSearch(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fa-solid fa-user"></i> <span id="lbl-age">उम्र</span> <small>/ Age (Years)</small></label>
+                                <input type="number" id="input-age" min="1" max="100" value="35" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fa-solid fa-venus-mars"></i> <span id="lbl-gender">लिंग</span> <small>/ Gender</small></label>
+                                <select id="input-gender" class="form-control">
+                                    <option value="ALL">सभी / All Genders</option>
+                                    <option value="Male">पुरुष / Male</option>
+                                    <option value="Female">महिला / Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-indian-rupee-sign"></i> <span id="lbl-income">सालाना आय</span> <small>/ Annual Income</small></label>
+                            <input type="range" id="input-income" min="50000" max="1000000" step="25000" value="250000" class="form-range" oninput="updateIncomeLabel(this.value)">
+                            <div class="range-val" id="income-display">₹2,50,000 / वर्ष</div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fa-solid fa-map-location-dot"></i> <span id="lbl-state">राज्य चुनें</span> <small>/ Select State</small></label>
+                                <select id="input-state" class="form-control">
+                                    <option value="ALL">सभी राज्य (Central & All State Schemes)</option>
+                                    <option value="MP">मध्य प्रदेश / Madhya Pradesh (MP)</option>
+                                    <option value="UP">उत्तर प्रदेश / Uttar Pradesh (UP)</option>
+                                    <option value="BR">बिहार / Bihar</option>
+                                    <option value="MH">महाराष्ट्र / Maharashtra</option>
+                                    <option value="RJ">राजस्थान / Rajasthan</option>
+                                    <option value="DL">दिल्ली / Delhi NCR</option>
+                                    <option value="WB">पश्चिम बंगाल / West Bengal</option>
+                                    <option value="TN">तमिलनाडु / Tamil Nadu</option>
+                                    <option value="KA">कर्नाटक / Karnataka</option>
+                                    <option value="PB">पंजाब / Punjab</option>
+                                    <option value="HR">हरियाणा / Haryana</option>
+                                    <option value="GJ">गुजरात / Gujarat</option>
+                                    <option value="OD">ओडिशा / Odisha</option>
+                                    <option value="AS">असम / Assam</option>
+                                    <option value="UK">उत्तराखंड / Uttarakhand</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fa-solid fa-layer-group"></i> <span id="lbl-caste">वर्ग</span> <small>/ Category</small></label>
+                                <select id="input-caste" class="form-control">
+                                    <option value="ALL">सभी वर्ग / All Categories</option>
+                                    <option value="General">सामान्य / General</option>
+                                    <option value="OBC">पिछड़ा वर्ग / OBC</option>
+                                    <option value="SC">अनुसूचित जाति / SC</option>
+                                    <option value="ST">अनुसूचित जनजाति / ST</option>
+                                    <option value="EWS">ईडब्ल्यूएस / EWS</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fa-solid fa-briefcase"></i> <span id="lbl-occ">व्यवसाय चुनें</span> <small>/ Occupation</small></label>
+                                <select id="input-occupation" class="form-control">
+                                    <option value="ALL">सभी व्यवसाय / Any Occupation</option>
+                                    <option value="Farmer">किसान / Farmer</option>
+                                    <option value="Student">विद्यार्थी / Student</option>
+                                    <option value="Vendor">पटरी विक्रेता / Vendor</option>
+                                    <option value="Artisan">कारीगर / Artisan</option>
+                                    <option value="Laborer">श्रमिक / Worker</option>
+                                    <option value="Unemployed">बेरोजगार युवा / Youth</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="display:flex;align-items:center;padding-top:24px">
+                                <label style="display:flex;align-items:center;gap:10px;cursor:pointer;color:var(--text-muted);font-size:13px;">
+                                    <input type="checkbox" id="input-disability"> <span id="lbl-pwd">दिव्यांगजन</span> <small>/ PwD</small>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div style="display:flex;gap:10px;">
+                            <button type="submit" class="btn btn-gradient w-100 btn-lg" id="btn-search-schemes">
+                                <i class="fa-solid fa-magnifying-glass"></i> <span id="btn-search-txt">योग्य योजनाएं खोजें</span>
+                            </button>
+                            <button type="button" class="btn-sync-live" onclick="triggerManualDataSync()" title="Fetch Latest Schemes from data.gov.in & myScheme.gov.in">
+                                <i class="fa-solid fa-rotate"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-award"></i> <span id="sch-res-title">खोज परिणाम</span> <small>/ Matching Schemes</small></h3>
+                        <span class="badge badge-warning" id="match-count-badge">सर्च का इंतजार / Awaiting Search</span>
+                    </div>
+                    <div id="schemes-list" class="schemes-list">
+                        <!-- Clean Initial Screen -->
+                        <div class="empty-state" id="schemes-empty-placeholder">
+                            <i class="fa-solid fa-magnifying-glass-chart fa-3x" style="color:var(--accent-saffron);opacity:0.8;"></i>
+                            <h3 style="font-size:16px;font-weight:700;color:var(--text-heading);margin-top:12px;" id="sch-empty-head">अपनी जानकारी चुनें एवं 'योग्य योजनाएं खोजें' दबाएं</h3>
+                            <p style="color:var(--text-muted);font-size:13px;max-width:420px;margin-top:6px;line-height:1.6;" id="sch-empty-sub">
+                                बाएं पैनल में अपनी उम्र, राज्य, वर्ग और व्यवसाय चुनकर <b>'योग्य सरकारी योजनाएं खोजें'</b> बटन पर क्लिक करें। <br>पोर्टल केंद्र एवं संबंधित राज्य की सभी योजनाएं प्रस्तुत करेगा।
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== TARGETED GOVERNANCE DRAWER ===== -->
+    <div id="state-drawer" class="drawer hidden">
+        <div class="drawer-inner">
+            <div class="drawer-head">
+                <div style="display:flex;align-items:center;gap:14px;">
+                    <span id="d-icon" style="font-size:36px">🛕</span>
+                    <div>
+                        <h2 id="d-name" style="font-size:18px;font-weight:800;">उत्तर प्रदेश</h2>
+                        <small id="d-capital" style="color:var(--accent-saffron);font-size:12px;font-weight:600;">राजधानी: लखनऊ</small>
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <button class="voice-btn-sm" onclick="speakCurrentStateDetails()"><i class="fa-solid fa-volume-high"></i> सुनें</button>
+                    <button class="close-btn" onclick="closeDrawer()">&times;</button>
+                </div>
+            </div>
+            <div id="d-body"></div>
+        </div>
+    </div>
+
+    <!-- BOTTOM MOBILE NAVIGATION BAR -->
+    <nav class="mobile-bottom-nav">
+        <button class="m-bottom-btn active" id="m-nav-home" onclick="switchPage('home')">
+            <i class="fa-solid fa-house"></i>
+            <span>होम</span>
+        </button>
+        <button class="m-bottom-btn" id="m-nav-map" onclick="switchPage('map')">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <span>नक्शा</span>
+        </button>
+        <button class="m-bottom-btn" id="m-nav-schemes" onclick="switchPage('schemes')">
+            <i class="fa-solid fa-hand-holding-heart"></i>
+            <span>योजनाएं</span>
+        </button>
+    </nav>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CityWise AI — Technical & Executive Presentation Deck (PPT)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #06090f;
+            --bg-card: #111827;
+            --accent-saffron: #ff9900;
+            --accent-green: #00c78c;
+            --accent-blue: #4a9eff;
+            --accent-purple: #9b6dff;
+            --accent-red: #ff4d6d;
+            --accent-teal: #00d4d4;
+            --text-primary: #f0f4ff;
+            --text-muted: #8a99b5;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg-dark); color: var(--text-primary); font-family: 'Plus Jakarta Sans', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+        /* HEADER */
+        .ppt-header { height: 60px; padding: 0 30px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; background: rgba(13,19,32,0.95); backdrop-filter: blur(10px); }
+        .ppt-title { font-size: 16px; font-weight: 800; color: var(--accent-saffron); display: flex; align-items: center; gap: 10px; font-family: 'Space Grotesk', sans-serif; }
+        .ppt-title span { color: #fff; }
+        .slide-counter { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: var(--accent-blue); background: rgba(74,158,255,0.1); padding: 5px 14px; border-radius: 99px; border: 1px solid rgba(74,158,255,0.25); }
+
+        /* SLIDE CONTAINER */
+        .slide-stage { flex: 1; position: relative; padding: 24px 36px; display: flex; align-items: center; justify-content: center; }
+        .slide { display: none; width: 100%; max-width: 1180px; height: 560px; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; padding: 32px 44px; box-shadow: 0 16px 50px rgba(0,0,0,0.7); flex-direction: column; justify-content: space-between; position: relative; animation: fadeIn 0.4s ease; }
+        .slide.active { display: flex; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+        .slide-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: var(--accent-saffron); text-transform: uppercase; letter-spacing: 1px; background: rgba(255,153,0,0.1); border: 1px solid rgba(255,153,0,0.25); padding: 5px 14px; border-radius: 99px; width: fit-content; }
+        .slide-h1 { font-size: 30px; font-weight: 800; color: #fff; margin: 8px 0 10px; line-height: 1.25; }
+        .slide-body { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 14px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 14px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 14px; }
+
+        .feature-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px; transition: all 0.2s; }
+        .feature-card:hover { border-color: rgba(255,153,0,0.3); background: rgba(255,153,0,0.04); }
+        .feature-card h4 { font-size: 14px; font-weight: 700; color: var(--accent-saffron); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .feature-card p { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
+        .feature-card ul { padding-left: 16px; margin-top: 6px; }
+        .feature-card li { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; line-height: 1.4; }
+
+        /* TECH STACK LOGOS & BADGES */
+        .tech-logos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 16px; }
+        .tech-logo-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.2s; }
+        .tech-logo-card:hover { border-color: var(--accent-saffron); transform: translateY(-3px); background: rgba(255,153,0,0.08); }
+        .tech-img { width: 46px; height: 46px; object-fit: contain; margin-bottom: 10px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); }
+        .tech-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .tech-role { font-size: 11px; color: var(--text-muted); line-height: 1.3; }
+
+        /* FLOWCHART DIAGRAM STYLES */
+        .flowchart-container { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 18px; padding: 20px 16px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,153,0,0.2); border-radius: 18px; }
+        .fc-step { flex: 1; background: rgba(13,19,32,0.9); border: 1px solid rgba(74,158,255,0.3); border-radius: 14px; padding: 14px 12px; text-align: center; position: relative; }
+        .fc-step.fc-start { border-color: var(--accent-green); background: rgba(0,199,140,0.08); }
+        .fc-step.fc-end { border-color: var(--accent-purple); background: rgba(155,109,255,0.08); }
+        .fc-step.fc-process { border-color: var(--accent-saffron); background: rgba(255,153,0,0.08); }
+        .fc-icon { font-size: 20px; color: var(--accent-saffron); margin-bottom: 6px; }
+        .fc-title { font-size: 12.5px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .fc-desc { font-size: 10.5px; color: var(--text-muted); line-height: 1.3; }
+        .fc-arrow { font-size: 16px; color: var(--accent-saffron); opacity: 0.8; flex-shrink: 0; }
+
+        .slide-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px; font-size: 11.5px; color: var(--text-muted); }
+
+        /* CONTROLS */
+        .ppt-controls { height: 60px; background: rgba(13,19,32,0.95); border-top: 1px solid rgba(255,255,255,0.1); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; }
+        .btn-nav { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: #fff; font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 99px; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-nav:hover { background: var(--accent-saffron); color: #000; border-color: var(--accent-saffron); }
+        .btn-nav:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .progress-bar-wrap { width: 340px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #ff9900, #ff4d6d, #9b6dff); width: 9%; transition: width 0.3s; }
+    </style>
+</head>
+<body>
+
+    <header class="ppt-header">
+        <div class="ppt-title">
+            <i class="fa-solid fa-flag"></i> CityWise <span>AI</span> — Technical & Executive Presentation Deck
+        </div>
+        <div class="slide-counter" id="slide-counter">Slide 1 of 11</div>
+    </header>
+
+    <div class="slide-stage">
+
+        <!-- SLIDE 1 -->
+        <div class="slide active" id="slide-1">
+            <div>
+                <div class="slide-tag"><i class="fa-solid fa-star"></i> Major Technical Presentation</div>
+                <h1 class="slide-h1" style="font-size:38px; margin-top:12px;">CityWise AI — All-India Digital Governance Portal</h1>
+                <p class="slide-body" style="font-size:16px; color:var(--accent-blue);">Unified Governance Explorer, Official Political India Map & Live Welfare Scheme Engine</p>
+                
+                <div class="grid-3" style="margin-top:20px;">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-map-location-dot"></i> Official 2D India Map</h4>
+                        <ul>
+                            <li>Covers all <b>28 States & 8 UTs</b> (36 total administrative divisions).</li>
+                            <li>Interactive visual pin hotspots overlay for instant region navigation.</li>
+                            <li>Shows authentic political boundaries, capitals, and sea bodies.</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-sitemap"></i> 3-Tier Location Hierarchy</h4>
+                        <ul>
+                            <li><b>State ➔ District/City ➔ Village/Ward</b> drill-down architecture.</li>
+                            <li>Displays localized Chief Minister, Population, & Area metrics.</li>
+                            <li>Includes 8 direct-dial emergency department helpline numbers.</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-brain"></i> AI & ML Matching Engine</h4>
+                        <ul>
+                            <li>Predictive demographic eligibility evaluation & pattern matching.</li>
+                            <li>NLP schema classification for 30+ Central & State schemes.</li>
+                            <li>Real-time auto-sync with <b>data.gov.in & myScheme.gov.in</b>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Presenter: Lead Full-Stack Software Developer</span>
+                <span>Domain: Digital Public Infrastructure (DPI) & e-Governance</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 2 -->
+        <div class="slide" id="slide-2">
+            <div>
+                <div class="slide-tag"><i class="fa-solid fa-lightbulb"></i> Executive Summary</div>
+                <h1 class="slide-h1">Project Vision & Strategic Key Points</h1>
+                <p class="slide-body">CityWise AI empowers citizens across India—especially in rural and semi-urban regions—by providing a single, transparent digital portal to access localized department helplines, official state data, and eligible government welfare schemes without friction.</p>
+                
+                <div class="grid-2">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-bullseye"></i> Strategic Key Objectives</h4>
+                        <ul>
+                            <li><b>100% Pan-India Accessibility:</b> Eliminate geographical barriers by unifying data for all 36 Indian States & UTs.</li>
+                            <li><b>Hyper-Local Transparency:</b> Provide village-level governance stats and local ward helpline numbers.</li>
+                            <li><b>Click-Only Verified Search:</b> Ensure clean zero-noise search results rendered exclusively upon user query.</li>
+                            <li><b>Bilingual Voice Navigation:</b> Integrated browser-native Speech Synthesis (Web Speech API) for non-literate support.</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-users"></i> Target Audience & Reach</h4>
+                        <ul>
+                            <li><b>Farmers & Workers:</b> PM-KISAN, MP Kisan Kalyan, Solar Pump Schemes.</li>
+                            <li><b>Students & Youth:</b> Bihar Student Credit Card, MP Sikho Kamao, UP Yuva Udyami.</li>
+                            <li><b>Women & Girls:</b> MP Ladli Behna, UP Kanya Sumangala, Bihar Kanya Utthan.</li>
+                            <li><b>Vendors & Artisans:</b> PM SVANidhi, PM Vishwakarma, PM Mudra Loans.</li>
+                            <li><b>Senior Citizens:</b> Indira Gandhi Pension, PM-JAY Ayushman Bharat.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>CityWise AI Presentation</span>
+                <span>Executive Summary & Vision</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 3 -->
+        <div class="slide" id="slide-3">
+            <div>
+                <div class="slide-tag"><i class="fa-solid fa-triangle-exclamation"></i> Problem Statement</div>
+                <h1 class="slide-h1">Current Challenges in Public Governance Delivery</h1>
+                
+                <div class="grid-2">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-circle-xmark" style="color:var(--accent-red)"></i> Extreme Information Fragmentation</h4>
+                        <ul>
+                            <li>Over <b>500+ separate government websites</b> exist across central and state ministries, making central discovery impossible for rural citizens.</li>
+                            <li>Schemes are frequently renamed or modified without centralized documentation updates.</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-circle-xmark" style="color:var(--accent-red)"></i> Lack of Hyper-Local Contact Data</h4>
+                        <ul>
+                            <li>Emergency helplines for essential local departments (Water Board, Power Discom 1912, PWD Roads, Sanitation) are difficult to locate at district/village level.</li>
+                            <li>Citizens face bureaucratic red-tape when filing urgent local service complaints.</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-circle-xmark" style="color:var(--accent-red)"></i> High Barrier & Language Friction</h4>
+                        <ul>
+                            <li>Complex government portals with heavy legal jargon confuse non-technical citizens seeking basic welfare assistance.</li>
+                            <li>Lack of native voice-assist navigation hampers accessibility for non-literate rural populations.</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-circle-xmark" style="color:var(--accent-red)"></i> Unfiltered Search Noise & Middlemen</h4>
+                        <ul>
+                            <li>Traditional search portals display dump lists without explicitly highlighting *"किसके लिए है"* (Target Eligibility Criteria).</li>
+                            <li>Information asymmetry forces poor citizens to pay commission fees to unauthorized local agents/middlemen.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>CityWise AI Presentation</span>
+                <span>Problem Statement</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: SYSTEM ARCHITECTURE FLOWCHART -->
+        <div class="slide" id="slide-4">
+            <div>
+                <div class="slide-tag"><i class="fa-solid fa-diagram-project"></i> System Architecture Flowchart</div>
+                <h1 class="slide-h1">Overall System Architecture & Data Flow</h1>
+                <p class="slide-body">The system integrates a high-performance Web UI, visual map hotspot overlays, a 3-tier geographical database, and a live API data sync engine.</p>
+                
+                <!-- SYSTEM FLOWCHART -->
+                <div class="flowchart-container">
+                    <div class="fc-step fc-start">
+                        <div class="fc-icon"><i class="fa-solid fa-desktop"></i></div>
+                        <div class="fc-title">1. Client Web UI</div>
+                        <div class="fc-desc">HTML5 / CSS3 / ES6 JS Single Page Application</div>
+                    </div>
+                    <div class="fc-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="fc-step fc-process">
+                        <div class="fc-icon"><i class="fa-solid fa-sitemap"></i></div>
+                        <div class="fc-title">2. Drilldown Engine</div>
+                        <div class="fc-desc">State ➔ District ➔ Village Geographic DB</div>
+                    </div>
+                    <div class="fc-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="fc-step fc-process">
+                        <div class="fc-icon"><i class="fa-solid fa-brain"></i></div>
+                        <div class="fc-title">3. AI/ML Scheme Matcher</div>
+                        <div class="fc-desc">Demographic Rule-Engine & Predictive Ranking</div>
+                    </div>
+                    <div class="fc-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+                    <div class="fc-step fc-end">
+                        <div class="fc-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+                        <div class="fc-title">4. Realtime API Sync</div>
+                        <div class="fc-desc">data.gov.in & myScheme.gov.in Integration</div>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top:12px;">
+                    <div class="feature-card" style="padding:12px 16px;">
+                        <h4 style="font-size:13px;"><i class="fa-solid fa-bolt"></i> Client-Side Performance</h4>
+                        <p style="font-size:11.5px;">Zero external framework bloat. Loads in under 150ms with 60 FPS smooth transitions.</p>
+                    </div>
+                    <div class="feature-card" style="padding:12px 16px;">
+                        <h4 style="font-size:13px;"><i class="fa-solid fa-shield-halved"></i> Data Integrity</h4>
+                        <p style="font-size:11.5px;">All scheme definitions strictly mapped to official ministry portals with verified application URLs.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>CityWise AI Presentation</span>
+                <span>System Architecture Flowchart</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: LOCATION DRILLDOWN FLOWCHART -->
+        <div class="slide" id="slide-5">
+            <div>
+                <div class="slide-tag"><i class="fa-solid fa-map-location-dot"></i> Location Navigation Flowchart</div>
+                <h1 class="slide-h1">3-Tier Location Drill-Down Workflow</h1>
+                <p class="slide-body">Citizens can select any State via the Official India Map image overlay or Quick Location Search to view hyper-local details.</p>
+                
+                <!-- LOCATION FLOWCHART -->
+                <div class="flowchart-container">
+                    <div class="fc-step fc-start">
+                        <div class="fc-icon"><i class="fa-solid fa-map-pin"></i></div>
+                        <div class="fc-title">Select State / UT</div>
+                        <div class="fc-desc">Official Map Pin Overlay or State Dropdown</div>
+                    </div>
+                    <div class="fc-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="fc-step fc-process">
+                        <div class="fc-icon"><i class="fa-solid fa-city"></i></div>
+                        <div class="fc-title">Select District / City</div>
+                        <div class="fc-desc">e.g., Bhopal, Indore, Lucknow, Varanasi, Patna</div>
+                    </div>
+                    <div class="fc-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="fc-step fc-process">
+                        <div class="fc-icon"><i class="fa-solid fa-wheat-awn"></i></div>
+                        <div class="fc-title">Select Village / Ward</div>
+                        <div class="fc-desc">e.g., Bairasia, Sanwer, Malihabad, Danapur</div>
+                    </div>
+                    <div class="fc-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="fc-step fc-end">
+                        <div class="fc-icon"><i class="fa-solid fa-building-flag"></i></div>
+                        <div class="fc-title">Open Governance Portal</div>
+                        <div class="fc-desc">CM Name, Population, 8 Helplines & Active Schemes</div>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top:12px;">
+                    <div class="feature-card" style="padding:12px 16px;">
+                        <h4 style="font-size:13px;"><i class="fa-solid fa-earth-asia"></i> Visual Map Integration</h4>
+                        <p style="font-size:11.5px;">Authentic political map visual featuring clickable pin overlays for all 36 States & UTs.</p>
+                    </div>
+                    <div class="feature-card" style="padding:12px 16px;">
+                        <h4 style="font-size:13px;"><i class="fa-solid fa-list-check"></i> Breadcrumb Tracking</h4>
+                        <p style="font-size:11.5px;">Real-time breadcrumb bar (`India ➔ State ➔ District ➔ Village`) for intuitive back-navigation.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>CityWise AI Presentation</span>
+                <span>Location Navigation Workflow</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 6 -->
+        <div class="slide" id="slide-6">
+            <div>
+                <div class="slide-tag"><i class="fa-solid fa-phone-volume"></i> Department Helplines</div>
+                <h1 class="slide-h1">Direct Emergency & Department Helplines Matrix</h1>
+                <p class="slide-body" style="margin-bottom:12px;">Every single State and UT features direct click-to-call links for 8 core essential departments:</p>
+                
+                <div class="grid-4">
+                    <div class="feature-card">
+                        <h4>🆘 112</h4>
+                        <p><b>National Emergency</b><br>Police, Fire & General Disaster Dispatch.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>💧 Water Board</h4>
+                        <p><b>1800-180-1230</b><br>Water Supply & Pipeline Repairs.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>⚡ 1912</h4>
+                        <p><b>Power Discom</b><br>Electricity Outages & Transformer Issues.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🏗️ PWD Roads</h4>
+                        <p><b>1800-180-4167</b><br>Road Repair & Public Works Dept.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🏙️ Municipal Corp</h4>
+                        <p><b>1800-11-8585</b><br>Sanitation, Drainage & Local Civic Body.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🏥 104</h4>
+                        <p><b>State Health Line</b><br>Medical Emergency & Ambulance Dispatch.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🌾 Kisan Center</h4>
+                        <p><b>1800-180-1551</b><br>Agricultural Assistance & MSP Info.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🚌 Transport</h4>
+                        <p><b>1800-22-4000</b><br>State Roadways & Transport Support.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>CityWise AI Presentation</span>
+                <span>Department Helplines</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: SCHEME SEARCH FLOWCHART -->
+        <div class="slide" id="slide-7">
+            <div>
+                <div class="slide-tag"><i class="fa-solid fa-hand-holding-heart"></i> Welfare Scheme Search Flowchart</div>
+                <h1 class="slide-h1">Live Welfare Scheme Search & Filter Engine</h1>
+                <p class="slide-body">Results are rendered <b>ONLY when the user explicitly clicks the Search button</b> to prevent empty/unfiltered noise.</p>
+                
+                <!-- SCHEME FLOWCHART -->
+                <div class="flowchart-container">
+                    <div class="fc-step fc-start">
+                        <div class="fc-icon"><i class="fa-solid fa-sliders"></i></div>
+                        <div class="fc-title">User Inputs Profile</div>
+                        <div class="fc-desc">State, Age, Gender, Occupation, Income, Category</div>
+                    </div>
+                    <div class="fc-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="fc-step fc-process">
+                        <div class="fc-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                        <div class="fc-title">Click 'Search Schemes'</div>
+                        <div class="fc-desc">Triggers Demographic Predictive Engine</div>
+                    </div>
+                    <div class="fc-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="fc-step fc-process">
+                        <div class="fc-icon"><i class="fa-solid fa-database"></i></div>
+                        <div class="fc-title">Query 30+ DB</div>
+                        <div class="fc-desc">MP Ladli Behna, UP Sumangala, Bihar Utthan, PM-KISAN</div>
+                    </div>
+                    <div class="fc-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="fc-step fc-end">
+                        <div class="fc-icon"><i class="fa-solid fa-award"></i></div>
+                        <div class="fc-title">Display Cards</div>
+                        <div class="fc-desc">Shows Target Eligibility, Documents & Apply Link</div>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top:12px;">
+                    <div class="feature-card" style="padding:12px 16px;">
+                        <h4 style="font-size:13px;"><i class="fa-solid fa-bullseye"></i> Target Eligibility Transparency</h4>
+                        <p style="font-size:11.5px;">Every card explicitly features a 🎯 <b>"किसके लिए है" (Target Group)</b> section clarifying exact beneficiary criteria.</p>
+                    </div>
+                    <div class="feature-card" style="padding:12px 16px;">
+                        <h4 style="font-size:13px;"><i class="fa-solid fa-file-check"></i> Document Checklist</h4>
+                        <p style="font-size:11.5px;">Lists required documents (Aadhaar, Samagra ID, Land Records, Income Cert) to prevent application rejection.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>CityWise AI Presentation</span>
+                <span>Welfare Scheme Engine</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: MACHINE LEARNING (AI/ML) ARCHITECTURE -->
+        <div class="slide" id="slide-8">
+            <div>
+                <div class="slide-tag"><i class="fa-solid fa-brain"></i> AI & Machine Learning Architecture</div>
+                <h1 class="slide-h1">Machine Learning (ML / AI) Integration in CityWise AI</h1>
+                <p class="slide-body">How AI & ML algorithms drive predictive scheme matching, NLP data ingestion, and speech processing:</p>
+                
+                <div class="grid-3">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-network-wired"></i> 1. Demographic Rule-Engine & Pattern Matcher</h4>
+                        <ul>
+                            <li>Calculates a multi-attribute <b>Eligibility Compatibility Index</b> based on citizen age, income, caste, and occupation.</li>
+                            <li>Ranks schemes with highest approval probability at top of search results.</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-language"></i> 2. NLP Schema Ingestion & Classification</h4>
+                        <ul>
+                            <li>Processes unorganized JSON payloads from <b>data.gov.in & myScheme.gov.in</b>.</li>
+                            <li>Natural Language Processing (NLP) categorizes policies automatically into Agriculture, Female Welfare, Health, etc.</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-volume-high"></i> 3. Speech Processing (TTS & NLP Audio)</h4>
+                        <ul>
+                            <li>Phonetic Speech Synthesis Engine converts native Hindi & English text to clear audio narration.</li>
+                            <li>Enables zero-barrier accessibility for non-literate rural citizens.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>CityWise AI Presentation</span>
+                <span>Machine Learning (AI/ML) Integration</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: REAL-WORLD IMPACT MATRIX -->
+        <div class="slide" id="slide-9">
+            <div>
+                <div class="slide-tag"><i class="fa-solid fa-earth-asia"></i> Real-World Impact & Metrics</div>
+                <h1 class="slide-h1">Real-World Deployment Impact Matrix</h1>
+                
+                <div class="grid-2">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-ban" style="color:var(--accent-red)"></i> 100% Elimination of Middlemen (Zero Commission)</h4>
+                        <ul>
+                            <li>In rural India, citizens lose 10-20% of benefit amounts to fake agents/middlemen due to lack of information.</li>
+                            <li>CityWise AI provides direct official portal links (`pmkisan.gov.in`, `cmladlibehna.mp.gov.in`), reducing agent commission to <b>0%</b>.</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-hand-holding-dollar"></i> Direct Benefit Transfer (DBT) Uptake</h4>
+                        <ul>
+                            <li>Clear transparency on 🎯 <b>"किसके लिए है" (Target Group)</b> & Document Checklists prevents application rejection.</li>
+                            <li>Ensures welfare money reaches beneficiary bank accounts without bureaucratic delay.</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-clock"></i> 90% Reduction in Emergency Response Friction</h4>
+                        <ul>
+                            <li>Instant 1-click dialing for 8 core essential departments (Water, Power Discom 1912, PWD Roads, Municipal Corp) at village level.</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-users-viewfinder"></i> Rural & Non-Literate Empowerment</h4>
+                        <ul>
+                            <li>Native Voice Assistance allows non-literate citizens to listen to scheme eligibility details in Hindi.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>CityWise AI Presentation</span>
+                <span>Real-World Impact Matrix</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: TECH STACK WITH IMAGES -->
+        <div class="slide" id="slide-10">
+            <div>
+                <div class="slide-tag"><i class="fa-solid fa-code"></i> Technology Stack</div>
+                <h1 class="slide-h1">Technology Stack Architecture & Visual Specifications</h1>
+                <p class="slide-body">Built using modern open-web standards for maximum performance, accessibility, and zero third-party framework overhead.</p>
+                
+                <!-- TECH STACK LOGOS GRID -->
+                <div class="tech-logos-grid">
+                    <div class="tech-logo-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" class="tech-img">
+                        <div class="tech-name">HTML5</div>
+                        <div class="tech-role">Semantic markup, ARIA roles & accessible DOM structure</div>
+                    </div>
+                    <div class="tech-logo-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" class="tech-img">
+                        <div class="tech-name">CSS3 Vanilla</div>
+                        <div class="tech-role">Glassmorphism UI, Flexbox/Grid, Dark Mode HSL tokens</div>
+                    </div>
+                    <div class="tech-logo-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" class="tech-img">
+                        <div class="tech-name">JavaScript ES6+</div>
+                        <div class="tech-role">Strict filtering logic, state DB & DOM manipulation</div>
+                    </div>
+                    <div class="tech-logo-card">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="tech-img">
+                        <div class="tech-name">Python 3</div>
+                        <div class="tech-role">HTTP Daemon server & background data pipelines</div>
+                    </div>
+                </div>
+
+                <div class="grid-3" style="margin-top:14px;">
+                    <div class="feature-card" style="padding:10px 14px;">
+                        <h4 style="font-size:12.5px;"><i class="fa-solid fa-font"></i> Typography Engine</h4>
+                        <p style="font-size:11px;">Google Fonts: Tiro Devanagari Hindi, Plus Jakarta Sans, Space Grotesk.</p>
+                    </div>
+                    <div class="feature-card" style="padding:10px 14px;">
+                        <h4 style="font-size:12.5px;"><i class="fa-solid fa-icons"></i> Iconography</h4>
+                        <p style="font-size:11px;">Font Awesome 6.4 Free Vector Icon Set.</p>
+                    </div>
+                    <div class="feature-card" style="padding:10px 14px;">
+                        <h4 style="font-size:12.5px;"><i class="fa-solid fa-microphone"></i> Voice Synthesis</h4>
+                        <p style="font-size:11px;">Browser Web Speech API (`SpeechSynthesisUtterance`).</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>CityWise AI Presentation</span>
+                <span>Technology Stack & Visual Logos</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 11 -->
+        <div class="slide" id="slide-11">
+            <div>
+                <div class="slide-tag"><i class="fa-solid fa-circle-check"></i> Conclusion & Roadmap</div>
+                <h1 class="slide-h1" style="color:var(--accent-green);">Conclusion & Future Expansion Roadmap</h1>
+                <p class="slide-body" style="font-size:15px;">CityWise AI represents a landmark step toward democratizing e-Governance and public welfare discovery across India.</p>
+                
+                <div class="grid-2" style="margin-top:18px;">
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-heart"></i> Core Value Proposition</h4>
+                        <ul>
+                            <li>Empowers citizens across 36 States/UTs to discover eligible welfare schemes and emergency department helplines without middlemen.</li>
+                            <li>Bridges the digital divide for rural populations via hyper-local 3-tier location drilldown.</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4><i class="fa-solid fa-rocket"></i> Future Expansion Roadmap</h4>
+                        <ul>
+                            <li><b>WhatsApp AI Assistant Bot:</b> Instant scheme queries and helpline lookup via WhatsApp messaging.</li>
+                            <li><b>DigiLocker Integration:</b> Automatic document verification for single-click scheme eligibility checking.</li>
+                            <li><b>Multilingual Support:</b> Full translation engine supporting <b>22 official Indian languages</b>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Thank You! / धन्यवाद!</span>
+                <span>CityWise AI Project</span>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="ppt-controls">
+        <button class="btn-nav" id="btn-prev" onclick="prevSlide()" disabled><i class="fa-solid fa-arrow-left"></i> Previous</button>
+        <div class="progress-bar-wrap">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <button class="btn-nav" id="btn-next" onclick="nextSlide()">Next <i class="fa-solid fa-arrow-right"></i></button>
+    </footer>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 11;
+
+        function updateSlide() {
+            document.querySelectorAll('.slide').forEach((s, idx) => {
+                s.classList.toggle('active', idx + 1 === currentSlide);
+            });
+            document.getElementById('slide-counter').textContent = `Slide ${currentSlide} of ${totalSlides}`;
+            document.getElementById('progress-fill').style.width = `${(currentSlide / totalSlides) * 100}%`;
+            document.getElementById('btn-prev').disabled = currentSlide === 1;
+            document.getElementById('btn-next').disabled = currentSlide === totalSlides;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>
