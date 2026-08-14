@@ -6,8 +6,8 @@
     <!-- SECURITY HEADERS: ANTI-CLICKJACKING & SECURE REFERRER -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <title>CITYWISE AI — All-India Digital Governance, 3D Map, DBT Tracker & Citizen Services Portal</title>
-    <meta name="description" content="CITYWISE AI — Official All-India Digital Governance Portal — Interactive 3D Map, Realtime DBT Tracker, LIC Policies, Voter ID, Public Banking, and Welfare Schemes Engine.">
+    <title>CITYWISE AI — All-India Digital Governance, Map, DBT Tracker & Citizen Services Portal</title>
+    <meta name="description" content="CITYWISE AI — Official All-India Digital Governance Portal — Interactive State Map Explorer, Realtime DBT Tracker, LIC Policies, Voter ID, Public Banking, and Welfare Schemes Engine.">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#6366f1">
 
@@ -109,7 +109,7 @@
                 </button>
                 <button class="nav-btn" id="nav-map" onclick="switchPage('map')">
                     <i class="fa-solid fa-map-location-dot"></i> 
-                    <span id="nav-txt-map">3D भारत नक्शा <small>Interactive Map</small></span>
+                    <span id="nav-txt-map">भारत नक्शा Explorer <small>States & Districts</small></span>
                 </button>
                 <button class="nav-btn" id="nav-dbt" onclick="switchPage('dbt')">
                     <i class="fa-solid fa-chart-line"></i> 
@@ -142,7 +142,7 @@
                 <i class="fa-solid fa-house"></i> मुख्य पृष्ठ (Home Portal)
             </button>
             <button class="mobile-nav-item" onclick="switchPage('map'); toggleMobileMenu();">
-                <i class="fa-solid fa-map-location-dot"></i> 3D भारत नक्शा (Interactive Map)
+                <i class="fa-solid fa-map-location-dot"></i> भारत नक्शा Explorer (States & Districts)
             </button>
             <button class="mobile-nav-item" onclick="switchPage('dbt'); toggleMobileMenu();">
                 <i class="fa-solid fa-chart-line"></i> 💰 DBT लाइव ट्रैकर (Live Analytics)
@@ -189,19 +189,19 @@
 
                 <h1 class="hero-title" id="hero-title-txt">
                     CITYWISE AI <br>
-                    <span class="text-gradient">राष्ट्रीय सुशासन, 3D नक्शा एवं नागरिक सेवा पोर्टल</span>
-                    <span class="title-sub">All-India 3D Governance, Realtime DBT Tracker & Welfare Platform</span>
+                    <span class="text-gradient">राष्ट्रीय सुशासन, भारत नक्शा एवं नागरिक सेवा पोर्टल</span>
+                    <span class="title-sub">All-India Governance, Realtime DBT Tracker & Welfare Platform</span>
                 </h1>
 
                 <p class="hero-sub" id="hero-sub-txt">
-                    3D इंटरैक्टिव नक्शे पर किसी भी राज्य, ज़िला या गाँव का सुशासन देखें। LIC पॉलिसियां, Voter ID, सरकारी बैंक, ₹4.85 लाख करोड़ DBT लाइव ट्रैकर एवं 30+ सत्यापित कल्याणकारी योजनाओं का लाभ उठाएं।
+                    भारत के किसी भी राज्य, ज़िला या गाँव का सुशासन देखें। LIC पॉलिसियां, Voter ID, सरकारी बैंक, ₹4.85 लाख करोड़ DBT लाइव ट्रैकर एवं 30+ सत्यापित कल्याणकारी योजनाओं का सीधा लाभ प्राप्त करें।
                 </p>
 
                 <!-- QUICK CITIZEN SERVICE SHORTCUTS -->
                 <div class="hero-quick-services">
                     <button class="quick-service-btn" onclick="switchPage('map')">
                         <i class="fa-solid fa-map-location-dot" style="color:#6366f1"></i>
-                        <span>3D नक्शा Explorer</span>
+                        <span>नक्शा Explorer</span>
                     </button>
                     <button class="quick-service-btn" onclick="switchPage('dbt')">
                         <i class="fa-solid fa-chart-line" style="color:#10b981"></i>
@@ -294,7 +294,7 @@
 
                     <div class="card-footer-action">
                         <button class="btn-link-map" onclick="switchPage('map')">
-                            <i class="fa-solid fa-map-location-dot"></i> <span id="btn-map-link-txt">3D भारत नक्शा खोलें (Interactive 3D Explorer)</span>
+                            <i class="fa-solid fa-map-location-dot"></i> <span id="btn-map-link-txt">भारत नक्शा Explorer खोलें</span>
                         </button>
                     </div>
                 </div>
@@ -303,13 +303,13 @@
         </section>
     </div>
 
-    <!-- ===== PAGE 2: INTERACTIVE VECTOR INDIA MAP EXPLORER ===== -->
+    <!-- ===== PAGE 2: CLEAN INTERACTIVE INDIA MAP & STATE EXPLORER ===== -->
     <div id="page-map" class="page-view">
         <section class="page-section">
             <div class="section-header">
-                <div class="section-tag"><i class="fa-solid fa-map-location-dot"></i> <span id="map-sec-tag">CITYWISE AI इंटरैक्टिव नक्शा Explorer</span> <small>/ 3D Hologram Map</small></div>
-                <h2 id="map-sec-title">भारत का आधिकारिक इंटरैक्टिव नक्शा — राज्य, ज़िला एवं गाँव सुशासन</h2>
-                <p id="map-sec-sub">राज्य पर माउस ले जाएं या क्लिक करें। वास्तविक भौगोलिक सीमाएं, 3D एलिवेशन, लाइव DBT आवंटन एवं विभागीय हेल्पलाइन नंबर तुरंत देखें।</p>
+                <div class="section-tag"><i class="fa-solid fa-map-location-dot"></i> <span id="map-sec-tag">CITYWISE AI नक्शा Explorer</span> <small>/ All-India Governance</small></div>
+                <h2 id="map-sec-title">भारत का आधिकारिक डिजिटल नक्शा — राज्य, ज़िला एवं गाँव सुशासन</h2>
+                <p id="map-sec-sub">किसी भी राज्य पर क्लिक करें। राजधानी, जनसंख्या, लाइव DBT फंड, संतुष्टि दर एवं विभागीय हेल्पलाइन तुरंत देखें।</p>
             </div>
 
             <!-- Breadcrumb Navigation Bar -->
@@ -323,68 +323,54 @@
                 <span class="bc-item" id="bc-village">गाँव (Village)</span>
             </div>
 
-            <!-- Heatmap & Map Controls Bar -->
+            <!-- Map View Switcher & Region Tabs -->
             <div class="map-controls-toolbar">
                 <div class="map-mode-tabs">
                     <button class="map-mode-btn active" id="btn-map-mode-poly" onclick="setMapHeatmapMode('standard', this)">
-                        <i class="fa-solid fa-layer-group"></i> <span>मानक राज्य नक्शा (Standard)</span>
+                        <i class="fa-solid fa-layer-group"></i> <span>सभी 36 राज्य एवं UTs</span>
                     </button>
                     <button class="map-mode-btn" id="btn-map-mode-dbt" onclick="setMapHeatmapMode('dbt', this)">
-                        <i class="fa-solid fa-indian-rupee-sign"></i> <span>DBT फंड Heatmap</span>
+                        <i class="fa-solid fa-indian-rupee-sign"></i> <span>DBT फंड रैंकिंग</span>
                     </button>
                     <button class="map-mode-btn" id="btn-map-mode-civic" onclick="setMapHeatmapMode('civic', this)">
-                        <i class="fa-solid fa-circle-check"></i> <span>सुशासन संतुष्टि Heatmap</span>
+                        <i class="fa-solid fa-circle-check"></i> <span>सुशासन संतुष्टि दर</span>
                     </button>
                 </div>
                 <div class="map-quick-stats">
-                    <span class="map-stat-badge"><i class="fa-solid fa-shield"></i> 36 राज्य व UT एक्टिव</span>
+                    <span class="map-stat-badge"><i class="fa-solid fa-shield-halved"></i> 100% सत्यापित डेटा</span>
                     <span class="map-stat-badge" id="selected-state-preview-badge">📍 राज्य चुनें</span>
                 </div>
             </div>
 
-            <div class="two-col-grid map-grid-3d">
-                <!-- INTERACTIVE VECTOR INDIA MAP WITH 3D HOLOGRAM WRAPPER -->
-                <div class="glass-card map-card-vector">
+            <!-- 2-COLUMN MAIN EXPLORER: LEFT MAP GRAPHIC & RIGHT DRILLDOWN RESULTS -->
+            <div class="two-col-grid map-grid-clean">
+                
+                <!-- LEFT: OFFICIAL INDIA MAP WITH ACTIVE STATE BADGES -->
+                <div class="glass-card map-visual-card">
                     <div class="card-header">
-                        <h3><i class="fa-solid fa-earth-asia"></i> <span>इंटरैक्टिव भारत नक्शा</span> <small>/ Click any State</small></h3>
-                        <span class="badge badge-warning" id="map-hover-info">राज्य पर क्लिक करें / Select State</span>
+                        <h3><i class="fa-solid fa-map"></i> <span>भारत का राजनीतिक नक्शा</span> <small>/ Click any State to Open</small></h3>
+                        <span class="badge badge-success" id="map-hover-info">28 राज्य व 8 UT सक्रिय</span>
                     </div>
 
-                    <!-- Interactive Vector India Map SVG Container -->
-                    <div class="vector-map-wrapper" id="vector-map-wrapper">
-                        <!-- Dynamic State Info Tooltip -->
-                        <div id="map-tooltip" class="map-hover-tooltip hidden">
-                            <div class="tt-header" id="tt-title">उत्तर प्रदेश</div>
-                            <div class="tt-body">
-                                <div><b>राजधानी:</b> <span id="tt-capital">लखनऊ</span></div>
-                                <div><b>जनसंख्या:</b> <span id="tt-pop">24.1 Cr</span></div>
-                                <div><b>DBT ट्रांसफर:</b> <span id="tt-dbt" style="color:var(--accent-emerald)">₹54,200 Cr</span></div>
-                                <div><b>संतुष्टि दर:</b> <span id="tt-rate" style="color:var(--accent-saffron)">90%</span></div>
-                            </div>
+                    <div class="clean-map-container">
+                        <img src="india-map.jpg" alt="Official Map of India" class="india-clean-img">
+                        <div class="map-quick-callout">
+                            <i class="fa-solid fa-hand-pointer fa-bounce"></i>
+                            <span>नीचे या दाईं ओर किसी भी राज्य/ज़िले पर क्लिक करके विवरण देखें</span>
                         </div>
+                    </div>
 
-                        <!-- Full Political India Map Graphic with SVG Interactive Nodes -->
-                        <div class="map-graphic-canvas">
-                            <img src="india-map.jpg" alt="Official Map of India" class="india-base-map-img">
-                            
-                            <!-- Interactive SVG Hotspot Region Nodes for all 36 States & UTs -->
-                            <div class="interactive-state-nodes" id="state-nodes-overlay">
-                                <!-- Populated dynamically by app.js with exact coordinates -->
-                            </div>
-                        </div>
-
-                        <!-- Bottom Quick Hotspots Carousel -->
-                        <div class="map-3d-hotspots-grid" id="map-3d-hotspots">
-                            <!-- Populated dynamically with interactive badges -->
-                        </div>
+                    <!-- Clean State Tags Carousel Below Map -->
+                    <div class="state-quick-scroll-strip" id="map-quick-scroll-strip">
+                        <!-- Populated by app.js -->
                     </div>
                 </div>
 
-                <!-- RIGHT DRILL DOWN & GOVERNANCE DETAILS -->
+                <!-- RIGHT: SEARCH & STATE/DISTRICT DRILLDOWN PANEL -->
                 <div class="glass-card drill-results-card">
                     <div class="card-header">
-                        <h3 id="drill-header-title"><i class="fa-solid fa-building-user"></i> CITYWISE AI सुशासन चयन <small>/ State & District List</small></h3>
-                        <span class="badge badge-info" id="drill-badge">राज्य चुनें / Select State</span>
+                        <h3 id="drill-header-title"><i class="fa-solid fa-building-user"></i> CITYWISE AI सुशासन चयन</h3>
+                        <span class="badge badge-info" id="drill-badge">राज्य सूची (36)</span>
                     </div>
 
                     <div id="drill-panel-body" class="drill-panel-body">
@@ -392,7 +378,7 @@
                         <div id="drill-step-1" class="drill-step">
                             <div class="drill-search-bar">
                                 <i class="fa-solid fa-magnifying-glass"></i>
-                                <input type="text" id="state-search-box" placeholder="राज्य का नाम खोजें (e.g. MP, UP, Bihar, Maharashtra...)" oninput="filterMapStatesList(this.value)">
+                                <input type="text" id="state-search-box" placeholder="राज्य का नाम खोजें (e.g. MP, UP, Bihar, Maharashtra, Delhi...)" oninput="filterMapStatesList(this.value)">
                             </div>
                             <div class="map-states-grid" id="map-states-grid"></div>
                         </div>
@@ -839,7 +825,7 @@
         </button>
         <button class="m-bottom-btn" id="m-nav-map" onclick="switchPage('map')">
             <i class="fa-solid fa-map-location-dot"></i>
-            <span>3D नक्शा</span>
+            <span>नक्शा</span>
         </button>
         <button class="m-bottom-btn" id="m-nav-dbt" onclick="switchPage('dbt')">
             <i class="fa-solid fa-chart-line"></i>

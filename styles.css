@@ -775,7 +775,7 @@ body {
 }
 
 /* ============================================================
-   INTERACTIVE VECTOR INDIA MAP STYLES
+   CLEAN INDIA MAP & STATE EXPLORER STYLES
    ============================================================ */
 .breadcrumb-bar {
     background: var(--bg-surface);
@@ -850,137 +850,64 @@ body {
     font-weight: 700;
 }
 
-/* VECTOR MAP CANVAS */
-.map-card-vector {
+/* CLEAN MAP VISUAL CARD */
+.map-visual-card {
     padding: 20px;
-    position: relative;
+    display: flex;
+    flex-direction: column;
 }
-.vector-map-wrapper {
-    position: relative;
-    width: 100%;
-    background: radial-gradient(circle at center, #1e1b4b 0%, #090d16 100%);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+.clean-map-container {
+    background: var(--bg-main);
     border: 1px solid var(--border-color);
-    padding: 10px;
-}
-.map-graphic-canvas {
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    text-align: center;
     position: relative;
-    width: 100%;
-    height: 520px;
+}
+.india-clean-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 420px;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+.map-quick-callout {
+    margin-top: 10px;
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary-indigo);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
 }
-.india-base-map-img {
-    max-width: 100%;
-    max-height: 500px;
-    object-fit: contain;
-    filter: drop-shadow(0 0 16px rgba(99, 102, 241, 0.4));
-    border-radius: var(--radius-md);
-}
-.interactive-state-nodes {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: auto;
-}
-.state-node-pin {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    background: rgba(17, 24, 39, 0.88);
-    backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    color: #fff;
-    padding: 3px 7px;
-    border-radius: 12px;
-    font-size: 10px;
-    font-weight: 800;
-    cursor: pointer;
-    white-space: nowrap;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-    z-index: 10;
-}
-.state-node-pin:hover {
-    transform: translate(-50%, -50%) scale(1.22);
-    background: var(--gradient-hero);
-    border-color: #fff;
-    z-index: 20;
-    box-shadow: 0 0 16px var(--primary-indigo);
-}
-.state-node-pin.mode-dbt {
-    border-color: var(--accent-emerald);
-    color: var(--accent-emerald);
-}
-.state-node-pin.mode-civic {
-    border-color: var(--accent-saffron);
-    color: var(--accent-saffron);
-}
-
-/* DYNAMIC HOVER TOOLTIP */
-.map-hover-tooltip {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: rgba(17, 24, 39, 0.95);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(99, 102, 241, 0.4);
-    border-radius: var(--radius-md);
-    padding: 12px 16px;
-    font-size: 12px;
-    color: #fff;
-    z-index: 30;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    pointer-events: none;
-    min-width: 170px;
-    animation: fadeIn 0.2s;
-}
-.map-hover-tooltip.hidden { display: none; }
-.tt-header {
-    font-size: 14px;
-    font-weight: 800;
-    color: var(--primary-indigo);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 4px;
-    margin-bottom: 6px;
-}
-.tt-body div {
-    margin-bottom: 3px;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-4px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.map-3d-hotspots-grid {
-    margin-top: 10px;
+.state-quick-scroll-strip {
+    margin-top: 14px;
     display: flex;
-    gap: 6px;
+    gap: 8px;
     overflow-x: auto;
-    padding: 6px;
-    background: rgba(17, 24, 39, 0.85);
-    backdrop-filter: blur(10px);
-    border-radius: var(--radius-md);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 6px 2px;
 }
-.map-3d-hotspot-item {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 6px;
-    font-size: 11px;
+.quick-state-pill {
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-heading);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
     font-weight: 700;
-    cursor: pointer;
     white-space: nowrap;
+    cursor: pointer;
     transition: all 0.2s;
 }
-.map-3d-hotspot-item:hover, .map-3d-hotspot-item.active {
+.quick-state-pill:hover {
     background: var(--primary-indigo);
+    color: #fff;
     border-color: var(--primary-indigo);
     transform: translateY(-2px);
 }
@@ -1020,34 +947,35 @@ body {
 }
 .map-states-grid, .cities-grid, .villages-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
-    gap: 8px;
-    max-height: 420px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    max-height: 480px;
     overflow-y: auto;
     padding-right: 4px;
 }
 .item-card-chip {
     background: var(--bg-main);
     border: 1px solid var(--border-color);
-    padding: 10px;
+    padding: 12px;
     border-radius: var(--radius-md);
     cursor: pointer;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 12.5px;
+    font-weight: 800;
     color: var(--text-heading);
     transition: all 0.2s;
 }
 .item-card-chip small {
     display: block;
-    font-size: 10px;
+    font-size: 10.5px;
     color: var(--text-muted);
-    font-weight: 400;
-    margin-top: 2px;
+    font-weight: 500;
+    margin-top: 4px;
 }
 .item-card-chip:hover {
     border-color: var(--primary-indigo);
     background: rgba(99, 102, 241, 0.1);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.12);
 }
 
 /* ============================================================
@@ -1862,6 +1790,6 @@ body {
     .mobile-bottom-nav { display: flex; }
     .services-cards-grid { grid-template-columns: 1fr; }
     .hero-title { font-size: 28px; }
-    .map-graphic-canvas { height: 380px; }
+    .clean-map-container { padding: 8px; }
     .modal-actions-grid { grid-template-columns: 1fr; }
 }

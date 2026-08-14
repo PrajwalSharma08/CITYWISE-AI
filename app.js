@@ -1,5 +1,5 @@
 // ============================================================
-// CITYWISE AI — Enterprise Secure Governance Engine (Anti-Phishing, Zero-PII, Rate-Limiting & Safe Redirection)
+// CITYWISE AI — Enterprise Clean & Secure Governance Portal Engine
 // ============================================================
 
 // MULTI-LINGUAL VOICE CONFIGURATION (10+ INDIAN LANGUAGES)
@@ -159,41 +159,6 @@ const REGIONS = {
     'South': { title: '🛕 दक्षिणी राज्य एवं द्वीप (South & Islands)', codes: ['TN', 'KA', 'TS', 'AP', 'KL', 'PY', 'AN', 'LD'] }
 };
 
-// PERCENTAGE COORDINATES FOR MAP PINS OVER INDIA GRAPHIC
-const STATE_MAP_COORDINATES = {
-    JK: { top: 12, left: 34, name: 'जम्मू कश्मीर' },
-    LA: { top: 10, left: 45, name: 'लद्दाख' },
-    HP: { top: 19, left: 41, name: 'हिमाचल' },
-    PB: { top: 22, left: 33, name: 'पंजाब' },
-    UK: { top: 24, left: 48, name: 'उत्तराखंड' },
-    HR: { top: 26, left: 37, name: 'हरियाणा' },
-    DL: { top: 29, left: 40, name: 'दिल्ली' },
-    RJ: { top: 35, left: 26, name: 'राजस्थान' },
-    UP: { top: 36, left: 52, name: 'उत्तर प्रदेश' },
-    BR: { top: 40, left: 68, name: 'बिहार' },
-    SK: { top: 34, left: 74, name: 'सिक्किम' },
-    AS: { top: 37, left: 86, name: 'असम' },
-    AR: { top: 30, left: 91, name: 'अरुणाचल' },
-    NL: { top: 38, left: 93, name: 'नागालैंड' },
-    MN: { top: 44, left: 92, name: 'मणिपुर' },
-    MZ: { top: 49, left: 90, name: 'मिजोरम' },
-    TR: { top: 48, left: 85, name: 'त्रिपुरा' },
-    ML: { top: 42, left: 83, name: 'मेघालय' },
-    WB: { top: 48, left: 73, name: 'पश्चिम बंगाल' },
-    JH: { top: 46, left: 66, name: 'झारखंड' },
-    OD: { top: 54, left: 67, name: 'ओडिशा' },
-    CT: { top: 50, left: 56, name: 'छत्तीसगढ़' },
-    MP: { top: 45, left: 44, name: 'मध्य प्रदेश' },
-    GJ: { top: 46, left: 21, name: 'गुजरात' },
-    MH: { top: 58, left: 36, name: 'महाराष्ट्र' },
-    TS: { top: 62, left: 48, name: 'तेलंगाना' },
-    AP: { top: 70, left: 50, name: 'आंध्र प्रदेश' },
-    KA: { top: 73, left: 37, name: 'कर्नाटक' },
-    GA: { top: 69, left: 31, name: 'गोवा' },
-    TN: { top: 84, left: 45, name: 'तमिलनाडु' },
-    KL: { top: 85, left: 37, name: 'केरल' }
-};
-
 function getStandardHelplines(stateName, capital) {
     return [
         { dept: 'राष्ट्रीय आपातकालीन सेवा / Emergency', num: '112', icon: '🆘', bg: '#ff4d6d22', color: '#ff4d6d' },
@@ -281,7 +246,7 @@ const STATE_DB = {
     DD: { name: 'दादरा एवं नगर हवेली और दमन-दीव (UT)', capital: 'दमन', emoji: '🏖️', population: '6 Lakh', area: '603 km²', cm: 'प्रशासक (UT)', dbtAmount: '₹750 Cr', dbtRating: '94%', districts: { 'दमन (Daman)': ['सिलवासा (Silvassa)'] }, helplines: getStandardHelplines('दमन-दीव', 'दमन'), schemes: getStandardSchemes('दमन-दीव'), civic: { total: 1500, resolved: 1400, pending: 70, assigned: 30, rate: 93 } },
 };
 
-// WELFARE SCHEMES DATABASE (30+ ACTIVE & UPCOMING WITH OFFICIAL MIRRORS)
+// WELFARE SCHEMES DATABASE
 const NATIONAL_SCHEMES_DATABASE = [
     {
         name: 'मुख्यमंत्री लाड़ली बहना योजना (MP Ladli Behna Scheme)',
@@ -500,58 +465,27 @@ window.closePrivacySecurityModal = function() {
 };
 
 // ============================================================
-// 2. INTERACTIVE VECTOR MAP OVERLAY & HOTSPOTS ENGINE
+// 2. CLEAN STATE EXPLORER MAP ENGINE
 // ============================================================
-function initInteractiveVectorMap() {
-    const container = document.getElementById('state-nodes-overlay');
+function initCleanStateMap() {
+    renderMapStatesList();
+    renderQuickScrollStrip();
+}
+
+function renderQuickScrollStrip() {
+    const container = document.getElementById('map-quick-scroll-strip');
     if (!container) return;
 
     let html = '';
-    Object.keys(STATE_MAP_COORDINATES).forEach(code => {
-        const coord = STATE_MAP_COORDINATES[code];
+    Object.keys(STATE_DB).forEach(code => {
         const s = STATE_DB[code];
-        if (!s) return;
-
-        let displayBadge = coord.name;
-        let modeClass = '';
-        if (currentHeatmapMode === 'dbt') {
-            displayBadge = `${coord.name}: ${s.dbtAmount}`;
-            modeClass = 'mode-dbt';
-        } else if (currentHeatmapMode === 'civic') {
-            displayBadge = `${coord.name}: ${s.dbtRating}`;
-            modeClass = 'mode-civic';
-        }
-
-        html += `<button class="state-node-pin ${modeClass}" style="top:${coord.top}%;left:${coord.left}%;" 
-            onmouseover="showMapTooltip('${code}', event)" 
-            onmouseout="hideMapTooltip()" 
-            onclick="onMapStateClick('${code}')">
-            ${s.emoji} ${displayBadge}
+        let subText = currentHeatmapMode === 'dbt' ? s.dbtAmount : (currentHeatmapMode === 'civic' ? s.dbtRating : s.capital);
+        html += `<button class="quick-state-pill" onclick="onMapStateClick('${code}')">
+            ${s.emoji} ${s.name.split('/')[0]} <span style="opacity:0.75;font-weight:400;">(${subText})</span>
         </button>`;
     });
-
     container.innerHTML = html;
-    render3DMapHotspots();
 }
-
-window.showMapTooltip = function(code, e) {
-    const tt = document.getElementById('map-tooltip');
-    const s = STATE_DB[code];
-    if (!tt || !s) return;
-
-    document.getElementById('tt-title').textContent = `${s.emoji} ${s.name.split('/')[0]}`;
-    document.getElementById('tt-capital').textContent = s.capital;
-    document.getElementById('tt-pop').textContent = s.population;
-    document.getElementById('tt-dbt').textContent = s.dbtAmount;
-    document.getElementById('tt-rate').textContent = s.dbtRating;
-
-    tt.classList.remove('hidden');
-};
-
-window.hideMapTooltip = function() {
-    const tt = document.getElementById('map-tooltip');
-    if (tt) tt.classList.add('hidden');
-};
 
 window.setMapHeatmapMode = function(mode, btnEl) {
     currentHeatmapMode = mode;
@@ -559,24 +493,9 @@ window.setMapHeatmapMode = function(mode, btnEl) {
     btns.forEach(b => b.classList.remove('active'));
     if (btnEl) btnEl.classList.add('active');
 
-    initInteractiveVectorMap();
     renderMapStatesList();
+    renderQuickScrollStrip();
 };
-
-function render3DMapHotspots() {
-    const container = document.getElementById('map-3d-hotspots');
-    if (!container) return;
-
-    let html = '';
-    Object.keys(STATE_DB).forEach(code => {
-        const s = STATE_DB[code];
-        let subText = currentHeatmapMode === 'dbt' ? s.dbtAmount : (currentHeatmapMode === 'civic' ? s.dbtRating : s.capital);
-        html += `<button class="map-3d-hotspot-item" id="hotspot-${code}" onclick="onMapStateClick('${code}')">
-            ${s.emoji} ${s.name.split('/')[0]} <small style="opacity:0.8;font-weight:400;">(${subText})</small>
-        </button>`;
-    });
-    container.innerHTML = html;
-}
 
 window.resetMapToAllIndia = function() {
     currentSelectedStateCode = null;
@@ -1010,8 +929,7 @@ window.switchPage = function(pageId) {
 
         if (pageId === 'home') initTicker();
         if (pageId === 'map') {
-            initInteractiveVectorMap();
-            renderMapStatesList();
+            initCleanStateMap();
         }
         if (pageId === 'dbt') initDBTCharts();
         if (pageId === 'services') renderCitizenServices();
@@ -1153,7 +1071,7 @@ function renderMapStatesList(filterQuery = '') {
             return;
         }
 
-        let metricTag = currentHeatmapMode === 'dbt' ? `DBT: ${s.dbtAmount}` : (currentHeatmapMode === 'civic' ? `संतुष्टि: ${s.dbtRating}` : `राजधानी: ${s.capital}`);
+        let metricTag = currentHeatmapMode === 'dbt' ? `💰 DBT: ${s.dbtAmount}` : (currentHeatmapMode === 'civic' ? `🏛️ संतुष्टि: ${s.dbtRating}` : `📍 राजधानी: ${s.capital}`);
 
         html += `<div class="item-card-chip" onclick="onMapStateClick('${code}')">
             ${s.emoji} ${s.name.split('/')[0]}
@@ -1373,7 +1291,7 @@ window.toggleLanguage = function() {
 
 const TICKER_ITEMS = [
     '🔒 [सुरक्षा गारंटी] — 100% Zero-PII आर्किटेक्चर एवं 256-बिट SSL एन्क्रिप्शन सक्रिय',
-    '🔴 [CITYWISE AI] — 3D भारत नक्शा एवं ₹4.85 लाख करोड़ DBT लाइव ट्रैकर सक्रिय',
+    '🔴 [CITYWISE AI] — भारत नक्शा Explorer एवं ₹4.85 लाख करोड़ DBT लाइव ट्रैकर सक्रिय',
     '🟡 [CITYWISE AI] — Voter ID E-EPIC डाउनलोड एवं नया रजिस्ट्रेशन पोर्टल लाइव',
     '🟢 [CITYWISE AI] — LIC पॉलिसी प्रीमियम ऑनलाइन भुगतान एवं मैच्योरिटी ट्रैकर चालू',
     '🔵 [CITYWISE AI] — PM सूर्य घर मुफ़्त बिजली योजना 300 यूनिट सब्सिडी फॉर्म जारी',
@@ -1396,13 +1314,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initTicker();
     populateHomeControls();
     updateIncomeLabel(250000);
-    initInteractiveVectorMap();
+    initCleanStateMap();
 });
 
 document.addEventListener('click', e => {
     const drawer = document.getElementById('state-drawer');
     if (drawer && !drawer.classList.contains('hidden')) {
-        if (!drawer.contains(e.target) && !e.target.closest('.state-chip, .nav-btn, .item-card-chip, .map-3d-hotspot-item, #home-btn-launch, .quick-service-btn, .state-node-pin')) {
+        if (!drawer.contains(e.target) && !e.target.closest('.state-chip, .nav-btn, .item-card-chip, .quick-state-pill, #home-btn-launch, .quick-service-btn')) {
             window.closeDrawer();
         }
     }
