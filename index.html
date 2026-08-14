@@ -2,7 +2,7 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <!-- SECURITY HEADERS: ANTI-CLICKJACKING & SECURE REFERRER -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -17,9 +17,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Chart.js for Realtime DBT Tracker -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <!-- Canvas Confetti -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
 
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -37,7 +37,7 @@
         <div class="trust-banner-container">
             <span class="trust-pill"><i class="fa-solid fa-shield-halved"></i> 100% सुरक्षित एवं सत्यापित</span>
             <span class="trust-text">
-                ⚠️ <b>साइबर सुरक्षा चेतावनी:</b> CITYWISE AI कभी भी OTP, पासवर्ड या बैंक खाता विवरण नहीं मांगता। सभी सेवाएं 100% निःशुल्क हैं।
+                ⚠️ <b>साइबर सुरक्षा चेतावनी:</b> CITYWISE AI कभी भी OTP या बैंक पासवर्ड नहीं मांगता। सभी सेवाएं 100% निःशुल्क हैं।
             </span>
             <button class="trust-btn" onclick="openPrivacySecurityModal()">
                 <i class="fa-solid fa-lock"></i> डेटा सुरक्षा नीति
@@ -51,19 +51,25 @@
             <div class="gov-emblem-text">
                 <span class="emblem-symbol">🏛️</span>
                 <span>भारत सरकार | Government of India</span>
-                <span class="digital-india-badge"><i class="fa-solid fa-bolt"></i> Digital India Hub</span>
-                <span class="pwa-badge" id="pwa-status-badge" title="PWA Offline Supported"><i class="fa-solid fa-signal"></i> 100% Offline Ready</span>
-                <span class="ssl-badge" title="SSL Encrypted"><i class="fa-solid fa-lock text-emerald"></i> 256-Bit SSL</span>
+                <span class="digital-india-badge"><i class="fa-solid fa-bolt"></i> Digital India</span>
+                <span class="pwa-badge" id="pwa-status-badge"><i class="fa-solid fa-signal"></i> 100% Offline Ready</span>
             </div>
             <div class="gov-top-tools">
                 <!-- WhatsApp Subscription CTA -->
                 <button class="top-tool-btn cta-whatsapp-btn" onclick="openWhatsAppModal()">
-                    <i class="fa-brands fa-whatsapp"></i> <span>योजना अलर्ट्स (WhatsApp)</span>
+                    <i class="fa-brands fa-whatsapp"></i> <span>योजना अलर्ट्स</span>
                 </button>
+
+                <!-- PROMINENT VOICE ON / OFF MUTE BUTTON -->
+                <button class="top-tool-btn voice-mute-toggle-btn" id="top-voice-toggle-btn" onclick="toggleVoiceMute()">
+                    <i class="fa-solid fa-volume-high" id="top-voice-icon"></i> 
+                    <span id="top-voice-text">आवाज: चालू (ON)</span>
+                </button>
+
                 <!-- Multi-Lingual Voice Dropdown -->
                 <div class="voice-lang-dropdown">
                     <button class="top-tool-btn voice-select-btn" onclick="toggleVoiceLangMenu()">
-                        <i class="fa-solid fa-headphones"></i> <span id="current-voice-lbl">आवाज: हिंदी</span> <i class="fa-solid fa-chevron-down"></i>
+                        <i class="fa-solid fa-headphones"></i> <span id="current-voice-lbl">भाषा: हिंदी</span> <i class="fa-solid fa-chevron-down"></i>
                     </button>
                     <div class="voice-lang-menu" id="voice-lang-menu">
                         <button onclick="setVoiceLanguage('hi-IN', 'हिंदी (Hindi)', 'सिटीवाइज़ एआई राष्ट्रीय सुशासन पोर्टल में आपका स्वागत है।')">🇮🇳 हिन्दी (Hindi)</button>
@@ -79,6 +85,7 @@
                         <button onclick="setVoiceLanguage('hi-IN', 'भोजपुरी (Bhojpuri)', 'सिटीवाइज एआई राष्ट्रीय सुशासन पोर्टल में रउवा सब के स्वागत बा।')">🚜 भोजपुरी (Bhojpuri)</button>
                     </div>
                 </div>
+
                 <!-- Theme, Zoom & Lang -->
                 <button class="top-tool-btn" id="btn-theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i> <span id="theme-btn-text">Dark Mode</span></button>
                 <button class="top-tool-btn" onclick="adjustFontSize(1)" title="Font Size A+"><i class="fa-solid fa-font"></i> A+</button>
@@ -126,9 +133,10 @@
             </nav>
 
             <div class="nav-actions">
-                <button class="voice-assist-btn" onclick="triggerCurrentVoiceGreeting()">
-                    <i class="fa-solid fa-volume-high"></i> 
-                    <span class="voice-txt" id="btn-voice-txt">आवाज सुनें <small>Voice Assist</small></span>
+                <!-- VOICE MUTE QUICK TOGGLE IN NAVBAR -->
+                <button class="voice-mute-btn-nav" id="nav-voice-toggle-btn" onclick="toggleVoiceMute()" title="Voice ON / OFF">
+                    <i class="fa-solid fa-volume-high" id="nav-voice-icon"></i>
+                    <span id="nav-voice-text">आवाज ON</span>
                 </button>
                 <button class="mobile-menu-toggle" id="mobile-menu-btn" onclick="toggleMobileMenu()">
                     <i class="fa-solid fa-bars"></i>
@@ -138,6 +146,15 @@
 
         <!-- MOBILE DROPDOWN MENU -->
         <div class="mobile-dropdown-menu" id="mobile-dropdown">
+            <div class="mobile-menu-quick-tools">
+                <button class="m-quick-tool-btn" onclick="toggleVoiceMute()">
+                    <i class="fa-solid fa-volume-high" id="mobile-menu-voice-icon"></i> 
+                    <span id="mobile-menu-voice-text">आवाज: चालू (ON)</span>
+                </button>
+                <button class="m-quick-tool-btn" onclick="toggleTheme()">
+                    <i class="fa-solid fa-circle-half-stroke"></i> थीम बदलें
+                </button>
+            </div>
             <button class="mobile-nav-item active" onclick="switchPage('home'); toggleMobileMenu();">
                 <i class="fa-solid fa-house"></i> मुख्य पृष्ठ (Home Portal)
             </button>
@@ -157,7 +174,7 @@
                 <i class="fa-brands fa-whatsapp" style="color:#25d366"></i> WhatsApp योजना अलर्ट्स
             </button>
             <button class="mobile-nav-item" onclick="openPrivacySecurityModal(); toggleMobileMenu();">
-                <i class="fa-solid fa-shield-halved" style="color:#10b981"></i> सुरक्षा एवं प्राइवेसी गारंटी
+                <i class="fa-solid fa-shield-halved" style="color:#10b981"></i> सुरक्षा एवं प्राइवेसी नीति
             </button>
         </div>
     </header>
@@ -169,10 +186,10 @@
         <div class="ticker-bar">
             <div class="ticker-label">
                 <i class="fa-solid fa-satellite-dish"></i> 
-                <span id="ticker-header-lbl">CITYWISE AI लाइव अपडेट्स:</span>
+                <span id="ticker-header-lbl">CITYWISE AI अपडेट्स:</span>
             </div>
             <div class="ticker-track">
-                <span id="ticker-text">डेटा लोड हो रहा है... / Loading Live Governance Feeds...</span>
+                <span id="ticker-text">लोड हो रहा है... / Loading Live Governance Feeds...</span>
             </div>
         </div>
 
@@ -209,7 +226,7 @@
                     </button>
                     <button class="quick-service-btn" onclick="switchPage('services')">
                         <i class="fa-solid fa-shield-heart" style="color:#f59e0b"></i>
-                        <span>LIC & Voter ID Hub</span>
+                        <span>LIC & Voter Hub</span>
                     </button>
                     <button class="quick-service-btn" onclick="openWhatsAppModal()">
                         <i class="fa-brands fa-whatsapp" style="color:#25d366"></i>
@@ -337,7 +354,7 @@
                     </button>
                 </div>
                 <div class="map-quick-stats">
-                    <span class="map-stat-badge"><i class="fa-solid fa-shield-halved"></i> 100% सत्यापित डेटा</span>
+                    <span class="map-stat-badge"><i class="fa-solid fa-shield-halved"></i> 100% सत्यापित</span>
                     <span class="map-stat-badge" id="selected-state-preview-badge">📍 राज्य चुनें</span>
                 </div>
             </div>
@@ -348,15 +365,15 @@
                 <!-- LEFT: OFFICIAL INDIA MAP WITH ACTIVE STATE BADGES -->
                 <div class="glass-card map-visual-card">
                     <div class="card-header">
-                        <h3><i class="fa-solid fa-map"></i> <span>भारत का राजनीतिक नक्शा</span> <small>/ Click any State to Open</small></h3>
-                        <span class="badge badge-success" id="map-hover-info">28 राज्य व 8 UT सक्रिय</span>
+                        <h3><i class="fa-solid fa-map"></i> <span>भारत का राजनीतिक नक्शा</span> <small>/ All States</small></h3>
+                        <span class="badge badge-success" id="map-hover-info">28 राज्य व 8 UT</span>
                     </div>
 
                     <div class="clean-map-container">
-                        <img src="india-map.jpg" alt="Official Map of India" class="india-clean-img">
+                        <img src="india-map.jpg" alt="Official Map of India" class="india-clean-img" loading="lazy" decoding="async">
                         <div class="map-quick-callout">
                             <i class="fa-solid fa-hand-pointer fa-bounce"></i>
-                            <span>नीचे या दाईं ओर किसी भी राज्य/ज़िले पर क्लिक करके विवरण देखें</span>
+                            <span>किसी भी राज्य/ज़िले पर क्लिक करके विवरण देखें</span>
                         </div>
                     </div>
 
@@ -415,16 +432,16 @@
             <div class="dbt-metrics-grid">
                 <div class="dbt-metric-card glow-indigo">
                     <div class="dbt-metric-head">
-                        <span class="dbt-m-label">कुल अंतरित राशि (Total DBT Disbursed)</span>
+                        <span class="dbt-m-label">कुल अंतरित राशि (Total DBT)</span>
                         <i class="fa-solid fa-vault dbt-m-icon"></i>
                     </div>
                     <div class="dbt-m-value" id="dbt-total-counter">₹4,85,620 Cr+</div>
-                    <div class="dbt-m-sub"><i class="fa-solid fa-arrow-trend-up text-emerald"></i> +12.4% वार्षिक वृद्धि दर (FY 2025-26)</div>
+                    <div class="dbt-m-sub"><i class="fa-solid fa-arrow-trend-up text-emerald"></i> +12.4% वार्षिक वृद्धि दर</div>
                 </div>
 
                 <div class="dbt-metric-card glow-emerald">
                     <div class="dbt-metric-head">
-                        <span class="dbt-m-label">सत्यापित लाभार्थी नागरिक (Beneficiaries)</span>
+                        <span class="dbt-m-label">सत्यापित लाभार्थी नागरिक</span>
                         <i class="fa-solid fa-users dbt-m-icon"></i>
                     </div>
                     <div class="dbt-m-value">32.4 Crore+</div>
@@ -433,11 +450,11 @@
 
                 <div class="dbt-metric-card glow-saffron">
                     <div class="dbt-metric-head">
-                        <span class="dbt-m-label">डीबीटी सफलता दर (Success Rate)</span>
+                        <span class="dbt-m-label">डीबीटी सफलता दर</span>
                         <i class="fa-solid fa-shield-halved dbt-m-icon"></i>
                     </div>
                     <div class="dbt-m-value">99.4%</div>
-                    <div class="dbt-m-sub"><i class="fa-solid fa-bolt text-saffron"></i> 0% बिचौलिया कटौती (100% Direct Transfer)</div>
+                    <div class="dbt-m-sub"><i class="fa-solid fa-bolt text-saffron"></i> 0% बिचौलिया कटौती (100% Direct)</div>
                 </div>
             </div>
 
@@ -446,7 +463,7 @@
                 <!-- State Wise DBT Allocation -->
                 <div class="glass-card chart-card">
                     <div class="card-header">
-                        <h3><i class="fa-solid fa-chart-column"></i> प्रमुख राज्यों में DBT फंड वितरण <small>/ State-wise DBT (₹ Cr)</small></h3>
+                        <h3><i class="fa-solid fa-chart-column"></i> प्रमुख राज्यों में DBT फंड वितरण <small>/ State-wise (₹ Cr)</small></h3>
                         <span class="badge badge-success">Live FY 2025-26</span>
                     </div>
                     <div class="chart-wrapper">
@@ -469,7 +486,7 @@
             <!-- Live Simulated Transaction Stream -->
             <div class="glass-card dbt-stream-card mt-24">
                 <div class="card-header">
-                    <h3><i class="fa-solid fa-satellite-dish fa-fade"></i> लाइव डीबीटी अंतरण स्ट्रीम <small>/ Live Benefit Feed (Real-Time)</small></h3>
+                    <h3><i class="fa-solid fa-satellite-dish fa-fade"></i> लाइव डीबीटी अंतरण स्ट्रीम <small>/ Live Benefit Feed</small></h3>
                     <span class="badge badge-success"><i class="fa-solid fa-circle-dot fa-beat"></i> Live Active</span>
                 </div>
                 <div class="dbt-feed-list" id="dbt-live-feed-list">
@@ -499,7 +516,7 @@
                     <button class="srv-cat-btn active" onclick="filterServiceCategory('ALL', this)">🌐 सभी सेवाएं (All)</button>
                     <button class="srv-cat-btn" onclick="filterServiceCategory('VOTER', this)">🗳️ Voter ID & Identity</button>
                     <button class="srv-cat-btn" onclick="filterServiceCategory('LIC', this)">🛡️ LIC & बीमा</button>
-                    <button class="srv-cat-btn" onclick="filterServiceCategory('BANK', this)">🏦 सरकारी बैंक & Pension</button>
+                    <button class="srv-cat-btn" onclick="filterServiceCategory('BANK', this)">🏦 सरकारी बैंक & PF</button>
                     <button class="srv-cat-btn" onclick="filterServiceCategory('CIVIC', this)">🚗 परिवहन & बिल भुगतान</button>
                 </div>
             </div>
@@ -643,14 +660,14 @@
     <div id="state-drawer" class="drawer hidden">
         <div class="drawer-inner">
             <div class="drawer-head">
-                <div style="display:flex;align-items:center;gap:14px;">
-                    <span id="d-icon" style="font-size:36px">🛕</span>
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <span id="d-icon" style="font-size:32px">🛕</span>
                     <div>
-                        <h2 id="d-name" style="font-size:18px;font-weight:800;">उत्तर प्रदेश</h2>
-                        <small id="d-capital" style="color:var(--accent-saffron);font-size:12px;font-weight:600;">राजधानी: लखनऊ</small>
+                        <h2 id="d-name" style="font-size:17px;font-weight:800;">उत्तर प्रदेश</h2>
+                        <small id="d-capital" style="color:var(--accent-saffron);font-size:11.5px;font-weight:600;">राजधानी: लखनऊ</small>
                     </div>
                 </div>
-                <div style="display:flex;gap:8px;align-items:center;">
+                <div style="display:flex;gap:6px;align-items:center;">
                     <button class="voice-btn-sm" onclick="speakCurrentStateDetails()"><i class="fa-solid fa-volume-high"></i> सुनें</button>
                     <button class="close-btn" onclick="closeDrawer()">&times;</button>
                 </div>
@@ -666,7 +683,7 @@
                 <div style="display:flex;align-items:center;gap:10px;">
                     <div class="security-shield-icon"><i class="fa-solid fa-shield-halved text-emerald"></i></div>
                     <div>
-                        <h3 style="font-size:16px;font-weight:800;">आधिकारिक सरकारी पोर्टल सत्यापन</h3>
+                        <h3 style="font-size:15px;font-weight:800;">आधिकारिक सरकारी पोर्टल सत्यापन</h3>
                         <small style="color:var(--text-muted);">Verified National Safe Redirection</small>
                     </div>
                 </div>
@@ -681,15 +698,15 @@
                 </div>
 
                 <div class="cyber-warning-card">
-                    <i class="fa-solid fa-triangle-exclamation text-saffron" style="font-size:20px;margin-top:2px;"></i>
-                    <div style="font-size:12.5px;line-height:1.5;">
+                    <i class="fa-solid fa-triangle-exclamation text-saffron" style="font-size:18px;margin-top:2px;"></i>
+                    <div style="font-size:12px;line-height:1.45;">
                         <b>साइबर सुरक्षा सलाह:</b> आप आधिकारिक सरकारी पोर्टल पर जा रहे हैं। कभी भी किसी अज्ञात व्यक्ति के साथ अपना बैंक OTP, UPI PIN या पासवर्ड साझा न करें।
                     </div>
                 </div>
 
                 <!-- Mirror / Alternate Link Option -->
                 <div id="safe-mirror-section" class="mirror-section mt-12 hidden">
-                    <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:6px;">
+                    <div style="font-size:11.5px;font-weight:700;color:var(--text-muted);margin-bottom:4px;">
                         <i class="fa-solid fa-server"></i> बैकअप/मिरर लिंक (यदि मुख्य सर्वर डाउन हो):
                     </div>
                     <a id="safe-mirror-link" href="#" target="_blank" class="mirror-link-pill">
@@ -697,8 +714,8 @@
                     </a>
                 </div>
 
-                <div class="modal-actions-grid mt-18">
-                    <button class="btn btn-secondary" onclick="closeSafeRedirectModal()">रद्द करें (Cancel)</button>
+                <div class="modal-actions-grid mt-16">
+                    <button class="btn btn-secondary" onclick="closeSafeRedirectModal()">रद्द करें</button>
                     <a id="safe-proceed-btn" href="#" target="_blank" class="btn btn-gradient" onclick="closeSafeRedirectModal()">
                         <i class="fa-solid fa-arrow-up-right-from-square"></i> सुरक्षित पोर्टल पर जाएं
                     </a>
@@ -714,7 +731,7 @@
                 <div style="display:flex;align-items:center;gap:10px;">
                     <div class="security-shield-icon"><i class="fa-solid fa-user-shield" style="color:#6366f1;"></i></div>
                     <div>
-                        <h3 style="font-size:16px;font-weight:800;">नागरिक डेटा सुरक्षा एवं गोपनीयता नीति</h3>
+                        <h3 style="font-size:15px;font-weight:800;">नागरिक डेटा सुरक्षा एवं गोपनीयता नीति</h3>
                         <small style="color:var(--text-muted);">Zero-PII & 100% Private Architecture</small>
                     </div>
                 </div>
@@ -746,7 +763,7 @@
                     </div>
                 </div>
 
-                <button class="btn btn-gradient w-100 mt-18" onclick="closePrivacySecurityModal()">
+                <button class="btn btn-gradient w-100 mt-16" onclick="closePrivacySecurityModal()">
                     <i class="fa-solid fa-check"></i> मैं समझ गया (Acknowledge)
                 </button>
             </div>
@@ -760,7 +777,7 @@
                 <div style="display:flex;align-items:center;gap:10px;">
                     <div class="wa-icon-circle"><i class="fa-brands fa-whatsapp"></i></div>
                     <div>
-                        <h3 style="font-size:16px;font-weight:800;">सुरक्षित WhatsApp योजना अलर्ट्स</h3>
+                        <h3 style="font-size:15px;font-weight:800;">सुरक्षित WhatsApp योजना अलर्ट्स</h3>
                         <small style="color:var(--text-muted);">Anti-Spam & Verified Direct Bot</small>
                     </div>
                 </div>
@@ -768,33 +785,33 @@
             </div>
 
             <div class="modal-body">
-                <p style="font-size:13px;color:var(--text-body);margin-bottom:14px;">
+                <p style="font-size:12.5px;color:var(--text-body);margin-bottom:12px;">
                     अपना 10 अंकों का WhatsApp नंबर दर्ज करें। आपके मोबाइल पर <b>CITYWISE AI</b> का आधिकारिक योजना अलर्ट चैट एक्टिवेट हो जाएगा।
                 </p>
 
                 <div class="form-group mb-12">
-                    <label style="font-size:12px;font-weight:700;"><i class="fa-solid fa-phone"></i> आपका 10 अंकों का WhatsApp मोबाइल नंबर:</label>
+                    <label style="font-size:11.5px;font-weight:700;"><i class="fa-solid fa-phone"></i> आपका 10 अंकों का WhatsApp मोबाइल नंबर:</label>
                     <div class="input-with-prefix">
                         <span class="prefix">+91</span>
                         <input type="tel" id="wa-phone-input" class="form-control" placeholder="98765 43210" maxlength="10">
                     </div>
                 </div>
 
-                <div class="form-group mb-16">
-                    <label style="font-size:12px;font-weight:700;"><i class="fa-solid fa-tags"></i> रुचि की श्रेणियां चुनें:</label>
+                <div class="form-group mb-14">
+                    <label style="font-size:11.5px;font-weight:700;"><i class="fa-solid fa-tags"></i> रुचि की श्रेणियां चुनें:</label>
                     <div class="wa-category-chips">
                         <label class="wa-chip"><input type="checkbox" checked value="किसान" id="wa-cat-kisan"> <span>🌾 किसान (PM-Kisan)</span></label>
                         <label class="wa-chip"><input type="checkbox" checked value="महिला" id="wa-cat-mahila"> <span>👩 महिला (लाड़ली बहना)</span></label>
-                        <label class="wa-chip"><input type="checkbox" checked value="युवा" id="wa-cat-yuva"> <span>🎓 युवा स्वरोजगार व लोन</span></label>
-                        <label class="wa-chip"><input type="checkbox" checked value="सोलर" id="wa-cat-solar"> <span>☀️ PM सूर्य घर बिजली</span></label>
+                        <label class="wa-chip"><input type="checkbox" checked value="युवा" id="wa-cat-yuva"> <span>🎓 युवा स्वरोजगार</span></label>
+                        <label class="wa-chip"><input type="checkbox" checked value="सोलर" id="wa-cat-solar"> <span>☀️ PM सूर्य घर</span></label>
                     </div>
                 </div>
 
                 <!-- Anti-Spam Citizen Consent Checkbox -->
-                <div class="form-group mb-16">
-                    <label class="checkbox-container" style="font-size:11.5px;color:var(--text-muted);">
+                <div class="form-group mb-14">
+                    <label class="checkbox-container" style="font-size:11px;color:var(--text-muted);">
                         <input type="checkbox" id="wa-consent-check" checked>
-                        <span>मैं केवल सरकारी योजना अधिसूचनाओं के लिए WhatsApp संदेश प्राप्त करने की सहमति देता/देती हूँ।</span>
+                        <span>मैं केवल सरकारी योजना अलर्ट्स प्राप्त करने की सहमति देता/देती हूँ।</span>
                     </label>
                 </div>
 
@@ -841,7 +858,7 @@
         </button>
     </nav>
 
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
     <script>
       // Service Worker Registration for PWA Offline Support
       if ('serviceWorker' in navigator) {
