@@ -349,21 +349,71 @@
                 </div>
             </div>
 
-            <!-- 2-COLUMN MAIN EXPLORER: LEFT MAP GRAPHIC & RIGHT DRILLDOWN RESULTS -->
+            <!-- 2-COLUMN MAIN EXPLORER: LEFT INTERACTIVE VECTOR MAP & RIGHT DRILLDOWN RESULTS -->
             <div class="two-col-grid map-grid-clean">
                 
-                <!-- LEFT: OFFICIAL INDIA MAP WITH ACTIVE STATE BADGES -->
+                <!-- LEFT: INTERACTIVE VECTOR MAP BOARD WITH REGION HUBS -->
                 <div class="glass-card map-visual-card">
                     <div class="card-header">
-                        <h3><i class="fa-solid fa-map"></i> <span>भारत का राजनीतिक नक्शा</span> <small>/ All States</small></h3>
+                        <h3><i class="fa-solid fa-map-location-dot"></i> <span>भारत डिजिटल नक्शा & राज्य हब</span> <small>/ Interactive Zone Hub</small></h3>
                         <span class="badge badge-success" id="map-hover-info">28 राज्य व 8 UT</span>
                     </div>
 
+                    <!-- INTERACTIVE VECTOR INDIA MAP VISUAL BOARD -->
                     <div class="clean-map-container">
-                        <img src="india-map.jpg" alt="Official Map of India" class="india-clean-img" loading="lazy" decoding="async">
+                        <div class="vector-india-map">
+                            <div class="map-region-hub zone-north" onclick="filterMapByRegion('North')">
+                                <div class="zone-badge">🏔️ उत्तर भारत (North Zone)</div>
+                                <div class="zone-pills">
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('DL')">🏛️ दिल्ली</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('UP')">🛕 उत्तर प्रदेश</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('PB')">🌾 पंजाब</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('HR')">🚜 हरियाणा</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('UK')">🏔️ उत्तराखंड</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('JK')">🏔️ J&K (UT)</span>
+                                </div>
+                            </div>
+
+                            <div class="map-region-hub zone-central" onclick="filterMapByRegion('Central')">
+                                <div class="zone-badge">🌾 मध्य व पश्चिमी भारत (Central & West Zone)</div>
+                                <div class="zone-pills">
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('MP')">🌾 मध्य प्रदेश</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('MH')">🏙️ महाराष्ट्र</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('GJ')">🌊 गुजरात</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('RJ')">🏰 राजस्थान</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('CT')">🌾 छत्तीसगढ़</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('GA')">🏖️ गोवा</span>
+                                </div>
+                            </div>
+
+                            <div class="map-region-hub zone-east" onclick="filterMapByRegion('East')">
+                                <div class="zone-badge">🎨 पूर्वी एवं पूर्वोत्तर भारत (East & NE Zone)</div>
+                                <div class="zone-pills">
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('BR')">🚜 बिहार</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('WB')">🎨 पश्चिम बंगाल</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('JH')">⛏️ झारखंड</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('OD')">🏖️ ओडिशा</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('AS')">☕ असम</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('SK')">🏔️ सिक्किम</span>
+                                </div>
+                            </div>
+
+                            <div class="map-region-hub zone-south" onclick="filterMapByRegion('South')">
+                                <div class="zone-badge">🛕 दक्षिणी भारत एवं द्वीप (South Zone & Islands)</div>
+                                <div class="zone-pills">
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('TN')">🛕 तमिलनाडु</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('KA')">💻 कर्नाटक</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('TS')">🏛️ तेलंगाना</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('AP')">🏛️ आंध्र प्रदेश</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('KL')">🌴 केरल</span>
+                                    <span class="zone-tag" onclick="event.stopPropagation(); onMapStateClick('PY')">🏖️ पुडुचेरी (UT)</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="map-quick-callout">
                             <i class="fa-solid fa-hand-pointer fa-bounce"></i>
-                            <span>किसी भी राज्य/ज़िले पर क्लिक करके विवरण देखें</span>
+                            <span>किसी भी राज्य/ज़िले पर क्लिक करें — पूरा सुशासन विवरण तुरंत खुलेगा</span>
                         </div>
                     </div>
 

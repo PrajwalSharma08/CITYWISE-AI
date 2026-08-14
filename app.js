@@ -1227,6 +1227,31 @@ function renderMapStatesList(filterQuery = '') {
     grid.innerHTML = html;
 }
 
+window.filterMapByRegion = function(regionKey) {
+    if (!REGIONS[regionKey]) return;
+    const codes = REGIONS[regionKey].codes;
+    const grid = document.getElementById('map-states-grid');
+    if (!grid) return;
+
+    let html = '';
+    codes.forEach(code => {
+        if (!STATE_DB[code]) return;
+        const s = STATE_DB[code];
+        let metricTag = currentHeatmapMode === 'dbt' ? `💰 DBT: ${s.dbtAmount}` : (currentHeatmapMode === 'civic' ? `🏛️ संतुष्टि: ${s.dbtRating}` : `📍 राजधानी: ${s.capital}`);
+
+        html += `<div class="item-card-chip" onclick="onMapStateClick('${code}')">
+            ${s.emoji} ${s.name.split('/')[0]}
+            <small>${metricTag}</small>
+        </div>`;
+    });
+    grid.innerHTML = html;
+
+    const drillBadge = document.getElementById('drill-badge');
+    if (drillBadge) drillBadge.textContent = `${REGIONS[regionKey].title.split(' ')[1]} (${codes.length})`;
+
+    window.speakText(currentLang === 'EN' ? `${regionKey} region states loaded.` : `${REGIONS[regionKey].title} के राज्य लोड हुए।`);
+};
+
 window.filterMapStatesList = function(val) {
     renderMapStatesList(val);
 };

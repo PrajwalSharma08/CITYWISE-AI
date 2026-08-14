@@ -929,40 +929,62 @@ body {
     flex-direction: column;
     width: 100%;
 }
-.clean-map-container {
+.vector-india-map {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 6px;
+}
+.map-region-hub {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+.map-region-hub:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+.zone-north { border-top: 3px solid var(--primary-indigo); }
+.zone-central { border-top: 3px solid var(--accent-emerald); }
+.zone-east { border-top: 3px solid var(--accent-sky); }
+.zone-south { border-top: 3px solid var(--accent-saffron); }
+
+.zone-badge {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--text-heading);
+    margin-bottom: 6px;
+}
+.zone-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.zone-tag {
     background: var(--bg-main);
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    padding: 10px;
-    text-align: center;
-    position: relative;
-    width: 100%;
-}
-.india-clean-img {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    max-height: 380px;
-    object-fit: contain;
-    border-radius: var(--radius-md);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-    display: block;
-    margin: 0 auto;
-}
-.map-quick-callout {
-    margin-top: 8px;
-    background: rgba(99, 102, 241, 0.1);
-    color: var(--primary-indigo);
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    padding: 7px 10px;
-    border-radius: var(--radius-sm);
-    font-size: 11px;
+    color: var(--text-heading);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 10.5px;
     font-weight: 700;
-    display: flex;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 6px;
+    gap: 4px;
 }
+.zone-tag:hover {
+    background: var(--primary-indigo);
+    color: #fff;
+    border-color: var(--primary-indigo);
+}
+
 .state-quick-scroll-strip {
     margin-top: 10px;
     display: flex;
