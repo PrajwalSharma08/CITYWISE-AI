@@ -66,31 +66,15 @@
                     <span id="top-voice-text">आवाज: चालू (ON)</span>
                 </button>
 
-                <!-- Multi-Lingual Voice Dropdown -->
-                <div class="voice-lang-dropdown">
-                    <button class="top-tool-btn voice-select-btn" onclick="toggleVoiceLangMenu()">
-                        <i class="fa-solid fa-headphones"></i> <span id="current-voice-lbl">भाषा: हिंदी</span> <i class="fa-solid fa-chevron-down"></i>
-                    </button>
-                    <div class="voice-lang-menu" id="voice-lang-menu">
-                        <button onclick="setVoiceLanguage('hi-IN', 'हिंदी (Hindi)', 'सिटीवाइज़ एआई राष्ट्रीय सुशासन पोर्टल में आपका स्वागत है।')">🇮🇳 हिन्दी (Hindi)</button>
-                        <button onclick="setVoiceLanguage('en-IN', 'English', 'Welcome to CITYWISE AI National Governance Portal.')">🌐 English</button>
-                        <button onclick="setVoiceLanguage('mr-IN', 'मराठी (Marathi)', 'सिटीवाइझ एआय राष्ट्रीय सुशासन पोर्टलवर आपले स्वागत आहे.')">🚩 मराठी (Marathi)</button>
-                        <button onclick="setVoiceLanguage('gu-IN', 'ગુજરાતી (Gujarati)', 'સિટીવાઈઝ AI રાષ્ટ્રીય સુશાસન પોર્ટલમાં આપનું સ્વાગત છે.')">🦁 ગુજરાતી (Gujarati)</button>
-                        <button onclick="setVoiceLanguage('bn-IN', 'বাংলা (Bengali)', 'সিটিওয়াইজ এআই জাতীয় সুশাসন পোর্টালে আপনাকে স্বাগতম।')">🐯 বাংলা (Bengali)</button>
-                        <button onclick="setVoiceLanguage('ta-IN', 'தமிழ் (Tamil)', 'சிட்டிவைஸ் ஏஐ தேசிய நிர்வாக போர்ட்டலுக்கு உங்களை வரவேற்கிறோம்.')">🛕 தமிழ் (Tamil)</button>
-                        <button onclick="setVoiceLanguage('te-IN', 'తెలుగు (Telugu)', 'సిటీవైజ్ AI జాతీయ సుపరిపాలన పోర్టల్‌కు స్వాగతం.')">🏛️ తెలుగు (Telugu)</button>
-                        <button onclick="setVoiceLanguage('pa-IN', 'ਪੰਜਾਬੀ (Punjabi)', 'ਸਿਟੀਵਾਈਜ਼ ਏਆਈ ਰਾਸ਼ਟਰੀ ਸੁਸ਼ਾਸਨ ਪੋਰਟਲ ਵਿੱਚ ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ।')">🌾 ਪੰਜਾਬੀ (Punjabi)</button>
-                        <button onclick="setVoiceLanguage('or-IN', 'ଓଡ଼ିଆ (Odia)', 'ସିଟିୱାଇଜ୍ ଏଆଇ ଜାତୀୟ ପ୍ରଶାସନ ପୋର୍ଟାଲକୁ ସ୍ଵାଗତ।')">🏖️ ଓଡ଼ିଆ (Odia)</button>
-                        <button onclick="setVoiceLanguage('kn-IN', 'ಕನ್ನಡ (Kannada)', 'ಸಿಟಿವೈಸ್ ಎಐ ರಾಷ್ಟ್ರೀಯ ಆಡಳಿತ ಪೋರ್ಟಲ್‌ಗೆ ಸುಸ್ವಾಗತ.')">💻 ಕನ್ನಡ (Kannada)</button>
-                        <button onclick="setVoiceLanguage('hi-IN', 'भोजपुरी (Bhojpuri)', 'सिटीवाइज एआई राष्ट्रीय सुशासन पोर्टल में रउवा सब के स्वागत बा।')">🚜 भोजपुरी (Bhojpuri)</button>
-                    </div>
-                </div>
+                <!-- 1-CLICK HINDI / ENGLISH TOGGLE PILL -->
+                <button class="top-tool-btn lang-pill active-lang-btn" id="btn-lang-toggle" onclick="toggleLanguage()">
+                    <i class="fa-solid fa-language"></i> <span id="lang-btn-text">English में देखें</span>
+                </button>
 
-                <!-- Theme, Zoom & Lang -->
+                <!-- Theme, Zoom -->
                 <button class="top-tool-btn" id="btn-theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i> <span id="theme-btn-text">Dark Mode</span></button>
                 <button class="top-tool-btn" onclick="adjustFontSize(1)" title="Font Size A+"><i class="fa-solid fa-font"></i> A+</button>
                 <button class="top-tool-btn" onclick="adjustFontSize(-1)" title="Font Size A-"><i class="fa-solid fa-font"></i> A-</button>
-                <button class="top-tool-btn lang-pill" id="btn-lang-toggle" onclick="toggleLanguage()"><i class="fa-solid fa-language"></i> <span id="lang-btn-text">English</span></button>
             </div>
         </div>
     </div>
@@ -138,6 +122,12 @@
                     <i class="fa-solid fa-volume-high" id="nav-voice-icon"></i>
                     <span id="nav-voice-text">आवाज ON</span>
                 </button>
+
+                <!-- NAVBAR HINDI / ENGLISH QUICK TOGGLE -->
+                <button class="nav-lang-btn" onclick="toggleLanguage()" id="nav-lang-btn-sub">
+                    <i class="fa-solid fa-globe"></i> <span id="nav-lang-txt">English</span>
+                </button>
+
                 <button class="mobile-menu-toggle" id="mobile-menu-btn" onclick="toggleMobileMenu()">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -151,8 +141,8 @@
                     <i class="fa-solid fa-volume-high" id="mobile-menu-voice-icon"></i> 
                     <span id="mobile-menu-voice-text">आवाज: चालू (ON)</span>
                 </button>
-                <button class="m-quick-tool-btn" onclick="toggleTheme()">
-                    <i class="fa-solid fa-circle-half-stroke"></i> थीम बदलें
+                <button class="m-quick-tool-btn" onclick="toggleLanguage()">
+                    <i class="fa-solid fa-language"></i> <span id="m-lang-toggle-txt">English / हिन्दी</span>
                 </button>
             </div>
             <button class="mobile-nav-item active" onclick="switchPage('home'); toggleMobileMenu();">
@@ -266,8 +256,8 @@
                         <span class="stat-l">लाइव DBT फंड ट्रांसफर्ड</span>
                     </div>
                     <div class="stat-pill">
-                        <span class="stat-n">10+ Languages</span>
-                        <span class="stat-l">क्षेत्रीय वॉयस असिस्ट</span>
+                        <span class="stat-n">Hindi & English</span>
+                        <span class="stat-l">स्मार्ट वॉयस असिस्ट</span>
                     </div>
                 </div>
             </div>

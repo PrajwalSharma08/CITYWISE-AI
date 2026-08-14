@@ -1,12 +1,11 @@
 // ============================================================
-// CITYWISE AI — Enterprise Multi-Lingual Interactive Voice & Governance Engine
+// CITYWISE AI — Enterprise Dual-Language (Hindi & English) Voice & Governance Engine
 // ============================================================
 
-// VOICE CONFIGURATION (DEFAULT = ON, WITH MUTE TOGGLE)
+// DUAL-LANGUAGE VOICE CONFIGURATION (HINDI & ENGLISH ONLY)
 let isVoiceMuted = false;
+let currentLang = 'HI'; // 'HI' or 'EN'
 let currentVoiceLang = 'hi-IN';
-let currentVoiceLabel = 'हिंदी (Hindi)';
-let currentVoiceGreeting = 'सिटीवाइज़ एआई राष्ट्रीय सुशासन पोर्टल में आपका स्वागत है।';
 let availableVoices = [];
 
 function loadVoices() {
@@ -19,16 +18,15 @@ if (typeof window !== 'undefined' && window.speechSynthesis) {
     window.speechSynthesis.onvoiceschanged = loadVoices;
 }
 
-// ROBUST MULTI-LINGUAL TTS ENGINE
+// ROBUST VOICE ENGINE (GUARANTEED HINDI & ENGLISH TTS)
 window.speakText = function(text, overrideLang) {
     if (isVoiceMuted || typeof window === 'undefined' || !window.speechSynthesis) return;
     try {
         window.speechSynthesis.cancel();
 
-        // 60ms timeout clears browser audio queue reliably on Android Chrome & iOS Safari
         setTimeout(() => {
             if (isVoiceMuted) return;
-            const langToUse = overrideLang || currentVoiceLang || 'hi-IN';
+            const langToUse = overrideLang || currentVoiceLang || (currentLang === 'EN' ? 'en-IN' : 'hi-IN');
             const utt = new SpeechSynthesisUtterance(text);
             utt.lang = langToUse;
             utt.rate = 1.0;
@@ -39,18 +37,21 @@ window.speakText = function(text, overrideLang) {
             }
 
             if (availableVoices && availableVoices.length > 0) {
-                const exactVoice = availableVoices.find(v => v.lang === langToUse);
-                const prefixVoice = availableVoices.find(v => v.lang.startsWith(langToUse.split('-')[0]));
-                const fallbackVoice = availableVoices.find(v => v.lang === 'hi-IN' || v.lang.includes('Hindi') || v.lang === 'en-IN' || v.lang === 'en-US');
+                let matchingVoice = null;
+                if (langToUse.startsWith('hi')) {
+                    matchingVoice = availableVoices.find(v => v.lang.includes('hi') || v.name.includes('Hindi') || v.lang === 'hi-IN');
+                } else {
+                    matchingVoice = availableVoices.find(v => v.lang === 'en-IN' || v.lang === 'en-GB' || v.lang === 'en-US' || v.lang.includes('en'));
+                }
                 
-                utt.voice = exactVoice || prefixVoice || fallbackVoice || availableVoices[0];
+                if (matchingVoice) utt.voice = matchingVoice;
             }
 
             if (window.speechSynthesis.paused) {
                 window.speechSynthesis.resume();
             }
             window.speechSynthesis.speak(utt);
-        }, 60);
+        }, 50);
     } catch(e) {
         console.warn("TTS Error:", e);
     }
@@ -75,52 +76,58 @@ window.toggleVoiceMute = function() {
 
         if (topBtn) topBtn.classList.add('muted');
         if (topIcon) topIcon.className = 'fa-solid fa-volume-xmark';
-        if (topText) topText.textContent = 'आवाज: बंद (MUTE)';
+        if (topText) topText.textContent = currentLang === 'EN' ? 'Voice: OFF' : 'आवाज: बंद (MUTE)';
 
         if (navBtn) navBtn.classList.add('muted');
         if (navIcon) navIcon.className = 'fa-solid fa-volume-xmark';
-        if (navText) navText.textContent = 'आवाज MUTE';
+        if (navText) navText.textContent = currentLang === 'EN' ? 'Muted' : 'आवाज MUTE';
 
         if (mIcon) mIcon.className = 'fa-solid fa-volume-xmark';
-        if (mText) mText.textContent = 'आवाज: बंद (MUTE)';
+        if (mText) mText.textContent = currentLang === 'EN' ? 'Voice: OFF' : 'आवाज: बंद (MUTE)';
     } else {
         if (topBtn) topBtn.classList.remove('muted');
         if (topIcon) topIcon.className = 'fa-solid fa-volume-high';
-        if (topText) topText.textContent = 'आवाज: चालू (ON)';
+        if (topText) topText.textContent = currentLang === 'EN' ? 'Voice: ON' : 'आवाज: चालू (ON)';
 
         if (navBtn) navBtn.classList.remove('muted');
         if (navIcon) navIcon.className = 'fa-solid fa-volume-high';
-        if (navText) navText.textContent = 'आवाज ON';
+        if (navText) navText.textContent = currentLang === 'EN' ? 'Voice ON' : 'आवाज ON';
 
         if (mIcon) mIcon.className = 'fa-solid fa-volume-high';
-        if (mText) mText.textContent = 'आवाज: चालू (ON)';
+        if (mText) mText.textContent = currentLang === 'EN' ? 'Voice: ON' : 'आवाज: चालू (ON)';
 
-        window.speakText('आवाज चालू कर दी गई है।');
+        window.speakText(currentLang === 'EN' ? 'Voice assistance activated.' : 'आवाज चालू कर दी गई है।');
     }
 };
 
-window.toggleVoiceLangMenu = function() {
-    const menu = document.getElementById('voice-lang-menu');
-    if (menu) menu.classList.toggle('show');
-};
+// 1-CLICK HINDI / ENGLISH LANGUAGE TOGGLE
+window.toggleLanguage = function() {
+    currentLang = currentLang === 'HI' ? 'EN' : 'HI';
+    currentVoiceLang = currentLang === 'EN' ? 'en-IN' : 'hi-IN';
 
-window.setVoiceLanguage = function(langCode, label, greeting) {
-    currentVoiceLang = langCode;
-    currentVoiceLabel = label;
-    currentVoiceGreeting = greeting;
+    const topLangBtnTxt = document.getElementById('lang-btn-text');
+    const navLangTxt = document.getElementById('nav-lang-txt');
+    const mLangTxt = document.getElementById('m-lang-toggle-txt');
 
-    const lbl = document.getElementById('current-voice-lbl');
-    if (lbl) lbl.textContent = `भाषा: ${label.split(' ')[0]}`;
-
-    const menu = document.getElementById('voice-lang-menu');
-    if (menu) menu.classList.remove('show');
-
-    // Announce the selected language in its native accent/words
-    window.speakText(greeting, langCode);
+    if (currentLang === 'EN') {
+        if (topLangBtnTxt) topLangBtnTxt.textContent = 'हिन्दी में बदलें';
+        if (navLangTxt) navLangTxt.textContent = 'हिन्दी';
+        if (mLangTxt) mLangTxt.textContent = 'Switch to हिन्दी';
+        window.speakText('Switched to English. Welcome to CITYWISE AI National Governance Portal.', 'en-IN');
+    } else {
+        if (topLangBtnTxt) topLangBtnTxt.textContent = 'English में देखें';
+        if (navLangTxt) navLangTxt.textContent = 'English';
+        if (mLangTxt) mLangTxt.textContent = 'Switch to English';
+        window.speakText('हिंदी भाषा सक्रिय। सिटीवाइज़ एआई राष्ट्रीय सुशासन पोर्टल में आपका स्वागत है।', 'hi-IN');
+    }
 };
 
 window.triggerCurrentVoiceGreeting = function() {
-    window.speakText(currentVoiceGreeting, currentVoiceLang);
+    if (currentLang === 'EN') {
+        window.speakText('Welcome to CITYWISE AI National Governance Portal.', 'en-IN');
+    } else {
+        window.speakText('सिटीवाइज़ एआई राष्ट्रीय सुशासन पोर्टल में आपका स्वागत है।', 'hi-IN');
+    }
 };
 
 // NATIONAL CITIZEN SERVICES DATABASE
@@ -562,7 +569,6 @@ let currentFontSizePx = 16;
 let currentRegionFilter = 'ALL';
 let currentServiceCategory = 'ALL';
 let currentHeatmapMode = 'standard';
-let currentLang = 'HI';
 
 // ============================================================
 // 1. SAFE REDIRECTION & CYBER SECURITY VERIFICATION ENGINE
@@ -574,7 +580,7 @@ window.triggerSafeRedirect = function(targetUrl, portalName, mirrorUrl = '', voi
         return;
     }
 
-    document.getElementById('safe-portal-name').textContent = portalName || 'आधिकारिक सरकारी पोर्टल';
+    document.getElementById('safe-portal-name').textContent = portalName || (currentLang === 'EN' ? 'Official Government Portal' : 'आधिकारिक सरकारी पोर्टल');
     document.getElementById('safe-portal-url').textContent = targetUrl;
     
     const proceedBtn = document.getElementById('safe-proceed-btn');
@@ -594,7 +600,7 @@ window.triggerSafeRedirect = function(targetUrl, portalName, mirrorUrl = '', voi
     if (voiceNote) {
         window.speakText(voiceNote);
     } else {
-        window.speakText(`${portalName} का आधिकारिक सरकारी पोर्टल खोला जा रहा है।`);
+        window.speakText(currentLang === 'EN' ? `Opening official verified portal for ${portalName}.` : `${portalName} का आधिकारिक सरकारी पोर्टल खोला जा रहा है।`);
     }
 };
 
@@ -606,7 +612,7 @@ window.closeSafeRedirectModal = function() {
 window.openPrivacySecurityModal = function() {
     const modal = document.getElementById('privacy-security-modal');
     if (modal) modal.classList.remove('hidden');
-    window.speakText("डेटा सुरक्षा नीति। सिटीवाइज़ एआई कोई आधार या बैंक पासवर्ड स्टोर नहीं करता।");
+    window.speakText(currentLang === 'EN' ? 'Data security policy. CITYWISE AI never stores Aadhaar or banking credentials.' : "डेटा सुरक्षा नीति। सिटीवाइज़ एआई कोई आधार या बैंक पासवर्ड स्टोर नहीं करता।");
 };
 
 window.closePrivacySecurityModal = function() {
@@ -646,9 +652,9 @@ window.setMapHeatmapMode = function(mode, btnEl) {
     renderMapStatesList();
     renderQuickScrollStrip();
 
-    if (mode === 'dbt') window.speakText('डीबीटी फंड रैंकिंग मोड सक्रिय।');
-    else if (mode === 'civic') window.speakText('सुशासन संतुष्टि दर रैंकिंग सक्रिय।');
-    else window.speakText('सभी राज्य एवं केंद्र शासित प्रदेश सक्रिय।');
+    if (mode === 'dbt') window.speakText(currentLang === 'EN' ? 'DBT funding rank mode active.' : 'डीबीटी फंड रैंकिंग मोड सक्रिय।');
+    else if (mode === 'civic') window.speakText(currentLang === 'EN' ? 'Civic satisfaction rate ranking active.' : 'सुशासन संतुष्टि दर रैंकिंग सक्रिय।');
+    else window.speakText(currentLang === 'EN' ? 'All 36 States and UTs active.' : 'सभी राज्य एवं केंद्र शासित प्रदेश सक्रिय।');
 };
 
 window.resetMapToAllIndia = function() {
@@ -662,7 +668,7 @@ window.resetMapToAllIndia = function() {
     document.getElementById('bc-district').classList.remove('active');
     document.getElementById('bc-village').classList.remove('active');
     backToStep(1);
-    window.speakText('संपूर्ण भारत नक्शा रीसेट किया गया।');
+    window.speakText(currentLang === 'EN' ? 'All India map reset.' : 'संपूर्ण भारत नक्शा रीसेट किया गया।');
 };
 
 // ============================================================
@@ -774,7 +780,7 @@ function createFeedItemHtml(b) {
 window.openWhatsAppModal = function() {
     const modal = document.getElementById('whatsapp-modal');
     if (modal) modal.classList.remove('hidden');
-    window.speakText("व्हाट्सएप योजना अलर्ट्स। अपना नंबर दर्ज करके सरकारी योजना अपडेट्स प्राप्त करें।");
+    window.speakText(currentLang === 'EN' ? "WhatsApp Scheme Alerts. Enter your number to activate notifications." : "व्हाट्सएप योजना अलर्ट्स। अपना नंबर दर्ज करके सरकारी योजना अपडेट्स प्राप्त करें।");
 };
 
 window.closeWhatsAppModal = function() {
@@ -788,13 +794,13 @@ window.submitWhatsAppSubscription = function() {
     const consentCheck = document.getElementById('wa-consent-check');
 
     if (phone.length !== 10) {
-        alert("कृपया अपना 10 अंकों का सही मोबाइल नंबर दर्ज करें (e.g. 9876543210)।");
-        window.speakText("कृपया अपना 10 अंकों का सही मोबाइल नंबर दर्ज करें।");
+        alert(currentLang === 'EN' ? "Please enter a valid 10-digit mobile number." : "कृपया अपना 10 अंकों का सही मोबाइल नंबर दर्ज करें (e.g. 9876543210)।");
+        window.speakText(currentLang === 'EN' ? "Please enter a valid 10-digit mobile number." : "कृपया अपना 10 अंकों का सही मोबाइल नंबर दर्ज करें।");
         return;
     }
 
     if (consentCheck && !consentCheck.checked) {
-        alert("कृपया सरकारी योजना अलर्ट्स प्राप्त करने की सहमति चेकबॉक्स पर टिक करें।");
+        alert(currentLang === 'EN' ? "Please agree to the consent checkbox." : "कृपया सरकारी योजना अलर्ट्स प्राप्त करने की सहमति चेकबॉक्स पर टिक करें।");
         return;
     }
 
@@ -832,7 +838,7 @@ window.submitWhatsAppSubscription = function() {
         directBtn.style.display = 'inline-flex';
     }
 
-    window.speakText("आपका व्हाट्सएप नंबर सरकारी योजना अलर्ट्स के लिए सुरक्षित रूप से रजिस्टर हो गया है।");
+    window.speakText(currentLang === 'EN' ? "Your WhatsApp number is registered for verified scheme alerts." : "आपका व्हाट्सएप नंबर सरकारी योजना अलर्ट्स के लिए सुरक्षित रूप से रजिस्टर हो गया है।");
     window.open(waDirectUrl, '_blank');
 };
 
@@ -901,11 +907,11 @@ window.filterServiceCategory = function(cat, btnEl) {
     const searchVal = document.getElementById('service-search-input')?.value || '';
     renderCitizenServices(cat, searchVal);
 
-    if (cat === 'VOTER') window.speakText('वोटर आईडी और नागरिक पहचान सेवाएं।');
-    else if (cat === 'LIC') window.speakText('एलआईसी और जीवन बीमा सेवाएं।');
-    else if (cat === 'BANK') window.speakText('सरकारी बैंक खाते और भविष्य निधि सेवाएं।');
-    else if (cat === 'CIVIC') window.speakText('परिवहन और विद्युत बिल सेवाएं।');
-    else window.speakText('सभी नागरिक सेवाएं।');
+    if (cat === 'VOTER') window.speakText(currentLang === 'EN' ? 'Voter ID and identity services.' : 'वोटर आईडी और नागरिक पहचान सेवाएं।');
+    else if (cat === 'LIC') window.speakText(currentLang === 'EN' ? 'LIC and Life Insurance services.' : 'एलआईसी और जीवन बीमा सेवाएं।');
+    else if (cat === 'BANK') window.speakText(currentLang === 'EN' ? 'Public Banking and Provident Fund services.' : 'सरकारी बैंक खाते और भविष्य निधि सेवाएं।');
+    else if (cat === 'CIVIC') window.speakText(currentLang === 'EN' ? 'Transport and Electricity bill services.' : 'परिवहन और विद्युत बिल सेवाएं।');
+    else window.speakText(currentLang === 'EN' ? 'All Citizen Services.' : 'सभी नागरिक सेवाएं।');
 };
 
 window.filterCitizenServices = function() {
@@ -939,9 +945,9 @@ function renderAllSchemes(filters = {}) {
         filtered = NATIONAL_SCHEMES_DATABASE.filter(s => s.state === 'ALL' || s.state === stateCode);
     }
 
-    const stateLabel = stateCode !== 'ALL' && STATE_DB[stateCode] ? STATE_DB[stateCode].name.split('/')[0] : 'संपूर्ण भारत';
+    const stateLabel = stateCode !== 'ALL' && STATE_DB[stateCode] ? STATE_DB[stateCode].name.split('/')[0] : (currentLang === 'EN' ? 'All India' : 'संपूर्ण भारत');
 
-    if (badgeEl) badgeEl.textContent = `${stateLabel}: ${filtered.length} पात्र योजनाएं`;
+    if (badgeEl) badgeEl.textContent = `${stateLabel}: ${filtered.length} ${currentLang === 'EN' ? 'Schemes' : 'पात्र योजनाएं'}`;
 
     let html = '';
     filtered.forEach(sc => {
@@ -952,7 +958,7 @@ function renderAllSchemes(filters = {}) {
                 <span class="scheme-cat">${sc.cat}</span>
             </div>
             <div class="scheme-target">
-                🎯 <b>पात्रता:</b> ${sc.targetGroup || 'समस्त पात्र नागरिक'}
+                🎯 <b>${currentLang === 'EN' ? 'Eligibility:' : 'पात्रता:'}</b> ${sc.targetGroup || 'समस्त पात्र नागरिक'}
             </div>
             <div class="scheme-item-body">${sc.desc}</div>
             <div class="scheme-item-footer">
@@ -960,7 +966,7 @@ function renderAllSchemes(filters = {}) {
                     ${sc.docs.map(d => `<span class="scheme-tag">📄 ${d}</span>`).join('')}
                 </div>
                 <button class="apply-link" onclick="triggerSafeRedirect('${sc.link}', '${sc.name}', '${sc.mirror || ''}', '${vNote}')">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i> ऑनलाइन आवेदन करें
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> ${currentLang === 'EN' ? 'Apply Online' : 'ऑनलाइन आवेदन करें'}
                 </button>
             </div>
         </div>`;
@@ -997,13 +1003,13 @@ window.handleSchemeSearch = function(e) {
 
         const stateCode = document.getElementById('input-state')?.value || 'ALL';
         const stateName = (stateCode !== 'ALL' && STATE_DB[stateCode]) ? STATE_DB[stateCode].name.split('/')[0] : 'आपकी प्रोफाइल के लिए';
-        window.speakText(`${stateName} के लिए पात्र सरकारी योजनाओं का मिलान पूरा हो गया है।`);
+        window.speakText(currentLang === 'EN' ? `Government schemes matching completed.` : `${stateName} के लिए पात्र सरकारी योजनाओं का मिलान पूरा हो गया है।`);
     }, 200);
 };
 
 window.updateIncomeLabel = function(val) {
     const el = document.getElementById('income-display');
-    if (el) el.textContent = '₹' + parseInt(val).toLocaleString('en-IN') + ' / वर्ष';
+    if (el) el.textContent = '₹' + parseInt(val).toLocaleString('en-IN') + (currentLang === 'EN' ? ' / Year' : ' / वर्ष');
 };
 
 window.triggerManualDataSync = function() {
@@ -1012,7 +1018,7 @@ window.triggerManualDataSync = function() {
         badge.innerHTML = '<i class="fa-solid fa-sync fa-spin"></i> सिंक जारी...';
         setTimeout(() => {
             badge.innerHTML = '<i class="fa-solid fa-circle-check"></i> data.gov.in सिंक सफल';
-            window.speakText('डेटा डॉट जीओवी डॉट इन से 30 से अधिक योजनाएं सिंक हो गईं।');
+            window.speakText(currentLang === 'EN' ? 'Over 30 schemes successfully synced with data dot gov in.' : 'डेटा डॉट जीओवी डॉट इन से 30 से अधिक योजनाएं सिंक हो गईं।');
         }, 800);
     }
 };
@@ -1046,23 +1052,23 @@ window.switchPage = function(pageId) {
 
         if (pageId === 'home') {
             initTicker();
-            window.speakText('मुख्य पृष्ठ। 28 राज्य एवं 8 केंद्र शासित प्रदेश सुशासन पोर्टल।');
+            window.speakText(currentLang === 'EN' ? 'Home page. 28 States and 8 Union Territories governance portal.' : 'मुख्य पृष्ठ। 28 राज्य एवं 8 केंद्र शासित प्रदेश सुशासन पोर्टल।');
         }
         if (pageId === 'map') {
             initCleanStateMap();
-            window.speakText('भारत डिजिटल नक्शा Explorer। राज्य और ज़िला सुशासन चुनें।');
+            window.speakText(currentLang === 'EN' ? 'India Digital Map Explorer. Select State and District governance.' : 'भारत डिजिटल नक्शा Explorer। राज्य और ज़िला सुशासन चुनें।');
         }
         if (pageId === 'dbt') {
             initDBTCharts();
-            window.speakText('प्रत्यक्ष लाभ अंतरण डीबीटी लाइव ट्रैकर। 4 लाख 85 हज़ार करोड़ रुपये अंतरित राशि।');
+            window.speakText(currentLang === 'EN' ? 'Realtime Direct Benefit Transfer tracker. 4.85 lakh crore rupees disbursed.' : 'प्रत्यक्ष लाभ अंतरण डीबीटी लाइव ट्रैकर। 4 लाख 85 हज़ार करोड़ रुपये अंतरित राशि।');
         }
         if (pageId === 'services') {
             renderCitizenServices();
-            window.speakText('राष्ट्रीय नागरिक सेवाएं। वोटर आईडी, एलआईसी और सरकारी बैंक हब।');
+            window.speakText(currentLang === 'EN' ? 'National citizen services hub. Voter ID, LIC, and Public banking.' : 'राष्ट्रीय नागरिक सेवाएं। वोटर आईडी, एलआईसी और सरकारी बैंक हब।');
         }
         if (pageId === 'schemes') {
             liveAutoMatchSchemes();
-            window.speakText('सरकारी योजना मैचिंग स्टूडियो। अपनी पात्रता की जांच करें।');
+            window.speakText(currentLang === 'EN' ? 'Welfare schemes matching studio. Check your eligibility.' : 'सरकारी योजना मैचिंग स्टूडियो। अपनी पात्रता की जांच करें।');
         }
     } catch(err) {}
 };
@@ -1114,11 +1120,11 @@ window.filterRegionChips = function(regionKey, btnEl) {
 
     populateHomeControls(regionKey);
 
-    if (regionKey === 'North') window.speakText('उत्तर भारत के राज्य।');
-    else if (regionKey === 'Central') window.speakText('मध्य और पश्चिमी भारत के राज्य।');
-    else if (regionKey === 'East') window.speakText('पूर्वी और पूर्वोत्तर भारत के राज्य।');
-    else if (regionKey === 'South') window.speakText('दक्षिण भारत और द्वीप समूह।');
-    else window.speakText('सभी 36 राज्य और केंद्र शासित प्रदेश।');
+    if (regionKey === 'North') window.speakText(currentLang === 'EN' ? 'North India States.' : 'उत्तर भारत के राज्य।');
+    else if (regionKey === 'Central') window.speakText(currentLang === 'EN' ? 'Central and Western India States.' : 'मध्य और पश्चिमी भारत के राज्य।');
+    else if (regionKey === 'East') window.speakText(currentLang === 'EN' ? 'East and North-East India States.' : 'पूर्वी और पूर्वोत्तर भारत के राज्य।');
+    else if (regionKey === 'South') window.speakText(currentLang === 'EN' ? 'South India and Islands.' : 'दक्षिण भारत और द्वीप समूह।');
+    else window.speakText(currentLang === 'EN' ? 'All 36 States and Union Territories.' : 'सभी 36 राज्य और केंद्र शासित प्रदेश।');
 };
 
 window.onHomeStateChipClick = function(code) {
@@ -1155,7 +1161,7 @@ window.onHomeStateChange = function(code) {
     villSelect.innerHTML = '<option value="">-- पहले ज़िला चुनें / Select District First --</option>';
     launchBtn.disabled = true;
 
-    window.speakText(`${s.name.split('/')[0]} चुना गया। अब ज़िला चुनें।`);
+    window.speakText(currentLang === 'EN' ? `${s.name.split('/')[0]} selected. Please select district.` : `${s.name.split('/')[0]} चुना गया। अब ज़िला चुनें।`);
 };
 
 window.onHomeDistrictChange = function(distName) {
@@ -1182,7 +1188,7 @@ window.onHomeDistrictChange = function(distName) {
     villSelect.innerHTML = html;
     launchBtn.disabled = false;
 
-    window.speakText(`${distName} चुना गया।`);
+    window.speakText(currentLang === 'EN' ? `${distName} selected.` : `${distName} चुना गया।`);
 };
 
 window.onHomeVillageChange = function(villName) {
@@ -1243,7 +1249,7 @@ window.onMapStateClick = function(code) {
     document.getElementById('drill-step-2').classList.remove('hidden');
     document.getElementById('drill-step-3').classList.add('hidden');
 
-    document.getElementById('city-step-title').textContent = `${s.name.split('/')[0]} — शहर/ज़िला चुनें:`;
+    document.getElementById('city-step-title').textContent = `${s.name.split('/')[0]} — ${currentLang === 'EN' ? 'Select District:' : 'शहर/ज़िला चुनें:'}`;
     document.getElementById('map-hover-info').textContent = `${s.name.split('/')[0]}`;
 
     const citiesGrid = document.getElementById('cities-grid');
@@ -1263,7 +1269,7 @@ window.onMapStateClick = function(code) {
     }
     citiesGrid.innerHTML = html;
 
-    window.speakText(`${s.name.split('/')[0]}। राजधानी ${s.capital}। डीबीटी फंड ${s.dbtAmount}। कृपया ज़िला चुनें।`);
+    window.speakText(currentLang === 'EN' ? `${s.name.split('/')[0]}. Capital ${s.capital}. DBT Fund ${s.dbtAmount}. Please select a district.` : `${s.name.split('/')[0]}। राजधानी ${s.capital}। डीबीटी फंड ${s.dbtAmount}। कृपया ज़िला चुनें।`);
 };
 
 window.onMapCityClick = function(cityName) {
@@ -1278,7 +1284,7 @@ window.onMapCityClick = function(cityName) {
     document.getElementById('drill-step-2').classList.add('hidden');
     document.getElementById('drill-step-3').classList.remove('hidden');
 
-    document.getElementById('village-step-title').textContent = `${cityName} — गाँव/वार्ड चुनें:`;
+    document.getElementById('village-step-title').textContent = `${cityName} — ${currentLang === 'EN' ? 'Select Village / Ward:' : 'गाँव/वार्ड चुनें:'}`;
 
     const s = STATE_DB[currentSelectedStateCode];
     const villagesGrid = document.getElementById('villages-grid');
@@ -1296,7 +1302,7 @@ window.onMapCityClick = function(cityName) {
     }
     villagesGrid.innerHTML = html;
 
-    window.speakText(`${cityName} ज़िला चुना गया। गाँव या वार्ड चुनें।`);
+    window.speakText(currentLang === 'EN' ? `${cityName} district selected. Please select a village or ward.` : `${cityName} ज़िला चुना गया। गाँव या वार्ड चुनें।`);
 };
 
 window.onMapVillageClick = function(villageName) {
@@ -1315,12 +1321,12 @@ window.backToStep = function(stepNum) {
         document.getElementById('drill-step-1').classList.remove('hidden');
         document.getElementById('drill-step-2').classList.add('hidden');
         document.getElementById('drill-step-3').classList.add('hidden');
-        window.speakText('वापस राज्य सूची।');
+        window.speakText(currentLang === 'EN' ? 'Back to State list.' : 'वापस राज्य सूची।');
     } else if (stepNum === 2) {
         document.getElementById('drill-step-1').classList.add('hidden');
         document.getElementById('drill-step-2').classList.remove('hidden');
         document.getElementById('drill-step-3').classList.add('hidden');
-        window.speakText('वापस ज़िला सूची।');
+        window.speakText(currentLang === 'EN' ? 'Back to District list.' : 'वापस ज़िला सूची।');
     }
 };
 
@@ -1339,7 +1345,7 @@ window.selectState = function(code) {
     drawer.classList.remove('hidden');
 
     const dist = currentSelectedDistrict || Object.keys(s.districts || {})[0] || s.capital;
-    window.speakText(`${s.name.split('/')[0]} सुशासन पोर्टल खुला। राजधानी ${s.capital}, मुख्यमंत्री ${s.cm}, कुल जनसंख्या ${s.population}।`);
+    window.speakText(currentLang === 'EN' ? `${s.name.split('/')[0]} governance portal opened. Capital ${s.capital}, Population ${s.population}.` : `${s.name.split('/')[0]} सुशासन पोर्टल खुला। राजधानी ${s.capital}, मुख्यमंत्री ${s.cm}, कुल जनसंख्या ${s.population}।`);
 };
 
 window.closeDrawer = function() {
@@ -1412,31 +1418,18 @@ window.toggleTheme = function() {
     if (isLightNow) {
         if (txtEl) txtEl.textContent = 'Dark Mode';
         if (btnEl) btnEl.innerHTML = '<i class="fa-solid fa-moon"></i> <span id="theme-btn-text">Dark Mode</span>';
-        window.speakText('लाइट थीम सक्रिय।');
+        window.speakText(currentLang === 'EN' ? 'Light mode activated.' : 'लाइट थीम सक्रिय।');
     } else {
         if (txtEl) txtEl.textContent = 'Light Mode';
         if (btnEl) btnEl.innerHTML = '<i class="fa-solid fa-sun" style="color:#f59e0b"></i> <span id="theme-btn-text">Light Mode</span>';
-        window.speakText('डार्क थीम सक्रिय।');
+        window.speakText(currentLang === 'EN' ? 'Dark mode activated.' : 'डार्क थीम सक्रिय।');
     }
 };
 
 window.adjustFontSize = function(delta) {
     currentFontSizePx = Math.max(13, Math.min(20, currentFontSizePx + delta));
     document.documentElement.style.fontSize = currentFontSizePx + 'px';
-    window.speakText(delta > 0 ? 'फ़ॉन्ट साइज बढ़ाया गया।' : 'फ़ॉन्ट साइज घटाया गया।');
-};
-
-window.toggleLanguage = function() {
-    currentLang = currentLang === 'HI' ? 'EN' : 'HI';
-    const langTxt = document.getElementById('lang-btn-text');
-
-    if (currentLang === 'EN') {
-        if (langTxt) langTxt.textContent = 'हिंदी';
-        window.setVoiceLanguage('en-IN', 'English', 'Switched to CITYWISE AI English Mode.');
-    } else {
-        if (langTxt) langTxt.textContent = 'English';
-        window.setVoiceLanguage('hi-IN', 'हिंदी (Hindi)', 'सिटीवाइज़ एआई हिंदी मोड सक्रिय किया गया।');
-    }
+    window.speakText(delta > 0 ? (currentLang === 'EN' ? 'Font size increased.' : 'फ़ॉन्ट साइज बढ़ाया गया।') : (currentLang === 'EN' ? 'Font size decreased.' : 'फ़ॉन्ट साइज घटाया गया।'));
 };
 
 const TICKER_ITEMS = [
@@ -1471,12 +1464,6 @@ document.addEventListener('click', e => {
     if (drawer && !drawer.classList.contains('hidden')) {
         if (!drawer.contains(e.target) && !e.target.closest('.state-chip, .nav-btn, .item-card-chip, .quick-state-pill, #home-btn-launch, .quick-service-btn')) {
             window.closeDrawer();
-        }
-    }
-    const voiceMenu = document.getElementById('voice-lang-menu');
-    if (voiceMenu && voiceMenu.classList.contains('show')) {
-        if (!voiceMenu.contains(e.target) && !e.target.closest('.voice-lang-dropdown')) {
-            voiceMenu.classList.remove('show');
         }
     }
 });
