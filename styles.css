@@ -2241,3 +2241,147 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* ============================================================
+   2D SVG INDIA MAP & 50-50 SPLIT SCREEN STYLING (CLEAN & MODERN)
+   ============================================================ */
+.map-split-50-50 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+    width: 100%;
+}
+
+.svg-india-map-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, rgba(99, 102, 241, 0.08), transparent 75%);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    overflow: hidden;
+}
+
+.svg-india-map {
+    width: 100%;
+    height: auto;
+    max-height: 450px;
+    filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.12));
+}
+
+.india-outline {
+    fill: rgba(99, 102, 241, 0.04);
+    stroke: rgba(99, 102, 241, 0.35);
+    stroke-width: 1.5;
+    stroke-dasharray: 4 2;
+}
+
+.svg-state-shape {
+    fill: url(#stateGrad);
+    stroke: rgba(255, 255, 255, 0.7);
+    stroke-width: 1.5;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.svg-state-shape:hover,
+.svg-state-shape.active {
+    fill: rgba(99, 102, 241, 0.7);
+    stroke: #ffffff;
+    stroke-width: 2.5;
+    filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.9));
+}
+
+.pin-circle {
+    fill: var(--primary-indigo);
+    stroke: #ffffff;
+    stroke-width: 1.8;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pin-text {
+    fill: #ffffff;
+    font-size: 8.5px;
+    font-weight: 800;
+    font-family: var(--font-mono);
+    pointer-events: none;
+}
+
+.svg-state-pin:hover .pin-circle {
+    fill: var(--accent-saffron);
+    r: 15;
+    filter: drop-shadow(0 0 8px var(--accent-saffron));
+}
+
+.map-tooltip-popup {
+    position: absolute;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #ffffff;
+    border: 1px solid var(--primary-indigo);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    font-size: 11.5px;
+    line-height: 1.4;
+    pointer-events: none;
+    z-index: 200;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    white-space: nowrap;
+}
+
+.map-zone-quick-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.zone-quick-btn {
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--text-heading);
+    padding: 7px 4px;
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+}
+
+.zone-quick-btn:hover {
+    background: var(--primary-indigo);
+    color: #ffffff;
+    border-color: var(--primary-indigo);
+    transform: translateY(-1px);
+}
+
+.map-quick-selectors-box {
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+@media (max-width: 900px) {
+    .map-split-50-50 {
+        grid-template-columns: 1fr;
+    }
+    .map-zone-quick-bar {
+        grid-template-columns: 1fr 1fr;
+    }
+    .svg-india-map-wrapper {
+        min-height: 320px;
+    }
+}

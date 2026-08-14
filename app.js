@@ -2428,10 +2428,75 @@ window.closePrivacySecurityModal = function() {
 // ============================================================
 // 2. CLEAN STATE EXPLORER MAP ENGINE
 // ============================================================
+
+// ============================================================
+// 2. 2D SVG INDIA MAP & MAP DROPDOWN CONTROLS
+// ============================================================
 function initCleanStateMap() {
     renderMapStatesList();
     renderQuickScrollStrip();
+    populateMapDropdowns();
 }
+
+function populateMapDropdowns() {
+    const mapStateSelect = document.getElementById('map-select-state');
+    if (!mapStateSelect) return;
+
+    let html = '<option value="">-- राज्य चुनें / Select State --</option>';
+    Object.keys(STATE_DB).forEach(code => {
+        const s = STATE_DB[code];
+        html += `<option value="${code}">${s.emoji} ${s.name}</option>`;
+    });
+    mapStateSelect.innerHTML = html;
+}
+
+window.showMapTooltip = function(e, code) {
+    const s = STATE_DB[code];
+    if (!s) return;
+    const tt = document.getElementById('map-live-tooltip');
+    if (!tt) return;
+    
+    tt.innerHTML = `<b>${s.emoji} ${s.name.split('/')[0]}</b><br><small>📍 राजधानी: ${s.capital}<br>💰 DBT: ${s.dbtAmount}<br>🏛️ संतुष्टि: ${s.dbtRating}</small>`;
+    tt.classList.remove('hidden');
+    
+    const wrapper = document.querySelector('.svg-india-map-wrapper');
+    if (wrapper) {
+        const rect = wrapper.getBoundingClientRect();
+        const x = e.clientX - rect.left + 12;
+        const y = e.clientY - rect.top + 12;
+        tt.style.left = Math.min(x, rect.width - 150) + 'px';
+        tt.style.top = Math.min(y, rect.height - 80) + 'px';
+    }
+};
+
+window.hideMapTooltip = function() {
+    const tt = document.getElementById('map-live-tooltip');
+    if (tt) tt.classList.add('hidden');
+};
+
+window.onMapDropdownStateChange = function(stateCode) {
+    if (!stateCode || !STATE_DB[stateCode]) return;
+    window.onMapStateClick(stateCode);
+};
+
+window.onMapDropdownDistrictChange = function(distName) {
+    if (!distName || !currentSelectedStateCode) return;
+    window.onMapCityClick(distName);
+};
+
+window.onMapDropdownVillageChange = function(villName) {
+    if (!villName) return;
+    window.onMapVillageClick(villName);
+};
+
+window.launchMapSelectedPortal = function() {
+    const stateCode = currentSelectedStateCode || document.getElementById('map-select-state')?.value || 'UP';
+    const dist = currentSelectedDistrict || document.getElementById('map-select-district')?.value || '';
+    const vill = currentSelectedVillage || document.getElementById('map-select-village')?.value || '';
+
+    window.selectState(stateCode, dist, vill);
+};
+
 
 function renderQuickScrollStrip() {
     const container = document.getElementById('map-quick-scroll-strip');
@@ -2996,10 +3061,18 @@ window.filterMapStatesList = function(val) {
     renderMapStatesList(val);
 };
 
+
 window.onMapStateClick = function(code) {
     if (!STATE_DB[code]) return;
     currentSelectedStateCode = code;
+    currentSelectedDistrict = null;
+    currentSelectedVillage = null;
     const s = STATE_DB[code];
+
+    // Highlight SVG State Path
+    document.querySelectorAll('.svg-state-shape').forEach(el => el.classList.remove('active'));
+    const svgShape = document.getElementById('svg-state-' + code);
+    if (svgShape) svgShape.classList.add('active');
 
     const bcState = document.getElementById('bc-state');
     if (bcState) {
@@ -3009,6 +3082,30 @@ window.onMapStateClick = function(code) {
 
     const previewBadge = document.getElementById('selected-state-preview-badge');
     if (previewBadge) previewBadge.textContent = `📍 ${s.name.split('/')[0]} (${s.dbtAmount})`;
+
+    // Sync Map Dropdown
+    const mapStateSelect = document.getElementById('map-select-state');
+    if (mapStateSelect) mapStateSelect.value = code;
+
+    const mapDistSelect = document.getElementById('map-select-district');
+    const mapVillSelect = document.getElementById('map-select-village');
+
+    let distHtml = '<option value="">-- ज़िला / शहर चुनें (Select District) --</option>';
+    if (s.districts) {
+        Object.keys(s.districts).forEach(d => {
+            distHtml += `<option value="${d}">${d}</option>`;
+        });
+    } else {
+        distHtml += `<option value="${s.capital}">${s.capital}</option>`;
+    }
+    if (mapDistSelect) {
+        mapDistSelect.disabled = false;
+        mapDistSelect.innerHTML = distHtml;
+    }
+    if (mapVillSelect) {
+        mapVillSelect.disabled = true;
+        mapVillSelect.innerHTML = '<option value="">-- पहले ज़िला चुनें / Select District First --</option>';
+    }
 
     document.getElementById('drill-step-1').classList.add('hidden');
     document.getElementById('drill-step-2').classList.remove('hidden');
@@ -3053,6 +3150,25 @@ window.onMapCityClick = function(cityName) {
         bcDist.classList.add('active');
     }
 
+    // Sync Map Dropdowns
+    const mapDistSelect = document.getElementById('map-select-district');
+    if (mapDistSelect) mapDistSelect.value = cityName;
+
+    const mapVillSelect = document.getElementById('map-select-village');
+    let villHtml = '<option value="">-- गाँव / वार्ड चुनें (Select Village/Ward) --</option>';
+    if (s && s.districts && s.districts[cityName]) {
+        s.districts[cityName].forEach(v => {
+            villHtml += `<option value="${v}">${v}</option>`;
+        });
+    } else {
+        villHtml += `<option value="मुख्य वार्ड 1">मुख्य वार्ड 1</option>`;
+        villHtml += `<option value="ग्राम पंचायत 2">ग्राम पंचायत 2</option>`;
+    }
+    if (mapVillSelect) {
+        mapVillSelect.disabled = false;
+        mapVillSelect.innerHTML = villHtml;
+    }
+
     document.getElementById('drill-step-1').classList.add('hidden');
     document.getElementById('drill-step-2').classList.add('hidden');
     document.getElementById('drill-step-3').classList.remove('hidden');
@@ -3085,8 +3201,12 @@ window.onMapVillageClick = function(villageName) {
         bcVill.classList.add('active');
     }
 
-    window.selectState(currentSelectedStateCode);
+    const mapVillSelect = document.getElementById('map-select-village');
+    if (mapVillSelect) mapVillSelect.value = villageName;
+
+    window.selectState(currentSelectedStateCode, currentSelectedDistrict, villageName);
 };
+
 
 window.backToStep = function(stepNum) {
     if (stepNum === 1) {
