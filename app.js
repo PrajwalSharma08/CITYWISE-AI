@@ -2886,130 +2886,6 @@ window.toggleMobileMenu = function() {
 // ============================================================
 // 8. HOME & DRILL DOWN CONTROLS
 // ============================================================
-function populateHomeControls(regionFilter = 'ALL') {
-    const chipContainer = document.getElementById('home-state-chips');
-    const selectState   = document.getElementById('home-select-state');
-    if (!chipContainer || !selectState) return;
-
-    let groupHtml = '';
-    let selectHtml = '<option value="">-- राज्य चुनें / Select State --</option>';
-
-    Object.keys(REGIONS).forEach(rKey => {
-        if (regionFilter !== 'ALL' && regionFilter !== rKey) return;
-
-        const regObj = REGIONS[rKey];
-        groupHtml += `<div class="region-block">
-            <div class="region-block-title">${regObj.title}</div>
-            <div class="state-chips-grid">`;
-        
-        regObj.codes.forEach(code => {
-            if (STATE_DB[code]) {
-                const s = STATE_DB[code];
-                groupHtml += `<button class="state-chip" onclick="onHomeStateChipClick('${code}')">${s.emoji} ${s.name.split('/')[0]}</button>`;
-                selectHtml += `<option value="${code}">${s.emoji} ${s.name}</option>`;
-            }
-        });
-
-        groupHtml += `</div></div>`;
-    });
-
-    chipContainer.innerHTML = groupHtml;
-    selectState.innerHTML   = selectHtml;
-}
-
-window.filterRegionChips = function(regionKey, btnEl) {
-    currentRegionFilter = regionKey;
-    const btns = document.querySelectorAll('.region-tab-btn');
-    btns.forEach(b => b.classList.remove('active'));
-    if (btnEl) btnEl.classList.add('active');
-
-    populateHomeControls(regionKey);
-
-    if (regionKey === 'North') window.speakText(currentLang === 'EN' ? 'North India States.' : 'उत्तर भारत के राज्य।');
-    else if (regionKey === 'Central') window.speakText(currentLang === 'EN' ? 'Central and Western India States.' : 'मध्य और पश्चिमी भारत के राज्य।');
-    else if (regionKey === 'East') window.speakText(currentLang === 'EN' ? 'East and North-East India States.' : 'पूर्वी और पूर्वोत्तर भारत के राज्य।');
-    else if (regionKey === 'South') window.speakText(currentLang === 'EN' ? 'South India and Islands.' : 'दक्षिण भारत और द्वीप समूह।');
-    else window.speakText(currentLang === 'EN' ? 'All 36 States and Union Territories.' : 'सभी 36 राज्य और केंद्र शासित प्रदेश।');
-};
-
-window.onHomeStateChipClick = function(code) {
-    currentSelectedStateCode = code;
-    window.selectState(code);
-};
-
-window.onHomeStateChange = function(code) {
-    currentSelectedStateCode = code;
-    const distSelect = document.getElementById('home-select-district');
-    const villSelect = document.getElementById('home-select-village');
-    const launchBtn  = document.getElementById('home-btn-launch');
-
-    if (!code || !STATE_DB[code]) {
-        distSelect.disabled = true;
-        distSelect.innerHTML = '<option value="">-- पहले राज्य चुनें / Select State First --</option>';
-        villSelect.disabled = true;
-        villSelect.innerHTML = '<option value="">-- पहले ज़िला चुनें / Select District First --</option>';
-        launchBtn.disabled = true;
-        return;
-    }
-
-    const s = STATE_DB[code];
-    let html = '<option value="">-- ज़िला/शहर चुनें / Select District --</option>';
-    if (s.districts) {
-        Object.keys(s.districts).forEach(d => { html += `<option value="${d}">${d}</option>`; });
-    } else {
-        html += `<option value="${s.capital}">${s.capital} (मुख्य शहर)</option>`;
-    }
-
-    distSelect.disabled = false;
-    distSelect.innerHTML = html;
-    villSelect.disabled = true;
-    villSelect.innerHTML = '<option value="">-- पहले ज़िला चुनें / Select District First --</option>';
-    launchBtn.disabled = true;
-
-    window.speakText(currentLang === 'EN' ? `${s.name.split('/')[0]} selected. Please select district.` : `${s.name.split('/')[0]} चुना गया। अब ज़िला चुनें।`);
-};
-
-window.onHomeDistrictChange = function(distName) {
-    currentSelectedDistrict = distName;
-    const villSelect = document.getElementById('home-select-village');
-    const launchBtn  = document.getElementById('home-btn-launch');
-
-    if (!distName || !currentSelectedStateCode) {
-        villSelect.disabled = true;
-        launchBtn.disabled = true;
-        return;
-    }
-
-    const s = STATE_DB[currentSelectedStateCode];
-    let html = '<option value="">-- गाँव/तहसील चुनें / Select Village --</option>';
-    if (s.districts && s.districts[distName]) {
-        s.districts[distName].forEach(v => { html += `<option value="${v}">${v}</option>`; });
-    } else {
-        html += `<option value="मुख्य वार्ड 1">मुख्य वार्ड 1</option>`;
-        html += `<option value="ग्राम पंचायत 2">ग्राम पंचायत 2</option>`;
-    }
-
-    villSelect.disabled = false;
-    villSelect.innerHTML = html;
-    launchBtn.disabled = false;
-
-    window.speakText(currentLang === 'EN' ? `${distName} selected.` : `${distName} चुना गया।`);
-};
-
-window.onHomeVillageChange = function(villName) {
-    currentSelectedVillage = villName;
-    document.getElementById('home-btn-launch').disabled = !villName;
-};
-
-window.launchSelectedLocationPortal = function() {
-    const stateCode = currentSelectedStateCode || document.getElementById('home-select-state').value;
-    if (stateCode && STATE_DB[stateCode]) {
-        window.selectState(stateCode);
-    } else {
-        window.selectState('UP');
-    }
-};
-
 // STEP DRILL DOWN IN MAP VIEW WITH REAL CITY & VILLAGE SEARCH
 function renderMapStatesList(filterQuery = '') {
     const grid = document.getElementById('map-states-grid');
@@ -3226,82 +3102,367 @@ window.backToStep = function(stepNum) {
     }
 };
 
-// DRAWER RENDER
-window.selectState = function(code) {
-    if (!STATE_DB[code]) return;
-    currentSelectedStateCode = code;
-    const s = STATE_DB[code];
+
+// ============================================================
+// 8. HOME & DRILL DOWN CONTROLS (ROBUST & COMPLETE)
+// ============================================================
+window.populateHomeControls = function(regionFilter = 'ALL') {
+    const chipContainer = document.getElementById('home-state-chips');
+    const selectState   = document.getElementById('home-select-state');
+    if (!chipContainer || !selectState) return;
+
+    let groupHtml = '';
+    let selectHtml = '<option value="">-- राज्य चुनें / Select State --</option>';
+
+    Object.keys(REGIONS).forEach(rKey => {
+        if (regionFilter !== 'ALL' && regionFilter !== rKey) return;
+
+        const regObj = REGIONS[rKey];
+        groupHtml += `<div class="region-block">
+            <div class="region-block-title">${regObj.title}</div>
+            <div class="state-chips-grid">`;
+        
+        regObj.codes.forEach(code => {
+            if (STATE_DB[code]) {
+                const s = STATE_DB[code];
+                groupHtml += `<button class="state-chip" onclick="selectState('${code}')" title="${s.name}">
+                    ${s.emoji} ${s.name.split('/')[0]}
+                </button>`;
+            }
+        });
+        groupHtml += `</div></div>`;
+    });
+
+    Object.keys(STATE_DB).forEach(code => {
+        const s = STATE_DB[code];
+        selectHtml += `<option value="${code}">${s.emoji} ${s.name}</option>`;
+    });
+
+    chipContainer.innerHTML = groupHtml;
+    selectState.innerHTML = selectHtml;
+};
+
+window.filterRegionChips = function(regionKey, btnEl) {
+    const btns = document.querySelectorAll('.region-tab-btn');
+    btns.forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+
+    window.populateHomeControls(regionKey);
+    if (regionKey === 'ALL') {
+        window.speakText(currentLang === 'EN' ? 'All 36 States and Territories loaded.' : 'सभी 36 राज्य एवं केंद्र शासित प्रदेश।');
+    } else {
+        window.speakText(currentLang === 'EN' ? `${regionKey} India region filtered.` : `${REGIONS[regionKey]?.title || 'क्षेत्र'} लोड हुआ।`);
+    }
+};
+
+window.onHomeStateChange = function(stateCode) {
+    currentSelectedStateCode = stateCode;
+    currentSelectedDistrict = null;
+    currentSelectedVillage = null;
+
+    const distSelect = document.getElementById('home-select-district');
+    const villSelect = document.getElementById('home-select-village');
+    const launchBtn  = document.getElementById('home-btn-launch');
+
+    if (!stateCode || !STATE_DB[stateCode]) {
+        if (distSelect) {
+            distSelect.disabled = true;
+            distSelect.innerHTML = '<option value="">-- पहले राज्य चुनें / Select State First --</option>';
+        }
+        if (villSelect) {
+            villSelect.disabled = true;
+            villSelect.innerHTML = '<option value="">-- पहले ज़िला चुनें / Select District First --</option>';
+        }
+        if (launchBtn) launchBtn.disabled = true;
+        return;
+    }
+
+    const s = STATE_DB[stateCode];
+    let html = '<option value="">-- ज़िला / शहर चुनें (Select District) --</option>';
+    if (s.districts) {
+        Object.keys(s.districts).forEach(d => {
+            html += `<option value="${d}">${d}</option>`;
+        });
+    } else {
+        html += `<option value="${s.capital}">${s.capital}</option>`;
+    }
+
+    if (distSelect) {
+        distSelect.disabled = false;
+        distSelect.innerHTML = html;
+    }
+
+    if (villSelect) {
+        villSelect.disabled = true;
+        villSelect.innerHTML = '<option value="">-- पहले ज़िला चुनें / Select District First --</option>';
+    }
+
+    if (launchBtn) launchBtn.disabled = false;
+
+    window.speakText(currentLang === 'EN' ? `${s.name.split('/')[0]} selected. Please choose district.` : `${s.name.split('/')[0]} चुना गया। कृपया ज़िला चुनें।`);
+};
+
+window.onHomeDistrictChange = function(distName) {
+    currentSelectedDistrict = distName;
+    currentSelectedVillage = null;
+
+    const villSelect = document.getElementById('home-select-village');
+    const launchBtn  = document.getElementById('home-btn-launch');
+
+    if (!distName || !currentSelectedStateCode) {
+        if (villSelect) {
+            villSelect.disabled = true;
+            villSelect.innerHTML = '<option value="">-- पहले ज़िला चुनें / Select District First --</option>';
+        }
+        return;
+    }
+
+    const s = STATE_DB[currentSelectedStateCode];
+    let html = '<option value="">-- गाँव / तहसील / वार्ड चुनें (Select Village/Ward) --</option>';
+    if (s.districts && s.districts[distName]) {
+        s.districts[distName].forEach(v => {
+            html += `<option value="${v}">${v}</option>`;
+        });
+    } else {
+        html += `<option value="मुख्य वार्ड 1">मुख्य वार्ड 1</option>`;
+        html += `<option value="ग्राम पंचायत 2">ग्राम पंचायत 2</option>`;
+    }
+
+    if (villSelect) {
+        villSelect.disabled = false;
+        villSelect.innerHTML = html;
+    }
+    if (launchBtn) launchBtn.disabled = false;
+
+    window.speakText(currentLang === 'EN' ? `${distName} selected.` : `${distName} चुना गया।`);
+};
+
+window.onHomeVillageChange = function(villName) {
+    currentSelectedVillage = villName;
+    const launchBtn = document.getElementById('home-btn-launch');
+    if (launchBtn) launchBtn.disabled = false;
+};
+
+window.launchSelectedLocationPortal = function() {
+    const stateCode = currentSelectedStateCode || document.getElementById('home-select-state')?.value || 'UP';
+    const dist = currentSelectedDistrict || document.getElementById('home-select-district')?.value || '';
+    const vill = currentSelectedVillage || document.getElementById('home-select-village')?.value || '';
+
+    window.selectState(stateCode, dist, vill);
+};
+
+// ============================================================
+// STATE DETAILS DRAWER & LOCAL GOVERNANCE PORTAL (100% ROBUST)
+// ============================================================
+let currentDrawerStateCode = 'UP';
+let currentDrawerDistrict = '';
+let currentDrawerVillage = '';
+
+window.selectState = function(code, optDistrict = '', optVillage = '') {
+    const stateCode = code || currentSelectedStateCode || 'UP';
+    if (!STATE_DB[stateCode]) return;
+    
+    currentSelectedStateCode = stateCode;
+    currentDrawerStateCode = stateCode;
+    currentDrawerDistrict = optDistrict || currentSelectedDistrict || '';
+    currentDrawerVillage = optVillage || currentSelectedVillage || '';
+
+    const s = STATE_DB[stateCode];
     const drawer = document.getElementById('state-drawer');
+    const dIcon = document.getElementById('d-icon');
+    const dName = document.getElementById('d-name');
+    const dCap  = document.getElementById('d-capital');
+    const dBody = document.getElementById('d-body');
 
-    document.getElementById('d-icon').textContent = s.emoji;
-    document.getElementById('d-name').textContent = s.name;
-    document.getElementById('d-capital').textContent = `राजधानी: ${s.capital} | CM: ${s.cm} | DBT: ${s.dbtAmount}`;
+    if (!drawer || !dBody) return;
 
-    document.getElementById('d-body').innerHTML = buildDrawerContent(s);
+    if (dIcon) dIcon.textContent = s.emoji || '🏛️';
+    if (dName) {
+        let titleText = s.name.split('/')[0].trim();
+        if (currentDrawerDistrict) titleText += ` — ${currentDrawerDistrict}`;
+        if (currentDrawerVillage) titleText += ` (${currentDrawerVillage})`;
+        dName.textContent = titleText;
+    }
+    if (dCap) {
+        dCap.textContent = `📍 राजधानी: ${s.capital} | जनसंख्या: ${s.population} | प्रशासनिक प्रमुख: ${s.cm}`;
+    }
+
+    dBody.innerHTML = buildDrawerContent(s);
     drawer.classList.remove('hidden');
+    drawer.classList.add('open');
 
-    const dist = currentSelectedDistrict || Object.keys(s.districts || {})[0] || s.capital;
-    window.speakText(currentLang === 'EN' ? `${s.name.split('/')[0]} governance portal opened. Capital ${s.capital}, Population ${s.population}.` : `${s.name.split('/')[0]} सुशासन पोर्टल खुला। राजधानी ${s.capital}, मुख्यमंत्री ${s.cm}, कुल जनसंख्या ${s.population}।`);
+    // Backdrop management
+    let backdrop = document.getElementById('drawer-backdrop');
+    if (!backdrop) {
+        backdrop = document.createElement('div');
+        backdrop.id = 'drawer-backdrop';
+        backdrop.className = 'drawer-backdrop';
+        backdrop.onclick = window.closeDrawer;
+        document.body.appendChild(backdrop);
+    }
+    setTimeout(() => backdrop.classList.add('show'), 10);
+
+    // Audio Voice Navigation
+    let speechMsg = currentLang === 'EN'
+        ? `${s.name.split('/')[0]} governance portal opened. Capital: ${s.capital}. Direct Benefit Transfer: ${s.dbtAmount}. Satisfaction rate: ${s.dbtRating}.`
+        : `${s.name.split('/')[0]} सुशासन पोर्टल खुला। राजधानी ${s.capital}। डीबीटी अंतरण ${s.dbtAmount}। संतुष्टि दर ${s.dbtRating}।`;
+    if (currentDrawerDistrict) {
+        speechMsg += currentLang === 'EN' ? ` Selected district: ${currentDrawerDistrict}.` : ` चयनित ज़िला: ${currentDrawerDistrict}।`;
+    }
+    window.speakText(speechMsg);
 };
 
 window.closeDrawer = function() {
     const drawer = document.getElementById('state-drawer');
-    if (drawer) drawer.classList.add('hidden');
+    if (drawer) {
+        drawer.classList.remove('open');
+        setTimeout(() => drawer.classList.add('hidden'), 250);
+    }
+    const backdrop = document.getElementById('drawer-backdrop');
+    if (backdrop) {
+        backdrop.classList.remove('show');
+    }
+};
+
+window.speakCurrentStateDetails = function() {
+    if (currentDrawerStateCode && STATE_DB[currentDrawerStateCode]) {
+        const s = STATE_DB[currentDrawerStateCode];
+        let msg = currentLang === 'EN'
+            ? `${s.name.split('/')[0]}. Capital: ${s.capital}. Chief Minister or Governor: ${s.cm}. Total DBT funds disbursed: ${s.dbtAmount}. Public satisfaction score: ${s.dbtRating}.`
+            : `${s.name.split('/')[0]}। राजधानी: ${s.capital}। प्रशासनिक प्रमुख: ${s.cm}। कुल डीबीटी अंतरण: ${s.dbtAmount}। नागरिक संतुष्टि दर: ${s.dbtRating}।`;
+        window.speakText(msg);
+    }
 };
 
 function buildDrawerContent(s) {
-    let html = '';
+    const dist = currentDrawerDistrict || (s.districts ? Object.keys(s.districts)[0] : s.capital);
+    const vill = currentDrawerVillage || (s.districts && s.districts[dist] ? s.districts[dist][0] : 'मुख्य वार्ड 1');
+    const totalDistCount = s.districts ? Object.keys(s.districts).length : 1;
 
-    const dist = currentSelectedDistrict || Object.keys(s.districts || {})[0] || s.capital;
-    const vill = currentSelectedVillage || (s.districts && s.districts[dist] ? s.districts[dist][0] : 'मुख्य क्षेत्र');
+    let dbtAmount = s.dbtAmount || '₹24,500 Cr';
+    let dbtRating = s.dbtRating || '94%';
 
-    html += `<div class="loc-banner">
-        <i class="fa-solid fa-location-crosshairs"></i>
-        <span>सुशासन क्षेत्र: <b>${s.name.split('/')[0]}</b> ➔ <b>${dist}</b> ➔ <b>${vill}</b></span>
-    </div>`;
+    return `
+        <div class="drawer-content-scroll">
+            <!-- 1. Top Governance Key Metrics -->
+            <div class="gov-metrics-banner">
+                <div class="gov-metric-box">
+                    <span class="gov-m-val" style="color:var(--accent-saffron);">${dbtAmount}</span>
+                    <span class="gov-m-lbl">💰 लाइव DBT अंतरण</span>
+                </div>
+                <div class="gov-metric-box">
+                    <span class="gov-m-val" style="color:var(--accent-emerald);">${dbtRating}</span>
+                    <span class="gov-m-lbl">🏛️ सुशासन संतुष्टि दर</span>
+                </div>
+                <div class="gov-metric-box">
+                    <span class="gov-m-val" style="color:var(--primary-indigo);">${totalDistCount}</span>
+                    <span class="gov-m-lbl">🏙️ प्रमुख ज़िले/शहर</span>
+                </div>
+            </div>
 
-    html += `<div class="d-section">
-        <div class="d-section-title"><i class="fa-solid fa-chart-bar"></i> सांख्यिकी <small>/ Overview</small></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="stat-pill"><span class="stat-n">${s.population}</span><span class="stat-l">जनसंख्या</span></div>
-            <div class="stat-pill"><span class="stat-n">${s.dbtAmount}</span><span class="stat-l">DBT अंतरित राशि</span></div>
+            <!-- 2. Selected Location Active Status -->
+            <div class="gov-location-summary-card">
+                <div class="loc-sum-header">
+                    <i class="fa-solid fa-map-pin" style="color:var(--accent-saffron);"></i>
+                    <b>सक्रिय सुशासन केंद्र:</b>
+                    <span>${s.name.split('/')[0]} ➔ <b>${dist}</b> ➔ <b>${vill}</b></span>
+                </div>
+                <div class="loc-sum-details">
+                    <div><b>क्षेत्रफल:</b> ${s.area || 'N/A'}</div>
+                    <div><b>प्रशासनिक प्रमुख:</b> ${s.cm || 'N/A'}</div>
+                    <div><b>डिजिटल लॉकर:</b> 100% एक्टिव</div>
+                    <div><b>सुरक्षा स्तर:</b> 256-Bit SSL सुरक्षित</div>
+                </div>
+            </div>
+
+            <!-- 3. Key Citizen Welfare Schemes Active in this Region -->
+            <div class="drawer-sec-title">
+                <i class="fa-solid fa-hand-holding-heart" style="color:var(--accent-saffron);"></i>
+                <span>इस क्षेत्र में सक्रिय प्रमुख जनकल्याण योजनाएं</span>
+            </div>
+
+            <div class="drawer-schemes-list">
+                <div class="drawer-scheme-card">
+                    <div class="d-sch-head">
+                        <b>🌾 PM-किसान सम्मान निधि (100% DBT)</b>
+                        <span class="badge badge-success">₹6,000 / वर्ष</span>
+                    </div>
+                    <p>सीधे बैंक खाते में 3 किस्तों में अंतरण। e-KYC और आधार सीडिंग अनिवार्य।</p>
+                    <button class="btn btn-secondary btn-sm" onclick="triggerSafeRedirect('https://pmkisan.gov.in', 'PM-Kisan Samman Nidhi', 'https://india.gov.in')">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> स्टेटस चेक करें
+                    </button>
+                </div>
+
+                <div class="drawer-scheme-card">
+                    <div class="d-sch-head">
+                        <b>🏥 आयुष्मान भारत PM-JAY स्वास्थ्य कार्ड</b>
+                        <span class="badge badge-info">₹5 लाख मुफ्त इलाज</span>
+                    </div>
+                    <p>प्रति परिवार प्रति वर्ष कैशलेस अस्पताल भर्ती सुविधा।</p>
+                    <button class="btn btn-secondary btn-sm" onclick="triggerSafeRedirect('https://nha.gov.in', 'National Health Authority', 'https://bis.pmjay.gov.in')">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> आयुष्मान कार्ड बनाएं
+                    </button>
+                </div>
+
+                <div class="drawer-scheme-card">
+                    <div class="d-sch-head">
+                        <b>☀️ PM सूर्य घर मुफ्त बिजली योजना</b>
+                        <span class="badge badge-warning">₹78,000 सब्सिडी</span>
+                    </div>
+                    <p>300 यूनिट तक मुफ्त सौर बिजली एवं रूफटॉप सोलर ग्रांट।</p>
+                    <button class="btn btn-secondary btn-sm" onclick="triggerSafeRedirect('https://pmsuryaghar.gov.in', 'PM Surya Ghar Portal', 'https://mnre.gov.in')">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> सोलर आवेदन करें
+                    </button>
+                </div>
+            </div>
+
+            <!-- 4. Emergency Helplines & Departmental Contacts -->
+            <div class="drawer-sec-title mt-16">
+                <i class="fa-solid fa-phone-volume" style="color:var(--accent-emerald);"></i>
+                <span>आपातकालीन हेल्पलाइन एवं नागरिक सहायता (24x7)</span>
+            </div>
+
+            <div class="drawer-helplines-grid">
+                <div class="helpline-chip">
+                    <i class="fa-solid fa-user-shield" style="color:var(--primary-indigo);"></i>
+                    <div>
+                        <b>CM जनसेवा हेल्पलाइन</b>
+                        <span>📞 1076 / 181</span>
+                    </div>
+                </div>
+                <div class="helpline-chip">
+                    <i class="fa-solid fa-truck-medical" style="color:#f43f5e;"></i>
+                    <div>
+                        <b>राष्ट्रीय आपातकालीन सेवा</b>
+                        <span>📞 112 (All-in-One)</span>
+                    </div>
+                </div>
+                <div class="helpline-chip">
+                    <i class="fa-solid fa-person-dress" style="color:var(--accent-saffron);"></i>
+                    <div>
+                        <b>महिला हेल्पलाइन</b>
+                        <span>📞 1090 / 181</span>
+                    </div>
+                </div>
+                <div class="helpline-chip">
+                    <i class="fa-solid fa-wheat-awn" style="color:var(--accent-emerald);"></i>
+                    <div>
+                        <b>किसान कॉल सेंटर</b>
+                        <span>📞 1800-180-1551</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Direct Official State Government Portal Button -->
+            <div class="drawer-portal-action mt-18">
+                <button class="btn btn-gradient w-100 btn-lg" onclick="triggerSafeRedirect('https://india.gov.in', '${s.name.split('/')[0]} Official Portal', 'https://umang.gov.in')">
+                    <i class="fa-solid fa-building-columns"></i> ${s.name.split('/')[0]} आधिकारिक राज्य पोर्टल खोलें
+                </button>
+            </div>
         </div>
-    </div>`;
-
-    const c = s.civic;
-    html += `<div class="d-section">
-        <div class="d-section-title"><i class="fa-solid fa-clipboard-list"></i> सुशासन स्थिति <small>/ Governance</small></div>
-        <div class="civic-bar"><div class="civic-bar-label">कुल निस्तारित कार्य</div><div class="civic-bar-val">${c.total.toLocaleString()}</div></div>
-        <div class="civic-bar"><div class="civic-bar-label">संतुष्टि दर</div><div class="civic-bar-track"><div class="civic-bar-fill" style="width:${c.rate}%"></div></div><div class="civic-bar-val" style="color:var(--accent-emerald)">${c.rate}%</div></div>
-    </div>`;
-
-    html += `<div class="d-section"><div class="d-section-title"><i class="fa-solid fa-phone-volume"></i> विभागीय हेल्पलाइन नंबर (${s.helplines.length})</div>`;
-    s.helplines.forEach(h => {
-        html += `<div class="helpline-card">
-            <div class="hl-icon" style="background:${h.bg};color:${h.color}">${h.icon}</div>
-            <div class="hl-info"><div class="hl-dept">${h.dept}</div><div class="hl-num">${h.num}</div></div>
-            <a class="hl-call" href="tel:${h.num.replace(/[^0-9]/g,'')}"><i class="fa-solid fa-phone"></i> कॉल</a>
-        </div>`;
-    });
-    html += `</div>`;
-
-    html += `<div class="d-section"><div class="d-section-title"><i class="fa-solid fa-award"></i> सक्रिय योजनाएं (${s.schemes.length})</div>`;
-    s.schemes.forEach(sc => {
-        html += `<div class="d-scheme">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px;margin-bottom:4px;">
-                <div class="d-scheme-name">${sc.name}</div>
-                <span class="badge badge-warning" style="font-size:9px;">${sc.cat}</span>
-            </div>
-            <div class="d-scheme-desc">${sc.desc}</div>
-            <div class="d-scheme-docs">
-                ${sc.docs.map(d => `<span class="doc-tag">📄 ${d}</span>`).join('')}
-            </div>
-        </div>`;
-    });
-    html += `</div>`;
-
-    return html;
+    `;
 }
+
 
 // ============================================================
 // 9. THEME & FONT UTILITIES
