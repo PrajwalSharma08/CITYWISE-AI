@@ -1,6 +1,11 @@
 // ============================================================
-// CITYWISE AI — Full Stack Application Logic (Official Map, Live Schemes & National Citizen Services Hub)
+// CITYWISE AI — Full Stack Application Logic (3D Map, Realtime DBT Tracker, Citizen Hub & Welfare Studio)
 // ============================================================
+
+// MULTI-LINGUAL VOICE CONFIGURATION (10+ INDIAN LANGUAGES)
+let currentVoiceLang = 'hi-IN';
+let currentVoiceLabel = 'हिंदी (Hindi)';
+let currentVoiceGreeting = 'सिटीवाइज़ एआई राष्ट्रीय सुशासन पोर्टल में आपका स्वागत है।';
 
 // NATIONAL CITIZEN SERVICES DATABASE (LIC, VOTER ID, BANKING, EPFO, PARIVAHAN, AADHAAR)
 const CITIZEN_SERVICES_DB = [
@@ -156,10 +161,11 @@ function getStandardSchemes(stateName) {
     ];
 }
 
-// FULL DATABASE FOR ALL 36 REGIONS
+// FULL DATABASE FOR ALL 36 REGIONS WITH DBT DISBURSEMENT STATS
 const STATE_DB = {
     UP: {
         name: 'उत्तर प्रदेश / Uttar Pradesh', capital: 'लखनऊ', emoji: '🛕', population: '24.1 Cr', area: '2,40,928 km²', cm: 'योगी आदित्यनाथ',
+        dbtAmount: '₹54,200 Cr', dbtRating: '94%',
         districts: {
             'लखनऊ (Lucknow)': ['मलिहाबाद (Malihabad)', 'बक्शी का तालाब (BKT)', 'मोहनलालगंज (Mohanlalganj)', 'काकोरी (Kakori)', 'चिनहट (Chinhat)'],
             'वाराणसी (Varanasi)': ['पिंडरा (Pindra)', 'शिवपुर (Shivpur)', 'रोहनिया (Rohaniya)', 'सेवापुरी (Sewapuri)'],
@@ -173,6 +179,7 @@ const STATE_DB = {
     },
     MP: {
         name: 'मध्य प्रदेश / Madhya Pradesh', capital: 'भोपाल', emoji: '🌾', population: '8.5 Cr', area: '3,08,252 km²', cm: 'मोहन यादव',
+        dbtAmount: '₹38,400 Cr', dbtRating: '93%',
         districts: {
             'भोपाल (Bhopal)': ['बैरसिया (Bairasia)', 'हुजूर (Huzur)', 'फंदा (Phanda)'],
             'इंदौर (Indore)': ['सावेर (Sanwer)', 'देपालपुर (Depalpur)', 'महू (Mhow)'],
@@ -183,48 +190,48 @@ const STATE_DB = {
         schemes: getStandardSchemes('मध्य प्रदेश'),
         civic: { total: 28540, resolved: 25100, pending: 2400, assigned: 1040, rate: 88 }
     },
-    BR: { name: 'बिहार / Bihar', capital: 'पटना', emoji: '🚜', population: '12.4 Cr', area: '94,163 km²', cm: 'नीतीश कुमार', districts: { 'पटना (Patna)': ['दानापुर (Danapur)', 'मसौढ़ी (Masaurhi)'] }, helplines: getStandardHelplines('बिहार', 'पटना'), schemes: getStandardSchemes('बिहार'), civic: { total: 19800, resolved: 17200, pending: 1900, assigned: 700, rate: 87 } },
-    MH: { name: 'महाराष्ट्र / Maharashtra', capital: 'मुंबई', emoji: '🏙️', population: '12.3 Cr', area: '3,07,713 km²', cm: 'देवेंद्र फडणवीस', districts: { 'मुंबई (Mumbai)': ['अंधेरी (Andheri)', 'बांद्रा (Bandra)'] }, helplines: getStandardHelplines('महाराष्ट्र', 'मुंबई'), schemes: getStandardSchemes('महाराष्ट्र'), civic: { total: 62400, resolved: 57800, pending: 3100, assigned: 1500, rate: 93 } },
-    DL: { name: 'दिल्ली एनसीआर / Delhi NCR', capital: 'नई दिल्ली', emoji: '🏛️', population: '3.3 Cr', area: '1,484 km²', cm: 'रेखा गुप्ता', districts: { 'दक्षिण दिल्ली (South Delhi)': ['हौज खास (Hauz Khas)', 'साकेत (Saket)'] }, helplines: getStandardHelplines('दिल्ली', 'नई दिल्ली'), schemes: getStandardSchemes('दिल्ली'), civic: { total: 38900, resolved: 36200, pending: 1800, assigned: 900, rate: 93 } },
-    RJ: { name: 'राजस्थान / Rajasthan', capital: 'जयपुर', emoji: '🏰', population: '8.1 Cr', area: '3,42,239 km²', cm: 'भजन लाल शर्मा', districts: { 'जयपुर (Jaipur)': ['आमेर (Amer)'] }, helplines: getStandardHelplines('राजस्थान', 'जयपुर'), schemes: getStandardSchemes('राजस्थान'), civic: { total: 22100, resolved: 19400, pending: 1900, assigned: 800, rate: 88 } },
-    WB: { name: 'पश्चिम बंगाल / West Bengal', capital: 'कोलकाता', emoji: '🎨', population: '9.7 Cr', area: '88,752 km²', cm: 'ममता बनर्जी', districts: { 'कोलकाता (Kolkata)': ['साल्ट लेक (Salt Lake)'] }, helplines: getStandardHelplines('पश्चिम बंगाल', 'कोलकाता'), schemes: getStandardSchemes('पश्चिम बंगाल'), civic: { total: 31200, resolved: 27800, pending: 2500, assigned: 900, rate: 89 } },
-    GJ: { name: 'गुजरात / Gujarat', capital: 'गांधीनगर', emoji: '🌊', population: '7.0 Cr', area: '1,96,024 km²', cm: 'भूपेंद्र पटेल', districts: { 'अहमदाबाद (Ahmedabad)': ['साणंद (Sanand)'] }, helplines: getStandardHelplines('गुजरात', 'गांधीनगर'), schemes: getStandardSchemes('गुजरात'), civic: { total: 24600, resolved: 22900, pending: 1200, assigned: 500, rate: 93 } },
-    TN: { name: 'तमिलनाडु / Tamil Nadu', capital: 'चेन्नई', emoji: '🛕', population: '7.8 Cr', area: '1,30,058 km²', cm: 'एम.के. स्टालिन', districts: { 'चेन्नई (Chennai)': ['अड्यार (Adyar)'] }, helplines: getStandardHelplines('तमिलनाडु', 'चेन्नई'), schemes: getStandardSchemes('तमिलनाडु'), civic: { total: 29300, resolved: 27100, pending: 1600, assigned: 600, rate: 92 } },
-    KA: { name: 'कर्नाटक / Karnataka', capital: 'बेंगलुरु', emoji: '💻', population: '6.8 Cr', area: '1,91,791 km²', cm: 'सिद्धारमैया', districts: { 'बेंगलुरु (Bengaluru)': ['व्हाइटफील्ड (Whitefield)'] }, helplines: getStandardHelplines('कर्नाटक', 'बेंगलुरु'), schemes: getStandardSchemes('कर्नाटक'), civic: { total: 35700, resolved: 33200, pending: 1800, assigned: 700, rate: 93 } },
-    TS: { name: 'तेलंगाना / Telangana', capital: 'हैदराबाद', emoji: '🏛️', population: '3.8 Cr', area: '1,12,077 km²', cm: 'रेवंत रेड्डी', districts: { 'हैदराबाद (Hyderabad)': ['गच्चीबाउली (Gachibowli)'] }, helplines: getStandardHelplines('तेलंगाना', 'हैदराबाद'), schemes: getStandardSchemes('तेलंगाना'), civic: { total: 18900, resolved: 17500, pending: 900, assigned: 500, rate: 93 } },
-    PB: { name: 'पंजाब / Punjab', capital: 'चंडीगढ़', emoji: '🌾', population: '3.0 Cr', area: '50,362 km²', cm: 'भगवंत मान', districts: { 'लुधियाना (Ludhiana)': ['जग्रांव (Jagraon)'] }, helplines: getStandardHelplines('पंजाब', 'चंडीगढ़'), schemes: getStandardSchemes('पंजाब'), civic: { total: 14200, resolved: 13100, pending: 700, assigned: 400, rate: 92 } },
-    HR: { name: 'हरियाणा / Haryana', capital: 'चंडीगढ़', emoji: '🚜', population: '2.8 Cr', area: '44,212 km²', cm: 'नायब सिंह सैनी', districts: { 'गुरुग्राम (Gurugram)': ['मानसर (Manesar)'] }, helplines: getStandardHelplines('हरियाणा', 'चंडीगढ़'), schemes: getStandardSchemes('हरियाणा'), civic: { total: 16800, resolved: 15600, pending: 800, assigned: 400, rate: 93 } },
-    KL: { name: 'केरल / Kerala', capital: 'तिरुवनंतपुरम', emoji: '🌴', population: '3.5 Cr', area: '38,852 km²', cm: 'पिनाराई विजयन', districts: { 'तिरुवनंतपुरम (Trivandrum)': ['कझाकुट्टम (Kazhakkoottam)'] }, helplines: getStandardHelplines('केरल', 'तिरुवनंतपुरम'), schemes: getStandardSchemes('केरल'), civic: { total: 12600, resolved: 11900, pending: 500, assigned: 200, rate: 94 } },
-    OD: { name: 'ओडिशा / Odisha', capital: 'भुवनेश्वर', emoji: '🏖️', population: '4.6 Cr', area: '1,55,707 km²', cm: 'मोहन माझी', districts: { 'भुवनेश्वर (Bhubaneswar)': ['जटनी (Jatni)'] }, helplines: getStandardHelplines('ओडिशा', 'भुवनेश्वर'), schemes: getStandardSchemes('ओडिशा'), civic: { total: 15300, resolved: 14000, pending: 900, assigned: 400, rate: 91 } },
-    AS: { name: 'असम / Assam', capital: 'दिसपुर', emoji: '☕', population: '3.5 Cr', area: '78,438 km²', cm: 'हिमंत विश्व शर्मा', districts: { 'गुवाहाटी (Guwahati)': ['दिसपुर (Dispur)'] }, helplines: getStandardHelplines('असम', 'दिसपुर'), schemes: getStandardSchemes('असम'), civic: { total: 10400, resolved: 9500, pending: 600, assigned: 300, rate: 91 } },
-    JK: { name: 'जम्मू-कश्मीर / J&K (UT)', capital: 'श्रीनगर', emoji: '🏔️', population: '1.4 Cr', area: '42,241 km²', cm: 'मनोज सिन्हा (LG)', districts: { 'श्रीनगर (Srinagar)': ['गुलमर्ग (Gulmarg)'] }, helplines: getStandardHelplines('जम्मू-कश्मीर', 'श्रीनगर'), schemes: getStandardSchemes('जम्मू-कश्मीर'), civic: { total: 8200, resolved: 7600, pending: 400, assigned: 200, rate: 93 } },
-    AP: { name: 'आंध्र प्रदेश / AP', capital: 'अमरावती', emoji: '🏛️', population: '5.3 Cr', area: '1,62,975 km²', cm: 'चंद्रबाबू नायडू', districts: { 'विशाखापत्तनम (Vizag)': ['अनाकापल्ले (Anakapalle)'] }, helplines: getStandardHelplines('आंध्र प्रदेश', 'अमरावती'), schemes: getStandardSchemes('आंध्र प्रदेश'), civic: { total: 15000, resolved: 14000, pending: 700, assigned: 300, rate: 93 } },
-    AR: { name: 'अरुणाचल प्रदेश / Arunachal', capital: 'ईटानगर', emoji: '🏔️', population: '15 Lakh', area: '83,743 km²', cm: 'पेमा खांडू', districts: { 'ईटानगर (Itanagar)': ['नाहरलगुन (Naharlagun)'] }, helplines: getStandardHelplines('अरुणाचल प्रदेश', 'ईटानगर'), schemes: getStandardSchemes('अरुणाचल प्रदेश'), civic: { total: 2400, resolved: 2200, pending: 150, assigned: 50, rate: 91 } },
-    CT: { name: 'छत्तीसगढ़ / Chhattisgarh', capital: 'रायपुर', emoji: '🌾', population: '3.0 Cr', area: '1,35,192 km²', cm: 'विष्णु देव साय', districts: { 'रायपुर (Raipur)': ['अभनपुर (Abhanpur)'] }, helplines: getStandardHelplines('छत्तीसगढ़', 'रायपुर'), schemes: getStandardSchemes('छत्तीसगढ़'), civic: { total: 11000, resolved: 10000, pending: 700, assigned: 300, rate: 90 } },
-    GA: { name: 'गोवा / Goa', capital: 'पणजी', emoji: '🏖️', population: '15 Lakh', area: '3,702 km²', cm: 'प्रमोद सावंत', districts: { 'उत्तर गोवा (North Goa)': ['मापुसा (Mapusa)'] }, helplines: getStandardHelplines('गोवा', 'पणजी'), schemes: getStandardSchemes('गोवा'), civic: { total: 3200, resolved: 3000, pending: 150, assigned: 50, rate: 94 } },
-    HP: { name: 'हिमाचल प्रदेश / Himachal', capital: 'शिमला', emoji: '🏔️', population: '75 Lakh', area: '55,673 km²', cm: 'सुखविंदर सिंह सुक्खू', districts: { 'शिमला (Shimla)': ['कुफरी (Kufri)'] }, helplines: getStandardHelplines('हिमाचल प्रदेश', 'शिमला'), schemes: getStandardSchemes('हिमाचल प्रदेश'), civic: { total: 6500, resolved: 6000, pending: 350, assigned: 150, rate: 92 } },
-    JH: { name: 'झारखंड / Jharkhand', capital: 'रांची', emoji: '⛏️', population: '3.9 Cr', area: '79,716 km²', cm: 'हेमंत सोरेन', districts: { 'रांची (Ranchi)': ['कांके (Kanke)'] }, helplines: getStandardHelplines('झारखंड', 'रांची'), schemes: getStandardSchemes('झारखंड'), civic: { total: 13500, resolved: 12000, pending: 1000, assigned: 500, rate: 89 } },
-    MN: { name: 'मणिपुर / Manipur', capital: 'इम्फाल', emoji: '⛰️', population: '32 Lakh', area: '22,327 km²', cm: 'एन. बीरेन सिंह', districts: { 'इम्फाल (Imphal)': ['लम्फेलपत (Lamphelpat)'] }, helplines: getStandardHelplines('मणिपुर', 'इम्फाल'), schemes: getStandardSchemes('मणिपुर'), civic: { total: 2900, resolved: 2600, pending: 200, assigned: 100, rate: 90 } },
-    ML: { name: 'मेघालय / Meghalaya', capital: 'शिलांग', emoji: '🌧️', population: '33 Lakh', area: '22,429 km²', cm: 'कॉनराड संगमा', districts: { 'शिलांग (Shillong)': ['सोहरा (Sohra)'] }, helplines: getStandardHelplines('मेघालय', 'शिलांग'), schemes: getStandardSchemes('मेघालय'), civic: { total: 3100, resolved: 2850, pending: 180, assigned: 70, rate: 91 } },
-    MZ: { name: 'मिजोरम / Mizoram', capital: 'आइजोल', emoji: '⛰️', population: '12 Lakh', area: '21,081 km²', cm: 'लालदुहोमा', districts: { 'आइजोल (Aizawl)': ['दर्लावन (Darlawn)'] }, helplines: getStandardHelplines('मिजोरम', 'आइजोल'), schemes: getStandardSchemes('मिजोरम'), civic: { total: 1800, resolved: 1680, pending: 80, assigned: 40, rate: 93 } },
-    NL: { name: 'नागालैंड / Nagaland', capital: 'कोहिमा', emoji: '⛰️', population: '22 Lakh', area: '16,579 km²', cm: 'नेफ्यू रियू', districts: { 'कोहिमा (Kohima)': ['दीमापुर (Dimapur)'] }, helplines: getStandardHelplines('नागालैंड', 'कोहिमा'), schemes: getStandardSchemes('नागालैंड'), civic: { total: 2100, resolved: 1900, pending: 130, assigned: 70, rate: 90 } },
-    SK: { name: 'सिक्किम / Sikkim', capital: 'गंगटोक', emoji: '🏔️', population: '7 Lakh', area: '7,096 km²', cm: 'प्रेम सिंह तामांग', districts: { 'गंगटोक (Gangtok)': ['पेल्लिंग (Pelling)'] }, helplines: getStandardHelplines('सिक्किम', 'गंगटोक'), schemes: getStandardSchemes('सिक्किम'), civic: { total: 1200, resolved: 1140, pending: 40, assigned: 20, rate: 95 } },
-    TR: { name: 'त्रिपुरा / Tripura', capital: 'अगरतला', emoji: '🏛️', population: '40 Lakh', area: '10,491 km²', cm: 'माणिक साहा', districts: { 'अगरतला (Agartala)': ['रानिरबाजार (Ranirbazar)'] }, helplines: getStandardHelplines('त्रिपुरा', 'अगरतला'), schemes: getStandardSchemes('त्रिपुरा'), civic: { total: 3400, resolved: 3100, pending: 200, assigned: 100, rate: 91 } },
-    UK: { name: 'उत्तराखंड / Uttarakhand', capital: 'देहरादून', emoji: '🏔️', population: '1.1 Cr', area: '53,483 km²', cm: 'पुष्कर सिंह धामी', districts: { 'देहरादून (Deहरादून)': ['ऋषिकेश (Rishikesh)'] }, helplines: getStandardHelplines('उत्तराखंड', 'देहरादून'), schemes: getStandardSchemes('उत्तराखंड'), civic: { total: 9800, resolved: 9000, pending: 550, assigned: 250, rate: 91 } },
-    LA: { name: 'लद्दाख / Ladakh (UT)', capital: 'लेह', emoji: '🏔️', population: '3 Lakh', area: '59,146 km²', cm: 'उपराज्यपाल (UT)', districts: { 'लेह (Leh)': ['नुब्रा (Nubra)'] }, helplines: getStandardHelplines('लद्दाख', 'लेह'), schemes: getStandardSchemes('लद्दाख'), civic: { total: 900, resolved: 850, pending: 35, assigned: 15, rate: 94 } },
-    CH: { name: 'चंडीगढ़ / Chandigarh (UT)', capital: 'चंडीगढ़', emoji: '🏛️', population: '11 Lakh', area: '114 km²', cm: 'प्रशासक (UT)', districts: { 'चंडीगढ़ नगर (Chandigarh)': ['मनीमाजरा (Manimajra)'] }, helplines: getStandardHelplines('चंडीगढ़', 'चंडीगढ़'), schemes: getStandardSchemes('चंडीगढ़'), civic: { total: 4200, resolved: 4000, pending: 150, assigned: 50, rate: 95 } },
-    PY: { name: 'पुडुचेरी / Puducherry (UT)', capital: 'पुडुचेरी', emoji: '🏖️', population: '13 Lakh', area: '479 km²', cm: 'एन. रंगासामी', districts: { 'पुडुचेरी (Pondicherry)': ['ओझुकरै (Ozhukarai)'] }, helplines: getStandardHelplines('पुडुचेरी', 'पुडुचेरी'), schemes: getStandardSchemes('पुडुचेरी'), civic: { total: 3100, resolved: 2900, pending: 130, assigned: 70, rate: 93 } },
-    AN: { name: 'अंडमान निकोबार / A&N (UT)', capital: 'पोर्ट ब्लेयर', emoji: '🏝️', population: '4 Lakh', area: '8,249 km²', cm: 'उपराज्यपाल (UT)', districts: { 'पोर्ट ब्लेयर (Port Blair)': ['गराचरमा (Garacharma)'] }, helplines: getStandardHelplines('अंडमान निकोबार', 'पोर्ट ब्लेयर'), schemes: getStandardSchemes('अंडमान निकोबार'), civic: { total: 1100, resolved: 1020, pending: 50, assigned: 30, rate: 92 } },
-    LD: { name: 'लक्षद्वीप / Lakshadweep (UT)', capital: 'कवारत्ती', emoji: '🏝️', population: '70,000', area: '32 km²', cm: 'प्रशासक (UT)', districts: { 'कवारत्ती (Kavaratti)': ['अगाती (Agatti)'] }, helplines: getStandardHelplines('लक्षद्वीप', 'कवारत्ती'), schemes: getStandardSchemes('लक्षद्वीप'), civic: { total: 450, resolved: 430, pending: 12, assigned: 8, rate: 95 } },
-    DD: { name: 'दादरा एवं नगर हवेली और दमन-दीव (UT)', capital: 'दमन', emoji: '🏖️', population: '6 Lakh', area: '603 km²', cm: 'प्रशासक (UT)', districts: { 'दमन (Daman)': ['सिलवासा (Silvassa)'] }, helplines: getStandardHelplines('दमन-दीव', 'दमन'), schemes: getStandardSchemes('दमन-दीव'), civic: { total: 1500, resolved: 1400, pending: 70, assigned: 30, rate: 93 } },
+    BR: { name: 'बिहार / Bihar', capital: 'पटना', emoji: '🚜', population: '12.4 Cr', area: '94,163 km²', cm: 'नीतीश कुमार', dbtAmount: '₹32,600 Cr', dbtRating: '89%', districts: { 'पटना (Patna)': ['दानापुर (Danapur)', 'मसौढ़ी (Masaurhi)'] }, helplines: getStandardHelplines('बिहार', 'पटना'), schemes: getStandardSchemes('बिहार'), civic: { total: 19800, resolved: 17200, pending: 1900, assigned: 700, rate: 87 } },
+    MH: { name: 'महाराष्ट्र / Maharashtra', capital: 'मुंबई', emoji: '🏙️', population: '12.3 Cr', area: '3,07,713 km²', cm: 'देवेंद्र फडणवीस', dbtAmount: '₹48,900 Cr', dbtRating: '95%', districts: { 'मुंबई (Mumbai)': ['अंधेरी (Andheri)', 'बांद्रा (Bandra)'] }, helplines: getStandardHelplines('महाराष्ट्र', 'मुंबई'), schemes: getStandardSchemes('महाराष्ट्र'), civic: { total: 62400, resolved: 57800, pending: 3100, assigned: 1500, rate: 93 } },
+    DL: { name: 'दिल्ली एनसीआर / Delhi NCR', capital: 'नई दिल्ली', emoji: '🏛️', population: '3.3 Cr', area: '1,484 km²', cm: 'रेखा गुप्ता', dbtAmount: '₹14,200 Cr', dbtRating: '96%', districts: { 'दक्षिण दिल्ली (South Delhi)': ['हौज खास (Hauz Khas)', 'साकेत (Saket)'] }, helplines: getStandardHelplines('दिल्ली', 'नई दिल्ली'), schemes: getStandardSchemes('दिल्ली'), civic: { total: 38900, resolved: 36200, pending: 1800, assigned: 900, rate: 93 } },
+    RJ: { name: 'राजस्थान / Rajasthan', capital: 'जयपुर', emoji: '🏰', population: '8.1 Cr', area: '3,42,239 km²', cm: 'भजन लाल शर्मा', dbtAmount: '₹29,800 Cr', dbtRating: '91%', districts: { 'जयपुर (Jaipur)': ['आमेर (Amer)'] }, helplines: getStandardHelplines('राजस्थान', 'जयपुर'), schemes: getStandardSchemes('राजस्थान'), civic: { total: 22100, resolved: 19400, pending: 1900, assigned: 800, rate: 88 } },
+    WB: { name: 'पश्चिम बंगाल / West Bengal', capital: 'कोलकाता', emoji: '🎨', population: '9.7 Cr', area: '88,752 km²', cm: 'ममता बनर्जी', dbtAmount: '₹27,500 Cr', dbtRating: '90%', districts: { 'कोलकाता (Kolkata)': ['साल्ट लेक (Salt Lake)'] }, helplines: getStandardHelplines('पश्चिम बंगाल', 'कोलकाता'), schemes: getStandardSchemes('पश्चिम बंगाल'), civic: { total: 31200, resolved: 27800, pending: 2500, assigned: 900, rate: 89 } },
+    GJ: { name: 'गुजरात / Gujarat', capital: 'गांधीनगर', emoji: '🌊', population: '7.0 Cr', area: '1,96,024 km²', cm: 'भूपेंद्र पटेल', dbtAmount: '₹34,100 Cr', dbtRating: '96%', districts: { 'अहमदाबाद (Ahmedabad)': ['साणंद (Sanand)'] }, helplines: getStandardHelplines('गुजरात', 'गांधीनगर'), schemes: getStandardSchemes('गुजरात'), civic: { total: 24600, resolved: 22900, pending: 1200, assigned: 500, rate: 93 } },
+    TN: { name: 'तमिलनाडु / Tamil Nadu', capital: 'चेन्नई', emoji: '🛕', population: '7.8 Cr', area: '1,30,058 km²', cm: 'एम.के. स्टालिन', dbtAmount: '₹36,700 Cr', dbtRating: '94%', districts: { 'चेन्नई (Chennai)': ['अड्यार (Adyar)'] }, helplines: getStandardHelplines('तमिलनाडु', 'चेन्नई'), schemes: getStandardSchemes('तमिलनाडु'), civic: { total: 29300, resolved: 27100, pending: 1600, assigned: 600, rate: 92 } },
+    KA: { name: 'कर्नाटक / Karnataka', capital: 'बेंगलुरु', emoji: '💻', population: '6.8 Cr', area: '1,91,791 km²', cm: 'सिद्धारमैया', dbtAmount: '₹33,900 Cr', dbtRating: '94%', districts: { 'बेंगलुरु (Bengaluru)': ['व्हाइटफील्ड (Whitefield)'] }, helplines: getStandardHelplines('कर्नाटक', 'बेंगलुरु'), schemes: getStandardSchemes('कर्नाटक'), civic: { total: 35700, resolved: 33200, pending: 1800, assigned: 700, rate: 93 } },
+    TS: { name: 'तेलंगाना / Telangana', capital: 'हैदराबाद', emoji: '🏛️', population: '3.8 Cr', area: '1,12,077 km²', cm: 'रेवंत रेड्डी', dbtAmount: '₹22,400 Cr', dbtRating: '93%', districts: { 'हैदराबाद (Hyderabad)': ['गच्चीबाउली (Gachibowli)'] }, helplines: getStandardHelplines('तेलंगाना', 'हैदराबाद'), schemes: getStandardSchemes('तेलंगाना'), civic: { total: 18900, resolved: 17500, pending: 900, assigned: 500, rate: 93 } },
+    PB: { name: 'पंजाब / Punjab', capital: 'चंडीगढ़', emoji: '🌾', population: '3.0 Cr', area: '50,362 km²', cm: 'भगवंत मान', dbtAmount: '₹19,200 Cr', dbtRating: '92%', districts: { 'लुधियाना (Ludhiana)': ['जग्रांव (Jagraon)'] }, helplines: getStandardHelplines('पंजाब', 'चंडीगढ़'), schemes: getStandardSchemes('पंजाब'), civic: { total: 14200, resolved: 13100, pending: 700, assigned: 400, rate: 92 } },
+    HR: { name: 'हरियाणा / Haryana', capital: 'चंडीगढ़', emoji: '🚜', population: '2.8 Cr', area: '44,212 km²', cm: 'नायब सिंह सैनी', dbtAmount: '₹18,500 Cr', dbtRating: '94%', districts: { 'गुरुग्राम (Gurugram)': ['मानसर (Manesar)'] }, helplines: getStandardHelplines('हरियाणा', 'चंडीगढ़'), schemes: getStandardSchemes('हरियाणा'), civic: { total: 16800, resolved: 15600, pending: 800, assigned: 400, rate: 93 } },
+    KL: { name: 'केरल / Kerala', capital: 'तिरुवनंतपुरम', emoji: '🌴', population: '3.5 Cr', area: '38,852 km²', cm: 'पिनाराई विजयन', dbtAmount: '₹16,400 Cr', dbtRating: '96%', districts: { 'तिरुवनंतपुरम (Trivandrum)': ['कझाकुट्टम (Kazhakkoottam)'] }, helplines: getStandardHelplines('केरल', 'तिरुवनंतपुरम'), schemes: getStandardSchemes('केरल'), civic: { total: 12600, resolved: 11900, pending: 500, assigned: 200, rate: 94 } },
+    OD: { name: 'ओडिशा / Odisha', capital: 'भुवनेश्वर', emoji: '🏖️', population: '4.6 Cr', area: '1,55,707 km²', cm: 'मोहन माझी', dbtAmount: '₹17,800 Cr', dbtRating: '92%', districts: { 'भुवनेश्वर (Bhubaneswar)': ['जटनी (Jatni)'] }, helplines: getStandardHelplines('ओडिशा', 'भुवनेश्वर'), schemes: getStandardSchemes('ओडिशा'), civic: { total: 15300, resolved: 14000, pending: 900, assigned: 400, rate: 91 } },
+    AS: { name: 'असम / Assam', capital: 'दिसपुर', emoji: '☕', population: '3.5 Cr', area: '78,438 km²', cm: 'हिमंत विश्व शर्मा', dbtAmount: '₹13,200 Cr', dbtRating: '91%', districts: { 'गुवाहाटी (Guwahati)': ['दिसपुर (Dispur)'] }, helplines: getStandardHelplines('असम', 'दिसपुर'), schemes: getStandardSchemes('असम'), civic: { total: 10400, resolved: 9500, pending: 600, assigned: 300, rate: 91 } },
+    JK: { name: 'जम्मू-कश्मीर / J&K (UT)', capital: 'श्रीनगर', emoji: '🏔️', population: '1.4 Cr', area: '42,241 km²', cm: 'मनोज सिन्हा (LG)', dbtAmount: '₹8,900 Cr', dbtRating: '93%', districts: { 'श्रीनगर (Srinagar)': ['गुलमर्ग (Gulmarg)'] }, helplines: getStandardHelplines('जम्मू-कश्मीर', 'श्रीनगर'), schemes: getStandardSchemes('जम्मू-कश्मीर'), civic: { total: 8200, resolved: 7600, pending: 400, assigned: 200, rate: 93 } },
+    AP: { name: 'आंध्र प्रदेश / AP', capital: 'अमरावती', emoji: '🏛️', population: '5.3 Cr', area: '1,62,975 km²', cm: 'चंद्रबाबू नायडू', dbtAmount: '₹26,100 Cr', dbtRating: '94%', districts: { 'विशाखापत्तनम (Vizag)': ['अनाकापल्ले (Anakapalle)'] }, helplines: getStandardHelplines('आंध्र प्रदेश', 'अमरावती'), schemes: getStandardSchemes('आंध्र प्रदेश'), civic: { total: 15000, resolved: 14000, pending: 700, assigned: 300, rate: 93 } },
+    AR: { name: 'अरुणाचल प्रदेश / Arunachal', capital: 'ईटानगर', emoji: '🏔️', population: '15 Lakh', area: '83,743 km²', cm: 'पेमा खांडू', dbtAmount: '₹2,400 Cr', dbtRating: '91%', districts: { 'ईटानगर (Itanagar)': ['नाहरलगुन (Naharlagun)'] }, helplines: getStandardHelplines('अरुणाचल प्रदेश', 'ईटानगर'), schemes: getStandardSchemes('अरुणाचल प्रदेश'), civic: { total: 2400, resolved: 2200, pending: 150, assigned: 50, rate: 91 } },
+    CT: { name: 'छत्तीसगढ़ / Chhattisgarh', capital: 'रायपुर', emoji: '🌾', population: '3.0 Cr', area: '1,35,192 km²', cm: 'विष्णु देव साय', dbtAmount: '₹14,900 Cr', dbtRating: '91%', districts: { 'रायपुर (Raipur)': ['अभनपुर (Abhanpur)'] }, helplines: getStandardHelplines('छत्तीसगढ़', 'रायपुर'), schemes: getStandardSchemes('छत्तीसगढ़'), civic: { total: 11000, resolved: 10000, pending: 700, assigned: 300, rate: 90 } },
+    GA: { name: 'गोवा / Goa', capital: 'पणजी', emoji: '🏖️', population: '15 Lakh', area: '3,702 km²', cm: 'प्रमोद सावंत', dbtAmount: '₹2,800 Cr', dbtRating: '95%', districts: { 'उत्तर गोवा (North Goa)': ['मापुसा (Mapusa)'] }, helplines: getStandardHelplines('गोवा', 'पणजी'), schemes: getStandardSchemes('गोवा'), civic: { total: 3200, resolved: 3000, pending: 150, assigned: 50, rate: 94 } },
+    HP: { name: 'हिमाचल प्रदेश / Himachal', capital: 'शिमला', emoji: '🏔️', population: '75 Lakh', area: '55,673 km²', cm: 'सुखविंदर सिंह सुक्खू', dbtAmount: '₹6,400 Cr', dbtRating: '93%', districts: { 'शिमला (Shimla)': ['कुफरी (Kufri)'] }, helplines: getStandardHelplines('हिमाचल प्रदेश', 'शिमला'), schemes: getStandardSchemes('हिमाचल प्रदेश'), civic: { total: 6500, resolved: 6000, pending: 350, assigned: 150, rate: 92 } },
+    JH: { name: 'झारखंड / Jharkhand', capital: 'रांची', emoji: '⛏️', population: '3.9 Cr', area: '79,716 km²', cm: 'हेमंत सोरेन', dbtAmount: '₹15,400 Cr', dbtRating: '89%', districts: { 'रांची (Ranchi)': ['कांके (Kanke)'] }, helplines: getStandardHelplines('झारखंड', 'रांची'), schemes: getStandardSchemes('झारखंड'), civic: { total: 13500, resolved: 12000, pending: 1000, assigned: 500, rate: 89 } },
+    MN: { name: 'मणिपुर / Manipur', capital: 'इम्फाल', emoji: '⛰️', population: '32 Lakh', area: '22,327 km²', cm: 'एन. बीरेन सिंह', dbtAmount: '₹2,100 Cr', dbtRating: '90%', districts: { 'इम्फाल (Imphal)': ['लम्फेलपत (Lamphelpat)'] }, helplines: getStandardHelplines('मणिपुर', 'इम्फाल'), schemes: getStandardSchemes('मणिपुर'), civic: { total: 2900, resolved: 2600, pending: 200, assigned: 100, rate: 90 } },
+    ML: { name: 'मेघालय / Meghalaya', capital: 'शिलांग', emoji: '🌧️', population: '33 Lakh', area: '22,429 km²', cm: 'कॉनराड संगमा', dbtAmount: '₹2,300 Cr', dbtRating: '91%', districts: { 'शिलांग (Shillong)': ['सोहरा (Sohra)'] }, helplines: getStandardHelplines('मेघालय', 'शिलांग'), schemes: getStandardSchemes('मेघालय'), civic: { total: 3100, resolved: 2850, pending: 180, assigned: 70, rate: 91 } },
+    MZ: { name: 'मिजोरम / Mizoram', capital: 'आइजोल', emoji: '⛰️', population: '12 Lakh', area: '21,081 km²', cm: 'लालदुहोमा', dbtAmount: '₹1,500 Cr', dbtRating: '93%', districts: { 'आइजोल (Aizawl)': ['दर्लावन (Darlawn)'] }, helplines: getStandardHelplines('मिजोरम', 'आइजोल'), schemes: getStandardSchemes('मिजोरम'), civic: { total: 1800, resolved: 1680, pending: 80, assigned: 40, rate: 93 } },
+    NL: { name: 'नागालैंड / Nagaland', capital: 'कोहिमा', emoji: '⛰️', population: '22 Lakh', area: '16,579 km²', cm: 'नेफ्यू रियू', dbtAmount: '₹1,800 Cr', dbtRating: '90%', districts: { 'कोहिमा (Kohima)': ['दीमापुर (Dimapur)'] }, helplines: getStandardHelplines('नागालैंड', 'कोहिमा'), schemes: getStandardSchemes('नागालैंड'), civic: { total: 2100, resolved: 1900, pending: 130, assigned: 70, rate: 90 } },
+    SK: { name: 'सिक्किम / Sikkim', capital: 'गंगटोक', emoji: '🏔️', population: '7 Lakh', area: '7,096 km²', cm: 'प्रेम सिंह तामांग', dbtAmount: '₹950 Cr', dbtRating: '95%', districts: { 'गंगटोक (Gangtok)': ['पेल्लिंग (Pelling)'] }, helplines: getStandardHelplines('सिक्किम', 'गंगटोक'), schemes: getStandardSchemes('सिक्किम'), civic: { total: 1200, resolved: 1140, pending: 40, assigned: 20, rate: 95 } },
+    TR: { name: 'त्रिपुरा / Tripura', capital: 'अगरतला', emoji: '🏛️', population: '40 Lakh', area: '10,491 km²', cm: 'माणिक साहा', dbtAmount: '₹3,100 Cr', dbtRating: '92%', districts: { 'अगरतला (Agartala)': ['रानिरबाजार (Ranirbazar)'] }, helplines: getStandardHelplines('त्रिपुरा', 'अगरतला'), schemes: getStandardSchemes('त्रिपुरा'), civic: { total: 3400, resolved: 3100, pending: 200, assigned: 100, rate: 91 } },
+    UK: { name: 'उत्तराखंड / Uttarakhand', capital: 'देहरादून', emoji: '🏔️', population: '1.1 Cr', area: '53,483 km²', cm: 'पुष्कर सिंह धामी', dbtAmount: '₹8,400 Cr', dbtRating: '92%', districts: { 'देहरादून (Deहरादून)': ['ऋषिकेश (Rishikesh)'] }, helplines: getStandardHelplines('उत्तराखंड', 'देहरादून'), schemes: getStandardSchemes('उत्तराखंड'), civic: { total: 9800, resolved: 9000, pending: 550, assigned: 250, rate: 91 } },
+    LA: { name: 'लद्दाख / Ladakh (UT)', capital: 'लेह', emoji: '🏔️', population: '3 Lakh', area: '59,146 km²', cm: 'उपराज्यपाल (UT)', dbtAmount: '₹680 Cr', dbtRating: '94%', districts: { 'लेह (Leh)': ['नुब्रा (Nubra)'] }, helplines: getStandardHelplines('लद्दाख', 'लेह'), schemes: getStandardSchemes('लद्दाख'), civic: { total: 900, resolved: 850, pending: 35, assigned: 15, rate: 94 } },
+    CH: { name: 'चंडीगढ़ / Chandigarh (UT)', capital: 'चंडीगढ़', emoji: '🏛️', population: '11 Lakh', area: '114 km²', cm: 'प्रशासक (UT)', dbtAmount: '₹1,200 Cr', dbtRating: '96%', districts: { 'चंडीगढ़ नगर (Chandigarh)': ['मनीमाजरा (Manimajra)'] }, helplines: getStandardHelplines('चंडीगढ़', 'चंडीगढ़'), schemes: getStandardSchemes('चंडीगढ़'), civic: { total: 4200, resolved: 4000, pending: 150, assigned: 50, rate: 95 } },
+    PY: { name: 'पुडुचेरी / Puducherry (UT)', capital: 'पुडुचेरी', emoji: '🏖️', population: '13 Lakh', area: '479 km²', cm: 'एन. रंगासामी', dbtAmount: '₹1,400 Cr', dbtRating: '94%', districts: { 'पुडुचेरी (Pondicherry)': ['ओझुकरै (Ozhukarai)'] }, helplines: getStandardHelplines('पुडुचेरी', 'पुडुचेरी'), schemes: getStandardSchemes('पुडुचेरी'), civic: { total: 3100, resolved: 2900, pending: 130, assigned: 70, rate: 93 } },
+    AN: { name: 'अंडमान निकोबार / A&N (UT)', capital: 'पोर्ट ब्लेयर', emoji: '🏝️', population: '4 Lakh', area: '8,249 km²', cm: 'उपराज्यपाल (UT)', dbtAmount: '₹490 Cr', dbtRating: '93%', districts: { 'पोर्ट ब्लेयर (Port Blair)': ['गराचरमा (Garacharma)'] }, helplines: getStandardHelplines('अंडमान निकोबार', 'पोर्ट ब्लेयर'), schemes: getStandardSchemes('अंडमान निकोबार'), civic: { total: 1100, resolved: 1020, pending: 50, assigned: 30, rate: 92 } },
+    LD: { name: 'लक्षद्वीप / Lakshadweep (UT)', capital: 'कवारत्ती', emoji: '🏝️', population: '70,000', area: '32 km²', cm: 'प्रशासक (UT)', dbtAmount: '₹120 Cr', dbtRating: '95%', districts: { 'कवारत्ती (Kavaratti)': ['अगाती (Agatti)'] }, helplines: getStandardHelplines('लक्षद्वीप', 'कवारत्ती'), schemes: getStandardSchemes('लक्षद्वीप'), civic: { total: 450, resolved: 430, pending: 12, assigned: 8, rate: 95 } },
+    DD: { name: 'दादरा एवं नगर हवेली और दमन-दीव (UT)', capital: 'दमन', emoji: '🏖️', population: '6 Lakh', area: '603 km²', cm: 'प्रशासक (UT)', dbtAmount: '₹750 Cr', dbtRating: '94%', districts: { 'दमन (Daman)': ['सिलवासा (Silvassa)'] }, helplines: getStandardHelplines('दमन-दीव', 'दमन'), schemes: getStandardSchemes('दमन-दीव'), civic: { total: 1500, resolved: 1400, pending: 70, assigned: 30, rate: 93 } },
 };
 
 // WELFARE SCHEMES DATABASE (30+ ACTIVE & UPCOMING)
 const NATIONAL_SCHEMES_DATABASE = [
     {
         name: 'मुख्यमंत्री लाड़ली बहना योजना (MP Ladli Behna Scheme)',
-        desc: 'मध्य प्रदेश की 21 से 60 वर्ष की महिलाओं को ₹1,250 प्रति माह वित्तीय सहायता सीधे खाते में (DBT) दी जाती है।',
-        targetGroup: 'मध्य प्रदेश की समस्त विवाहित/विधवा/परित्यक्ता महिलाएं (आयु: 21-60 वर्ष)',
+        desc: 'मध्य प्रदेश की 21 से 60 वर्ष की महिलाओं को ₹1,250 प्रति माह वित्तीय सहायता सीधे बैंक खाते में (DBT) दी जाती है।',
+        targetGroup: 'मध्य प्रदेश की समस्त विवाहित/विधवा महिलाएं (आयु: 21-60 वर्ष)',
         docs: ['आधार कार्ड', 'समग्र ID (Samagra ID)', 'बैंक पासबुक'],
         cat: 'MP राज्य कल्याण / महिला सशक्तिकरण',
         state: 'MP', occ: ['ALL'], gender: ['Female', 'ALL'], minAge: 21, maxAge: 60,
@@ -307,7 +314,7 @@ const NATIONAL_SCHEMES_DATABASE = [
         desc: '💡 आगामी योजना: 300 यूनिट मुफ़्त बिजली हेतु घरों की छत पर सोलर पैनल लगाने के लिए ₹78,000 तक की सरकारी सब्सिडी।',
         targetGroup: 'समस्त आवासीय बिजली उपभोक्ता एवं मध्यमवर्गीय परिवार',
         docs: ['बिजली बिल', 'छत का स्वामित्व प्रमाण', 'आधार कार्ड'],
-        cat: '⚡ आगामी राष्ट्रीय योजना / अक्षय ऊर्जा 2025',
+        cat: '⚡ आगामी राष्ट्रीय योजना / अक्षय ऊर्जा',
         state: 'ALL', occ: ['ALL'], gender: 'ALL', minAge: 18, maxAge: 90,
         link: 'https://pmsuryaghar.gov.in'
     },
@@ -316,7 +323,7 @@ const NATIONAL_SCHEMES_DATABASE = [
         desc: '💡 आगामी योजना: उत्तर प्रदेश में 2-व्हीलर, 4-व्हीलर एवं EV बस खरीद पर ₹5,000 से ₹50,000 तक की सीधी DBT सब्सिडी।',
         targetGroup: 'उत्तर प्रदेश के नए EV वाहन खरीदार',
         docs: ['वाहन पंजीकरण (RC)', 'आधार कार्ड', 'बैंक विवरण'],
-        cat: '⚡ आगामी UP राज्य योजना / EV क्रांति 2025',
+        cat: '⚡ आगामी UP राज्य योजना / EV क्रांति',
         state: 'UP', occ: ['ALL'], gender: 'ALL', minAge: 18, maxAge: 75,
         link: 'https://upevsubsidy.in'
     },
@@ -391,9 +398,376 @@ let currentSelectedVillage = null;
 let currentFontSizePx = 16;
 let currentRegionFilter = 'ALL';
 let currentServiceCategory = 'ALL';
+let currentHeatmapMode = 'standard';
 let currentLang = 'HI';
 
-// RENDER NATIONAL CITIZEN SERVICES HUB CARDS
+// ============================================================
+// 1. THREE.JS 3D INTERACTIVE INDIA MAP CANVAS ENGINE
+// ============================================================
+let threeScene, threeCamera, threeRenderer, threeGlobeMesh, threeParticleGroup;
+let isThreeInitialized = false;
+
+function initThreeMapEngine() {
+    const canvas = document.getElementById('three-map-canvas');
+    const container = document.getElementById('three-map-container');
+    if (!canvas || !container || isThreeInitialized) return;
+
+    try {
+        const width = container.clientWidth || 600;
+        const height = container.clientHeight || 520;
+
+        threeScene = new THREE.Scene();
+        threeCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+        threeCamera.position.set(0, 0, 18);
+
+        threeRenderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+        threeRenderer.setSize(width, height);
+        threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Ambient & Point Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+        threeScene.add(ambientLight);
+
+        const pointLight1 = new THREE.PointLight(0x6366f1, 2, 50);
+        pointLight1.position.set(10, 10, 10);
+        threeScene.add(pointLight1);
+
+        const pointLight2 = new THREE.PointLight(0x10b981, 1.5, 50);
+        pointLight2.position.set(-10, -10, 10);
+        threeScene.add(pointLight2);
+
+        // 3D Digital Wireframe Geodesic Sphere
+        const sphereGeo = new THREE.IcosahedronGeometry(7, 3);
+        const sphereMat = new THREE.MeshPhongMaterial({
+            color: 0x4338ca,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.28,
+            shininess: 100
+        });
+        threeGlobeMesh = new THREE.Mesh(sphereGeo, sphereMat);
+        threeScene.add(threeGlobeMesh);
+
+        // Glowing 3D Particle Starfield
+        const particleGeo = new THREE.BufferGeometry();
+        const count = 350;
+        const positions = new Float32Array(count * 3);
+        const colors = new Float32Array(count * 3);
+
+        const colOptions = [
+            new THREE.Color(0x6366f1), // Indigo
+            new THREE.Color(0xf59e0b), // Saffron
+            new THREE.Color(0x10b981), // Emerald
+            new THREE.Color(0xffffff)  // White
+        ];
+
+        for (let i = 0; i < count * 3; i += 3) {
+            const u = Math.random();
+            const v = Math.random();
+            const theta = u * 2.0 * Math.PI;
+            const phi = Math.acos(2.0 * v - 1.0);
+            const r = 7.2 + Math.random() * 2.5;
+
+            positions[i] = r * Math.sin(phi) * Math.cos(theta);
+            positions[i + 1] = r * Math.sin(phi) * Math.sin(theta);
+            positions[i + 2] = r * Math.cos(phi);
+
+            const pickedCol = colOptions[Math.floor(Math.random() * colOptions.length)];
+            colors[i] = pickedCol.r;
+            colors[i + 1] = pickedCol.g;
+            colors[i + 2] = pickedCol.b;
+        }
+
+        particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        particleGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+        const particleMat = new THREE.PointsMaterial({
+            size: 0.18,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.85
+        });
+
+        threeParticleGroup = new THREE.Points(particleGeo, particleMat);
+        threeScene.add(threeParticleGroup);
+
+        // Render Loop
+        function animateThree() {
+            requestAnimationFrame(animateThree);
+            if (threeGlobeMesh) threeGlobeMesh.rotation.y += 0.003;
+            if (threeParticleGroup) threeParticleGroup.rotation.y += 0.002;
+            threeRenderer.render(threeScene, threeCamera);
+        }
+        animateThree();
+
+        // Responsive Resize Listener
+        window.addEventListener('resize', () => {
+            if (!container || !threeCamera || !threeRenderer) return;
+            const w = container.clientWidth;
+            const h = container.clientHeight;
+            threeCamera.aspect = w / h;
+            threeCamera.updateProjectionMatrix();
+            threeRenderer.setSize(w, h);
+        });
+
+        isThreeInitialized = true;
+        render3DMapHotspots();
+    } catch(err) {
+        console.error("Three.js map init error:", err);
+    }
+}
+
+window.rotate3DMapLeft = function() {
+    if (threeGlobeMesh) threeGlobeMesh.rotation.y -= 0.35;
+    if (threeParticleGroup) threeParticleGroup.rotation.y -= 0.35;
+};
+
+window.rotate3DMapRight = function() {
+    if (threeGlobeMesh) threeGlobeMesh.rotation.y += 0.35;
+    if (threeParticleGroup) threeParticleGroup.rotation.y += 0.35;
+};
+
+window.reset3DCamera = function() {
+    if (threeGlobeMesh) threeGlobeMesh.rotation.set(0, 0, 0);
+    if (threeParticleGroup) threeParticleGroup.rotation.set(0, 0, 0);
+};
+
+function render3DMapHotspots() {
+    const container = document.getElementById('map-3d-hotspots');
+    if (!container) return;
+
+    let html = '';
+    Object.keys(STATE_DB).forEach(code => {
+        const s = STATE_DB[code];
+        let subText = currentHeatmapMode === 'dbt' ? s.dbtAmount : (currentHeatmapMode === 'civic' ? s.dbtRating : s.capital);
+        html += `<button class="map-3d-hotspot-item" id="hotspot-${code}" onclick="onMapStateClick('${code}')">
+            ${s.emoji} ${s.name.split('/')[0]} <small style="opacity:0.8;font-weight:400;">(${subText})</small>
+        </button>`;
+    });
+    container.innerHTML = html;
+}
+
+window.setMapHeatmapMode = function(mode, btnEl) {
+    currentHeatmapMode = mode;
+    const btns = document.querySelectorAll('.map-mode-btn');
+    btns.forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+
+    render3DMapHotspots();
+    renderMapStatesList();
+};
+
+window.resetMapToAllIndia = function() {
+    currentSelectedStateCode = null;
+    currentSelectedDistrict = null;
+    currentSelectedVillage = null;
+    document.getElementById('bc-state').textContent = 'राज्य (State)';
+    document.getElementById('bc-district').textContent = 'ज़िला (District)';
+    document.getElementById('bc-village').textContent = 'गाँव (Village)';
+    document.getElementById('bc-state').classList.remove('active');
+    document.getElementById('bc-district').classList.remove('active');
+    document.getElementById('bc-village').classList.remove('active');
+    backToStep(1);
+};
+
+// ============================================================
+// 2. REALTIME DBT TRACKER & CHART.JS INTEGRATION
+// ============================================================
+let dbtStateChartInstance = null;
+let dbtSectorChartInstance = null;
+let dbtLiveInterval = null;
+
+function initDBTCharts() {
+    const stateCtx = document.getElementById('dbtStateChart');
+    const sectorCtx = document.getElementById('dbtSectorChart');
+    if (!stateCtx || !sectorCtx || dbtStateChartInstance) return;
+
+    try {
+        // Chart 1: State Wise DBT Funds
+        dbtStateChartInstance = new Chart(stateCtx, {
+            type: 'bar',
+            data: {
+                labels: ['उत्तर प्रदेश', 'महाराष्ट्र', 'मध्य प्रदेश', 'तमिलनाडु', 'गुजरात', 'कर्नाटक', 'बिहार', 'राजस्थान', 'आंध्र प्रदेश', 'तेलंगाना'],
+                datasets: [{
+                    label: 'DBT अंतरित राशि (₹ Crore)',
+                    data: [54200, 48900, 38400, 36700, 34100, 33900, 32600, 29800, 26100, 22400],
+                    backgroundColor: [
+                        '#6366f1', '#8b5cf6', '#10b981', '#f59e0b', '#38bdf8',
+                        '#ec4899', '#14b8a6', '#f97316', '#a855f7', '#06b6d4'
+                    ],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#9ca3af' } },
+                    x: { grid: { display: false }, ticks: { color: '#9ca3af', font: { size: 11 } } }
+                }
+            }
+        });
+
+        // Chart 2: Sector Breakdown Donut
+        dbtSectorChartInstance = new Chart(sectorCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['कृषि एवं किसान कल्याण (38%)', 'महिला एवं बाल विकास (28%)', 'मुफ़्त स्वास्थ्य बीमा (18%)', 'आवास विकास (10%)', 'युवा शिक्षा व ऋण (6%)'],
+                datasets: [{
+                    data: [38, 28, 18, 10, 6],
+                    backgroundColor: ['#10b981', '#ec4899', '#38bdf8', '#f59e0b', '#8b5cf6'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { color: '#9ca3af', font: { size: 11 } } }
+                }
+            }
+        });
+
+        initDBTLiveFeed();
+    } catch(err) {
+        console.error("DBT Chart init error:", err);
+    }
+}
+
+const SAMPLE_BENEFICIARIES = [
+    { name: 'सुनीता देवी', dist: 'सीहोर, MP', scheme: 'लाड़ली बहना योजना', amt: '₹1,250' },
+    { name: 'रामेश्वर पटेल', dist: 'वाराणसी, UP', scheme: 'PM-KISAN किश्त', amt: '₹2,000' },
+    { name: 'विकास शर्मा', dist: 'पटना, Bihar', scheme: 'स्टूडेंट क्रेडिट कार्ड', amt: '₹25,000' },
+    { name: 'अशोक गायकवाड़', dist: 'नासिक, MH', scheme: 'नमो शेतकरी योजना', amt: '₹2,000' },
+    { name: 'कौशल्या बाई', dist: 'जयपुर, RJ', scheme: 'आयुष्मान आरोग्य बीमा', amt: '₹12,400' },
+    { name: 'मोहम्मद आरिफ', dist: 'भोपाल, MP', scheme: 'सीखो-कमाओ स्टाइपेंड', amt: '₹8,000' },
+    { name: 'पूजा कुमारी', dist: 'गोरखपुर, UP', scheme: 'कन्या सुमंगला सहायता', amt: '₹5,000' },
+    { name: 'गुरप्रीत सिंह', dist: 'लुधियाना, PB', scheme: 'कृषि उपकरण सब्सिडी', amt: '₹15,000' }
+];
+
+function initDBTLiveFeed() {
+    const list = document.getElementById('dbt-live-feed-list');
+    if (!list) return;
+
+    // Seed initial 3 items
+    list.innerHTML = SAMPLE_BENEFICIARIES.slice(0, 3).map(b => createFeedItemHtml(b)).join('');
+
+    clearInterval(dbtLiveInterval);
+    dbtLiveInterval = setInterval(() => {
+        const item = SAMPLE_BENEFICIARIES[Math.floor(Math.random() * SAMPLE_BENEFICIARIES.length)];
+        const el = document.createElement('div');
+        el.innerHTML = createFeedItemHtml(item);
+        list.prepend(el.firstElementChild);
+        if (list.children.length > 6) {
+            list.removeChild(list.lastChild);
+        }
+    }, 2800);
+}
+
+function createFeedItemHtml(b) {
+    return `<div class="dbt-feed-item">
+        <div>
+            <span class="dbt-feed-user">👤 ${b.name}</span> <small style="color:var(--text-muted);">(${b.dist})</small>
+            <div class="dbt-feed-scheme">🎯 ${b.scheme}</div>
+        </div>
+        <div style="text-align:right;">
+            <div class="dbt-feed-amount">${b.amt}</div>
+            <span class="dbt-feed-time"><i class="fa-solid fa-clock"></i> Just Now (DBT)</span>
+        </div>
+    </div>`;
+}
+
+// ============================================================
+// 3. WHATSAPP & SMS SCHEME NOTIFICATION BOT
+// ============================================================
+window.openWhatsAppModal = function() {
+    const modal = document.getElementById('whatsapp-modal');
+    if (modal) modal.classList.remove('hidden');
+};
+
+window.closeWhatsAppModal = function() {
+    const modal = document.getElementById('whatsapp-modal');
+    if (modal) modal.classList.add('hidden');
+};
+
+window.submitWhatsAppSubscription = function() {
+    const phoneInput = document.getElementById('wa-phone-input');
+    const phone = phoneInput ? phoneInput.value.trim() : '';
+
+    if (phone.length !== 10 || isNaN(phone)) {
+        alert("कृपया अपना 10 अंकों का सही मोबाइल नंबर दर्ज करें (e.g. 9876543210)।");
+        return;
+    }
+
+    // Confetti celebration
+    if (window.confetti) {
+        window.confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+    }
+
+    const preview = document.getElementById('wa-preview-card');
+    const bubble = document.getElementById('wa-preview-bubble');
+    if (preview && bubble) {
+        preview.classList.remove('hidden');
+        bubble.innerHTML = `
+            <b>🏛️ CITYWISE AI — Official Alert</b><br>
+            नमस्ते! आपका मोबाइल नंबर <b>+91 ${phone}</b> सफलतापूर्वक सब्सक्राइब हो गया है।<br><br>
+            📢 <b>ताज़ा अपडेट:</b> PM सूर्य घर मुफ़्त बिजली योजना में ₹78,000 की सब्सिडी आवेदन फॉर्म जारी हो गया है।<br>
+            🔗 <i>अधिक जानकारी के लिए CITYWISE AI पोर्टल पर जाएं।</i>
+        `;
+    }
+
+    window.speakText("आपका व्हाट्सएप नंबर सरकारी योजना अलर्ट्स के लिए सफलतापूर्वक रजिस्टर हो गया है।");
+};
+
+// ============================================================
+// 4. MULTI-LINGUAL REGIONAL VOICE NAVIGATION
+// ============================================================
+window.toggleVoiceLangMenu = function() {
+    const menu = document.getElementById('voice-lang-menu');
+    if (menu) menu.classList.toggle('show');
+};
+
+window.setVoiceLanguage = function(langCode, label, greeting) {
+    currentVoiceLang = langCode;
+    currentVoiceLabel = label;
+    currentVoiceGreeting = greeting;
+
+    const lbl = document.getElementById('current-voice-lbl');
+    if (lbl) lbl.textContent = `आवाज: ${label.split(' ')[0]}`;
+
+    const menu = document.getElementById('voice-lang-menu');
+    if (menu) menu.classList.remove('show');
+
+    window.speakText(greeting);
+};
+
+window.triggerCurrentVoiceGreeting = function() {
+    window.speakText(currentVoiceGreeting);
+};
+
+window.speakText = function(text) {
+    if (!window.speechSynthesis) return;
+    try {
+        window.speechSynthesis.cancel();
+        const utt = new SpeechSynthesisUtterance(text);
+        utt.lang = currentVoiceLang;
+        utt.rate = 0.95;
+        window.speechSynthesis.speak(utt);
+    } catch(e) {}
+};
+
+window.speakCurrentStateDetails = function() {
+    if (!currentSelectedStateCode) return;
+    const s = STATE_DB[currentSelectedStateCode];
+    window.speakText(`${s.name} का विवरण। राजधानी ${s.capital}। कुल जनसंख्या ${s.population}।`);
+};
+
+// ============================================================
+// 5. NATIONAL CITIZEN SERVICES HUB
+// ============================================================
 function renderCitizenServices(category = 'ALL', searchQuery = '') {
     const container = document.getElementById('services-cards-container');
     if (!container) return;
@@ -461,105 +835,106 @@ window.filterCitizenServices = function() {
     renderCitizenServices(currentServiceCategory, searchVal);
 };
 
-// TOP TOOL 1: DARK / LIGHT THEME TOGGLE (STARTS WITH LIGHT THEME DEFAULT)
-window.toggleTheme = function() {
-    const isLightNow = document.body.classList.toggle('light-theme');
-    const txtEl = document.getElementById('theme-btn-text');
-    const btnEl = document.getElementById('btn-theme-toggle');
+// ============================================================
+// 6. WELFARE SCHEMES MATCHING STUDIO (REDESIGNED)
+// ============================================================
+function renderAllSchemes(filters = {}) {
+    const listEl = document.getElementById('schemes-list');
+    const badgeEl = document.getElementById('match-count-badge');
+    if (!listEl) return;
 
-    if (isLightNow) {
-        if (txtEl) txtEl.textContent = 'Dark Mode';
-        if (btnEl) btnEl.innerHTML = '<i class="fa-solid fa-moon"></i> <span id="theme-btn-text">Dark Mode</span>';
-        window.speakText('लाइट मोड चालू किया गया।');
-    } else {
-        if (txtEl) txtEl.textContent = 'Light Mode';
-        if (btnEl) btnEl.innerHTML = '<i class="fa-solid fa-sun" style="color:#f59e0b"></i> <span id="theme-btn-text">Light Mode</span>';
-        window.speakText('डार्क मोड चालू किया गया।');
+    let stateCode = filters.state || document.getElementById('input-state')?.value || 'ALL';
+    let occ = filters.occ || document.getElementById('input-occupation')?.value || 'ALL';
+    let gender = filters.gender || document.getElementById('input-gender')?.value || 'ALL';
+    let age = parseInt(filters.age || document.getElementById('input-age')?.value || '32');
+
+    let filtered = NATIONAL_SCHEMES_DATABASE.filter(s => {
+        let stateMatch = stateCode === 'ALL' || s.state === 'ALL' || s.state === stateCode;
+        let occMatch = occ === 'ALL' || s.occ.includes('ALL') || s.occ.includes(occ);
+        let genderMatch = gender === 'ALL' || s.gender === 'ALL' || (Array.isArray(s.gender) && s.gender.includes(gender));
+        let ageMatch = !s.minAge || (age >= s.minAge && age <= (s.maxAge || 120));
+
+        return stateMatch && occMatch && genderMatch && ageMatch;
+    });
+
+    if (filtered.length === 0) {
+        filtered = NATIONAL_SCHEMES_DATABASE.filter(s => s.state === 'ALL' || s.state === stateCode);
     }
-};
 
-// TOP TOOL 2: FONT SIZE ADJUSTER (A+ / A-)
-window.adjustFontSize = function(delta) {
-    currentFontSizePx = Math.max(13, Math.min(22, currentFontSizePx + delta));
-    document.documentElement.style.fontSize = currentFontSizePx + 'px';
-};
+    const stateLabel = stateCode !== 'ALL' && STATE_DB[stateCode] ? STATE_DB[stateCode].name.split('/')[0] : 'संपूर्ण भारत';
 
-// TOP TOOL 3: LANGUAGE TOGGLE (HINDI <-> ENGLISH)
-window.toggleLanguage = function() {
-    currentLang = currentLang === 'HI' ? 'EN' : 'HI';
-    const langTxt = document.getElementById('lang-btn-text');
+    if (badgeEl) badgeEl.textContent = `${stateLabel}: ${filtered.length} पात्र योजनाएं`;
 
-    if (currentLang === 'EN') {
-        if (langTxt) langTxt.textContent = 'हिंदी में बदलें';
-        applyLanguageStrings('EN');
-        window.speakText('Switched to CITYWISE AI English language mode.');
-    } else {
-        if (langTxt) langTxt.textContent = 'English में बदलें';
-        applyLanguageStrings('HI');
-        window.speakText('सिटीवाइज़ एआई हिंदी भाषा मोड सक्रिय किया गया।');
-    }
-};
+    let html = '';
+    filtered.forEach(sc => {
+        html += `<div class="scheme-item">
+            <div class="scheme-item-head">
+                <div class="scheme-name">${sc.name}</div>
+                <span class="scheme-cat">${sc.cat}</span>
+            </div>
+            <div class="scheme-target">
+                🎯 <b>पात्रता:</b> ${sc.targetGroup || 'समस्त पात्र नागरिक'}
+            </div>
+            <div class="scheme-item-body">${sc.desc}</div>
+            <div class="scheme-item-footer">
+                <div class="scheme-docs-wrap">
+                    ${sc.docs.map(d => `<span class="scheme-tag">📄 ${d}</span>`).join('')}
+                </div>
+                <a href="${sc.link}" target="_blank" class="apply-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> ऑनलाइन आवेदन करें</a>
+            </div>
+        </div>`;
+    });
 
-function applyLanguageStrings(lang) {
-    if (lang === 'EN') {
-        setElemTxt('nav-txt-home', 'Home Portal');
-        setElemTxt('nav-txt-services', 'Citizen Services');
-        setElemTxt('nav-txt-map', 'Official India Map');
-        setElemTxt('nav-txt-schemes', 'Welfare Schemes');
-        setElemTxt('btn-voice-txt', 'Voice Assist');
-        setElemTxt('ticker-header-lbl', 'CITYWISE AI Governance Updates:');
-        setElemTxt('hero-badge-txt', 'CITYWISE AI — 28 States & 8 UTs Portal');
-        setElemTxt('hero-sub-txt', 'Click on any State, select your District/City and Village. View LIC policies, Voter ID, Public Banking, local department helplines, and state-specific welfare schemes.');
-        setElemTxt('quick-finder-title', 'CITYWISE AI Quick Finder');
-        setElemTxt('lbl-step-1', 'State / Union Territory (State/UT)');
-        setElemTxt('lbl-step-2', 'District / City');
-        setElemTxt('lbl-step-3', 'Village / Tehsil / Ward');
-        setElemTxt('btn-launch-txt', 'Open Local Governance Portal');
-        setElemTxt('btn-map-link-txt', 'Open Official Map of India');
-        setElemTxt('srv-sec-tag', 'CITYWISE AI National Citizen Services');
-        setElemTxt('srv-sec-title', 'Voter ID, LIC, Public Banks, Aadhaar & Civil Services');
-        setElemTxt('map-sec-tag', 'CITYWISE AI Map Explorer');
-        setElemTxt('map-sec-title', 'Official Map of India — Select State, City & Village');
-        setElemTxt('map-card-title', 'Map of India');
-        setElemTxt('sch-sec-tag', 'CITYWISE AI Scheme Engine');
-        setElemTxt('sch-sec-title', 'Find Central & State Welfare Schemes');
-        setElemTxt('sch-profile-title', 'Select Your Profile');
-        setElemTxt('btn-search-txt', 'Search Eligible Schemes');
-        setElemTxt('sch-res-title', 'Matching Schemes');
-    } else {
-        setElemTxt('nav-txt-home', 'मुख्य पृष्ठ Home');
-        setElemTxt('nav-txt-services', 'नागरिक सेवाएं LIC & Voter ID');
-        setElemTxt('nav-txt-map', 'भारत का नक्शा Official Map');
-        setElemTxt('nav-txt-schemes', 'सरकारी योजनाएं Welfare Engine');
-        setElemTxt('btn-voice-txt', 'आवाज सुनें Voice Assist');
-        setElemTxt('ticker-header-lbl', 'CITYWISE AI सुशासन अपडेट्स:');
-        setElemTxt('hero-badge-txt', 'CITYWISE AI — 28 राज्य एवं 8 UT सुशासन पोर्टल');
-        setElemTxt('hero-sub-txt', 'भारत के किसी भी राज्य पर क्लिक करें — फिर अपना ज़िला/शहर एवं गाँव चुनें। LIC पॉलिसियां, Voter ID, सरकारी बैंकिंग, विभागीय हेल्पलाइन नंबर एवं राज्य की योजनाएं देखें।');
-        setElemTxt('quick-finder-title', 'CITYWISE AI त्वरित खोजक');
-        setElemTxt('lbl-step-1', 'राज्य / केंद्र शासित प्रदेश (State / UT)');
-        setElemTxt('lbl-step-2', 'ज़िला / शहर (District / City)');
-        setElemTxt('lbl-step-3', 'गाँव / तहसील / वार्ड (Village / Tehsil / Ward)');
-        setElemTxt('btn-launch-txt', 'स्थानीय सुशासन पोर्टल खोलें');
-        setElemTxt('btn-map-link-txt', 'भारत का नक्शा खोलें (Official Map)');
-        setElemTxt('srv-sec-tag', 'CITYWISE AI राष्ट्रीय नागरिक सेवाएं');
-        setElemTxt('srv-sec-title', 'Voter ID, LIC, सरकारी बैंक, Aadhaar एवं जन सेवाएं');
-        setElemTxt('map-sec-tag', 'CITYWISE AI नक्शा Explorer');
-        setElemTxt('map-sec-title', 'भारत का आधिकारिक नक्शा — राज्य, शहर एवं गाँव चुनें');
-        setElemTxt('map-card-title', 'भारत का नक्शा');
-        setElemTxt('sch-sec-tag', 'CITYWISE AI योजना खोजक');
-        setElemTxt('sch-sec-title', 'राज्य एवं केंद्र सरकार की योजनाएं खोजें');
-        setElemTxt('sch-profile-title', 'आपकी जानकारी चुनें');
-        setElemTxt('btn-search-txt', 'योग्य योजनाएं खोजें');
-        setElemTxt('sch-res-title', 'खोज परिणाम');
-    }
+    listEl.innerHTML = html;
 }
 
-function setElemTxt(id, text) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = text;
-}
+window.liveAutoMatchSchemes = function() {
+    const state = document.getElementById('input-state')?.value || 'ALL';
+    const occ = document.getElementById('input-occupation')?.value || 'ALL';
+    const gender = document.getElementById('input-gender')?.value || 'ALL';
+    const age = document.getElementById('input-age')?.value || '32';
+    renderAllSchemes({ state, occ, gender, age });
+};
 
-// PAGE ROUTING & MOBILE SYNC
+window.handleSchemeSearch = function(e) {
+    if (e) e.preventDefault();
+    const btn = document.getElementById('btn-search-schemes');
+    if (btn) {
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> मिलान जारी है...';
+        btn.disabled = true;
+    }
+
+    setTimeout(() => {
+        liveAutoMatchSchemes();
+        if (window.confetti) {
+            window.confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+        }
+        if (btn) {
+            btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> <span id="btn-search-txt">योग्य सरकारी योजनाएं खोजें</span>';
+            btn.disabled = false;
+        }
+    }, 300);
+};
+
+window.updateIncomeLabel = function(val) {
+    const el = document.getElementById('income-display');
+    if (el) el.textContent = '₹' + parseInt(val).toLocaleString('en-IN') + ' / वर्ष';
+};
+
+window.triggerManualDataSync = function() {
+    const badge = document.getElementById('sync-status-badge');
+    if (badge) {
+        badge.innerHTML = '<i class="fa-solid fa-sync fa-spin"></i> data.gov.in सिंक जारी...';
+        setTimeout(() => {
+            badge.innerHTML = '<i class="fa-solid fa-circle-check"></i> data.gov.in & myScheme सिंक सफल';
+            window.speakText('डेटा डॉट जीओवी डॉट इन से 30+ योजनाएं सफलतापूर्वक सिंक हो गईं।');
+        }, 1000);
+    }
+};
+
+// ============================================================
+// 7. PAGE ROUTING & NAVIGATION
+// ============================================================
 window.switchPage = function(pageId) {
     try {
         const pages = document.querySelectorAll('.page-view');
@@ -585,8 +960,13 @@ window.switchPage = function(pageId) {
         if (activeMBtn) activeMBtn.classList.add('active');
 
         if (pageId === 'home') initTicker();
+        if (pageId === 'map') {
+            initThreeMapEngine();
+            renderMapStatesList();
+        }
+        if (pageId === 'dbt') initDBTCharts();
         if (pageId === 'services') renderCitizenServices();
-        if (pageId === 'map') renderMapStep1();
+        if (pageId === 'schemes') liveAutoMatchSchemes();
     } catch(err) { console.error("switchPage error:", err); }
 };
 
@@ -595,7 +975,9 @@ window.toggleMobileMenu = function() {
     if (menu) menu.classList.toggle('show');
 };
 
-// POPULATE REGIONAL CATEGORIZED STATE CHIPS ON HOME
+// ============================================================
+// 8. 3D MAP DRILLDOWN & HOME POPULATION
+// ============================================================
 function populateHomeControls(regionFilter = 'ALL') {
     const chipContainer = document.getElementById('home-state-chips');
     const selectState   = document.getElementById('home-select-state');
@@ -615,7 +997,7 @@ function populateHomeControls(regionFilter = 'ALL') {
         regObj.codes.forEach(code => {
             if (STATE_DB[code]) {
                 const s = STATE_DB[code];
-                groupHtml += `<button class="state-chip" onclick="onHomeStateChipClick('${code}')">${s.emoji} ${s.name}</button>`;
+                groupHtml += `<button class="state-chip" onclick="onHomeStateChipClick('${code}')">${s.emoji} ${s.name.split('/')[0]}</button>`;
                 selectHtml += `<option value="${code}">${s.emoji} ${s.name}</option>`;
             }
         });
@@ -710,36 +1092,52 @@ window.launchSelectedLocationPortal = function() {
     }
 };
 
-// MAP EXPLORER STEP DRILL DOWN
-function renderMapStep1() {
+// 3D MAP STEP DRILL DOWN
+function renderMapStatesList(filterQuery = '') {
     const grid = document.getElementById('map-states-grid');
     if (!grid) return;
 
     let html = '';
     Object.keys(STATE_DB).forEach(code => {
         const s = STATE_DB[code];
+        if (filterQuery && !s.name.toLowerCase().includes(filterQuery.toLowerCase()) && !code.toLowerCase().includes(filterQuery.toLowerCase())) {
+            return;
+        }
+
+        let metricTag = currentHeatmapMode === 'dbt' ? `DBT: ${s.dbtAmount}` : (currentHeatmapMode === 'civic' ? `संतुष्टि: ${s.dbtRating}` : `राजधानी: ${s.capital}`);
+
         html += `<div class="item-card-chip" onclick="onMapStateClick('${code}')">
-            ${s.emoji} ${s.name}
-            <small>राजधानी: ${s.capital}</small>
+            ${s.emoji} ${s.name.split('/')[0]}
+            <small>${metricTag}</small>
         </div>`;
     });
     grid.innerHTML = html;
 }
+
+window.filterMapStatesList = function(val) {
+    renderMapStatesList(val);
+};
 
 window.onMapStateClick = function(code) {
     if (!STATE_DB[code]) return;
     currentSelectedStateCode = code;
     const s = STATE_DB[code];
 
-    document.getElementById('bc-state').textContent = s.name;
-    document.getElementById('bc-state').classList.add('active');
+    const bcState = document.getElementById('bc-state');
+    if (bcState) {
+        bcState.textContent = s.name.split('/')[0];
+        bcState.classList.add('active');
+    }
+
+    const previewBadge = document.getElementById('selected-state-preview-badge');
+    if (previewBadge) previewBadge.textContent = `📍 ${s.name.split('/')[0]} (${s.dbtAmount})`;
 
     document.getElementById('drill-step-1').classList.add('hidden');
     document.getElementById('drill-step-2').classList.remove('hidden');
     document.getElementById('drill-step-3').classList.add('hidden');
 
-    document.getElementById('city-step-title').textContent = `${s.name} — शहर/ज़िला चुनें:`;
-    document.getElementById('map-hover-info').textContent = `${s.name} चुना गया`;
+    document.getElementById('city-step-title').textContent = `${s.name.split('/')[0]} — शहर/ज़िला चुनें:`;
+    document.getElementById('map-hover-info').textContent = `${s.name.split('/')[0]} चुना गया`;
 
     const citiesGrid = document.getElementById('cities-grid');
     let html = '';
@@ -761,8 +1159,11 @@ window.onMapStateClick = function(code) {
 
 window.onMapCityClick = function(cityName) {
     currentSelectedDistrict = cityName;
-    document.getElementById('bc-district').textContent = cityName;
-    document.getElementById('bc-district').classList.add('active');
+    const bcDist = document.getElementById('bc-district');
+    if (bcDist) {
+        bcDist.textContent = cityName;
+        bcDist.classList.add('active');
+    }
 
     document.getElementById('drill-step-1').classList.add('hidden');
     document.getElementById('drill-step-2').classList.add('hidden');
@@ -777,7 +1178,7 @@ window.onMapCityClick = function(cityName) {
         s.districts[cityName].forEach(v => {
             html += `<div class="item-card-chip" onclick="onMapVillageClick('${v}')">
                 🌾 ${v}
-                <small>CITYWISE AI सुशासन केंद्र active</small>
+                <small>सुशासन केंद्र सक्रिय</small>
             </div>`;
         });
     } else {
@@ -789,8 +1190,11 @@ window.onMapCityClick = function(cityName) {
 
 window.onMapVillageClick = function(villageName) {
     currentSelectedVillage = villageName;
-    document.getElementById('bc-village').textContent = villageName;
-    document.getElementById('bc-village').classList.add('active');
+    const bcVill = document.getElementById('bc-village');
+    if (bcVill) {
+        bcVill.textContent = villageName;
+        bcVill.classList.add('active');
+    }
 
     window.selectState(currentSelectedStateCode);
 };
@@ -816,7 +1220,7 @@ window.selectState = function(code) {
 
     document.getElementById('d-icon').textContent = s.emoji;
     document.getElementById('d-name').textContent = s.name;
-    document.getElementById('d-capital').textContent = `राजधानी: ${s.capital} | CM: ${s.cm}`;
+    document.getElementById('d-capital').textContent = `राजधानी: ${s.capital} | CM: ${s.cm} | DBT: ${s.dbtAmount}`;
 
     document.getElementById('d-body').innerHTML = buildDrawerContent(s);
     drawer.classList.remove('hidden');
@@ -835,14 +1239,14 @@ function buildDrawerContent(s) {
 
     html += `<div class="loc-banner">
         <i class="fa-solid fa-location-crosshairs"></i>
-        <span>CITYWISE AI क्षेत्र: <b>${s.name.split('/')[0]}</b> ➔ <b>${dist}</b> ➔ <b>${vill}</b></span>
+        <span>सुशासन क्षेत्र: <b>${s.name.split('/')[0]}</b> ➔ <b>${dist}</b> ➔ <b>${vill}</b></span>
     </div>`;
 
     html += `<div class="d-section">
         <div class="d-section-title"><i class="fa-solid fa-chart-bar"></i> सांख्यिकी <small>/ Overview</small></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
             <div class="stat-pill"><span class="stat-n">${s.population}</span><span class="stat-l">जनसंख्या</span></div>
-            <div class="stat-pill"><span class="stat-n">${s.area}</span><span class="stat-l">क्षेत्रफल</span></div>
+            <div class="stat-pill"><span class="stat-n">${s.dbtAmount}</span><span class="stat-l">DBT अंतरित राशि</span></div>
         </div>
     </div>`;
 
@@ -881,116 +1285,48 @@ function buildDrawerContent(s) {
     return html;
 }
 
-// REALTIME SCHEME SEARCH ENGINE
-function renderAllSchemes(filters = {}) {
-    const listEl = document.getElementById('schemes-list');
-    const badgeEl = document.getElementById('match-count-badge');
-    if (!listEl) return;
+// ============================================================
+// 9. THEME & FONT UTILITIES
+// ============================================================
+window.toggleTheme = function() {
+    const isLightNow = document.body.classList.toggle('light-theme');
+    const txtEl = document.getElementById('theme-btn-text');
+    const btnEl = document.getElementById('btn-theme-toggle');
 
-    let stateCode = filters.state || document.getElementById('input-state')?.value || 'ALL';
-    let occ = filters.occ || document.getElementById('input-occupation')?.value || 'ALL';
-    let gender = filters.gender || document.getElementById('input-gender')?.value || 'ALL';
-    let age = parseInt(filters.age || document.getElementById('input-age')?.value || '35');
-
-    let filtered = NATIONAL_SCHEMES_DATABASE.filter(s => {
-        let stateMatch = stateCode === 'ALL' || s.state === 'ALL' || s.state === stateCode;
-        let occMatch = occ === 'ALL' || s.occ.includes('ALL') || s.occ.includes(occ);
-        let genderMatch = gender === 'ALL' || s.gender === 'ALL' || (Array.isArray(s.gender) && s.gender.includes(gender));
-        let ageMatch = !s.minAge || (age >= s.minAge && age <= (s.maxAge || 120));
-
-        return stateMatch && occMatch && genderMatch && ageMatch;
-    });
-
-    if (filtered.length === 0) {
-        filtered = NATIONAL_SCHEMES_DATABASE.filter(s => s.state === 'ALL' || s.state === stateCode);
-    }
-
-    const stateLabel = stateCode !== 'ALL' && STATE_DB[stateCode] ? STATE_DB[stateCode].name.split('/')[0] : 'संपूर्ण भारत';
-
-    if (badgeEl) badgeEl.textContent = `${stateLabel}: ${filtered.length} योजनाएं मिलीं`;
-
-    let html = '';
-    filtered.forEach(sc => {
-        html += `<div class="scheme-item">
-            <div class="scheme-item-head">
-                <div class="scheme-name">${sc.name}</div>
-                <span class="scheme-cat">${sc.cat}</span>
-            </div>
-            <div style="font-size:11.5px;font-weight:700;color:var(--accent-saffron);margin-bottom:6px;">
-                🎯 <b>किसके लिए है:</b> ${sc.targetGroup || 'समस्त पात्र नागरिक'}
-            </div>
-            <div class="scheme-item-body">${sc.desc}</div>
-            <div class="scheme-item-footer">
-                <div class="scheme-docs-wrap">
-                    ${sc.docs.map(d => `<span class="scheme-tag">📄 ${d}</span>`).join('')}
-                </div>
-                <a href="${sc.link}" target="_blank" class="apply-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> ऑनलाइन आवेदन करें</a>
-            </div>
-        </div>`;
-    });
-
-    listEl.innerHTML = html;
-}
-
-window.updateIncomeLabel = function(val) {
-    document.getElementById('income-display').textContent = '₹' + parseInt(val).toLocaleString('en-IN') + ' / वर्ष';
-};
-
-window.handleSchemeSearch = function(e) {
-    if (e) e.preventDefault();
-    const btn = document.getElementById('btn-search-schemes');
-    if (btn) {
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> खोज जारी है...';
-        btn.disabled = true;
-    }
-
-    setTimeout(() => {
-        const state = document.getElementById('input-state').value;
-        const occ = document.getElementById('input-occupation').value;
-        const gender = document.getElementById('input-gender').value;
-        const age = document.getElementById('input-age').value;
-        renderAllSchemes({ state, occ, gender, age });
-
-        if (btn) {
-            btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> <span id="btn-search-txt">योग्य योजनाएं खोजें</span>';
-            btn.disabled = false;
-        }
-    }, 350);
-};
-
-window.triggerManualDataSync = function() {
-    const badge = document.getElementById('sync-status-badge');
-    if (badge) {
-        badge.innerHTML = '<i class="fa-solid fa-sync fa-spin"></i> data.gov.in सिंक जारी...';
-        setTimeout(() => {
-            badge.innerHTML = '<i class="fa-solid fa-circle-check"></i> data.gov.in & myScheme सिंक सफल';
-            window.speakText('डेटा डॉट जीओवी डॉट इन और माई स्कीम से योजनाएं सफलतापूर्वक सिंक हो गईं।');
-        }, 1200);
+    if (isLightNow) {
+        if (txtEl) txtEl.textContent = 'Dark Mode';
+        if (btnEl) btnEl.innerHTML = '<i class="fa-solid fa-moon"></i> <span id="theme-btn-text">Dark Mode</span>';
+        window.speakText('लाइट मोड चालू किया गया।');
+    } else {
+        if (txtEl) txtEl.textContent = 'Light Mode';
+        if (btnEl) btnEl.innerHTML = '<i class="fa-solid fa-sun" style="color:#f59e0b"></i> <span id="theme-btn-text">Light Mode</span>';
+        window.speakText('डार्क मोड चालू किया गया।');
     }
 };
 
-// VOICE & TICKER
-window.speakText = function(text) {
-    if (!window.speechSynthesis) return;
-    try {
-        window.speechSynthesis.cancel();
-        const utt = new SpeechSynthesisUtterance(text);
-        utt.lang = currentLang === 'EN' ? 'en-IN' : 'hi-IN'; utt.rate = 0.95;
-        window.speechSynthesis.speak(utt);
-    } catch(e) {}
+window.adjustFontSize = function(delta) {
+    currentFontSizePx = Math.max(13, Math.min(22, currentFontSizePx + delta));
+    document.documentElement.style.fontSize = currentFontSizePx + 'px';
 };
 
-window.speakCurrentStateDetails = function() {
-    if (!currentSelectedStateCode) return;
-    const s = STATE_DB[currentSelectedStateCode];
-    window.speakText(`${s.name} का विवरण। राजधानी ${s.capital}।`);
+window.toggleLanguage = function() {
+    currentLang = currentLang === 'HI' ? 'EN' : 'HI';
+    const langTxt = document.getElementById('lang-btn-text');
+
+    if (currentLang === 'EN') {
+        if (langTxt) langTxt.textContent = 'हिंदी';
+        window.setVoiceLanguage('en-IN', 'English', 'Switched to CITYWISE AI English Mode.');
+    } else {
+        if (langTxt) langTxt.textContent = 'English';
+        window.setVoiceLanguage('hi-IN', 'हिंदी (Hindi)', 'सिटीवाइज़ एआई हिंदी मोड सक्रिय किया गया।');
+    }
 };
 
 const TICKER_ITEMS = [
-    '🔴 [CITYWISE AI] — Voter ID E-EPIC डाउनलोड एवं नया रजिस्ट्रेशन लाइव',
-    '🟡 [CITYWISE AI] — LIC पॉलिसी प्रीमियम ऑनलाइन भुगतान एवं मैच्योरिटी स्टेटस चालू',
-    '🟢 [CITYWISE AI] — PM Jan Dhan zero balance bank account registration active',
-    '🔵 [CITYWISE AI] — मध्य प्रदेश लाड़ली बहना योजना एवं UP युवा उद्यमी लोन पोर्टल लाइव',
+    '🔴 [CITYWISE AI] — 3D भारत नक्शा एवं ₹4.85 लाख करोड़ DBT लाइव ट्रैकर सक्रिय',
+    '🟡 [CITYWISE AI] — Voter ID E-EPIC डाउनलोड एवं नया रजिस्ट्रेशन पोर्टल लाइव',
+    '🟢 [CITYWISE AI] — LIC पॉलिसी प्रीमियम ऑनलाइन भुगतान एवं मैच्योरिटी ट्रैकर चालू',
+    '🔵 [CITYWISE AI] — PM सूर्य घर मुफ़्त बिजली योजना 300 यूनिट सब्सिडी फॉर्म जारी',
 ];
 let tickerIdx = 0;
 function initTicker() {
@@ -1009,15 +1345,20 @@ function initTicker() {
 document.addEventListener('DOMContentLoaded', () => {
     initTicker();
     populateHomeControls();
-    renderCitizenServices();
     updateIncomeLabel(250000);
 });
 
 document.addEventListener('click', e => {
     const drawer = document.getElementById('state-drawer');
     if (drawer && !drawer.classList.contains('hidden')) {
-        if (!drawer.contains(e.target) && !e.target.closest('.state-chip, .nav-btn, .item-card-chip, .map-pin-btn, #home-btn-launch, .quick-service-btn')) {
+        if (!drawer.contains(e.target) && !e.target.closest('.state-chip, .nav-btn, .item-card-chip, .map-3d-hotspot-item, #home-btn-launch, .quick-service-btn')) {
             window.closeDrawer();
+        }
+    }
+    const voiceMenu = document.getElementById('voice-lang-menu');
+    if (voiceMenu && voiceMenu.classList.contains('show')) {
+        if (!voiceMenu.contains(e.target) && !e.target.closest('.voice-lang-dropdown')) {
+            voiceMenu.classList.remove('show');
         }
     }
 });
