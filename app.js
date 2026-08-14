@@ -1,5 +1,5 @@
 // ============================================================
-// CITYWISE AI — Full Stack Application Logic (3D Map, Realtime DBT Tracker, Citizen Hub & Welfare Studio)
+// CITYWISE AI — Full Stack Application Logic (Interactive Vector Map, Realtime DBT Tracker, WhatsApp Bot & Welfare Studio)
 // ============================================================
 
 // MULTI-LINGUAL VOICE CONFIGURATION (10+ INDIAN LANGUAGES)
@@ -139,6 +139,41 @@ const REGIONS = {
     'South': { title: '🛕 दक्षिणी राज्य एवं द्वीप (South & Islands)', codes: ['TN', 'KA', 'TS', 'AP', 'KL', 'PY', 'AN', 'LD'] }
 };
 
+// PERCENTAGE COORDINATES FOR MAP PINS OVER INDIA GRAPHIC
+const STATE_MAP_COORDINATES = {
+    JK: { top: 12, left: 34, name: 'जम्मू कश्मीर' },
+    LA: { top: 10, left: 45, name: 'लद्दाख' },
+    HP: { top: 19, left: 41, name: 'हिमाचल' },
+    PB: { top: 22, left: 33, name: 'पंजाब' },
+    UK: { top: 24, left: 48, name: 'उत्तराखंड' },
+    HR: { top: 26, left: 37, name: 'हरियाणा' },
+    DL: { top: 29, left: 40, name: 'दिल्ली' },
+    RJ: { top: 35, left: 26, name: 'राजस्थान' },
+    UP: { top: 36, left: 52, name: 'उत्तर प्रदेश' },
+    BR: { top: 40, left: 68, name: 'बिहार' },
+    SK: { top: 34, left: 74, name: 'सिक्किम' },
+    AS: { top: 37, left: 86, name: 'असम' },
+    AR: { top: 30, left: 91, name: 'अरुणाचल' },
+    NL: { top: 38, left: 93, name: 'नागालैंड' },
+    MN: { top: 44, left: 92, name: 'मणिपुर' },
+    MZ: { top: 49, left: 90, name: 'मिजोरम' },
+    TR: { top: 48, left: 85, name: 'त्रिपुरा' },
+    ML: { top: 42, left: 83, name: 'मेघालय' },
+    WB: { top: 48, left: 73, name: 'पश्चिम बंगाल' },
+    JH: { top: 46, left: 66, name: 'झारखंड' },
+    OD: { top: 54, left: 67, name: 'ओडिशा' },
+    CT: { top: 50, left: 56, name: 'छत्तीसगढ़' },
+    MP: { top: 45, left: 44, name: 'मध्य प्रदेश' },
+    GJ: { top: 46, left: 21, name: 'गुजरात' },
+    MH: { top: 58, left: 36, name: 'महाराष्ट्र' },
+    TS: { top: 62, left: 48, name: 'तेलंगाना' },
+    AP: { top: 70, left: 50, name: 'आंध्र प्रदेश' },
+    KA: { top: 73, left: 37, name: 'कर्नाटक' },
+    GA: { top: 69, left: 31, name: 'गोवा' },
+    TN: { top: 84, left: 45, name: 'तमिलनाडु' },
+    KL: { top: 85, left: 37, name: 'केरल' }
+};
+
 function getStandardHelplines(stateName, capital) {
     return [
         { dept: 'राष्ट्रीय आपातकालीन सेवा / Emergency', num: '112', icon: '🆘', bg: '#ff4d6d22', color: '#ff4d6d' },
@@ -209,7 +244,7 @@ const STATE_DB = {
     AR: { name: 'अरुणाचल प्रदेश / Arunachal', capital: 'ईटानगर', emoji: '🏔️', population: '15 Lakh', area: '83,743 km²', cm: 'पेमा खांडू', dbtAmount: '₹2,400 Cr', dbtRating: '91%', districts: { 'ईटानगर (Itanagar)': ['नाहरलगुन (Naharlagun)'] }, helplines: getStandardHelplines('अरुणाचल प्रदेश', 'ईटानगर'), schemes: getStandardSchemes('अरुणाचल प्रदेश'), civic: { total: 2400, resolved: 2200, pending: 150, assigned: 50, rate: 91 } },
     CT: { name: 'छत्तीसगढ़ / Chhattisgarh', capital: 'रायपुर', emoji: '🌾', population: '3.0 Cr', area: '1,35,192 km²', cm: 'विष्णु देव साय', dbtAmount: '₹14,900 Cr', dbtRating: '91%', districts: { 'रायपुर (Raipur)': ['अभनपुर (Abhanpur)'] }, helplines: getStandardHelplines('छत्तीसगढ़', 'रायपुर'), schemes: getStandardSchemes('छत्तीसगढ़'), civic: { total: 11000, resolved: 10000, pending: 700, assigned: 300, rate: 90 } },
     GA: { name: 'गोवा / Goa', capital: 'पणजी', emoji: '🏖️', population: '15 Lakh', area: '3,702 km²', cm: 'प्रमोद सावंत', dbtAmount: '₹2,800 Cr', dbtRating: '95%', districts: { 'उत्तर गोवा (North Goa)': ['मापुसा (Mapusa)'] }, helplines: getStandardHelplines('गोवा', 'पणजी'), schemes: getStandardSchemes('गोवा'), civic: { total: 3200, resolved: 3000, pending: 150, assigned: 50, rate: 94 } },
-    HP: { name: 'हिमाचल प्रदेश / Himachal', capital: 'शिमला', emoji: '🏔️', population: '75 Lakh', area: '55,673 km²', cm: 'सुखविंदर सिंह सुक्खू', dbtAmount: '₹6,400 Cr', dbtRating: '93%', districts: { 'शिमला (Shimla)': ['कुफरी (Kufri)'] }, helplines: getStandardHelplines('हिमाचल प्रदेश', 'शिमला'), schemes: getStandardSchemes('हिमाचल प्रदेश'), civic: { total: 6500, resolved: 6000, pending: 350, assigned: 150, rate: 92 } },
+    HP: { name: 'हिमाचल प्रदेश / Himachal', capital: 'शिमला', emoji: '🏔️', population: '75 Lakh', area: '55,673 km²', cm: 'सुखविंदर सिंह सुक्खू', dbtAmount: '₹6,400 Cr', dbtRating: '92%', districts: { 'शिमला (Shimla)': ['कुफरी (Kufri)'] }, helplines: getStandardHelplines('हिमाचल प्रदेश', 'शिमला'), schemes: getStandardSchemes('हिमाचल प्रदेश'), civic: { total: 6500, resolved: 6000, pending: 350, assigned: 150, rate: 92 } },
     JH: { name: 'झारखंड / Jharkhand', capital: 'रांची', emoji: '⛏️', population: '3.9 Cr', area: '79,716 km²', cm: 'हेमंत सोरेन', dbtAmount: '₹15,400 Cr', dbtRating: '89%', districts: { 'रांची (Ranchi)': ['कांके (Kanke)'] }, helplines: getStandardHelplines('झारखंड', 'रांची'), schemes: getStandardSchemes('झारखंड'), civic: { total: 13500, resolved: 12000, pending: 1000, assigned: 500, rate: 89 } },
     MN: { name: 'मणिपुर / Manipur', capital: 'इम्फाल', emoji: '⛰️', population: '32 Lakh', area: '22,327 km²', cm: 'एन. बीरेन सिंह', dbtAmount: '₹2,100 Cr', dbtRating: '90%', districts: { 'इम्फाल (Imphal)': ['लम्फेलपत (Lamphelpat)'] }, helplines: getStandardHelplines('मणिपुर', 'इम्फाल'), schemes: getStandardSchemes('मणिपुर'), civic: { total: 2900, resolved: 2600, pending: 200, assigned: 100, rate: 90 } },
     ML: { name: 'मेघालय / Meghalaya', capital: 'शिलांग', emoji: '🌧️', population: '33 Lakh', area: '22,429 km²', cm: 'कॉनराड संगमा', dbtAmount: '₹2,300 Cr', dbtRating: '91%', districts: { 'शिलांग (Shillong)': ['सोहरा (Sohra)'] }, helplines: getStandardHelplines('मेघालय', 'शिलांग'), schemes: getStandardSchemes('मेघालय'), civic: { total: 3100, resolved: 2850, pending: 180, assigned: 70, rate: 91 } },
@@ -402,134 +437,67 @@ let currentHeatmapMode = 'standard';
 let currentLang = 'HI';
 
 // ============================================================
-// 1. THREE.JS 3D INTERACTIVE INDIA MAP CANVAS ENGINE
+// 1. INTERACTIVE VECTOR MAP OVERLAY & HOTSPOTS ENGINE
 // ============================================================
-let threeScene, threeCamera, threeRenderer, threeGlobeMesh, threeParticleGroup;
-let isThreeInitialized = false;
+function initInteractiveVectorMap() {
+    const container = document.getElementById('state-nodes-overlay');
+    if (!container) return;
 
-function initThreeMapEngine() {
-    const canvas = document.getElementById('three-map-canvas');
-    const container = document.getElementById('three-map-container');
-    if (!canvas || !container || isThreeInitialized) return;
+    let html = '';
+    Object.keys(STATE_MAP_COORDINATES).forEach(code => {
+        const coord = STATE_MAP_COORDINATES[code];
+        const s = STATE_DB[code];
+        if (!s) return;
 
-    try {
-        const width = container.clientWidth || 600;
-        const height = container.clientHeight || 520;
-
-        threeScene = new THREE.Scene();
-        threeCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-        threeCamera.position.set(0, 0, 18);
-
-        threeRenderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-        threeRenderer.setSize(width, height);
-        threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-        // Ambient & Point Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-        threeScene.add(ambientLight);
-
-        const pointLight1 = new THREE.PointLight(0x6366f1, 2, 50);
-        pointLight1.position.set(10, 10, 10);
-        threeScene.add(pointLight1);
-
-        const pointLight2 = new THREE.PointLight(0x10b981, 1.5, 50);
-        pointLight2.position.set(-10, -10, 10);
-        threeScene.add(pointLight2);
-
-        // 3D Digital Wireframe Geodesic Sphere
-        const sphereGeo = new THREE.IcosahedronGeometry(7, 3);
-        const sphereMat = new THREE.MeshPhongMaterial({
-            color: 0x4338ca,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.28,
-            shininess: 100
-        });
-        threeGlobeMesh = new THREE.Mesh(sphereGeo, sphereMat);
-        threeScene.add(threeGlobeMesh);
-
-        // Glowing 3D Particle Starfield
-        const particleGeo = new THREE.BufferGeometry();
-        const count = 350;
-        const positions = new Float32Array(count * 3);
-        const colors = new Float32Array(count * 3);
-
-        const colOptions = [
-            new THREE.Color(0x6366f1), // Indigo
-            new THREE.Color(0xf59e0b), // Saffron
-            new THREE.Color(0x10b981), // Emerald
-            new THREE.Color(0xffffff)  // White
-        ];
-
-        for (let i = 0; i < count * 3; i += 3) {
-            const u = Math.random();
-            const v = Math.random();
-            const theta = u * 2.0 * Math.PI;
-            const phi = Math.acos(2.0 * v - 1.0);
-            const r = 7.2 + Math.random() * 2.5;
-
-            positions[i] = r * Math.sin(phi) * Math.cos(theta);
-            positions[i + 1] = r * Math.sin(phi) * Math.sin(theta);
-            positions[i + 2] = r * Math.cos(phi);
-
-            const pickedCol = colOptions[Math.floor(Math.random() * colOptions.length)];
-            colors[i] = pickedCol.r;
-            colors[i + 1] = pickedCol.g;
-            colors[i + 2] = pickedCol.b;
+        let displayBadge = coord.name;
+        let modeClass = '';
+        if (currentHeatmapMode === 'dbt') {
+            displayBadge = `${coord.name}: ${s.dbtAmount}`;
+            modeClass = 'mode-dbt';
+        } else if (currentHeatmapMode === 'civic') {
+            displayBadge = `${coord.name}: ${s.dbtRating}`;
+            modeClass = 'mode-civic';
         }
 
-        particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        particleGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        html += `<button class="state-node-pin ${modeClass}" style="top:${coord.top}%;left:${coord.left}%;" 
+            onmouseover="showMapTooltip('${code}', event)" 
+            onmouseout="hideMapTooltip()" 
+            onclick="onMapStateClick('${code}')">
+            ${s.emoji} ${displayBadge}
+        </button>`;
+    });
 
-        const particleMat = new THREE.PointsMaterial({
-            size: 0.18,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.85
-        });
-
-        threeParticleGroup = new THREE.Points(particleGeo, particleMat);
-        threeScene.add(threeParticleGroup);
-
-        // Render Loop
-        function animateThree() {
-            requestAnimationFrame(animateThree);
-            if (threeGlobeMesh) threeGlobeMesh.rotation.y += 0.003;
-            if (threeParticleGroup) threeParticleGroup.rotation.y += 0.002;
-            threeRenderer.render(threeScene, threeCamera);
-        }
-        animateThree();
-
-        // Responsive Resize Listener
-        window.addEventListener('resize', () => {
-            if (!container || !threeCamera || !threeRenderer) return;
-            const w = container.clientWidth;
-            const h = container.clientHeight;
-            threeCamera.aspect = w / h;
-            threeCamera.updateProjectionMatrix();
-            threeRenderer.setSize(w, h);
-        });
-
-        isThreeInitialized = true;
-        render3DMapHotspots();
-    } catch(err) {
-        console.error("Three.js map init error:", err);
-    }
+    container.innerHTML = html;
+    render3DMapHotspots();
 }
 
-window.rotate3DMapLeft = function() {
-    if (threeGlobeMesh) threeGlobeMesh.rotation.y -= 0.35;
-    if (threeParticleGroup) threeParticleGroup.rotation.y -= 0.35;
+window.showMapTooltip = function(code, e) {
+    const tt = document.getElementById('map-tooltip');
+    const s = STATE_DB[code];
+    if (!tt || !s) return;
+
+    document.getElementById('tt-title').textContent = `${s.emoji} ${s.name.split('/')[0]}`;
+    document.getElementById('tt-capital').textContent = s.capital;
+    document.getElementById('tt-pop').textContent = s.population;
+    document.getElementById('tt-dbt').textContent = s.dbtAmount;
+    document.getElementById('tt-rate').textContent = s.dbtRating;
+
+    tt.classList.remove('hidden');
 };
 
-window.rotate3DMapRight = function() {
-    if (threeGlobeMesh) threeGlobeMesh.rotation.y += 0.35;
-    if (threeParticleGroup) threeParticleGroup.rotation.y += 0.35;
+window.hideMapTooltip = function() {
+    const tt = document.getElementById('map-tooltip');
+    if (tt) tt.classList.add('hidden');
 };
 
-window.reset3DCamera = function() {
-    if (threeGlobeMesh) threeGlobeMesh.rotation.set(0, 0, 0);
-    if (threeParticleGroup) threeParticleGroup.rotation.set(0, 0, 0);
+window.setMapHeatmapMode = function(mode, btnEl) {
+    currentHeatmapMode = mode;
+    const btns = document.querySelectorAll('.map-mode-btn');
+    btns.forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+
+    initInteractiveVectorMap();
+    renderMapStatesList();
 };
 
 function render3DMapHotspots() {
@@ -546,16 +514,6 @@ function render3DMapHotspots() {
     });
     container.innerHTML = html;
 }
-
-window.setMapHeatmapMode = function(mode, btnEl) {
-    currentHeatmapMode = mode;
-    const btns = document.querySelectorAll('.map-mode-btn');
-    btns.forEach(b => b.classList.remove('active'));
-    if (btnEl) btnEl.classList.add('active');
-
-    render3DMapHotspots();
-    renderMapStatesList();
-};
 
 window.resetMapToAllIndia = function() {
     currentSelectedStateCode = null;
@@ -583,7 +541,6 @@ function initDBTCharts() {
     if (!stateCtx || !sectorCtx || dbtStateChartInstance) return;
 
     try {
-        // Chart 1: State Wise DBT Funds
         dbtStateChartInstance = new Chart(stateCtx, {
             type: 'bar',
             data: {
@@ -611,7 +568,6 @@ function initDBTCharts() {
             }
         });
 
-        // Chart 2: Sector Breakdown Donut
         dbtSectorChartInstance = new Chart(sectorCtx, {
             type: 'doughnut',
             data: {
@@ -652,7 +608,6 @@ function initDBTLiveFeed() {
     const list = document.getElementById('dbt-live-feed-list');
     if (!list) return;
 
-    // Seed initial 3 items
     list.innerHTML = SAMPLE_BENEFICIARIES.slice(0, 3).map(b => createFeedItemHtml(b)).join('');
 
     clearInterval(dbtLiveInterval);
@@ -681,7 +636,7 @@ function createFeedItemHtml(b) {
 }
 
 // ============================================================
-// 3. WHATSAPP & SMS SCHEME NOTIFICATION BOT
+// 3. WHATSAPP & SMS SCHEME NOTIFICATION BOT (DIRECT URL TRIGGER)
 // ============================================================
 window.openWhatsAppModal = function() {
     const modal = document.getElementById('whatsapp-modal');
@@ -695,12 +650,22 @@ window.closeWhatsAppModal = function() {
 
 window.submitWhatsAppSubscription = function() {
     const phoneInput = document.getElementById('wa-phone-input');
-    const phone = phoneInput ? phoneInput.value.trim() : '';
+    const phone = phoneInput ? phoneInput.value.trim().replace(/[^0-9]/g, '') : '';
 
-    if (phone.length !== 10 || isNaN(phone)) {
+    if (phone.length !== 10) {
         alert("कृपया अपना 10 अंकों का सही मोबाइल नंबर दर्ज करें (e.g. 9876543210)।");
         return;
     }
+
+    // Prepare WhatsApp Message text
+    const waText = encodeURIComponent(
+        `🏛️ *CITYWISE AI — राष्ट्रीय सुशासन अलर्ट्स*\n\n` +
+        `नमस्ते! मोबाइल नंबर: +91 ${phone} के लिए सरकारी योजना अलर्ट्स सक्रिय किए जा रहे हैं।\n\n` +
+        `📢 *नवीनतम योजना अपडेट:* PM सूर्य घर मुफ़्त बिजली योजना (300 यूनिट सब्सिडी ₹78,000) एवं PM-Kisan 19वीं किश्त फॉर्म लाइव हैं।\n\n` +
+        `🔗 *पोर्टल लिंक:* https://citywise-ai.vercel.app`
+    );
+
+    const waDirectUrl = `https://api.whatsapp.com/send?phone=91${phone}&text=${waText}`;
 
     // Confetti celebration
     if (window.confetti) {
@@ -709,17 +674,26 @@ window.submitWhatsAppSubscription = function() {
 
     const preview = document.getElementById('wa-preview-card');
     const bubble = document.getElementById('wa-preview-bubble');
+    const directBtn = document.getElementById('wa-direct-launch-link');
+
     if (preview && bubble) {
         preview.classList.remove('hidden');
         bubble.innerHTML = `
-            <b>🏛️ CITYWISE AI — Official Alert</b><br>
-            नमस्ते! आपका मोबाइल नंबर <b>+91 ${phone}</b> सफलतापूर्वक सब्सक्राइब हो गया है।<br><br>
-            📢 <b>ताज़ा अपडेट:</b> PM सूर्य घर मुफ़्त बिजली योजना में ₹78,000 की सब्सिडी आवेदन फॉर्म जारी हो गया है।<br>
-            🔗 <i>अधिक जानकारी के लिए CITYWISE AI पोर्टल पर जाएं।</i>
+            <b>🏛️ CITYWISE AI — Official WhatsApp Notification</b><br>
+            नमस्ते! आपका मोबाइल नंबर <b>+91 ${phone}</b> सफलतापूर्वक रजिस्टर हो गया है।<br><br>
+            📢 <b>ताज़ा सरकारी योजना अलर्ट:</b> PM सूर्य घर मुफ़्त बिजली योजना (₹78,000 सब्सिडी) एवं लाड़ली बहना/PM-Kisan किश्त अलर्ट्स एक्टिवेट हो गए हैं।
         `;
     }
 
+    if (directBtn) {
+        directBtn.href = waDirectUrl;
+        directBtn.style.display = 'inline-flex';
+    }
+
     window.speakText("आपका व्हाट्सएप नंबर सरकारी योजना अलर्ट्स के लिए सफलतापूर्वक रजिस्टर हो गया है।");
+
+    // Automatically trigger WhatsApp Open
+    window.open(waDirectUrl, '_blank');
 };
 
 // ============================================================
@@ -836,7 +810,7 @@ window.filterCitizenServices = function() {
 };
 
 // ============================================================
-// 6. WELFARE SCHEMES MATCHING STUDIO (REDESIGNED)
+// 6. WELFARE SCHEMES MATCHING STUDIO
 // ============================================================
 function renderAllSchemes(filters = {}) {
     const listEl = document.getElementById('schemes-list');
@@ -961,7 +935,7 @@ window.switchPage = function(pageId) {
 
         if (pageId === 'home') initTicker();
         if (pageId === 'map') {
-            initThreeMapEngine();
+            initInteractiveVectorMap();
             renderMapStatesList();
         }
         if (pageId === 'dbt') initDBTCharts();
@@ -976,7 +950,7 @@ window.toggleMobileMenu = function() {
 };
 
 // ============================================================
-// 8. 3D MAP DRILLDOWN & HOME POPULATION
+// 8. HOME & DRILL DOWN CONTROLS
 // ============================================================
 function populateHomeControls(regionFilter = 'ALL') {
     const chipContainer = document.getElementById('home-state-chips');
@@ -1092,7 +1066,7 @@ window.launchSelectedLocationPortal = function() {
     }
 };
 
-// 3D MAP STEP DRILL DOWN
+// STEP DRILL DOWN IN MAP VIEW
 function renderMapStatesList(filterQuery = '') {
     const grid = document.getElementById('map-states-grid');
     if (!grid) return;
@@ -1346,12 +1320,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initTicker();
     populateHomeControls();
     updateIncomeLabel(250000);
+    initInteractiveVectorMap();
 });
 
 document.addEventListener('click', e => {
     const drawer = document.getElementById('state-drawer');
     if (drawer && !drawer.classList.contains('hidden')) {
-        if (!drawer.contains(e.target) && !e.target.closest('.state-chip, .nav-btn, .item-card-chip, .map-3d-hotspot-item, #home-btn-launch, .quick-service-btn')) {
+        if (!drawer.contains(e.target) && !e.target.closest('.state-chip, .nav-btn, .item-card-chip, .map-3d-hotspot-item, #home-btn-launch, .quick-service-btn, .state-node-pin')) {
             window.closeDrawer();
         }
     }

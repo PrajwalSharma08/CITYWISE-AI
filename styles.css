@@ -1,5 +1,5 @@
 /* ============================================================
-   CITYWISE AI — Dribbble-Grade 3D Government Portal Design System
+   CITYWISE AI — Dribbble-Grade Interactive Government Portal Design System
    ============================================================ */
 
 :root {
@@ -703,7 +703,7 @@ body {
 }
 
 /* ============================================================
-   3D MAP & MAP CONTROLS TOOLBAR
+   INTERACTIVE VECTOR INDIA MAP STYLES
    ============================================================ */
 .breadcrumb-bar {
     background: var(--bg-surface);
@@ -778,77 +778,118 @@ body {
     font-weight: 700;
 }
 
-/* 3D MAP THREE.JS CANVAS CONTAINER */
-.map-card-3d {
+/* VECTOR MAP CANVAS */
+.map-card-vector {
     padding: 20px;
     position: relative;
 }
-.three-map-container {
+.vector-map-wrapper {
     position: relative;
     width: 100%;
-    height: 520px;
     background: radial-gradient(circle at center, #1e1b4b 0%, #090d16 100%);
     border-radius: var(--radius-lg);
     overflow: hidden;
     border: 1px solid var(--border-color);
+    padding: 10px;
 }
-#three-map-canvas {
+.map-graphic-canvas {
+    position: relative;
     width: 100%;
-    height: 100%;
-    display: block;
-}
-.three-hud-overlay {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    right: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
-}
-.hud-chip {
-    background: rgba(17, 24, 39, 0.85);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: var(--accent-emerald);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 700;
-    pointer-events: auto;
-}
-.hud-actions {
-    display: flex;
-    gap: 6px;
-    pointer-events: auto;
-}
-.hud-btn {
-    background: rgba(17, 24, 39, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #fff;
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    cursor: pointer;
+    height: 520px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
-    transition: background 0.2s;
 }
-.hud-btn:hover {
-    background: var(--primary-indigo);
+.india-base-map-img {
+    max-width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 16px rgba(99, 102, 241, 0.4));
+    border-radius: var(--radius-md);
 }
-.map-3d-hotspots-grid {
+.interactive-state-nodes {
     position: absolute;
-    bottom: 14px;
-    left: 14px;
-    right: 14px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+}
+.state-node-pin {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: rgba(17, 24, 39, 0.88);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+    padding: 3px 7px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 800;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 10;
+}
+.state-node-pin:hover {
+    transform: translate(-50%, -50%) scale(1.22);
+    background: var(--gradient-hero);
+    border-color: #fff;
+    z-index: 20;
+    box-shadow: 0 0 16px var(--primary-indigo);
+}
+.state-node-pin.mode-dbt {
+    border-color: var(--accent-emerald);
+    color: var(--accent-emerald);
+}
+.state-node-pin.mode-civic {
+    border-color: var(--accent-saffron);
+    color: var(--accent-saffron);
+}
+
+/* DYNAMIC HOVER TOOLTIP */
+.map-hover-tooltip {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(99, 102, 241, 0.4);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    font-size: 12px;
+    color: #fff;
+    z-index: 30;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    min-width: 170px;
+    animation: fadeIn 0.2s;
+}
+.map-hover-tooltip.hidden { display: none; }
+.tt-header {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--primary-indigo);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+}
+.tt-body div {
+    margin-bottom: 3px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.map-3d-hotspots-grid {
+    margin-top: 10px;
     display: flex;
     gap: 6px;
     overflow-x: auto;
-    padding: 8px;
+    padding: 6px;
     background: rgba(17, 24, 39, 0.85);
     backdrop-filter: blur(10px);
     border-radius: var(--radius-md);
@@ -858,7 +899,7 @@ body {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.12);
     color: #fff;
-    padding: 6px 12px;
+    padding: 5px 10px;
     border-radius: 6px;
     font-size: 11px;
     font-weight: 700;
@@ -1202,7 +1243,7 @@ body {
 }
 
 /* ============================================================
-   WELFARE MATCHING STUDIO STYLES (REDESIGNED)
+   WELFARE MATCHING STUDIO STYLES
    ============================================================ */
 .scheme-studio-grid {
     align-items: start;
@@ -1646,5 +1687,5 @@ body {
     .mobile-bottom-nav { display: flex; }
     .services-cards-grid { grid-template-columns: 1fr; }
     .hero-title { font-size: 28px; }
-    .three-map-container { height: 400px; }
+    .map-graphic-canvas { height: 380px; }
 }

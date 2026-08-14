@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CITYWISE AI — All-India Digital Governance, 3D Map, DBT Tracker & Citizen Services Portal</title>
-    <meta name="description" content="CITYWISE AI — Official All-India Digital Governance Portal — 3D Interactive Map, Realtime DBT Tracker, LIC Policies, Voter ID, Public Banking, and Welfare Schemes Engine.">
+    <meta name="description" content="CITYWISE AI — Official All-India Digital Governance Portal — Interactive 3D Map, Realtime DBT Tracker, LIC Policies, Voter ID, Public Banking, and Welfare Schemes Engine.">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#6366f1">
 
@@ -13,8 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Three.js for 3D Interactive Visualizations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- Chart.js for Realtime DBT Tracker -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Canvas Confetti -->
@@ -93,8 +91,8 @@
                     <span id="nav-txt-home">मुख्य पृष्ठ <small>Home</small></span>
                 </button>
                 <button class="nav-btn" id="nav-map" onclick="switchPage('map')">
-                    <i class="fa-solid fa-cubes"></i> 
-                    <span id="nav-txt-map">3D भारत नक्शा <small>3D Explorer</small></span>
+                    <i class="fa-solid fa-map-location-dot"></i> 
+                    <span id="nav-txt-map">3D भारत नक्शा <small>Interactive Map</small></span>
                 </button>
                 <button class="nav-btn" id="nav-dbt" onclick="switchPage('dbt')">
                     <i class="fa-solid fa-chart-line"></i> 
@@ -127,7 +125,7 @@
                 <i class="fa-solid fa-house"></i> मुख्य पृष्ठ (Home Portal)
             </button>
             <button class="mobile-nav-item" onclick="switchPage('map'); toggleMobileMenu();">
-                <i class="fa-solid fa-cubes"></i> 3D भारत नक्शा (3D Map Explorer)
+                <i class="fa-solid fa-map-location-dot"></i> 3D भारत नक्शा (Interactive Map)
             </button>
             <button class="mobile-nav-item" onclick="switchPage('dbt'); toggleMobileMenu();">
                 <i class="fa-solid fa-chart-line"></i> 💰 DBT लाइव ट्रैकर (Live Analytics)
@@ -176,13 +174,13 @@
                 </h1>
 
                 <p class="hero-sub" id="hero-sub-txt">
-                    3D नक्शे पर किसी भी राज्य, ज़िला या गाँव का सुशासन देखें। LIC पॉलिसियां, Voter ID, सरकारी बैंक, ₹4.85 लाख करोड़ DBT लाइव ट्रैकर एवं 30+ सत्यापित कल्याणकारी योजनाओं का लाभ उठाएं।
+                    3D इंटरैक्टिव नक्शे पर किसी भी राज्य, ज़िला या गाँव का सुशासन देखें। LIC पॉलिसियां, Voter ID, सरकारी बैंक, ₹4.85 लाख करोड़ DBT लाइव ट्रैकर एवं 30+ सत्यापित कल्याणकारी योजनाओं का लाभ उठाएं।
                 </p>
 
                 <!-- QUICK CITIZEN SERVICE SHORTCUTS -->
                 <div class="hero-quick-services">
                     <button class="quick-service-btn" onclick="switchPage('map')">
-                        <i class="fa-solid fa-cubes" style="color:#6366f1"></i>
+                        <i class="fa-solid fa-map-location-dot" style="color:#6366f1"></i>
                         <span>3D नक्शा Explorer</span>
                     </button>
                     <button class="quick-service-btn" onclick="switchPage('dbt')">
@@ -276,7 +274,7 @@
 
                     <div class="card-footer-action">
                         <button class="btn-link-map" onclick="switchPage('map')">
-                            <i class="fa-solid fa-cubes"></i> <span id="btn-map-link-txt">3D भारत नक्शा खोलें (Interactive 3D Explorer)</span>
+                            <i class="fa-solid fa-map-location-dot"></i> <span id="btn-map-link-txt">3D भारत नक्शा खोलें (Interactive 3D Explorer)</span>
                         </button>
                     </div>
                 </div>
@@ -285,13 +283,13 @@
         </section>
     </div>
 
-    <!-- ===== PAGE 2: 3D INTERACTIVE INDIA MAP & REGIONAL EXPLORER (REDESIGNED) ===== -->
+    <!-- ===== PAGE 2: INTERACTIVE VECTOR & 3D INDIA MAP EXPLORER ===== -->
     <div id="page-map" class="page-view">
         <section class="page-section">
             <div class="section-header">
-                <div class="section-tag"><i class="fa-solid fa-cubes"></i> <span id="map-sec-tag">CITYWISE AI 3D नक्शा Explorer</span> <small>/ Three.js 3D Visualizer</small></div>
-                <h2 id="map-sec-title">3D इंटरैक्टिव भारत नक्शा — राज्य, ज़िला एवं गाँव सुशासन केंद्र</h2>
-                <p id="map-sec-sub">Three.js संचालित 3D मैप विजुअलाइज़र। किसी भी राज्य पर क्लिक करें, 3D एलिवेशन एवं हीटमैप देखें और स्थानीय हेल्पलाइन व प्रशासन डेटा अनलॉक करें।</p>
+                <div class="section-tag"><i class="fa-solid fa-map-location-dot"></i> <span id="map-sec-tag">CITYWISE AI इंटरैक्टिव नक्शा Explorer</span> <small>/ 3D Hologram Map</small></div>
+                <h2 id="map-sec-title">भारत का आधिकारिक इंटरैक्टिव नक्शा — राज्य, ज़िला एवं गाँव सुशासन</h2>
+                <p id="map-sec-sub">राज्य पर माउस ले जाएं या क्लिक करें। वास्तविक भौगोलिक सीमाएं, 3D एलिवेशन, लाइव DBT आवंटन एवं विभागीय हेल्पलाइन नंबर तुरंत देखें।</p>
             </div>
 
             <!-- Breadcrumb Navigation Bar -->
@@ -309,10 +307,10 @@
             <div class="map-controls-toolbar">
                 <div class="map-mode-tabs">
                     <button class="map-mode-btn active" id="btn-map-mode-poly" onclick="setMapHeatmapMode('standard', this)">
-                        <i class="fa-solid fa-layer-group"></i> <span>मानक राज्य नक्शा</span>
+                        <i class="fa-solid fa-layer-group"></i> <span>मानक राज्य नक्शा (Standard)</span>
                     </button>
                     <button class="map-mode-btn" id="btn-map-mode-dbt" onclick="setMapHeatmapMode('dbt', this)">
-                        <i class="fa-solid fa-indian-rupee-sign"></i> <span>DBT वितरण Heatmap</span>
+                        <i class="fa-solid fa-indian-rupee-sign"></i> <span>DBT फंड Heatmap</span>
                     </button>
                     <button class="map-mode-btn" id="btn-map-mode-civic" onclick="setMapHeatmapMode('civic', this)">
                         <i class="fa-solid fa-circle-check"></i> <span>सुशासन संतुष्टि Heatmap</span>
@@ -325,28 +323,37 @@
             </div>
 
             <div class="two-col-grid map-grid-3d">
-                <!-- 3D CANVAS & INTERACTIVE MAP VIEW -->
-                <div class="glass-card map-card-3d">
+                <!-- INTERACTIVE VECTOR INDIA MAP WITH 3D HOLOGRAM WRAPPER -->
+                <div class="glass-card map-card-vector">
                     <div class="card-header">
-                        <h3><i class="fa-solid fa-globe"></i> <span>3D डिजिटल भारत नक्शा</span> <small>/ Interactive Three.js Canvas</small></h3>
-                        <span class="badge badge-warning" id="map-hover-info">राज्य पर क्लिक करें / Click State</span>
+                        <h3><i class="fa-solid fa-earth-asia"></i> <span>इंटरैक्टिव भारत नक्शा</span> <small>/ Click any State</small></h3>
+                        <span class="badge badge-warning" id="map-hover-info">राज्य पर क्लिक करें / Select State</span>
                     </div>
 
-                    <!-- 3D Three.js Globe Container -->
-                    <div class="three-map-container" id="three-map-container">
-                        <canvas id="three-map-canvas"></canvas>
-                        
-                        <!-- 3D Canvas Overlay HUD -->
-                        <div class="three-hud-overlay">
-                            <div class="hud-chip"><i class="fa-solid fa-compass fa-spin" style="--fa-animation-duration: 8s;"></i> 3D Particle Mesh Live</div>
-                            <div class="hud-actions">
-                                <button class="hud-btn" onclick="rotate3DMapLeft()" title="Rotate Left"><i class="fa-solid fa-rotate-left"></i></button>
-                                <button class="hud-btn" onclick="reset3DCamera()" title="Reset 3D View"><i class="fa-solid fa-arrows-to-circle"></i></button>
-                                <button class="hud-btn" onclick="rotate3DMapRight()" title="Rotate Right"><i class="fa-solid fa-rotate-right"></i></button>
+                    <!-- Interactive Vector India Map SVG Container -->
+                    <div class="vector-map-wrapper" id="vector-map-wrapper">
+                        <!-- Dynamic State Info Tooltip -->
+                        <div id="map-tooltip" class="map-hover-tooltip hidden">
+                            <div class="tt-header" id="tt-title">उत्तर प्रदेश</div>
+                            <div class="tt-body">
+                                <div><b>राजधानी:</b> <span id="tt-capital">लखनऊ</span></div>
+                                <div><b>जनसंख्या:</b> <span id="tt-pop">24.1 Cr</span></div>
+                                <div><b>DBT ट्रांसफर:</b> <span id="tt-dbt" style="color:var(--accent-emerald)">₹54,200 Cr</span></div>
+                                <div><b>संतुष्टि दर:</b> <span id="tt-rate" style="color:var(--accent-saffron)">90%</span></div>
                             </div>
                         </div>
 
-                        <!-- 28 States & UTs Hotspot Grid Over Map Area -->
+                        <!-- Full Political India Map SVG Grid Overlay -->
+                        <div class="map-graphic-canvas">
+                            <img src="india-map.jpg" alt="Official Map of India" class="india-base-map-img">
+                            
+                            <!-- Interactive SVG Hotspot Region Nodes for all 36 States & UTs -->
+                            <div class="interactive-state-nodes" id="state-nodes-overlay">
+                                <!-- Populated dynamically by app.js with exact coordinates -->
+                            </div>
+                        </div>
+
+                        <!-- Bottom Quick Hotspots Carousel -->
                         <div class="map-3d-hotspots-grid" id="map-3d-hotspots">
                             <!-- Populated dynamically with interactive badges -->
                         </div>
@@ -389,7 +396,7 @@
         </section>
     </div>
 
-    <!-- ===== PAGE 3: REALTIME DBT TRACKER & ANALYTICS (NEW FEATURE) ===== -->
+    <!-- ===== PAGE 3: REALTIME DBT TRACKER & ANALYTICS ===== -->
     <div id="page-dbt" class="page-view">
         <section class="page-section">
             <div class="section-header">
@@ -498,7 +505,7 @@
         </section>
     </div>
 
-    <!-- ===== PAGE 5: WELFARE SCHEMES MATCHING STUDIO (REDESIGNED) ===== -->
+    <!-- ===== PAGE 5: WELFARE SCHEMES MATCHING STUDIO ===== -->
     <div id="page-schemes" class="page-view">
         <section class="page-section">
             <div class="section-header">
@@ -646,7 +653,7 @@
         </div>
     </div>
 
-    <!-- ===== MODAL: WHATSAPP & SMS SCHEME NOTIFICATION BOT ===== -->
+    <!-- ===== MODAL: DIRECT WHATSAPP & SMS SCHEME NOTIFICATION BOT ===== -->
     <div id="whatsapp-modal" class="modal-overlay hidden">
         <div class="modal-card">
             <div class="modal-header">
@@ -662,7 +669,7 @@
 
             <div class="modal-body">
                 <p style="font-size:13px;color:var(--text-body);margin-bottom:14px;">
-                    अपने राज्य एवं पसंद की श्रेणियों के आधार पर नई सरकारी योजनाओं के तत्काल अलर्ट सीधे अपने <b>WhatsApp</b> पर प्राप्त करें।
+                    अपना 10 अंकों का WhatsApp नंबर दर्ज करें। बटन दबाते ही आपके WhatsApp पर <b>CITYWISE AI</b> का आधिकारिक योजना अलर्ट चैट एक्टिवेट हो जाएगा!
                 </p>
 
                 <div class="form-group mb-12">
@@ -676,26 +683,29 @@
                 <div class="form-group mb-16">
                     <label style="font-size:12px;font-weight:700;"><i class="fa-solid fa-tags"></i> रुचि की श्रेणियां चुनें:</label>
                     <div class="wa-category-chips">
-                        <label class="wa-chip"><input type="checkbox" checked value="किसान"> <span>🌾 किसान (PM-Kisan)</span></label>
-                        <label class="wa-chip"><input type="checkbox" checked value="महिला"> <span>👩 महिला (लाड़ली बहना)</span></label>
-                        <label class="wa-chip"><input type="checkbox" checked value="युवा"> <span>🎓 युवा स्वरोजगार व लोन</span></label>
-                        <label class="wa-chip"><input type="checkbox" checked value="सोलर"> <span>☀️ PM सूर्य घर बिजली</span></label>
+                        <label class="wa-chip"><input type="checkbox" checked value="किसान" id="wa-cat-kisan"> <span>🌾 किसान (PM-Kisan)</span></label>
+                        <label class="wa-chip"><input type="checkbox" checked value="महिला" id="wa-cat-mahila"> <span>👩 महिला (लाड़ली बहना)</span></label>
+                        <label class="wa-chip"><input type="checkbox" checked value="युवा" id="wa-cat-yuva"> <span>🎓 युवा स्वरोजगार व लोन</span></label>
+                        <label class="wa-chip"><input type="checkbox" checked value="सोलर" id="wa-cat-solar"> <span>☀️ PM सूर्य घर बिजली</span></label>
                     </div>
                 </div>
 
                 <button class="btn btn-gradient w-100 btn-lg" onclick="submitWhatsAppSubscription()">
-                    <i class="fa-brands fa-whatsapp"></i> WhatsApp अलर्ट्स सक्रिय करें (Subscribe)
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp खोलें एवं अलर्ट्स एक्टिवेट करें
                 </button>
 
-                <!-- Live Simulated Preview Card -->
+                <!-- Live Direct Open Link & Confirmation Notice -->
                 <div id="wa-preview-card" class="wa-preview-card hidden">
                     <div class="wa-preview-head">
                         <i class="fa-brands fa-whatsapp text-emerald"></i>
-                        <span>CITYWISE AI Official Bot — Message Preview</span>
+                        <span>CITYWISE AI Official Bot — Message Ready</span>
                     </div>
                     <div class="wa-preview-bubble" id="wa-preview-bubble">
                         <!-- Injected by app.js -->
                     </div>
+                    <a id="wa-direct-launch-link" href="#" target="_blank" class="btn btn-gradient w-100 mt-10" style="background:#25d366;text-align:center;display:none;">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp पर डायरेक्ट मैसेज भेजें
+                    </a>
                 </div>
             </div>
         </div>
@@ -708,7 +718,7 @@
             <span>होम</span>
         </button>
         <button class="m-bottom-btn" id="m-nav-map" onclick="switchPage('map')">
-            <i class="fa-solid fa-cubes"></i>
+            <i class="fa-solid fa-map-location-dot"></i>
             <span>3D नक्शा</span>
         </button>
         <button class="m-bottom-btn" id="m-nav-dbt" onclick="switchPage('dbt')">
