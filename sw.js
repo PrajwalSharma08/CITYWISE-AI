@@ -1,20 +1,7 @@
-// CITYWISE AI — Progressive Web App Service Worker (Offline Support)
-const CACHE_NAME = 'citywise-ai-v3';
-const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/app.js',
-  '/manifest.json',
-  '/india-map.jpg'
-];
+// CITYWISE AI — Progressive Web App Service Worker (Live Auto-Update & Network-First)
+const CACHE_NAME = 'citywise-ai-v5.0-live';
 
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(ASSETS_TO_CACHE).catch(err => console.log('Cache addAll error:', err));
-    })
-  );
   self.skipWaiting();
 });
 
@@ -24,23 +11,44 @@ self.addEventListener('activate', event => {
       return Promise.all(
         keys.map(key => {
           if (key !== CACHE_NAME) {
+            console.log('Deleting old cache:', key);
             return caches.delete(key);
           }
         })
       );
-    })
+    }).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
+// Network-First strategy: Always fetch fresh code from network when online; fallback to cache if offline
 self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+
+  // Let browser handle chrome extensions or non-http
+  if (!event.request.url.startsWith('http')) return;
+
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request).catch(() => {
-        if (event.request.mode === 'navigate') {
-          return caches.match('/index.html');
+    fetch(event.request)
+      .then(networkResponse => {
+        // Cache the fresh response in background for offline use
+        if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache);
+          });
         }
-      });
-    })
+        return networkResponse;
+      })
+      .catch(() => {
+        // If offline or network failed, fallback to local cache
+        return caches.match(event.request).then(cachedResponse => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+          if (event.request.mode === 'navigate') {
+            return caches.match('/index.html');
+          }
+        });
+      })
   );
 });

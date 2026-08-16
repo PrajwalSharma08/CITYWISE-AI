@@ -10,6 +10,10 @@
     <meta name="description" content="CITYWISE AI — Official All-India Digital Governance Portal — Interactive State Map Explorer, Realtime DBT Tracker, LIC Policies, Voter ID, Public Banking, and Welfare Schemes Engine.">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#6366f1">
+    <!-- CACHE BUSTING: ENSURE ALWAYS LATEST UPDATED CODE -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +25,7 @@
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=2.6.0">
 </head>
 <body class="light-theme">
 
@@ -818,13 +822,28 @@
         </button>
     </nav>
 
-    <script src="app.js" defer></script>
+    <script src="app.js?v=2.6.0" defer></script>
     <script>
-      // Service Worker Registration for PWA Offline Support
+      // Service Worker Registration with Auto-Update Check
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('CITYWISE AI PWA Service Worker Registered:', reg.scope))
+            .then(reg => {
+              console.log('CITYWISE AI PWA Service Worker Registered:', reg.scope);
+              // Force check for updates on each visit
+              reg.update();
+              reg.onupdatefound = () => {
+                const newWorker = reg.installing;
+                if (newWorker) {
+                  newWorker.onstatechange = () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                      // New version ready, reload once seamlessly
+                      window.location.reload();
+                    }
+                  };
+                }
+              };
+            })
             .catch(err => console.log('Service Worker registration failed:', err));
         });
       }
