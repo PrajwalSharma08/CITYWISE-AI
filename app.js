@@ -2,56 +2,116 @@
 // CITYWISE AI — Enterprise Dual-Language (Hindi & English) Voice & Governance Engine
 // ============================================================
 
-// DUAL-LANGUAGE VOICE CONFIGURATION (HINDI & ENGLISH ONLY)
 let isVoiceMuted = false;
-let currentLang = 'HI'; // 'HI' or 'EN'
+let currentLang = 'HI'; // 'HI' (Hindi) or 'EN' (English)
 let currentVoiceLang = 'hi-IN';
 let availableVoices = [];
 
-function loadVoices() {
-    if (typeof window !== 'undefined' && window.speechSynthesis) {
-        availableVoices = window.speechSynthesis.getVoices();
+// ASYNC VOICE LOADER (FOR CHROME, EDGE, SAFARI, FIREFOX & ANDROID)
+function initVoices() {
+    if (typeof window === 'undefined' || !window.speechSynthesis) return;
+    
+    availableVoices = window.speechSynthesis.getVoices() || [];
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = () => {
+            availableVoices = window.speechSynthesis.getVoices() || [];
+        };
     }
 }
-if (typeof window !== 'undefined' && window.speechSynthesis) {
-    loadVoices();
-    window.speechSynthesis.onvoiceschanged = loadVoices;
+initVoices();
+
+// SMART VOICE MATCHER
+function getBestVoice(targetLang) {
+    if (!window.speechSynthesis) return null;
+    if (!availableVoices || availableVoices.length === 0) {
+        availableVoices = window.speechSynthesis.getVoices() || [];
+    }
+    if (availableVoices.length === 0) return null;
+
+    const isTargetHindi = targetLang.startsWith('hi');
+
+    if (isTargetHindi) {
+        // 1. Natural / Online Hindi Voices (Edge/Chrome)
+        const naturalHi = availableVoices.find(v => 
+            (v.name.includes('Swara') || v.name.includes('Madhur') || v.name.includes('Google हिन्दी') || v.name.includes('Google hi')) && 
+            (v.lang.startsWith('hi') || v.name.toLowerCase().includes('hindi'))
+        );
+        if (naturalHi) return naturalHi;
+
+        // 2. Any Hindi voice by language tag or name
+        const anyHi = availableVoices.find(v => 
+            v.lang === 'hi-IN' || v.lang === 'hi_IN' || v.lang.startsWith('hi') || 
+            v.name.toLowerCase().includes('hindi') || v.name.includes('Kalpana') || 
+            v.name.includes('Hemant') || v.name.includes('Veena') || v.name.includes('Lekha')
+        );
+        if (anyHi) return anyHi;
+
+        // 3. Indian English Voice (Accurate pronunciation for Indian words)
+        const inEn = availableVoices.find(v => 
+            v.lang === 'en-IN' || v.name.toLowerCase().includes('india') || 
+            v.name.includes('Neerja') || v.name.includes('Prabhat')
+        );
+        if (inEn) return inEn;
+    } else {
+        // English Target
+        const inEn = availableVoices.find(v => 
+            v.lang === 'en-IN' || v.name.toLowerCase().includes('india') || 
+            v.name.includes('Neerja') || v.name.includes('Prabhat')
+        );
+        if (inEn) return inEn;
+
+        const anyEn = availableVoices.find(v => 
+            v.lang.startsWith('en') || v.name.toLowerCase().includes('english')
+        );
+        if (anyEn) return anyEn;
+    }
+
+    return availableVoices[0] || null;
 }
 
-// ROBUST VOICE ENGINE (GUARANTEED HINDI & ENGLISH TTS)
-window.speakText = function(text, overrideLang) {
+// GUARANTEED DUAL-LANGUAGE VOICE ENGINE
+window.speakText = function(text, overrideLang, phoneticFallbackText) {
     if (isVoiceMuted || typeof window === 'undefined' || !window.speechSynthesis) return;
+
     try {
         window.speechSynthesis.cancel();
 
         setTimeout(() => {
             if (isVoiceMuted) return;
-            const langToUse = overrideLang || currentVoiceLang || (currentLang === 'EN' ? 'en-IN' : 'hi-IN');
-            const utt = new SpeechSynthesisUtterance(text);
-            utt.lang = langToUse;
-            utt.rate = 1.0;
-            utt.pitch = 1.0;
 
-            if (!availableVoices || availableVoices.length === 0) {
-                availableVoices = window.speechSynthesis.getVoices();
+            const langToUse = overrideLang || (currentLang === 'EN' ? 'en-IN' : 'hi-IN');
+            const matchedVoice = getBestVoice(langToUse);
+
+            let textToSpeak = text;
+            // If user wants Hindi, but browser only has non-Hindi English voice (e.g. Microsoft David on English Windows),
+            // and text contains Devanagari script, use phonetic fallback so it speaks fluently!
+            const isNativeHindiVoice = matchedVoice && (
+                matchedVoice.lang.startsWith('hi') || 
+                matchedVoice.name.toLowerCase().includes('hindi') || 
+                matchedVoice.name.includes('Swara') || 
+                matchedVoice.name.includes('Madhur') || 
+                matchedVoice.name.includes('Kalpana') || 
+                matchedVoice.name.includes('Hemant')
+            );
+
+            if (langToUse.startsWith('hi') && !isNativeHindiVoice && phoneticFallbackText) {
+                textToSpeak = phoneticFallbackText;
             }
 
-            if (availableVoices && availableVoices.length > 0) {
-                let matchingVoice = null;
-                if (langToUse.startsWith('hi')) {
-                    matchingVoice = availableVoices.find(v => v.lang.includes('hi') || v.name.includes('Hindi') || v.lang === 'hi-IN');
-                } else {
-                    matchingVoice = availableVoices.find(v => v.lang === 'en-IN' || v.lang === 'en-GB' || v.lang === 'en-US' || v.lang.includes('en'));
-                }
-                
-                if (matchingVoice) utt.voice = matchingVoice;
+            const utt = new SpeechSynthesisUtterance(textToSpeak);
+            utt.lang = langToUse;
+            utt.rate = 0.95; // Slightly clearer pace for clarity
+            utt.pitch = 1.0;
+
+            if (matchedVoice) {
+                utt.voice = matchedVoice;
             }
 
             if (window.speechSynthesis.paused) {
                 window.speechSynthesis.resume();
             }
             window.speechSynthesis.speak(utt);
-        }, 50);
+        }, 60);
     } catch(e) {
         console.warn("TTS Error:", e);
     }
@@ -96,11 +156,15 @@ window.toggleVoiceMute = function() {
         if (mIcon) mIcon.className = 'fa-solid fa-volume-high';
         if (mText) mText.textContent = currentLang === 'EN' ? 'Voice: ON' : 'आवाज: चालू (ON)';
 
-        window.speakText(currentLang === 'EN' ? 'Voice assistance activated.' : 'आवाज चालू कर दी गई है।');
+        if (currentLang === 'EN') {
+            window.speakText('Voice assistance activated.', 'en-IN');
+        } else {
+            window.speakText('आवाज सहायता चालू कर दी गई है।', 'hi-IN', 'Aawaaz sahayata chalu kar di gayi hai.');
+        }
     }
 };
 
-// 1-CLICK HINDI / ENGLISH LANGUAGE TOGGLE
+// 1-CLICK HINDI / ENGLISH LANGUAGE TOGGLE WITH FULL UI & VOICE TRANSLATION
 window.toggleLanguage = function() {
     currentLang = currentLang === 'HI' ? 'EN' : 'HI';
     currentVoiceLang = currentLang === 'EN' ? 'en-IN' : 'hi-IN';
@@ -113,12 +177,22 @@ window.toggleLanguage = function() {
         if (topLangBtnTxt) topLangBtnTxt.textContent = 'हिन्दी में बदलें';
         if (navLangTxt) navLangTxt.textContent = 'हिन्दी';
         if (mLangTxt) mLangTxt.textContent = 'Switch to हिन्दी';
+
+        // Update UI Text to English
+        document.documentElement.lang = 'en';
         window.speakText('Switched to English. Welcome to CITYWISE AI National Governance Portal.', 'en-IN');
     } else {
         if (topLangBtnTxt) topLangBtnTxt.textContent = 'English में देखें';
         if (navLangTxt) navLangTxt.textContent = 'English';
         if (mLangTxt) mLangTxt.textContent = 'Switch to English';
-        window.speakText('हिंदी भाषा सक्रिय। सिटीवाइज़ एआई राष्ट्रीय सुशासन पोर्टल में आपका स्वागत है।', 'hi-IN');
+
+        // Update UI Text to Hindi
+        document.documentElement.lang = 'hi';
+        window.speakText(
+            'हिंदी भाषा सक्रिय की गई है। सिटीवाइज़ एआई राष्ट्रीय सुशासन पोर्टल में आपका स्वागत है।', 
+            'hi-IN',
+            'Hindi bhasha sakriya ki gayi hai. CITYWISE AI Rashtriya Sushasan Portal me aapka swagat hai.'
+        );
     }
 };
 
@@ -126,9 +200,14 @@ window.triggerCurrentVoiceGreeting = function() {
     if (currentLang === 'EN') {
         window.speakText('Welcome to CITYWISE AI National Governance Portal.', 'en-IN');
     } else {
-        window.speakText('सिटीवाइज़ एआई राष्ट्रीय सुशासन पोर्टल में आपका स्वागत है।', 'hi-IN');
+        window.speakText(
+            'सिटीवाइज़ एआई राष्ट्रीय सुशासन पोर्टल में आपका स्वागत है।', 
+            'hi-IN',
+            'CITYWISE AI Rashtriya Sushasan Portal me aapka swagat hai.'
+        );
     }
 };
+
 
 // NATIONAL CITIZEN SERVICES DATABASE
 const CITIZEN_SERVICES_DB = [

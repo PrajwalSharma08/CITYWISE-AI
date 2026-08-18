@@ -1,5 +1,5 @@
 // CITYWISE AI — Progressive Web App Service Worker (Live Auto-Update & Network-First)
-const CACHE_NAME = 'citywise-ai-v5.0-live';
+const CACHE_NAME = 'citywise-ai-v5.1-live';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
